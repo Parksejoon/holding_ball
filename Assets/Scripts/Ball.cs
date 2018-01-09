@@ -4,19 +4,72 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    public GameObject bindedHolder;         // 볼이 바인딩되어있는 홀더
+    // 일반 변수
+    public  GameObject  bindedHolder;         // 볼이 바인딩되어있는 홀더
+    private GameManager gameManager;          // 게임 매니저
+
+    // 수치
+    private bool        isHolding;            // 홀딩 상태를 나타냄
 
 
-    // 움직임 처리
+    // 초기화
+    void Awake()
+    {
+        isHolding = false;
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
+
+    // 프레임 ( 물리 처리 )
     void FixedUpdate()
     {
-        transform.Translate(Vector3.down * Time.deltaTime * (GameManager.moveSpeed / 3));
+        transform.Translate(Vector3.down * Time.deltaTime * (gameManager.moveSpeed / 3));
+    }
+
+    // 트리거 진입
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (bindedHolder == null && other.gameObject.tag == "Holder")
+        {
+            BindingHolder(other.gameObject);
+        }
+    }
+
+    // 트리거 탈출
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (bindedHolder == other.gameObject)
+        {
+            UnbindingHolder();
+        }
     }
 
     // 홀더에 바인딩
-    public void BindingHolder(GameObject holder)
+    void BindingHolder(GameObject holder)
     {
         bindedHolder = holder;
-        GameManager.moveSpeed = 0.3f;
+        gameManager.moveSpeed = 2.0f;
+    }
+
+    // 홀더에 언바인딩
+    void UnbindingHolder()
+    {
+        bindedHolder = null;
+        gameManager.InitializeSpeed();
+    }
+
+    // 홀더에 홀딩
+    public bool HoldingHolder()
+    {
+        // 바인딩된 홀더가 있는지 확인
+        if (bindedHolder != null)
+        {
+            isHolding = true;
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

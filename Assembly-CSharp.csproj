@@ -49,7 +49,7 @@
      <Compile Include="Assets\Scripts\Ball.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Holder.cs" />
-     <Compile Include="Assets\Scripts\TouchPanel.cs" />
+     <Compile Include="Assets\Scripts\PauseButton.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Unity/Unity_folder/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
