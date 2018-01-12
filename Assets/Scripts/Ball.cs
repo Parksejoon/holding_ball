@@ -9,6 +9,7 @@ public class Ball : MonoBehaviour
     private GameManager gameManager;          // 게임 매니저
 
     // 수치
+    private float       speed = 1f;           // 볼 자체의 속도
     private bool        isHolding;            // 홀딩 상태를 나타냄
 
 
@@ -22,7 +23,7 @@ public class Ball : MonoBehaviour
     // 프레임 ( 물리 처리 )
     void FixedUpdate()
     {
-        transform.Translate(Vector3.down * Time.deltaTime * (gameManager.moveSpeed / 3));
+        transform.Translate(Vector3.down * Time.deltaTime * (gameManager.moveSpeed / 3) * speed);
     }
 
     // 트리거 진입
@@ -63,12 +64,17 @@ public class Ball : MonoBehaviour
         // 바인딩된 홀더가 있는지 확인
         if (bindedHolder != null)
         {
+            // 반인딩 -> 홀딩으로 전환
             isHolding = true;
+            speed = 0;
+            transform.parent = bindedHolder.transform;
+            transform.localPosition = Vector3.zero;
 
             return true;
         }
         else
         {
+            // 홀딩 실패
             return false;
         }
     }

@@ -78,8 +78,6 @@ public class GameManager : MonoBehaviour
     // 홀딩 처리
     void HoldingBall()
     {
-        Debug.Log("aa");
-
         if (ball.HoldingHolder())
         {
             // 홀딩 성공
