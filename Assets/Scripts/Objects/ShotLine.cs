@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShotLine : MonoBehaviour
 {
     // 일반 변수
-    private GameOjbect catchHolder;              // 영역에 들어온 홀더들
+    private GameObject catchHolder;              // 영역에 들어온 홀더들
 
 
     // 수치
@@ -16,6 +16,7 @@ public class ShotLine : MonoBehaviour
     // 초기화
     void Awake()
     {
+        catchHolder = null;
         addRange = expandSpeed * (GameManager.moveSpeed / 10);
         print(addRange);
     }
@@ -32,7 +33,7 @@ public class ShotLine : MonoBehaviour
     {
         if (other.tag == "Holder")
         {
-            
+            catchHolder = other.gameObject;
         }
     }
 
