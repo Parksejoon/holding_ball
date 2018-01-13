@@ -66,7 +66,7 @@ public class Ball : MonoBehaviour
         {
             // 반인딩 -> 홀딩으로 전환
             isHolding = true;
-            speed = 0;
+            speed = 0f;
             transform.parent = bindedHolder.transform;
             transform.localPosition = Vector3.zero;
 
@@ -77,5 +77,15 @@ public class Ball : MonoBehaviour
             // 홀딩 실패
             return false;
         }
+    }
+
+    // 홀더에 언홀딩
+    public void UnholdingHolder()
+    {
+        // 홀딩 해제
+        isHolding = false;
+        speed = 1f;
+        transform.parent = null;
+        transform.GetChild(0);
     }
 }

@@ -93,6 +93,7 @@ public class GameManager : MonoBehaviour
     void UnHoldingBall()
     {
         moveSpeed = protostasisMoveSpeed;
+        ball.UnholdingHolder();
     }
 
     // 일정 시간동안 속도를 바꾸는 함수
