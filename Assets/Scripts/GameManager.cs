@@ -9,10 +9,10 @@ public class GameManager : MonoBehaviour
     private Touch touch;                      // 터치 구조체
 
     // 수치
-    public  float moveSpeed;                  // 움직임 속도
-    private float protostasisMoveSpeed = 8;   // 초기의 움직임 속도 ( 베이스 )
-    private bool  isTouch;                    // 현제 터치의 상태
-    private bool  previousIsTouch;            // 이전 터지의 상태
+    static  public float  moveSpeed;           // 움직임 속도
+    private float  protostasisMoveSpeed = 8;   // 초기의 움직임 속도 ( 베이스 )
+    private bool   isTouch;                    // 현제 터치의 상태
+    private bool   previousIsTouch;            // 이전 터지의 상태
 
     // 초기화
     void Awake()

@@ -21,6 +21,6 @@ public class Holder : MonoBehaviour
     // 움직임 처리
     void FixedUpdate()
     {
-        transform.Translate(Vector3.up * Time.deltaTime * gameManager.moveSpeed * speed);
+        transform.Translate(Vector3.up * Time.deltaTime * GameManager.moveSpeed * speed);
     }
 }

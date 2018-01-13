@@ -285,10 +285,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Ball.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Holder.cs" />
-    <Compile Include="Assets\Scripts\PauseButton.cs" />
+    <Compile Include="Assets\Scripts\Objects\Ball.cs" />
+    <Compile Include="Assets\Scripts\Objects\Holder.cs" />
+    <Compile Include="Assets\Scripts\Objects\ShotLine.cs" />
+    <Compile Include="Assets\Scripts\UI\Gauge.cs" />
+    <Compile Include="Assets\Scripts\UI\PauseButton.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

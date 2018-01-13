@@ -23,7 +23,7 @@ public class Ball : MonoBehaviour
     // 프레임 ( 물리 처리 )
     void FixedUpdate()
     {
-        transform.Translate(Vector3.down * Time.deltaTime * (gameManager.moveSpeed / 3) * speed);
+        transform.Translate(Vector3.down * Time.deltaTime * (GameManager.moveSpeed / 3) * speed);
     }
 
     // 트리거 진입
@@ -48,7 +48,7 @@ public class Ball : MonoBehaviour
     void BindingHolder(GameObject holder)
     {
         bindedHolder = holder;
-        gameManager.moveSpeed = 2.0f;
+        GameManager.moveSpeed = 2.0f;
     }
 
     // 홀더에 언바인딩
