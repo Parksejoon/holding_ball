@@ -5,11 +5,12 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     // 일반 변수
+    public  GameObject  shotLinePrefab;       // 생성될 ShotLine 프리팹
     private GameObject  bindedHolder;         // 볼이 바인딩되어있는 홀더
     private GameObject  targetHolder;         // 현재 타겟이된 홀더
-    private GameManager gameManager;          // 게임 매니저
-    public  GameObject  shotLinePrefab;       // 생성될 ShotLine 프리팹
     private GameObject  shotLine;             // ShotLine오브젝트
+    private Transform   parent;               // 이 오브젝트의 부모
+    private GameManager gameManager;          // 게임 매니저
 
     // 수치
     private float       speed = 1f;           // 볼 자체의 속도
@@ -19,8 +20,9 @@ public class Ball : MonoBehaviour
     // 초기화
     void Awake()
     {
-        isHolding = false;
+        parent = transform.parent;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        isHolding = false;
     }
 
     // 프레임 ( 물리 처리 )
@@ -75,7 +77,7 @@ public class Ball : MonoBehaviour
             transform.localPosition = Vector3.zero;
 
             // 슛라인 생성
-            shotLine = Instantiate(shotLinePrefab, Vector3.zero, Quaternion.identity, transform);
+            shotLine = Instantiate(shotLinePrefab, transform.position, Quaternion.identity, transform);
             
             return true;
         }
@@ -92,10 +94,15 @@ public class Ball : MonoBehaviour
         // 홀딩 해제
         isHolding = false;
         speed = 1f;
-        transform.parent = null;
+        transform.parent = parent;
         
         // 다음 홀더를 향해 날아감
-        targetHolder = shotLine.GetComponent<ShotLine>().GetCatchHolder();;
-        Destroy(targetHolder);
+        targetHolder = shotLine.GetComponent<ShotLine>().GetCatchHolder();
+        Destroy(transform.GetChild(0).gameObject);
+
+        if (targetHolder == null)
+        {
+            // 
+        }
     }
 }
