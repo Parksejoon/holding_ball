@@ -14,7 +14,7 @@ public class Ball : MonoBehaviour
 
     // 수치
     private float       speed = 1f;           // 볼 자체의 속도
-    private bool        isHolding;            // 홀딩 상태를 나타냄
+    public  bool        isHolding;            // 홀딩 상태를 나타냄
 
 
     // 초기화
@@ -22,6 +22,7 @@ public class Ball : MonoBehaviour
     {
         parent = transform.parent;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         isHolding = false;
     }
 
@@ -54,6 +55,8 @@ public class Ball : MonoBehaviour
     {
         bindedHolder = holder;
         GameManager.moveSpeed = 2.0f;
+
+        return;
     }
 
     // 홀더에 언바인딩
@@ -61,6 +64,8 @@ public class Ball : MonoBehaviour
     {
         bindedHolder = null;
         gameManager.InitializeSpeed();
+
+        return;
     }
 
     // 홀더에 홀딩
@@ -69,8 +74,7 @@ public class Ball : MonoBehaviour
         // 바인딩된 홀더가 있는지 확인
         if (bindedHolder != null)
         {
-            // 반인딩 -> 홀딩으로 전환
-            // 홀더에 락
+            // 홀더의 자식으로 변경
             isHolding = true;
             speed = 0f;
             transform.parent = bindedHolder.transform;
@@ -83,7 +87,8 @@ public class Ball : MonoBehaviour
         }
         else
         {
-            // 홀딩 실패
+            // 홀딩 실패 ( GameManager에서 처리함 )
+
             return false;
         }
     }
@@ -91,18 +96,24 @@ public class Ball : MonoBehaviour
     // 홀더에 언홀딩
     public void UnholdingHolder()
     {
-        // 홀딩 해제
+        // 홀더에서 탈출
         isHolding = false;
         speed = 1f;
         transform.parent = parent;
-        
-        // 다음 홀더를 향해 날아감
+
+        // 캐치 했는지 확인
         targetHolder = shotLine.GetComponent<ShotLine>().GetCatchHolder();
+
+
         Destroy(transform.GetChild(0).gameObject);
 
         if (targetHolder == null)
         {
-            // 
+            // *캐치 실패
         }
+
+
+
+        return;
     }
 }

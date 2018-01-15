@@ -4,24 +4,28 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    // 정적변수
+    static public float moveSpeed;           // 움직임 속도
+
     // 일반 변수
     private Ball  ball;                       // 볼
     private Touch touch;                      // 터치 구조체
 
     // 수치
-    static  public float  moveSpeed;           // 움직임 속도
-    private float  protostasisMoveSpeed = 8;   // 초기의 움직임 속도 ( 베이스 )
-    private bool   isTouch;                    // 현제 터치의 상태
-    private bool   previousIsTouch;            // 이전 터지의 상태
+    private float protostasisMoveSpeed = 8;   // 초기의 움직임 속도 ( 베이스 )
+    private bool  isTouch;                    // 현제 터치의 상태
+    private bool  previousIsTouch;            // 이전 터지의 상태
+
 
     // 초기화
     void Awake()
     {
-        previousIsTouch = false;
-        isTouch = false;
-
-        ball = GameObject.Find("Ball").GetComponent<Ball>();
         InitializeSpeed();
+        
+        ball = GameObject.Find("Ball").GetComponent<Ball>();
+
+        isTouch = false;
+        previousIsTouch = false;
     }
 
     // 프레임
@@ -54,15 +58,22 @@ public class GameManager : MonoBehaviour
         //    }
         //}
 
+        // 홀딩 처리
         if (isTouch != previousIsTouch)
         {
             if (isTouch)
             {
+                // 홀딩 처리
                 HoldingBall();
             }
             else
             {
-                UnHoldingBall();
+                if (ball.isHolding)
+                {
+                    // 언홀딩 처리
+                    UnHoldingBall();
+                }
+
             }
         }
 
@@ -85,8 +96,10 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // 홀딩 실패
+            // *홀딩 실패
         }
+
+        return;
     }
 
     // 언홀딩 처리
@@ -94,6 +107,8 @@ public class GameManager : MonoBehaviour
     {
         moveSpeed = protostasisMoveSpeed;
         ball.UnholdingHolder();
+
+        return;
     }
 
     // 일정 시간동안 속도를 바꾸는 함수
