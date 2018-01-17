@@ -32,12 +32,12 @@ public class ShotLineCollider : MonoBehaviour
             distance = Mathf.Sqrt(((holderList[i].position.x - x) * (holderList[i].position.x - x)) + ((holderList[i].position.y - y) * (holderList[i].position.y - y)));
             distance = Mathf.Abs(distance - range);
 
-            if (distance < 0.5f)
+            if (distance < 0.1f)
             {
                 perfect.Add(holderList[i]);
                 print("perfect!!!");
             }
-            else if (distance < 1f)
+            else if (distance < 0.3f)
             {
                 great.Add(holderList[i]);
                 print("good!");
@@ -50,12 +50,4 @@ public class ShotLineCollider : MonoBehaviour
 
         return;
     }
-
-    // 퍼펙트 판정이난 오브젝트
-
-
-    // 노말 판정이난 오브젝트
-
-
-    // 페일 판정이난 오브젝트
 }
