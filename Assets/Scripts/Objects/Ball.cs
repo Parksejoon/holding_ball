@@ -13,7 +13,7 @@ public class Ball : MonoBehaviour
     private GameManager gameManager;          // 게임 매니저
 
     // 수치
-    private float       speed = 1f;           // 볼 자체의 속도
+    private float       speed = 0f;           // 볼 자체의 속도
     public  bool        isHolding;            // 홀딩 상태를 나타냄
 
 
@@ -105,15 +105,13 @@ public class Ball : MonoBehaviour
         targetHolder = shotLine.GetComponent<ShotLine>().GetCatchHolder();
 
 
-        Destroy(transform.GetChild(0).gameObject);
+        //Destroy(transform.GetChild(0).gameObject);
 
         if (targetHolder == null)
         {
             // *캐치 실패
         }
-
-
-
+        
         return;
     }
 }

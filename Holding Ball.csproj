@@ -289,6 +289,7 @@
     <Compile Include="Assets\Scripts\Objects\Ball.cs" />
     <Compile Include="Assets\Scripts\Objects\Holder.cs" />
     <Compile Include="Assets\Scripts\Objects\HolderManager.cs" />
+    <Compile Include="Assets\Scripts\Objects\Limit.cs" />
     <Compile Include="Assets\Scripts\Objects\ShotLine.cs" />
     <Compile Include="Assets\Scripts\Objects\ShotLineCollider.cs" />
     <Compile Include="Assets\Scripts\UI\Gauge.cs" />
