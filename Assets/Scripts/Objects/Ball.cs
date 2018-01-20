@@ -6,7 +6,7 @@ public class Ball : MonoBehaviour
 {
     // 일반 변수
     public  GameObject  shotLinePrefab;       // 생성될 ShotLine 프리팹
-    private GameObject  bindedHolder;         // 볼이 바인딩되어있는 홀더
+    public  GameObject  bindedHolder;         // 볼이 바인딩되어있는 홀더
     private GameObject  targetHolder;         // 현재 타겟이된 홀더
     private GameObject  shotLine;             // ShotLine오브젝트
     private Transform   parent;               // 이 오브젝트의 부모
@@ -29,12 +29,14 @@ public class Ball : MonoBehaviour
     // 프레임 ( 물리 처리 )
     void FixedUpdate()
     {
+        // 아래로 이동
         transform.Translate(Vector3.down * Time.deltaTime * (GameManager.moveSpeed / 3) * speed);
     }
 
     // 트리거 진입
     void OnTriggerEnter2D(Collider2D other)
     {
+        // 홀더일경우 홀더에 바인딩함
         if (bindedHolder == null && other.gameObject.tag == "Holder")
         {
             BindingHolder(other.gameObject);
@@ -44,6 +46,7 @@ public class Ball : MonoBehaviour
     // 트리거 탈출
     void OnTriggerExit2D(Collider2D other)
     {
+        // 현재 바인딩중인 홀더일경우 바인딩을 해제함
         if (bindedHolder == other.gameObject)
         {
             UnbindingHolder();
