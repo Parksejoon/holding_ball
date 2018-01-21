@@ -5,9 +5,9 @@ using UnityEngine;
 public class ShotLine : MonoBehaviour
 {
     // 일반 변수
+    public  GameManager      gameManager;              // 게임 매니저
     private GameObject       catchHolder;              // 영역에 들어온 홀더들
     private ShotLineCollider shotLineCollider;         // 슛라인 충돌검사
-
 
     // 수치
     private float            expandSpeed = 0.05f;      // 범위 확대 속도
@@ -17,7 +17,7 @@ public class ShotLine : MonoBehaviour
     // 초기화
     void Awake()
     {
-        catchHolder = null;
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         shotLineCollider = GetComponent<ShotLineCollider>();
 
         addRange = expandSpeed * (GameManager.moveSpeed / 10);
@@ -32,9 +32,29 @@ public class ShotLine : MonoBehaviour
     }
 
     // 현재 가지고있는 홀더를 반환
-    public GameObject GetCatchHolder()
+    public GameObject Judgment()
     {
+        catchHolder = null;
         shotLineCollider.Judgment();
+
+        // 판정 검사
+        // 퍼펙트 판정
+        if (shotLineCollider.perfect[0] != null)
+        {
+            catchHolder = shotLineCollider.perfect[0].gameObject;
+            gameManager.PerfectCatch();
+        }
+        // 굿 판정
+        else if (shotLineCollider.good[0] != null)
+        {
+            catchHolder = shotLineCollider.good[0].gameObject;
+            gameManager.GoodCatch();
+        }
+        // 페일 판정
+        else
+        {
+            gameManager.FailCatch();
+        }
 
         return catchHolder;
     }

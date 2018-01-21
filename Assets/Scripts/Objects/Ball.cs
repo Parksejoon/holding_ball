@@ -11,6 +11,7 @@ public class Ball : MonoBehaviour
     private GameObject  shotLine;             // ShotLine오브젝트
     private Transform   parent;               // 이 오브젝트의 부모
     private GameManager gameManager;          // 게임 매니저
+    private Rigidbody2D rigidbody;            // 이 오브젝트의 리짓바디
 
     // 수치
     private float       speed = 0f;           // 볼 자체의 속도
@@ -22,8 +23,15 @@ public class Ball : MonoBehaviour
     {
         parent = transform.parent;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        rigidbody = GetComponent<Rigidbody2D>();
 
         isHolding = false;
+    }
+
+    // 초기화
+    void Start()
+    {
+        rigidbody.AddForce(Vector2.up * 1000);
     }
 
     // 프레임 ( 물리 처리 )
@@ -79,7 +87,6 @@ public class Ball : MonoBehaviour
         {
             // 홀더의 자식으로 변경
             isHolding = true;
-            speed = 0f;
             transform.parent = bindedHolder.transform;
             transform.localPosition = Vector3.zero;
 
@@ -101,18 +108,18 @@ public class Ball : MonoBehaviour
     {
         // 홀더에서 탈출
         isHolding = false;
-        speed = 1f;
         transform.parent = parent;
 
         // 캐치 했는지 확인
-        targetHolder = shotLine.GetComponent<ShotLine>().GetCatchHolder();
+        targetHolder = shotLine.GetComponent<ShotLine>().Judgment();
 
+        // 슛라인 삭제
+        Destroy(transform.GetChild(0).gameObject);
 
-        //Destroy(transform.GetChild(0).gameObject);
-
-        if (targetHolder == null)
+        if (targetHolder != null)
         {
-            // *캐치 실패
+            print("aa");
+            rigidbody.AddForce(targetHolder.transform.position - transform.position);
         }
         
         return;

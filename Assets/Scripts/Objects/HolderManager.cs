@@ -36,7 +36,7 @@ public class HolderManager : MonoBehaviour
                 // 카운트가 끝났으면 홀더를 생성하고 카운트 재시작
                 if (pastTime >= goalTime)
                 {
-                    holderList.Add((Instantiate(holderPrefab, new Vector3(Random.Range(-4f, 4f), -8f), Quaternion.identity)).transform);
+                    holderList.Add((Instantiate(holderPrefab, new Vector3(Random.Range(-4f, 4f), -8f), Quaternion.identity, transform)).transform);
 
                     isPasting = false;
                 }
@@ -50,15 +50,5 @@ public class HolderManager : MonoBehaviour
                 isPasting = true;
             }
         }
-    }
-
-    // 랜덤하게 생성
-    IEnumerator CreateHolder()
-    {
-        yield return new WaitForSeconds(Random.Range(0.1f, 0.5f));
-
-        holderList.Add((Instantiate(holderPrefab, new Vector3(Random.Range(-4f, 4f), -8f), Quaternion.identity)).transform);
-
-        StartCoroutine("CreateHolder");
     }
 }

@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     // 수치
     private float protostasisMoveSpeed = 8;   // 초기의 움직임 속도 ( 베이스 )
+    private int   score = 0;                  // 점수
     private bool  isTouch;                    // 현제 터치의 상태
     private bool  previousIsTouch;            // 이전 터지의 상태
 
@@ -109,6 +110,30 @@ public class GameManager : MonoBehaviour
         ball.UnholdingHolder();
 
         return;
+    }
+
+    // 캐치 퍼펙트판정
+    public void PerfectCatch()
+    {
+        AddScore(2);
+    }
+
+    // 캐치 굿판정
+    public void GoodCatch()
+    {
+        AddScore(1);
+    }
+
+    // 캐치 페일판정
+    public void FailCatch()
+    {
+
+    }
+
+    // 점수 상승
+    public void AddScore(int upScore)
+    {
+        score += upScore;
     }
 
     // 일정 시간동안 속도를 바꾸는 함수
