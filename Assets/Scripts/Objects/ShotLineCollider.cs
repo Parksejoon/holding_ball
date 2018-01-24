@@ -40,18 +40,11 @@ public class ShotLineCollider : MonoBehaviour
             if (distance < 0.1f)
             {
                 perfect.Add(holderList[i]);
-                print("perfect!!!");
             }
             // 굿
             else if (distance < 0.3f)
             {
                 good.Add(holderList[i]);
-                print("good!");
-            }
-            // 페일
-            else
-            {
-                print("fail..");
             }
         }
 

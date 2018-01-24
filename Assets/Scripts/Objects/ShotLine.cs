@@ -39,13 +39,13 @@ public class ShotLine : MonoBehaviour
 
         // 판정 검사
         // 퍼펙트 판정
-        if (shotLineCollider.perfect[0] != null)
+        if (shotLineCollider.perfect.Count > 0)
         {
             catchHolder = shotLineCollider.perfect[0].gameObject;
             gameManager.PerfectCatch();
         }
         // 굿 판정
-        else if (shotLineCollider.good[0] != null)
+        else if (shotLineCollider.good.Count > 0)
         {
             catchHolder = shotLineCollider.good[0].gameObject;
             gameManager.GoodCatch();

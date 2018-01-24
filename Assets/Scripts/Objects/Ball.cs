@@ -11,7 +11,7 @@ public class Ball : MonoBehaviour
     private GameObject  shotLine;             // ShotLine오브젝트
     private Transform   parent;               // 이 오브젝트의 부모
     private GameManager gameManager;          // 게임 매니저
-    private Rigidbody2D rigidbody;            // 이 오브젝트의 리짓바디
+    private Rigidbody2D rigidbody2d;          // 이 오브젝트의 리짓바디
 
     // 수치
     private float       speed = 0f;           // 볼 자체의 속도
@@ -23,7 +23,7 @@ public class Ball : MonoBehaviour
     {
         parent = transform.parent;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        rigidbody = GetComponent<Rigidbody2D>();
+        rigidbody2d = GetComponent<Rigidbody2D>();
 
         isHolding = false;
     }
@@ -31,7 +31,7 @@ public class Ball : MonoBehaviour
     // 초기화
     void Start()
     {
-        rigidbody.AddForce(Vector2.up * 1000);
+        //rigidbody2d.AddForce(Vector2.up * 1000);
     }
 
     // 프레임 ( 물리 처리 )
@@ -119,7 +119,7 @@ public class Ball : MonoBehaviour
         if (targetHolder != null)
         {
             print("aa");
-            rigidbody.AddForce(targetHolder.transform.position - transform.position);
+            rigidbody2d.AddForce((targetHolder.transform.position - transform.position) * 30);
         }
         
         return;
