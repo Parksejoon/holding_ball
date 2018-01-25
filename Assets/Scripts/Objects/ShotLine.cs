@@ -20,8 +20,7 @@ public class ShotLine : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         shotLineCollider = GetComponent<ShotLineCollider>();
 
-        addRange = expandSpeed * (GameManager.moveSpeed / 10);
-        print(addRange);
+        addRange = expandSpeed * (GameManager.moveSpeed / 10);\
     }
 
     // 프레임

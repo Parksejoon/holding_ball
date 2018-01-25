@@ -4,22 +4,18 @@ using UnityEngine;
 
 public class CameraChase : MonoBehaviour
 {
-    private Transform ballTransform;            // 공의 트랜스폼
+    // 일반 변수
+    public  Transform chaseObject;              // 쫒아갈 오브젝트
 
+    // 수치
+    public  float     speed = 0.05f;            // 카메라 이동 속도
+    public  float     fixX;                     // 고정 x축 좌표
+    public  float     fixY;                     // 고정 y축 좌표
 
-    // 초기화
-    void Awake()
-    {
-        ballTransform = GameObject.Find("Ball").GetComponent<Transform>();
-    }
 
     // 프레임
     void Update()
     {
-        if (transform.position != ballTransform.position)
-        {
-            transform.position = new Vector3(Mathf.Lerp(transform.position.x, ballTransform.position.x, 0.5f), transform.position.y, -10);
-
-        }
+        transform.position = new Vector3(Mathf.Lerp(transform.position.x, chaseObject.position.x - fixX, speed), Mathf.Lerp(transform.position.y, chaseObject.position.y - fixY, speed), -10);
     }
 }

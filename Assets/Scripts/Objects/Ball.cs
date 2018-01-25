@@ -14,7 +14,6 @@ public class Ball : MonoBehaviour
     private Rigidbody2D rigidbody2d;          // 이 오브젝트의 리짓바디
 
     // 수치
-    private float       speed = 0f;           // 볼 자체의 속도
     public  bool        isHolding;            // 홀딩 상태를 나타냄
 
 
@@ -32,13 +31,6 @@ public class Ball : MonoBehaviour
     void Start()
     {
         //rigidbody2d.AddForce(Vector2.up * 1000);
-    }
-
-    // 프레임 ( 물리 처리 )
-    void FixedUpdate()
-    {
-        // 아래로 이동
-        transform.Translate(Vector3.down * Time.deltaTime * (GameManager.moveSpeed / 3) * speed);
     }
 
     // 트리거 진입
@@ -85,6 +77,9 @@ public class Ball : MonoBehaviour
         // 바인딩된 홀더가 있는지 확인
         if (bindedHolder != null)
         {
+            // 물리량 초기화
+            rigidbody2d.velocity = Vector2.zero;
+
             // 홀더의 자식으로 변경
             isHolding = true;
             transform.parent = bindedHolder.transform;
@@ -118,8 +113,7 @@ public class Ball : MonoBehaviour
 
         if (targetHolder != null)
         {
-            print("aa");
-            rigidbody2d.AddForce((targetHolder.transform.position - transform.position) * 30);
+            rigidbody2d.AddForce((targetHolder.transform.position - transform.position) * 300);
         }
         
         return;
