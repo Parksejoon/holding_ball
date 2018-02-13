@@ -293,6 +293,8 @@
     <Compile Include="Assets\Scripts\Objects\Limit.cs" />
     <Compile Include="Assets\Scripts\Objects\ShotLine.cs" />
     <Compile Include="Assets\Scripts\Objects\ShotLineCollider.cs" />
+    <Compile Include="Assets\Scripts\Objects\Wall.cs" />
+    <Compile Include="Assets\Scripts\Test.cs" />
     <Compile Include="Assets\Scripts\UI\Gauge.cs" />
     <Compile Include="Assets\Scripts\UI\PauseButton.cs" />
   </ItemGroup>

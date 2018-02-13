@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+    // 인스펙터 노출 변수
+    [SerializeField]
+    private GameObject shotLinePrefab;       // 생성될 ShotLine 프리팹
+
+    [Space(20)]
+
     // 일반 변수
-    public  GameObject  shotLinePrefab;       // 생성될 ShotLine 프리팹
     public  GameObject  bindedHolder;         // 볼이 바인딩되어있는 홀더
     private GameObject  targetHolder;         // 현재 타겟이된 홀더
     private GameObject  shotLine;             // ShotLine오브젝트

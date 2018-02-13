@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShotLine : MonoBehaviour
 {
     // 일반 변수
-    public  GameManager      gameManager;              // 게임 매니저
+    private GameManager      gameManager;              // 게임 매니저
     private GameObject       catchHolder;              // 영역에 들어온 홀더들
     private ShotLineCollider shotLineCollider;         // 슛라인 충돌검사
 
@@ -20,7 +20,7 @@ public class ShotLine : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         shotLineCollider = GetComponent<ShotLineCollider>();
 
-        addRange = expandSpeed * (GameManager.moveSpeed / 10);\
+        addRange = expandSpeed * (GameManager.moveSpeed / 10);
     }
 
     // 프레임

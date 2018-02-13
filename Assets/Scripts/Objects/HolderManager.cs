@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class HolderManager : MonoBehaviour
 {
+    // 인스펙터 노출 변수
+    [SerializeField]
+    private GameObject holderPrefab;                               // 생성될 Holder 프리팹
+
+    [Space(20)]
+
     // 일반 변수
     public  List<Transform> holderList = new List<Transform>();    // 홀더 리스트
-    public  GameObject      holderPrefab;                          // 생성될 Holder 프리팹
     private Ball            ball;                                  // 볼
 
     // 수치
