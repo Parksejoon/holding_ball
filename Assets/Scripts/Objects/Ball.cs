@@ -20,6 +20,7 @@ public class Ball : MonoBehaviour
 
     // 수치
     public  bool        isHolding;            // 홀딩 상태를 나타냄
+    public  float       shotPower = 1f;       // 발사 속도
 
 
     // 초기화
@@ -35,7 +36,7 @@ public class Ball : MonoBehaviour
     // 초기화
     void Start()
     {
-        //rigidbody2d.AddForce(Vector2.up * 1000);
+        rigidbody2d.AddForce(Vector2.up * 100);
     }
 
     // 트리거 진입
@@ -116,9 +117,13 @@ public class Ball : MonoBehaviour
         // 슛라인 삭제
         Destroy(transform.GetChild(0).gameObject);
 
+        // 타겟 홀더를 향해 날아감
         if (targetHolder != null)
         {
-            rigidbody2d.AddForce((targetHolder.transform.position - transform.position) * 300);
+            Vector3 shotVector = (targetHolder.transform.position - transform.position);
+
+            shotVector = Vector3.Normalize(shotVector);
+            rigidbody2d.AddForce(shotVector * shotPower * gameManager.shotPower);
         }
         
         return;

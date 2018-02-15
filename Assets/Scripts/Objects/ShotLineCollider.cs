@@ -26,12 +26,11 @@ public class ShotLineCollider : MonoBehaviour
         perfect = new List<Transform>();
         good = new List<Transform>();
 
-
+        // 홀더들을 불러와 판정
         for (int i = 0; i < holderList.Count; i++)
         {
             float distance;     // 거리
-
-
+            
             // 거리를 측정해서 판정진행
             distance = Mathf.Sqrt(((holderList[i].position.x - x) * (holderList[i].position.x - x)) + ((holderList[i].position.y - y) * (holderList[i].position.y - y)));
             distance = Mathf.Abs(distance - range);

@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     private int   score = 0;                  // 점수
     private bool  isTouch;                    // 현제 터치의 상태
     private bool  previousIsTouch;            // 이전 터지의 상태
+    public  float shotPower = 0;              // 발사 속도
 
 
     // 초기화
@@ -115,19 +116,21 @@ public class GameManager : MonoBehaviour
     // 캐치 퍼펙트판정
     public void PerfectCatch()
     {
+        shotPower = 200f;
         AddScore(2);
     }
 
     // 캐치 굿판정
     public void GoodCatch()
     {
+        shotPower = 100f;
         AddScore(1);
     }
 
     // 캐치 페일판정
     public void FailCatch()
     {
-
+        shotPower = 0f;
     }
 
     // 점수 상승
