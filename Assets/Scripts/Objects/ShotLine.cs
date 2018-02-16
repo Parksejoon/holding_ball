@@ -10,7 +10,7 @@ public class ShotLine : MonoBehaviour
     private ShotLineCollider shotLineCollider;         // 슛라인 충돌검사
 
     // 수치
-    private float            expandSpeed = 0.05f;      // 범위 확대 속도
+    private float            expandSpeed = 0.5f;       // 범위 확대 속도
     private float            addRange;                 // 추가되는 범위
 
 

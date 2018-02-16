@@ -7,10 +7,19 @@ public class HolderManager : MonoBehaviour
     // 인스펙터 노출 변수
     [SerializeField]
     private GameObject holderPrefab;                               // 생성될 Holder 프리팹
-
-    [Space(20)]
+    [SerializeField]
+    private float      rangeX;                                     // 생성 X좌표 랜덤 범위
+    [SerializeField]
+    private float      fixY;                                       // 생성 고정 Y좌표
+    [SerializeField]
+    private float      minRespawnTime;                             // 리스폰 최소시간
+    [SerializeField]
+    private float      maxRespawnTime;                             // 리스폰 최대시간
+    [SerializeField]
+    private float      amount;                                     // 한번 리스폰될때 양
 
     // 일반 변수
+    [HideInInspector]
     public  List<Transform> holderList = new List<Transform>();    // 홀더 리스트
     private Ball            ball;                                  // 볼
 
@@ -32,16 +41,19 @@ public class HolderManager : MonoBehaviour
         // 볼이 홀딩상태 또는 바인딩상태가 아닐때만 시간을 측정
         if (ball.bindedHolder == null)
         {
-            // 홀더생성을 위해 카운트중인지 확인
-            // 맞다면 카운트 진행
+            // 카운트중인지 확인 후 카운트 진행
             if (isPasting)
             {
                 pastTime += Time.deltaTime;
 
-                // 카운트가 끝났으면 홀더를 생성하고 카운트 재시작
+                // 홀더를 생성
                 if (pastTime >= goalTime)
                 {
-                    holderList.Add((Instantiate(holderPrefab, new Vector3(Random.Range(-4f, 4f), -8f), Quaternion.identity, transform)).transform);
+                    // 지정된 양만큼 홀더를 생성
+                    for (int i = 0; i < amount; i++)
+                    {
+                        holderList.Add((Instantiate(holderPrefab, new Vector3(Random.Range(-rangeX, rangeX), fixY), Quaternion.identity, transform)).transform);
+                    }
 
                     isPasting = false;
                 }
@@ -50,7 +62,7 @@ public class HolderManager : MonoBehaviour
             else
             {
                 pastTime = 0;
-                goalTime = Random.Range(0.1f, 0.5f);
+                goalTime = Random.Range(minRespawnTime, maxRespawnTime);
 
                 isPasting = true;
             }

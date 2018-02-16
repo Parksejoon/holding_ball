@@ -11,6 +11,7 @@ public class Ball : MonoBehaviour
     [Space(20)]
 
     // 일반 변수
+    [HideInInspector]
     public  GameObject  bindedHolder;         // 볼이 바인딩되어있는 홀더
     private GameObject  targetHolder;         // 현재 타겟이된 홀더
     private GameObject  shotLine;             // ShotLine오브젝트
@@ -19,8 +20,10 @@ public class Ball : MonoBehaviour
     private Rigidbody2D rigidbody2d;          // 이 오브젝트의 리짓바디
 
     // 수치
+    [HideInInspector]
     public  bool        isHolding;            // 홀딩 상태를 나타냄
-    public  float       shotPower = 1f;       // 발사 속도
+    [HideInInspector]
+    public  float       shotPower = 3f;       // 발사 속도
 
 
     // 초기화

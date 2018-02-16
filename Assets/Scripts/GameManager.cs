@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     // 정적변수
     static public float moveSpeed;           // 움직임 속도
+
+    // 인스펙터 노출 변수
+    [SerializeField]
+    private Text  scoreText;                  // 점수
 
     // 일반 변수
     private Ball  ball;                       // 볼
@@ -16,6 +21,7 @@ public class GameManager : MonoBehaviour
     private int   score = 0;                  // 점수
     private bool  isTouch;                    // 현제 터치의 상태
     private bool  previousIsTouch;            // 이전 터지의 상태
+    [HideInInspector]
     public  float shotPower = 0;              // 발사 속도
 
 
@@ -137,6 +143,7 @@ public class GameManager : MonoBehaviour
     public void AddScore(int upScore)
     {
         score += upScore;
+        scoreText.text = score.ToString();
     }
 
     // 일정 시간동안 속도를 바꾸는 함수
