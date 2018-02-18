@@ -34,6 +34,7 @@ public class ShotLineCollider : MonoBehaviour
             float distance;     // 거리
             
             // 거리를 측정해서 판정진행
+			//* issue : holderList내에 존재하지 않는 holder에 접근 -> holderList 생성, 갱신 방법을 바꿔야함
             distance = Mathf.Sqrt(((holderList[i].position.x - x) * (holderList[i].position.x - x)) + ((holderList[i].position.y - y) * (holderList[i].position.y - y)));
             distance = Mathf.Abs(distance - range);
             

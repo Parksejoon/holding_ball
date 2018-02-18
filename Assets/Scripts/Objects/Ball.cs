@@ -66,16 +66,16 @@ public class Ball : MonoBehaviour
     void BindingHolder(GameObject holder)
     {
         bindedHolder = holder;
-        GameManager.moveSpeed = 2.0f;
+		bindedHolder.GetComponent<Holder>().speed = 0.3f;
 
         return;
     }
 
     // 홀더에 언바인딩
     void UnbindingHolder()
-    {
-        bindedHolder = null;
-        gameManager.InitializeSpeed();
+	{
+		bindedHolder.GetComponent<Holder>().speed = 1f;
+		bindedHolder = null;
 
         return;
     }
@@ -86,11 +86,14 @@ public class Ball : MonoBehaviour
         // 바인딩된 홀더가 있는지 확인
         if (bindedHolder != null)
         {
-            // 물리량 초기화
+            // 볼의 물리량 초기화
             rigidbody2d.velocity = Vector2.zero;
 
-            // 홀더의 자식으로 변경
-            isHolding = true;
+			// 홀더 속도 제어
+			bindedHolder.GetComponent<Holder>().speed = 0f;
+
+			// 홀더의 자식으로 변경
+			isHolding = true;
             transform.parent = bindedHolder.transform;
             transform.localPosition = Vector3.zero;
 
@@ -109,13 +112,17 @@ public class Ball : MonoBehaviour
 
     // 홀더에 언홀딩
     public void UnholdingHolder()
-    {
-        // 홀더에서 탈출
-        isHolding = false;
+	{
+		// 홀더에서 탈출
+		isHolding = false;
         transform.parent = parent;
 
-        // 캐치 했는지 확인
-        targetHolder = shotLine.GetComponent<ShotLine>().Judgment();
+		// 홀더 파괴
+		bindedHolder.tag = "Untagged";
+		Destroy(bindedHolder.transform.GetChild(0).gameObject);
+
+		// 캐치 했는지 판정
+		targetHolder = shotLine.GetComponent<ShotLine>().Judgment();
 
         // 슛라인 삭제
         Destroy(transform.GetChild(0).gameObject);

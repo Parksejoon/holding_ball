@@ -9,7 +9,7 @@ public class Holder : MonoBehaviour
     private HolderManager holderManager;        // 홀더 매니저
 
     // 수치
-    private float       speed = 1f;             // 홀더 자체적 속도
+    public  float       speed = 1f;	            // 홀더 자체적 속도
 
     
     // 초기화
@@ -17,6 +17,8 @@ public class Holder : MonoBehaviour
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         holderManager = GameObject.Find("Main Objects").GetComponent<HolderManager>();
+
+		//speed = Random.Range(0.5f, 2.0f);
     }
 
     // 프레임 ( 물리 처리 )
