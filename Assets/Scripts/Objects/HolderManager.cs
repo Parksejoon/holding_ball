@@ -5,23 +5,17 @@ using UnityEngine;
 public class HolderManager : MonoBehaviour
 {
     // 인스펙터 노출 변수
-    [SerializeField]
-    private GameObject holderPrefab;                               // 생성될 Holder 프리팹
-    [SerializeField]
-    private float      rangeX;                                     // 생성 X좌표 랜덤 범위
-    [SerializeField]
-    private float      fixY;                                       // 생성 고정 Y좌표
-    [SerializeField]
-    private float      minRespawnTime;                             // 리스폰 최소시간
-    [SerializeField]
-    private float      maxRespawnTime;                             // 리스폰 최대시간
-    [SerializeField]
-    private float      amount;                                     // 한번 리스폰될때 양
+    [SerializeField] private GameObject holderPrefab;                               // 생성될 Holder 프리팹
+    [SerializeField] private float      rangeX;                                     // 생성 X좌표 랜덤 범위
+    [SerializeField] private float      fixY;                                       // 생성 고정 Y좌표
+    [SerializeField] private float      minRespawnTime;                             // 리스폰 최소시간
+    [SerializeField] private float      maxRespawnTime;                             // 리스폰 최대시간
+    [SerializeField] private float      amount;                                     // 한번 리스폰될때 양
 
     // 일반 변수
-    [HideInInspector]
-    public  List<Transform> holderList = new List<Transform>();    // 홀더 리스트
-    private Ball            ball;                                  // 볼
+    [HideInInspector] public  List<Transform> holderList = new List<Transform>();    // 홀더 리스트
+    
+	private Ball            ball;                                  // 볼
 
     // 수치
     private float           pastTime;                              // 경과 시간

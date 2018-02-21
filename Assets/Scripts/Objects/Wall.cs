@@ -5,10 +5,8 @@ using UnityEngine;
 public class Wall : MonoBehaviour
 {
     // 인스펙터 노출 변수
-    [SerializeField]
-    private int reflexY = 1;                // 물체의 X 반전여부
-    [SerializeField]
-    private int reflexX = 1;                // 물체의 Y 반전여부
+    [SerializeField] private int reflexY = 1;                // 물체의 X 반전여부
+    [SerializeField] private int reflexX = 1;                // 물체의 Y 반전여부
 
 
     // 트리거 진입

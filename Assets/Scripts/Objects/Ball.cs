@@ -5,25 +5,20 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     // 인스펙터 노출 변수
-    [SerializeField]
-    private GameObject shotLinePrefab;       // 생성될 ShotLine 프리팹
-
-    [Space(20)]
-
+    [SerializeField] private GameObject shotLinePrefab;        // 생성될 ShotLine 프리팹
+	
     // 일반 변수
-    [HideInInspector]
-    public  GameObject  bindedHolder;         // 볼이 바인딩되어있는 홀더
-    private GameObject  targetHolder;         // 현재 타겟이된 홀더
-    private GameObject  shotLine;             // ShotLine오브젝트
-    private Transform   parent;               // 이 오브젝트의 부모
-    private GameManager gameManager;          // 게임 매니저
-    private Rigidbody2D rigidbody2d;          // 이 오브젝트의 리짓바디
+    [HideInInspector] public  GameObject  bindedHolder;         // 볼이 바인딩되어있는 홀더
+
+    private GameObject  targetHolder;			// 현재 타겟이된 홀더
+    private GameObject  shotLine;				// ShotLine오브젝트
+    private Transform   parent;					// 이 오브젝트의 부모
+    private GameManager gameManager;			// 게임 매니저
+    private Rigidbody2D rigidbody2d;			// 이 오브젝트의 리짓바디
 
     // 수치
-    [HideInInspector]
-    public  bool        isHolding;            // 홀딩 상태를 나타냄
-    [HideInInspector]
-    public  float       shotPower = 3f;       // 발사 속도
+    [HideInInspector] public  bool        isHolding;            // 홀딩 상태를 나타냄
+    [HideInInspector] public  float       shotPower = 3f;       // 발사 속도
 
 
     // 초기화

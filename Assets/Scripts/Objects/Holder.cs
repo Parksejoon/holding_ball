@@ -9,7 +9,7 @@ public class Holder : MonoBehaviour
     private HolderManager holderManager;        // 홀더 매니저
 
     // 수치
-    public  float       speed = 1f;	            // 홀더 자체적 속도
+    public  float         speed = 1f;	        // 홀더 자체적 속도
 
     
     // 초기화
