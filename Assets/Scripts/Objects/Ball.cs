@@ -22,7 +22,7 @@ public class Ball : MonoBehaviour
 
 
     // 초기화
-    void Awake()
+    private void Awake()
     {
         parent = transform.parent;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -32,13 +32,19 @@ public class Ball : MonoBehaviour
     }
 
     // 초기화
-    void Start()
+    private void Start()
     {
         rigidbody2d.AddForce(Vector2.left * 1000);
     }
 
-    // 트리거 진입
-    void OnTriggerEnter2D(Collider2D other)
+	// 프레임
+	private void Update()
+	{
+		Debug.Log(rigidbody2d.velocity);
+	}
+
+	// 트리거 진입
+	void OnTriggerEnter2D(Collider2D other)
     {
         // 홀더일경우 홀더에 바인딩함
         if (bindedHolder == null && other.gameObject.tag == "Holder")

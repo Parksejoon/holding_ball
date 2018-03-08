@@ -26,7 +26,7 @@ public class Holder : MonoBehaviour
 	// 시작
 	private void Start()
 	{
-		rigidbody2d.velocity = ranVec2();
+		rigidbody2d.velocity = RandomVec2();
 	}
 
 	// 삭제
@@ -37,10 +37,11 @@ public class Holder : MonoBehaviour
     }
 
 	// 랜덤 벡터
-	private Vector2 ranVec2()
+	private Vector2 RandomVec2()
 	{
 		Vector2 value;
 
+		// 랜덤 정규백터 * 랜덤 스칼라
 		value = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
 		value *= Random.Range(minPowr, maxPowr);
 
