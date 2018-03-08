@@ -34,7 +34,7 @@ public class Ball : MonoBehaviour
     // 초기화
     void Start()
     {
-        rigidbody2d.AddForce(Vector2.up * 100);
+        rigidbody2d.AddForce(Vector2.left * 1000);
     }
 
     // 트리거 진입
@@ -50,12 +50,12 @@ public class Ball : MonoBehaviour
     // 트리거 탈출
     void OnTriggerExit2D(Collider2D other)
     {
-        // 현재 바인딩중인 홀더일경우 바인딩을 해제함
-        if (bindedHolder == other.gameObject)
-        {
-            UnbindingHolder();
-        }
-    }
+		// 현재 바인딩중인 홀더일경우 바인딩을 해제함
+		if (bindedHolder == other.gameObject && other.gameObject.tag == "Holder")
+		{
+			UnbindingHolder();
+		}
+	}
 
     // 홀더에 바인딩
     void BindingHolder(GameObject holder)

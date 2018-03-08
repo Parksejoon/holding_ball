@@ -9,20 +9,24 @@ public class GameManager : MonoBehaviour
     static public float moveSpeed;           // 움직임 속도
 
     // 인스펙터 노출 변수
+	// 일반
     [SerializeField] private Text  scoreText;                  // 점수
 
-    // 일반 변수
+	// 인스펙터 비노출 변수
+    // 일반
     private Ball  ball;                       // 볼
     private Touch touch;                      // 터치 구조체
 
 	// 수치
-	[HideInInspector] public float shotPower = 0;              // 발사 속도
+	[HideInInspector]
+	public float  shotPower = 0;              // 발사 속도
 
 	private float protostasisMoveSpeed = 8;   // 초기의 움직임 속도 ( 베이스 )
     private int   score = 0;                  // 점수
     private bool  isTouch;                    // 현제 터치의 상태
     private bool  previousIsTouch;            // 이전 터지의 상태
-    
+	private int	  level = 1;				  // 레벨
+
 
     // 초기화
     void Awake()
