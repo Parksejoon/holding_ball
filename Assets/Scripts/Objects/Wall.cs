@@ -5,33 +5,24 @@ using UnityEngine;
 public class Wall : MonoBehaviour
 {
     // 인스펙터 노출 변수
+	// 수치
     [SerializeField] private int reflexY = 1;                // 물체의 X 반전여부
     [SerializeField] private int reflexX = 1;                // 물체의 Y 반전여부
 
 
-    // 트리거 진입
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-		//// 볼일경우 튕겨냄
-        //if (other.tag == "Ball")
-        //{
-        //    Vector2 ballVelocity = other.GetComponent<Rigidbody2D>().velocity;
-            
-        //    other.GetComponent<Rigidbody2D>().velocity = new Vector2(ballVelocity.x * reflexX, ballVelocity.y * reflexY);
-        //}
-    }
-
 	// 충돌체 진입
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		// 볼일경우
-		if (collision.gameObject.tag == "Ball")
+		// 볼이나 홀더일경우
+		if (collision.gameObject.tag == "Ball" || collision.gameObject.tag == "Holder")
 		{
+			Debug.Log(collision.gameObject.GetComponent<Rigidbody2D>().velocity);
+
 			// reflection
 			Vector2 normalVec = collision.contacts[0].normal;
 			Vector2 ballVelo = collision.gameObject.GetComponent<Rigidbody2D>().velocity;
 
-			collision.gameObject.GetComponent<Rigidbody2D>().velocity = ballVelo + 2 * normalVec * (Vector2.Dot(-ballVelo, normalVec)) * 150;
+			collision.gameObject.GetComponent<Rigidbody2D>().velocity = ballVelo + 2 * normalVec * (Vector2.Dot(-ballVelo, normalVec));
 		}
 	}
 }

@@ -61,7 +61,7 @@ public class Ball : MonoBehaviour
     void BindingHolder(GameObject holder)
     {
         bindedHolder = holder;
-		bindedHolder.GetComponent<Holder>().speed = 0.3f;
+		//bindedHolder.GetComponent<Holder>().speed = 0.3f;
 
         return;
     }
@@ -69,7 +69,7 @@ public class Ball : MonoBehaviour
     // 홀더에 언바인딩
     void UnbindingHolder()
 	{
-		bindedHolder.GetComponent<Holder>().speed = 1f;
+		//bindedHolder.GetComponent<Holder>().speed = 1f;
 		bindedHolder = null;
 
         return;
@@ -85,7 +85,7 @@ public class Ball : MonoBehaviour
             rigidbody2d.velocity = Vector2.zero;
 
 			// 홀더 속도 제어
-			bindedHolder.GetComponent<Holder>().speed = 0f;
+			//bindedHolder.GetComponent<Holder>().speed = 0f;
 
 			// 홀더의 자식으로 변경
 			isHolding = true;

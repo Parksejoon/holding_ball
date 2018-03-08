@@ -27,7 +27,6 @@ public class WallManager : MonoBehaviour
 	private void Update()
 	{
 		timer += Time.deltaTime;
-		Debug.Log(timer);
 
 		transform.rotation = Quaternion.Euler(0, 0, timer * rotationSpeed);
 	}
