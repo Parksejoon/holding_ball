@@ -32,8 +32,7 @@ public class ShotLine : MonoBehaviour
 		float speedScale = Mathf.Cos(timer * power) * expandSpeed + expandSpeed;
 
 		timer += Time.deltaTime;
-
-		// f(x)=cos(x*3)0.5+0.5
+		
 		// 점점 범위 확대
 
 		transform.localScale += new Vector3(speedScale, speedScale);
@@ -42,6 +41,7 @@ public class ShotLine : MonoBehaviour
     // 현재 가지고있는 홀더를 반환
     public GameObject Judgment()
     {
+		// 홀더 + 판정 초기화
         catchHolder = null;
         shotLineCollider.Judgment();
 

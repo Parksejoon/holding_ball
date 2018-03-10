@@ -16,7 +16,6 @@ public class Ball : MonoBehaviour
 
     private GameObject  targetHolder;			// 현재 타겟이된 홀더
     private GameObject  shotLine;				// ShotLine오브젝트
-    private Transform   parent;					// 이 오브젝트의 부모
     private GameManager gameManager;			// 게임 매니저
     private Rigidbody2D rigidbody2d;			// 이 오브젝트의 리짓바디
 
@@ -30,13 +29,18 @@ public class Ball : MonoBehaviour
     // 초기화
     private void Awake()
     {
-        parent = transform.parent;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         rigidbody2d = GetComponentInParent<Rigidbody2D>();
 		
 
         isHolding = false;
     }
+
+	// 시작
+	private void Start()
+	{
+		rigidbody2d.AddForce(Vector2.left * 1000f);
+	}
 
 	// 트리거 진입
 	void OnTriggerEnter2D(Collider2D other)
@@ -85,7 +89,7 @@ public class Ball : MonoBehaviour
 
 			// 홀더 속도를 영벡터로 변경
 			bindedHolder.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-			
+
 			// 홀딩 상태로 전환
 			isHolding = true;
 
@@ -111,17 +115,16 @@ public class Ball : MonoBehaviour
 	{
 		// 홀더에서 탈출
 		isHolding = false;
-        transform.parent = parent;
 
 		// 홀더 파괴
 		bindedHolder.tag = "Untagged";
-		Destroy(bindedHolder.transform.GetChild(0).gameObject);
+		Destroy(bindedHolder.gameObject);
 
 		// 캐치 했는지 판정
 		targetHolder = shotLine.GetComponent<ShotLine>().Judgment();
 
-        // 슛라인 삭제
-        Destroy(transform.GetChild(0).gameObject);
+		// 슛라인 파괴
+		Destroy(shotLine.gameObject);
 
         // 타겟 홀더를 향해 날아감
         if (targetHolder != null)

@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    // 정적변수
-    static public float moveSpeed;           // 움직임 속도
-
     // 인스펙터 노출 변수
 	// 일반
     [SerializeField]
@@ -44,8 +41,6 @@ public class GameManager : MonoBehaviour
     // 초기화
     void Awake()
     {
-        InitializeSpeed();
-        
         ball = GameObject.Find("Ball").GetComponent<Ball>();
 
         isTouch = false;
@@ -103,12 +98,6 @@ public class GameManager : MonoBehaviour
 
         previousIsTouch = isTouch;
     }
-    
-    // 속도 초기화
-    public void InitializeSpeed()
-    {
-        moveSpeed = protostasisMoveSpeed;
-    }
 
     // 홀딩 처리
     void HoldingBall()
@@ -117,7 +106,6 @@ public class GameManager : MonoBehaviour
         {
             // 홀딩 성공
 			// *Score 처리*
-            moveSpeed = 0;
         }
         else
         {
@@ -131,7 +119,6 @@ public class GameManager : MonoBehaviour
     // 언홀딩 처리
     void UnHoldingBall()
     {
-        moveSpeed = protostasisMoveSpeed;
         ball.UnholdingHolder();
 
         return;
@@ -163,19 +150,6 @@ public class GameManager : MonoBehaviour
     {
         score += upScore;
         scoreText.text = score.ToString();
-    }
-
-    // 일정 시간동안 속도를 바꾸는 함수
-    IEnumerator FallSpeedChangeMoment(float changeSpeed, float changeTime)
-    {
-        float tempSpeed = moveSpeed;
-
-
-        moveSpeed = changeSpeed;
-
-        yield return new WaitForSeconds(changeTime);
-
-        moveSpeed = tempSpeed;
     }
 }
     

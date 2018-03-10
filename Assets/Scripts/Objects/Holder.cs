@@ -11,15 +11,15 @@ public class Holder : MonoBehaviour
 	private Rigidbody2D	  rigidbody2d;          // 리지드바디 2d
 
 	// 수치
-	private float minPowr = 10;         // 최소
-	private float maxPowr = 20;         // 최대
+	private float		  minPowr = 10;         // 최소
+	private float		  maxPowr = 20;         // 최대
 
 
 	// 초기화
 	void Awake()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-		holderManager = GameObject.Find("HolderManager").GetComponent<HolderManager>();
+		holderManager = GameObject.Find("GameManager").GetComponent<HolderManager>();
 		rigidbody2d = GetComponent<Rigidbody2D>();
 	}
 
@@ -34,7 +34,7 @@ public class Holder : MonoBehaviour
 	private void OnDestroy()
     {
         // 홀더 리스트에서 해당 항목을 삭제
-        // *holderManager.holderList.RemoveAt(0)*;
+        holderManager.holderList.Remove(transform);
     }
 
 	// 랜덤 벡터
