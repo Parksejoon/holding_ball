@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShotLine : MonoBehaviour
 {
+	// 인스펙터 비노출 변수
     // 일반 변수
     private GameManager      gameManager;              // 게임 매니저
     private GameObject       catchHolder;              // 영역에 들어온 홀더들
@@ -12,7 +13,8 @@ public class ShotLine : MonoBehaviour
 
     // 수치
     private float            expandSpeed = 1f;         // 범위 확대 속도
-    
+	private float			 power = 5f;			   // 범위 확대 범위
+	
 
     // 초기화
     void Awake()
@@ -27,16 +29,15 @@ public class ShotLine : MonoBehaviour
     void Update()
     {
 		// 타이머
-		float speedScale = Mathf.Cos(timer * 3) * expandSpeed + expandSpeed;
+		float speedScale = Mathf.Cos(timer * power) * expandSpeed + expandSpeed;
 
 		timer += Time.deltaTime;
 
 		// f(x)=cos(x*3)0.5+0.5
 		// 점점 범위 확대
 
-		
 		transform.localScale += new Vector3(speedScale, speedScale);
-    }
+    } 
 
     // 현재 가지고있는 홀더를 반환
     public GameObject Judgment()

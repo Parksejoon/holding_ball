@@ -10,10 +10,7 @@ public class Test : MonoBehaviour
     void Awake()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
-    }
 
-    void Update()
-    {
-        rigidbody2d.AddForce(Vector2.up * 10);
-    }
+		rigidbody2d.AddForce(Vector2.up * 100);
+	}
 }

@@ -5,10 +5,14 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     // 인스펙터 노출 변수
-    [SerializeField] private GameObject shotLinePrefab;        // 생성될 ShotLine 프리팹
+	// 일반
+    [SerializeField]
+	private GameObject shotLinePrefab;          // 생성될 ShotLine 프리팹
 	
+	// 인스펙터 비노출 변수
     // 일반 변수
-    [HideInInspector] public  GameObject  bindedHolder;         // 볼이 바인딩되어있는 홀더
+    [HideInInspector]
+	public  GameObject  bindedHolder;           // 볼이 바인딩되어있는 홀더
 
     private GameObject  targetHolder;			// 현재 타겟이된 홀더
     private GameObject  shotLine;				// ShotLine오브젝트
@@ -17,8 +21,10 @@ public class Ball : MonoBehaviour
     private Rigidbody2D rigidbody2d;			// 이 오브젝트의 리짓바디
 
     // 수치
-    [HideInInspector] public  bool        isHolding;            // 홀딩 상태를 나타냄
-    [HideInInspector] public  float       shotPower = 3f;       // 발사 속도
+    [HideInInspector]
+	public  bool        isHolding;              // 홀딩 상태를 나타냄
+    [HideInInspector]
+	public  float       shotPower = 3f;         // 발사 속도
 
 
     // 초기화
@@ -26,30 +32,19 @@ public class Ball : MonoBehaviour
     {
         parent = transform.parent;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        rigidbody2d = GetComponent<Rigidbody2D>();
+        rigidbody2d = GetComponentInParent<Rigidbody2D>();
+		
 
         isHolding = false;
     }
 
-    // 초기화
-    private void Start()
-    {
-        rigidbody2d.AddForce(Vector2.left * 1000);
-    }
-
-	// 프레임
-	private void Update()
-	{
-		Debug.Log(rigidbody2d.velocity);
-	}
-
 	// 트리거 진입
 	void OnTriggerEnter2D(Collider2D other)
-    {
-        // 홀더일경우 홀더에 바인딩함
-        if (bindedHolder == null && other.gameObject.tag == "Holder")
-        {
-            BindingHolder(other.gameObject);
+	{
+		// 홀더일경우 홀더에 바인딩함
+		if (bindedHolder == null && other.gameObject.tag == "Holder")
+		{
+			BindingHolder(other.gameObject);
         }
     }
 
@@ -67,18 +62,16 @@ public class Ball : MonoBehaviour
     void BindingHolder(GameObject holder)
     {
         bindedHolder = holder;
-		//bindedHolder.GetComponent<Holder>().speed = 0.3f;
 
-        return;
+		Time.timeScale = 0.5f;
     }
 
     // 홀더에 언바인딩
     void UnbindingHolder()
 	{
-		//bindedHolder.GetComponent<Holder>().speed = 1f;
 		bindedHolder = null;
-
-        return;
+	
+		Time.timeScale = 1f;
     }
 
     // 홀더에 홀딩
@@ -87,16 +80,17 @@ public class Ball : MonoBehaviour
         // 바인딩된 홀더가 있는지 확인
         if (bindedHolder != null)
         {
-            // 볼의 물리량 초기화
+            // 볼의 속도를 영벡터로 변경
             rigidbody2d.velocity = Vector2.zero;
 
-			// 홀더 속도 제어
-			//bindedHolder.GetComponent<Holder>().speed = 0f;
-
-			// 홀더의 자식으로 변경
+			// 홀더 속도를 영벡터로 변경
+			bindedHolder.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+			
+			// 홀딩 상태로 전환
 			isHolding = true;
-            transform.parent = bindedHolder.transform;
-            transform.localPosition = Vector3.zero;
+
+			// 볼의 위치를 중앙으로 이동
+            // *ball position = holder position*
 
             // 슛라인 생성
             shotLine = Instantiate(shotLinePrefab, transform.position, Quaternion.identity, transform);
@@ -105,7 +99,8 @@ public class Ball : MonoBehaviour
         }
         else
         {
-            // 홀딩 실패 ( GameManager에서 처리함 )
+			// 홀딩 실패
+			// *GameManager에서 처리함*
 
             return false;
         }
@@ -136,7 +131,5 @@ public class Ball : MonoBehaviour
             shotVector = Vector3.Normalize(shotVector);
             rigidbody2d.AddForce(shotVector * shotPower * gameManager.shotPower);
         }
-        
-        return;
     }
 }

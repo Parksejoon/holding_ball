@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class ShotLineCollider : MonoBehaviour
 {
+	// 인스펙터 비노출 변수
 	// 일반 변수
-	[HideInInspector] public List<Transform> perfect;              // 퍼펙트 판정 오브젝트 리스트
-	[HideInInspector] public List<Transform> good;                 // 일반 판정 오브젝트 리스트
+	[HideInInspector]
+	public List<Transform>  perfect;              // 퍼펙트 판정 오브젝트 리스트
+	[HideInInspector]
+	public List<Transform>  good;                 // 일반 판정 오브젝트 리스트
 
 	private List<Transform> holderList;           // 홀더 리스트
 

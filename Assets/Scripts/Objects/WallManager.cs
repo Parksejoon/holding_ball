@@ -5,8 +5,6 @@ using UnityEngine;
 public class WallManager : MonoBehaviour
 {
 	// 인스펙터 노출 변수
-	// 일반
-
 	// 수치
 	[SerializeField]
 	private float	    rotationSpeed = 1f;         // 회전속도
