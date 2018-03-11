@@ -67,7 +67,7 @@ public class Ball : MonoBehaviour
     {
         bindedHolder = holder;
 
-		Time.timeScale = 0.5f;
+		Time.timeScale = 0.2f;
     }
 
     // 홀더에 언바인딩
@@ -134,5 +134,7 @@ public class Ball : MonoBehaviour
             shotVector = Vector3.Normalize(shotVector);
             rigidbody2d.AddForce(shotVector * shotPower * gameManager.shotPower);
         }
+
+		Time.timeScale = 1f;
     }
 }
