@@ -11,30 +11,24 @@ public class ShotLine : MonoBehaviour
     private ShotLineCollider shotLineCollider;         // 슛라인 충돌검사
 	private float			 timer = 0;				   // 타이머
 
-    // 수치
-    private float            expandSpeed = 1f;         // 범위 확대 속도
-	private float			 power = 5f;			   // 범위 확대 범위
-	
 
     // 초기화
     void Awake()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         shotLineCollider = GetComponent<ShotLineCollider>();
-
-		expandSpeed *= 0.1f;
     }
 
     // 프레임
     void Update()
     {
 		// 타이머
-		float speedScale = Mathf.Cos(timer * power) * expandSpeed + expandSpeed;
-
 		timer += Time.deltaTime;
-		
-		// 점점 범위 확대
 
+		// 그래프 계산식
+		float speedScale = (10f * (timer - 0.12f) * (timer - 0.12f)) + 0.2f;
+
+		// 점점 범위 확대
 		transform.localScale += new Vector3(speedScale, speedScale);
     } 
 

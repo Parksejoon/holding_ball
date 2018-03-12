@@ -30,12 +30,6 @@ public class WallManager : MonoBehaviour
 		wallsTransform = GetComponentInChildren<Transform>();
 	}
 
-	// 시작
-	private void Start()
-	{
-		CreateWalls(0);
-	}
-
 	// 프레임
 	private void Update()
 	{
@@ -47,8 +41,11 @@ public class WallManager : MonoBehaviour
 	// 벽 생성
 	public void CreateWalls(int ind)
 	{
+		// ind = level + score
+
+
 		// 오버 인덱싱
-		if (ind > wallsArray.Length)
+		if (ind >= wallsArray.Length)
 		{
 			ind = wallsArray.Length - 1;
 		}
