@@ -32,7 +32,6 @@ public class Ball : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         rigidbody2d = GetComponentInParent<Rigidbody2D>();
 		
-
         isHolding = false;
     }
 
@@ -65,6 +64,7 @@ public class Ball : MonoBehaviour
     // 홀더에 바인딩
     void BindingHolder(GameObject holder)
     {
+		// 바인딩 홀더를 설정
         bindedHolder = holder;
 
 		Time.timeScale = 0.2f;
@@ -73,6 +73,7 @@ public class Ball : MonoBehaviour
     // 홀더에 언바인딩
     void UnbindingHolder()
 	{
+		// 바인딩 홀더를 초기화
 		bindedHolder = null;
 	
 		Time.timeScale = 1f;
@@ -129,12 +130,18 @@ public class Ball : MonoBehaviour
         // 타겟 홀더를 향해 날아감
         if (targetHolder != null)
         {
+			// 날아갈 벡터의 방향
             Vector3 shotVector = (targetHolder.transform.position - transform.position);
 
+			// 날아갈 파워 설정
             shotVector = Vector3.Normalize(shotVector);
             rigidbody2d.AddForce(shotVector * shotPower * gameManager.shotPower);
+
+			// 점수 추가
+			gameManager.AddScore(1);
         }
 
+		// 원래 시간으로 초기화
 		Time.timeScale = 1f;
     }
 }

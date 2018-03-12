@@ -20,14 +20,13 @@ public class WallManager : MonoBehaviour
 	private GameManager gameManager;                // 게임매니저
 	private Transform	wallsTransform;				// 벽들의 트랜스폼
 	private float		timer = 0f;                 // 타이머	
-	private int			wallsSize = 1;				// 벽의 크기 레벨
 
 
 	// 초기화
 	private void Awake()
 	{
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-		wallsTransform = GetComponentInChildren<Transform>();
+		wallsTransform = GameObject.Find("Walls"). GetComponent<Transform>();
 	}
 
 	// 프레임
@@ -41,8 +40,8 @@ public class WallManager : MonoBehaviour
 	// 벽 생성
 	public void CreateWalls(int ind)
 	{
+		float wallsSize = wallsTransform.localScale.x;
 		// ind = level + score
-
 
 		// 오버 인덱싱
 		if (ind >= wallsArray.Length)
@@ -54,15 +53,18 @@ public class WallManager : MonoBehaviour
 		GameObject walls = Instantiate(wallsArray[ind], new Vector3(0, 0, 0), Quaternion.identity, transform) as GameObject;
 
 		// 기존 벽을 파괴
-		Destroy(wallsTransform.GetChild(0).gameObject);
+		Destroy(wallsTransform.gameObject);
 
 		// 초기화
 		wallsTransform = walls.GetComponent<Transform>();
 
-		// 벽 크기 설정
-		float scaleValue = wallsScale * wallsSize++;
+		// 벽 크기 및 회전량 설정
+		float scaleValue = wallsScale * wallsSize;
 
 		wallsTransform.localScale = new Vector3(scaleValue, scaleValue);
+		wallsTransform.rotation = Quaternion.Euler(0, 0, 0);
+
+		timer = Random.Range(0, 90);
 	}
 
 

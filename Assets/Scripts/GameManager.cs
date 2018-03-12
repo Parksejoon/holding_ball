@@ -158,7 +158,7 @@ public class GameManager : MonoBehaviour
 	public void WallDestroy()
 	{
 		// 월 매니저로 벽 새로생성 요청
-		//wallManager.CreateWalls(level + score);
+		wallManager.CreateWalls(level + score);
 	}
 }
     

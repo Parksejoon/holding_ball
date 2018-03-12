@@ -58,6 +58,7 @@ public class ShotLine : MonoBehaviour
             gameManager.FailCatch();
         }
 
+		// 캐치된 홀더 반환
         return catchHolder;
     }
 }

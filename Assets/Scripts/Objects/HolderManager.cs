@@ -57,15 +57,18 @@ public class HolderManager : MonoBehaviour
 						holderList.Add((Instantiate(holderPrefab, new Vector3(Random.Range(-rangeX, rangeX), fixY), Quaternion.identity, transform)).transform);
 					}
 
+					// 카운트 종료
 					isPasting = false;
 				}
 			}
 			// 아니라면 카운트 시작
 			else
 			{
+				// 카운트 초기화
 				pastTime = 0;
 				goalTime = Random.Range(minRespawnTime, maxRespawnTime);
 
+				// 카운트 시작
 				isPasting = true;
 			}
 		}

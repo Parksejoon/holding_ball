@@ -29,9 +29,11 @@ public class ShotLineCollider : MonoBehaviour
         float x = transform.position.x;             // 중심 X좌표
         float y = transform.position.y;             // 중심 Y좌표
 
+		// 타겟 목록 초기화
         perfect = new List<Transform>();
         good = new List<Transform>();
 
+		// 홀더 리스트 복사
 		holderList = GameObject.Find("GameManager").GetComponent<HolderManager>().holderList;
 		
 		// 홀더들을 불러와 판정

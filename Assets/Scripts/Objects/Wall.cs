@@ -6,7 +6,7 @@ public class Wall : MonoBehaviour
 {
 	// 인스펙터 비노출 변수
 	// 일반
-	private float		health = 300;         // 체력
+	private float		health = 3;         // 체력
 	private GameManager gameManager;          // 게임 매니저
 
 
@@ -29,12 +29,6 @@ public class Wall : MonoBehaviour
 		}
 	}
 
-	// 파괴시
-	private void OnDestroy()
-	{
-		gameManager.WallDestroy();
-	}
-
 	// 체력 감소
 	private void AddDamage(float damage)
 	{
@@ -42,6 +36,7 @@ public class Wall : MonoBehaviour
 
 		if (health <= 0)
 		{
+			gameManager.WallDestroy();
 			Destroy(gameObject);
 		}
 	}
