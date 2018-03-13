@@ -51,6 +51,7 @@ public class WallManager : MonoBehaviour
 
 		// 생성
 		GameObject walls = Instantiate(wallsArray[ind], new Vector3(0, 0, 0), Quaternion.identity, transform) as GameObject;
+		int		   warringWallNum = Random.Range(0, Mathf.Min(3, (gameManager.level / 3)));
 
 		// 기존 벽을 파괴
 		Destroy(wallsTransform.gameObject);
@@ -64,6 +65,7 @@ public class WallManager : MonoBehaviour
 		wallsTransform.localScale = new Vector3(scaleValue, scaleValue);
 		wallsTransform.rotation = Quaternion.Euler(0, 0, 0);
 
+		// 타이머 재설정
 		timer = Random.Range(0, 90);
 	}
 

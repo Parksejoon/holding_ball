@@ -6,7 +6,7 @@ public class Wall : MonoBehaviour
 {
 	// 인스펙터 비노출 변수
 	// 일반
-	private float		health = 3;         // 체력
+	private float		health = 100;         // 체력
 	private GameManager gameManager;          // 게임 매니저
 
 
@@ -27,13 +27,20 @@ public class Wall : MonoBehaviour
 
 			AddDamage(Mathf.Abs(ballVelo.x) + Mathf.Abs(ballVelo.y));
 		}
+
+		// 홀더일경우
+		if (collision.gameObject.tag == "Holder")
+		{
+			// 파괴
+			Destroy(collision.gameObject);
+		}
 	}
 
 	// 체력 감소
 	private void AddDamage(float damage)
 	{
 		health -= damage;
-
+		
 		if (health <= 0)
 		{
 			gameManager.WallDestroy();

@@ -31,13 +31,13 @@ public class GameManager : MonoBehaviour
 	// 수치
 	[HideInInspector]
 	public  float	    shotPower = 0;              // 발사 속도
+	[HideInInspector]
+	public  int			level = 1;                  // 레벨
 
-	private float		protostasisMoveSpeed = 8;   // 초기의 움직임 속도 ( 베이스 )
-    private int			score = 0;                  // 점수
+	private int			score = 0;                  // 점수
     private bool		isTouch;                    // 현제 터치의 상태
     private bool		previousIsTouch;            // 이전 터지의 상태
-	private int			level = 1;				    // 레벨
-
+	
 
     // 초기화
     void Awake()
