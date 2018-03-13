@@ -91,14 +91,14 @@ public class HolderManager : MonoBehaviour
 		term = Random.Range(minTerm, maxTerm);
 		count = 0;
 
-		StartCoroutine(Round());
+		StartCoroutine(Shift());
 	}
 
 	// 회오리
 	private IEnumerator Tornado()
 	{
 		Rigidbody2D target;                         // 타겟 홀더
-		float nowAngle = 0;                         // 현재 각도
+		float angle = 0;	                        // 현재 각도
 		float addAngle = 360 / amount;				// 더해지는 각도
 		
 		while (count < amount)
@@ -107,10 +107,10 @@ public class HolderManager : MonoBehaviour
 			target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
 
 			// 방향으로 힘 적용
-			target.AddForce(WayVector2(nowAngle, power));
+			target.AddForce(WayVector2(angle, power));
 
 			// 각도 추가
-			nowAngle += addAngle;
+			angle += addAngle;
 
 			count++;
 
@@ -124,7 +124,8 @@ public class HolderManager : MonoBehaviour
 	private IEnumerator Slug()
 	{
 		Rigidbody2D target;                         // 타겟 홀더
-		float angle;								// 방향 각도
+		float angle;                                // 방향 각도
+		float addAngle = (50 / (amount / 10));		// 더해지는 각도
 
 		while (count < amount)
 		{
@@ -139,7 +140,7 @@ public class HolderManager : MonoBehaviour
 				target.AddForce(WayVector2(angle, power));
 
 				// 분사량에 따라 각도 조절
-				angle += (50 / (amount / 10));
+				angle += addAngle;
 			}
 
 			count += (int)(amount / 10) * 2;
@@ -155,6 +156,7 @@ public class HolderManager : MonoBehaviour
 	{
 		Rigidbody2D target;                         // 타겟 홀더
 		float angle;                                // 방향 각도
+		float addAngle = (360 / (amount / 2));		// 더해지는 각도
 
 		while (count < amount)
 		{
@@ -169,10 +171,110 @@ public class HolderManager : MonoBehaviour
 				target.AddForce(WayVector2(angle, power));
 
 				// 분사량에 따라 각도 조절
-				angle += (360 / (amount / 2));
+				angle += addAngle;
 			}
 
 			count += (int)amount / 4;
+
+			yield return new WaitForSeconds(term + 0.5f);
+		}
+
+		yield return null;
+	}
+
+	// 압축
+	private IEnumerator Compression()
+	{
+		Rigidbody2D target;                         // 타겟 홀더
+		float angle = Random.Range(0, 360);         // 현재 각도
+		float addAngle = 90 / (amount / 2);         // 더해지는 각도
+		float minusAngle = 90;						// 간격
+
+		while (count < amount)
+		{
+			// 생성
+			target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+
+			// 방향으로 힘 적용
+			target.AddForce(WayVector2(angle + minusAngle, power));
+
+			// 생성
+			target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+
+			// 방향으로 힘 적용
+			target.AddForce(WayVector2(angle - minusAngle, power));
+
+			// 각도 추가
+			minusAngle -= addAngle;
+
+			count++;
+
+			yield return new WaitForSeconds(term);
+		}
+
+		yield return null;
+	}
+
+	// 4분할
+	private IEnumerator Quarter()
+	{
+		Rigidbody2D target;                         // 타겟 홀더
+		float angle = Random.Range(0, 90);          // 현재 각도
+		
+		while (count < amount)
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				// 생성
+				target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+
+				// 방향으로 힘 적용
+				target.AddForce(WayVector2(angle + (90 * i), power));
+			}
+
+			if (count % 20 >= 0 && count % 20 <= 5)
+			{
+				// 각도 추가
+				angle += (90 / amount) * 3;
+			}
+
+			count++;
+
+			yield return new WaitForSeconds(term);
+		}
+
+		yield return null;
+	}
+
+	// 변속
+	private IEnumerator Shift()
+	{
+		Rigidbody2D target;                         // 타겟 홀더
+		float angle;                                // 방향 각도
+		float finalPower;							// 최종 파워
+		float addAngle = 90 / (amount / 4);			// 더해지는 각도
+
+		while (count < amount)
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				angle = 0;
+				finalPower = power * Random.Range(0.5f, 1.5f);
+
+				for (int j = 0; j < amount / 4; j++)
+				{
+					// 생성
+					target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+
+					// 방향으로 힘 적용
+					target.AddForce(WayVector2(angle + (90 * i), finalPower));
+
+					// 분사량에 따라 각도 조절
+					angle += addAngle;
+				}
+			}
+
+			count += (int)amount / 2;
 
 			yield return new WaitForSeconds(term + 0.5f);
 		}
