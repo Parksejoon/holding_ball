@@ -49,13 +49,17 @@ public class ShotLineCollider : MonoBehaviour
             if (distance < perfectDis)
             {
                 perfect.Add(holderList[i]);
+				Debug.Log(i + " perfect");
             }
             // 굿
             else if (distance < goodDis)
             {
                 good.Add(holderList[i]);
-            }
-        }
+				Debug.Log(i + " good");
+			}
+
+			Debug.Log(i + " fail");
+		}
 
         return;
     }

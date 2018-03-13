@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
+	// 인스펙터 노출 변수
+	// 수치
+	public bool isWarWall = false;    // 게임 오버 벽인지 여부
+
 	// 인스펙터 비노출 변수
 	// 일반
 	private float		health = 100;         // 체력
@@ -41,11 +45,25 @@ public class Wall : MonoBehaviour
 	{
 		health -= damage;
 		
+		// 체력 0 -> 파괴
 		if (health <= 0)
 		{
-			gameManager.WallDestroy();
-			Destroy(gameObject);
+			WallDestroy();
 		}
 	}
-	
+
+	// 벽 파괴
+	private void WallDestroy()
+	{
+		// 게임 매니저로 전달
+		gameManager.WallDestroy();
+
+		// 워 월인지 확인
+		if (isWarWall)
+		{
+			gameManager.GameOver();
+		}
+
+		Destroy(gameObject);
+	}
 }

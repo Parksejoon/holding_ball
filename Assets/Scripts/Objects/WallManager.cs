@@ -20,7 +20,7 @@ public class WallManager : MonoBehaviour
 	private GameManager gameManager;                // 게임매니저
 	private Transform	wallsTransform;				// 벽들의 트랜스폼
 	private float		timer = 0f;                 // 타이머	
-
+	private int[]		termValue = { 0, 1, 1 };	// 도형 텀
 
 	// 초기화
 	private void Awake()
@@ -50,8 +50,9 @@ public class WallManager : MonoBehaviour
 		}
 
 		// 생성
-		GameObject walls = Instantiate(wallsArray[ind], new Vector3(0, 0, 0), Quaternion.identity, transform) as GameObject;
-		int		   warringWallNum = Random.Range(0, Mathf.Min(3, (gameManager.level / 3)));
+		GameObject walls = Instantiate(wallsArray[ind], new Vector3(0, 0, 0), Quaternion.identity, transform) as GameObject;		// 벽 생성
+		int		   warWallCount = Random.Range(0, Mathf.Min(3, (gameManager.level / 3)));                                           // 위험 벽의 갯수
+		int		   warWallInd = 0;
 
 		// 기존 벽을 파괴
 		Destroy(wallsTransform.gameObject);
@@ -60,10 +61,16 @@ public class WallManager : MonoBehaviour
 		wallsTransform = walls.GetComponent<Transform>();
 
 		// 벽 크기 및 회전량 설정
-		float scaleValue = wallsScale * wallsSize;
+		float scaleValue = wallsScale * wallsSize;		// 크기값 설정
 
 		wallsTransform.localScale = new Vector3(scaleValue, scaleValue);
 		wallsTransform.rotation = Quaternion.Euler(0, 0, 0);
+ 
+		// 간격을 도형에 따라 유동적으로 랜덤으로 조절
+		for (int i = 0; i < warWallCount; i++)
+		{
+			walls.transform.GetChild(warWallInd + Random.Range(0, termValue[ind])).GetComponent<Wall>().isWarWall = true;
+		}
 
 		// 타이머 재설정
 		timer = Random.Range(0, 90);

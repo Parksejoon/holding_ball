@@ -15,12 +15,14 @@ public class HolderManager : MonoBehaviour
 	[SerializeField]
 	private float	   power;                                      // 발사 파워
 	[SerializeField]
-	private float	   term = 0.5f;				                   // 중간 텀
-	[SerializeField]
 	private float      minRespawnTime;                             // 리스폰 최소시간
     [SerializeField]
 	private float      maxRespawnTime;                             // 리스폰 최대시간
-    [SerializeField]
+	[SerializeField]
+	private float	   minTerm;						               // 중간 텀 최소시간
+	[SerializeField]
+	private float	   maxTerm;					                   // 중간 텀 최대시간
+	[SerializeField]
 	private float      amount;                                     // 소환되는 양
 
 	// 인스펙터 비노출 변수
@@ -29,9 +31,11 @@ public class HolderManager : MonoBehaviour
     
 	private Ball            ball;                                  // 볼
 
-    // 수치
+	// 수치
+	private int			    count;								   // 발사한 개수 카운트
     private float           pastTime;                              // 경과 시간
     private float           goalTime;                              // 목표 시간
+	private float		    term;								   // 텀
     private bool            isPasting = false;                     // 시간이 흘러가고있는가?
 
 
@@ -75,27 +79,35 @@ public class HolderManager : MonoBehaviour
 		}
 	}
 
+	// 각도와 스칼라에 따른 방향 벡터
+	private Vector2 WayVector2(float radian, float finalPower)
+	{
+		return new Vector2((Mathf.Cos(radian * Mathf.PI / 180) * finalPower), Mathf.Sin(radian * Mathf.PI / 180) * finalPower);
+	}
+
 	// 랜덤 패턴
 	private void RandomPattern()
 	{
-		StartCoroutine(Tornado());
+		term = Random.Range(minTerm, maxTerm);
+		count = 0;
+
+		StartCoroutine(Round());
 	}
 
-	// 회오리 패턴
+	// 회오리
 	private IEnumerator Tornado()
 	{
-		int	  count = 0;							// 몇개를 발사했는지 카운트
+		Rigidbody2D target;                         // 타겟 홀더
 		float nowAngle = 0;                         // 현재 각도
 		float addAngle = 360 / amount;				// 더해지는 각도
-		Rigidbody2D target;							// 타겟 홀더
-
+		
 		while (count < amount)
 		{
 			// 생성
 			target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
 
 			// 방향으로 힘 적용
-			target.AddForce(new Vector2((Mathf.Cos(nowAngle * Mathf.PI / 180) * power), Mathf.Sin(nowAngle * Mathf.PI / 180) * power));
+			target.AddForce(WayVector2(nowAngle, power));
 
 			// 각도 추가
 			nowAngle += addAngle;
@@ -103,6 +115,66 @@ public class HolderManager : MonoBehaviour
 			count++;
 
 			yield return new WaitForSeconds(term);
+		}
+
+		yield return null;
+	}
+
+	// 단방향 분사
+	private IEnumerator Slug()
+	{
+		Rigidbody2D target;                         // 타겟 홀더
+		float angle;								// 방향 각도
+
+		while (count < amount)
+		{
+			angle = Random.Range(0, 360);
+
+			for (int i = 0; i < amount / 10; i++)
+			{
+				// 생성
+				target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+
+				// 방향으로 힘 적용
+				target.AddForce(WayVector2(angle, power));
+
+				// 분사량에 따라 각도 조절
+				angle += (50 / (amount / 10));
+			}
+
+			count += (int)(amount / 10) * 2;
+
+			yield return new WaitForSeconds((term + 0.5f) * 2f);
+		}
+
+		yield return null;
+	}
+
+	// 단방향 분사
+	private IEnumerator Round()
+	{
+		Rigidbody2D target;                         // 타겟 홀더
+		float angle;                                // 방향 각도
+
+		while (count < amount)
+		{
+			angle = 0;
+
+			for (int i = 0; i < amount / 2; i++)
+			{
+				// 생성
+				target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+
+				// 방향으로 힘 적용
+				target.AddForce(WayVector2(angle, power));
+
+				// 분사량에 따라 각도 조절
+				angle += (360 / (amount / 2));
+			}
+
+			count += (int)amount / 4;
+
+			yield return new WaitForSeconds(term + 0.5f);
 		}
 
 		yield return null;

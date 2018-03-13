@@ -19,6 +19,13 @@ public class Holder : MonoBehaviour
 		holderManager = GameObject.Find("GameManager").GetComponent<HolderManager>();
 	}
 
+	// 시작
+	private void Start()
+	{
+		// 홀더 리스트에 추가
+		holderManager.holderList.Add(transform);
+	}
+
 	// 삭제
 	private void OnDestroy()
     {

@@ -160,5 +160,11 @@ public class GameManager : MonoBehaviour
 		// 월 매니저로 벽 새로생성 요청
 		wallManager.CreateWalls(level + score);
 	}
+
+	// 게임 오버
+	public void GameOver()
+	{
+		Debug.Log("GG");
+	}
 }
     
