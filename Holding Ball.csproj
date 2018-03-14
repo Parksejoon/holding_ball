@@ -286,14 +286,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraChase.cs" />
-    <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Objects\Ball.cs" />
     <Compile Include="Assets\Scripts\Objects\Holder.cs" />
-    <Compile Include="Assets\Scripts\Objects\HolderManager.cs" />
     <Compile Include="Assets\Scripts\Objects\ShotLine.cs" />
     <Compile Include="Assets\Scripts\Objects\ShotLineCollider.cs" />
     <Compile Include="Assets\Scripts\Objects\Wall.cs" />
-    <Compile Include="Assets\Scripts\Objects\WallManager.cs" />
+    <Compile Include="Assets\Scripts\System\GameManager.cs" />
+    <Compile Include="Assets\Scripts\System\HolderManager.cs" />
+    <Compile Include="Assets\Scripts\System\Start.cs" />
+    <Compile Include="Assets\Scripts\System\WallManager.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
     <Compile Include="Assets\Scripts\UI\Gauge.cs" />
     <Compile Include="Assets\Scripts\UI\PauseButton.cs" />

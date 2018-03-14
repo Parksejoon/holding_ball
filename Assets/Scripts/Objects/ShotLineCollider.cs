@@ -40,6 +40,7 @@ public class ShotLineCollider : MonoBehaviour
 		for (int i = 0; i < holderList.Count; i++)
         {
             float	distance = 0;										// 거리
+
 			// *issue : 홀더 정보를 얻기 전에 파괴됨*
 			Vector3 holderListPosition = holderList[i].position;		// 홀더 각자의 좌표
 

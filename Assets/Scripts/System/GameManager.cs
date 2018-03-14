@@ -146,6 +146,20 @@ public class GameManager : MonoBehaviour
 		wallManager.CreateWalls(score);
 	}
 
+	// 홀더 체크
+	public void HolderCheck(GameObject target)
+	{
+		if (ball.bindedHolder == target)
+		{
+			ball.UnholdingHolder();
+		}
+		else
+		{
+			// 파괴
+			Destroy(target);
+		}
+	}
+
 	// 게임 오버
 	public void GameOver()
 	{

@@ -10,7 +10,7 @@ public class Wall : MonoBehaviour
 
 	// 인스펙터 비노출 변수
 	// 일반
-	private float		health = 100;         // 체력
+	private float		health = 200;         // 체력
 	private GameManager gameManager;          // 게임 매니저
 
 
@@ -35,8 +35,8 @@ public class Wall : MonoBehaviour
 		// 홀더일경우
 		if (collision.gameObject.tag == "Holder")
 		{
-			// 파괴
-			Destroy(collision.gameObject);
+			// 파괴 전 홀더 검사
+			gameManager.HolderCheck(collision.gameObject);
 		}
 	}
 

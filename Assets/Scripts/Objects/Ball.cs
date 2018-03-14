@@ -35,12 +35,6 @@ public class Ball : MonoBehaviour
         isHolding = false;
     }
 
-	// 시작
-	private void Start()
-	{
-		rigidbody2d.AddForce(Vector2.left * 1000f);
-	}
-
 	// 트리거 진입
 	void OnTriggerEnter2D(Collider2D other)
 	{
