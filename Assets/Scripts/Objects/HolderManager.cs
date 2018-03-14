@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class HolderManager : MonoBehaviour
 {
+	// 델리게이트
+	private delegate IEnumerator HolderAlgorithm();				   // 홀더 샷 알고리즘 델리게이트
+
     // 인스펙터 노출 변수
 	// 일반
     [SerializeField]
@@ -26,23 +29,35 @@ public class HolderManager : MonoBehaviour
 	private float      amount;                                     // 소환되는 양
 
 	// 인스펙터 비노출 변수
-    // 일반
-	public  List<Transform> holderList = new List<Transform>();    // 홀더 리스트
+	// 일반
+	//[HideInInspector]
+	public  List<Transform>   holderList = new List<Transform>();    // 홀더 리스트
     
-	private Ball            ball;                                  // 볼
+	private Ball              ball;                                  // 볼
+	private HolderAlgorithm[] holderAlgorithm;						 // 홀더 샷 알고리즘 목록
 
 	// 수치
-	private int			    count;								   // 발사한 개수 카운트
-    private float           pastTime;                              // 경과 시간
-    private float           goalTime;                              // 목표 시간
-	private float		    term;								   // 텀
-    private bool            isPasting = false;                     // 시간이 흘러가고있는가?
+    private float			  pastTime;                              // 경과 시간
+    private float             goalTime;                              // 목표 시간
+    private bool              isPasting = false;                     // 시간이 흘러가고있는가?
 
 
     // 초기화
     void Start()
     {
         ball = GameObject.FindWithTag("Ball").GetComponent<Ball>();
+		
+		// Tornado Slug Round Compression Quarter Shift
+		// 알고리즘 델리게이트 초기화
+		holderAlgorithm = new HolderAlgorithm[]
+						{
+							new HolderAlgorithm(Tornado),
+							new HolderAlgorithm(Slug),
+							new HolderAlgorithm(Round),
+							new HolderAlgorithm(Compression),
+							new HolderAlgorithm(Quarter),
+							new HolderAlgorithm(Shift)
+						};
     }
 
     // 프레임
@@ -88,18 +103,19 @@ public class HolderManager : MonoBehaviour
 	// 랜덤 패턴
 	private void RandomPattern()
 	{
-		term = Random.Range(minTerm, maxTerm);
-		count = 0;
-
-		StartCoroutine(Shift());
+		// Tornado Slug Round Compression Quarter Shift
+		StartCoroutine(holderAlgorithm[Random.Range(0, 6)]());
 	}
 
 	// 회오리
 	private IEnumerator Tornado()
 	{
-		Rigidbody2D target;                         // 타겟 홀더
-		float angle = 0;	                        // 현재 각도
-		float addAngle = 360 / amount;				// 더해지는 각도
+		Rigidbody2D target;											// 타겟 홀더
+		float		term = Random.Range(minTerm, maxTerm);			// 텀
+		int			count = 0;										// 카운트
+		float		angle = 0;									    // 현재 각도
+		float		addAngle = 360 / amount;						// 더해지는 각도
+	
 		
 		while (count < amount)
 		{
@@ -123,9 +139,11 @@ public class HolderManager : MonoBehaviour
 	// 단방향 분사
 	private IEnumerator Slug()
 	{
-		Rigidbody2D target;                         // 타겟 홀더
-		float angle;                                // 방향 각도
-		float addAngle = (50 / (amount / 10));		// 더해지는 각도
+		Rigidbody2D target;										  // 타겟 홀더
+		float		term = Random.Range(minTerm, maxTerm);        // 텀
+		int			count = 0;							   	      // 카운트
+		float		angle;										  // 방향 각도
+		float		addAngle = (50 / (amount / 10));			  // 더해지는 각도
 
 		while (count < amount)
 		{
@@ -151,12 +169,14 @@ public class HolderManager : MonoBehaviour
 		yield return null;
 	}
 
-	// 단방향 분사
+	// 전반향 분사
 	private IEnumerator Round()
 	{
-		Rigidbody2D target;                         // 타겟 홀더
-		float angle;                                // 방향 각도
-		float addAngle = (360 / (amount / 2));		// 더해지는 각도
+		Rigidbody2D target;											// 타겟 홀더
+		float		term = Random.Range(minTerm, maxTerm);			// 텀
+		int			count = 0;										// 카운트
+		float		angle;											// 방향 각도
+		float		addAngle = (360 / (amount / 2));			    // 더해지는 각도
 
 		while (count < amount)
 		{
@@ -185,10 +205,12 @@ public class HolderManager : MonoBehaviour
 	// 압축
 	private IEnumerator Compression()
 	{
-		Rigidbody2D target;                         // 타겟 홀더
-		float angle = Random.Range(0, 360);         // 현재 각도
-		float addAngle = 90 / (amount / 2);         // 더해지는 각도
-		float minusAngle = 90;						// 간격
+		Rigidbody2D target;										// 타겟 홀더
+		float		term = Random.Range(minTerm, maxTerm);      // 텀
+		int			count = 0;                                  // 카운트
+		float		angle = Random.Range(0, 360);				// 현재 각도
+		float		addAngle = 90 / (amount / 2);				// 더해지는 각도
+		float		minusAngle = 90;							// 간격
 
 		while (count < amount)
 		{
@@ -218,8 +240,10 @@ public class HolderManager : MonoBehaviour
 	// 4분할
 	private IEnumerator Quarter()
 	{
-		Rigidbody2D target;                         // 타겟 홀더
-		float angle = Random.Range(0, 90);          // 현재 각도
+		Rigidbody2D target;									    // 타겟 홀더
+		float		term = Random.Range(minTerm, maxTerm);      // 텀
+		int			count = 0;                                  // 카운트
+		float		angle = Random.Range(0, 90);				// 현재 각도
 		
 		while (count < amount)
 		{
@@ -249,10 +273,12 @@ public class HolderManager : MonoBehaviour
 	// 변속
 	private IEnumerator Shift()
 	{
-		Rigidbody2D target;                         // 타겟 홀더
-		float angle;                                // 방향 각도
-		float finalPower;							// 최종 파워
-		float addAngle = 90 / (amount / 4);			// 더해지는 각도
+		Rigidbody2D target;										 // 타겟 홀더
+		float		term = Random.Range(minTerm, maxTerm);       // 텀
+		int			count = 0;                                   // 카운트
+		float		angle;								   	     // 방향 각도
+		float		finalPower;									 // 최종 파워
+		float		addAngle = 90 / (amount / 4);				 // 더해지는 각도
 
 		while (count < amount)
 		{
