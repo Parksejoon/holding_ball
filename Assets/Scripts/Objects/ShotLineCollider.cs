@@ -25,13 +25,13 @@ public class ShotLineCollider : MonoBehaviour
     public void Judgment()
     {
 		// 초기화
-        float range = transform.lossyScale.x / 2f;  // 반지름
-        float x = transform.position.x;             // 중심 X좌표
-        float y = transform.position.y;             // 중심 Y좌표
+        float range = transform.lossyScale.x / 2f;		// 반지름
+        float x		= transform.position.x;             // 중심 X좌표
+        float y		= transform.position.y;             // 중심 Y좌표
 
 		// 타겟 목록 초기화
         perfect = new List<Transform>();
-        good = new List<Transform>();
+        good	= new List<Transform>();
 
 		// 홀더 리스트 복사
 		holderList = GameObject.Find("GameManager").GetComponent<HolderManager>().holderList;
@@ -39,26 +39,24 @@ public class ShotLineCollider : MonoBehaviour
 		// 홀더들을 불러와 판정
 		for (int i = 0; i < holderList.Count; i++)
         {
-            float distance = 0;     // 거리
+            float	distance = 0;										// 거리
+			// *issue : 홀더 정보를 얻기 전에 파괴됨*
+			Vector3 holderListPosition = holderList[i].position;		// 홀더 각자의 좌표
 
 			// 거리를 측정해서 판정진행
-			distance = Mathf.Sqrt(((holderList[i].position.x - x) * (holderList[i].position.x - x)) + ((holderList[i].position.y - y) * (holderList[i].position.y - y)));
+			distance = Mathf.Sqrt(((holderListPosition.x - x) * (holderListPosition.x - x)) + ((holderListPosition.y - y) * (holderListPosition.y - y)));
 			distance = Mathf.Abs(distance - range);
             
             // 퍼펙트
             if (distance < perfectDis)
             {
                 perfect.Add(holderList[i]);
-				Debug.Log(i + " perfect");
             }
             // 굿
             else if (distance < goodDis)
             {
                 good.Add(holderList[i]);
-				Debug.Log(i + " good");
 			}
-
-			Debug.Log(i + " fail");
 		}
 
         return;

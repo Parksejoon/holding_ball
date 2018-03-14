@@ -31,8 +31,6 @@ public class GameManager : MonoBehaviour
 	// 수치
 	[HideInInspector]
 	public  float	    shotPower = 0;              // 발사 속도
-	[HideInInspector]
-	public  int			level = 1;                  // 레벨
 
 	private int			score = 0;                  // 점수
     private bool		isTouch;                    // 현제 터치의 상태
@@ -42,10 +40,10 @@ public class GameManager : MonoBehaviour
     // 초기화
     void Awake()
     {
-		wallManager = GameObject.Find("WallManager").GetComponent<WallManager>();
-        ball = GameObject.Find("Ball").GetComponent<Ball>();
+		wallManager		= GameObject.Find("WallManager").GetComponent<WallManager>();
+        ball			= GameObject.Find("Ball").GetComponent<Ball>();
 
-        isTouch = false;
+        isTouch		    = false;
         previousIsTouch = false;
     }
 
@@ -104,39 +102,26 @@ public class GameManager : MonoBehaviour
     // 홀딩 처리
     void HoldingBall()
     {
-        if (ball.HoldingHolder())
-        {
-            // 홀딩 성공
-			// *Score 처리*
-        }
-        else
-        {
-            // 홀딩 실패
-			// *Gauge 및 기타 처리*
-        }
-
-        return;
+		ball.HoldingHolder();
     }
 
     // 언홀딩 처리
     void UnHoldingBall()
     {
         ball.UnholdingHolder();
-
-        return;
     }
 
     // 캐치 퍼펙트판정
     public void PerfectCatch()
     {
-        shotPower = perfectPower;
+        shotPower = perfectPower * Mathf.Max(1, (score / 30));
         AddScore(perfectScore);
     }
 
     // 캐치 굿판정
     public void GoodCatch()
     {
-        shotPower = goodPower;
+        shotPower = goodPower * Mathf.Max(1, (score / 30));
         AddScore(goodScore);
     }
 
@@ -158,7 +143,7 @@ public class GameManager : MonoBehaviour
 	public void WallDestroy()
 	{
 		// 월 매니저로 벽 새로생성 요청
-		wallManager.CreateWalls(level + score);
+		wallManager.CreateWalls(score);
 	}
 
 	// 게임 오버

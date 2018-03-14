@@ -15,7 +15,7 @@ public class ShotLine : MonoBehaviour
     // 초기화
     void Awake()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager		 = GameObject.Find("GameManager").GetComponent<GameManager>();
         shotLineCollider = GetComponent<ShotLineCollider>();
     }
 
@@ -43,13 +43,13 @@ public class ShotLine : MonoBehaviour
         // 퍼펙트 판정
         if (shotLineCollider.perfect.Count > 0)
         {
-            catchHolder = shotLineCollider.perfect[0].gameObject;
+            catchHolder = shotLineCollider.perfect[shotLineCollider.perfect.Count - 1].gameObject;
             gameManager.PerfectCatch();
         }
         // 굿 판정
         else if (shotLineCollider.good.Count > 0)
         {
-            catchHolder = shotLineCollider.good[0].gameObject;
+            catchHolder = shotLineCollider.good[shotLineCollider.good.Count - 1].gameObject;
             gameManager.GoodCatch();
         }
         // 페일 판정

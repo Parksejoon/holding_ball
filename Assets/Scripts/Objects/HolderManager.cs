@@ -132,8 +132,6 @@ public class HolderManager : MonoBehaviour
 
 			yield return new WaitForSeconds(term);
 		}
-
-		yield return null;
 	}
 
 	// 단방향 분사
@@ -165,8 +163,6 @@ public class HolderManager : MonoBehaviour
 
 			yield return new WaitForSeconds((term + 0.5f) * 2f);
 		}
-
-		yield return null;
 	}
 
 	// 전반향 분사
@@ -198,8 +194,6 @@ public class HolderManager : MonoBehaviour
 
 			yield return new WaitForSeconds(term + 0.5f);
 		}
-
-		yield return null;
 	}
 
 	// 압축
@@ -233,8 +227,6 @@ public class HolderManager : MonoBehaviour
 
 			yield return new WaitForSeconds(term);
 		}
-
-		yield return null;
 	}
 
 	// 4분할
@@ -266,8 +258,6 @@ public class HolderManager : MonoBehaviour
 
 			yield return new WaitForSeconds(term);
 		}
-
-		yield return null;
 	}
 
 	// 변속
@@ -304,8 +294,6 @@ public class HolderManager : MonoBehaviour
 
 			yield return new WaitForSeconds(term + 0.5f);
 		}
-
-		yield return null;
 	}
 }
 

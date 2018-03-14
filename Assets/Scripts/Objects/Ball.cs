@@ -103,11 +103,11 @@ public class Ball : MonoBehaviour
             return true;
         }
         else
-        {
-			// 홀딩 실패
-			// *GameManager에서 처리함*
+		{
+			// 홀딩 실패	
+			rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * 30f;
 
-            return false;
+			return false;
         }
     }
 
@@ -136,10 +136,13 @@ public class Ball : MonoBehaviour
 			// 날아갈 파워 설정
             shotVector = Vector3.Normalize(shotVector);
             rigidbody2d.AddForce(shotVector * shotPower * gameManager.shotPower);
-
-			// 점수 추가
-			gameManager.AddScore(1);
         }
+		// 캐치 실패
+		else
+		{
+			rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * 30f;
+
+		}
 
 		// 원래 시간으로 초기화
 		Time.timeScale = 1f;

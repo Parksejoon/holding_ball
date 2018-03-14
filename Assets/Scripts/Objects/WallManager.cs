@@ -7,7 +7,7 @@ public class WallManager : MonoBehaviour
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
-	private Object[]	wallsArray;				    // 벽 조합 배열
+	private Object		wallsPrefab;			    // 벽 프리팹
 
 	// 수치
 	[SerializeField]
@@ -25,7 +25,7 @@ public class WallManager : MonoBehaviour
 	// 초기화
 	private void Awake()
 	{
-		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+		gameManager	   = GameObject.Find("GameManager").GetComponent<GameManager>();
 		wallsTransform = GameObject.Find("Walls"). GetComponent<Transform>();
 	}
 
@@ -38,22 +38,13 @@ public class WallManager : MonoBehaviour
 	}
 
 	// 벽 생성
-	public void CreateWalls(int ind)
+	public void CreateWalls(int score)
 	{
 		float wallsSize = wallsTransform.localScale.x;
-		// ind = level + score
-
-		// 오버 인덱싱
-		if (ind >= wallsArray.Length)
-		{
-			ind = wallsArray.Length - 1;
-		}
-
+		
 		// 생성
-		GameObject walls = Instantiate(wallsArray[ind], new Vector3(0, 0, 0), Quaternion.identity, transform) as GameObject;		// 벽 생성
-		int		   warWallCount = Random.Range(0, Mathf.Min(3, (gameManager.level / 3)));                                           // 위험 벽의 갯수
-		int		   warWallInd = 0;
-
+		GameObject walls = Instantiate(wallsPrefab, new Vector3(0, 0, 0), Quaternion.identity, transform) as GameObject;			// 벽 생성
+		
 		// 기존 벽을 파괴
 		Destroy(wallsTransform.gameObject);
 
@@ -65,16 +56,16 @@ public class WallManager : MonoBehaviour
 
 		wallsTransform.localScale = new Vector3(scaleValue, scaleValue);
 		wallsTransform.rotation = Quaternion.Euler(0, 0, 0);
- 
-		// 간격을 도형에 따라 유동적으로 랜덤으로 조절
-		for (int i = 0; i < warWallCount; i++)
-		{
-			walls.transform.GetChild(warWallInd + Random.Range(0, termValue[ind])).GetComponent<Wall>().isWarWall = true;
-		}
 
+		rotationSpeed *= -1;
+
+		// 월 워 설정
+		for (int i = 0; i < Mathf.Min(3, (score / 15) + 1); i++)
+		{
+			walls.transform.GetChild(i).GetComponent<Wall>().isWarWall = true;
+		}
+		
 		// 타이머 재설정
 		timer = Random.Range(0, 90);
 	}
-
-
 }
