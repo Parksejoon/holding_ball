@@ -15,9 +15,10 @@ public class Ball : MonoBehaviour
 	public  GameObject  bindedHolder;           // 볼이 바인딩되어있는 홀더
 
     private GameObject  targetHolder;			// 현재 타겟이된 홀더
-    private GameObject  shotLine;				// ShotLine오브젝트
-    private GameManager gameManager;			// 게임 매니저
-    private Rigidbody2D rigidbody2d;			// 이 오브젝트의 리짓바디
+    private GameObject  shotLine;               // ShotLine오브젝트
+	private Transform   originalParent;         // 초기 부모
+	private GameManager gameManager;			// 게임 매니저
+    private Rigidbody2D rigidbody2d;            // 이 오브젝트의 리짓바디
 
     // 수치
     [HideInInspector]
@@ -29,9 +30,10 @@ public class Ball : MonoBehaviour
     // 초기화
     private void Awake()
     {
+		originalParent = transform.parent;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         rigidbody2d = GetComponentInParent<Rigidbody2D>();
-		
+
         isHolding = false;
     }
 
@@ -67,6 +69,12 @@ public class Ball : MonoBehaviour
     // 홀더에 언바인딩
     void UnbindingHolder()
 	{
+		if (isHolding)
+		{
+			// 홀딩중일시 홀딩 해제
+			UnholdingHolder();
+		}
+
 		// 바인딩 홀더를 초기화
 		bindedHolder = null;
 	
@@ -79,17 +87,13 @@ public class Ball : MonoBehaviour
         // 바인딩된 홀더가 있는지 확인
         if (bindedHolder != null)
         {
-            // 볼의 속도를 영벡터로 변경
-            rigidbody2d.velocity = Vector2.zero;
-
-			// 홀더 속도를 영벡터로 변경
-			bindedHolder.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-
+			Debug.Log("Ball is holding ! ");
+			
 			// 홀딩 상태로 전환
 			isHolding = true;
 
-			// 볼의 위치를 중앙으로 이동
-            // *ball position = holder position*
+			// 부모 변경
+			transform.parent.SetParent(bindedHolder.GetComponent<Transform>());
 
             // 슛라인 생성
             shotLine = Instantiate(shotLinePrefab, transform.position, Quaternion.identity, transform);
@@ -99,7 +103,7 @@ public class Ball : MonoBehaviour
         else
 		{
 			// 홀딩 실패	
-			rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * 30f;
+			rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * 15f;
 
 			return false;
         }
@@ -111,31 +115,51 @@ public class Ball : MonoBehaviour
 		// 홀더에서 탈출
 		isHolding = false;
 
-		// 홀더 파괴
-		bindedHolder.tag = "Untagged";
-		Destroy(bindedHolder.gameObject);
+		// 부모 초기화
+		transform.parent.SetParent(originalParent);
 
-		// 캐치 했는지 판정
-		targetHolder = shotLine.GetComponent<ShotLine>().Judgment();
+		// 홀더만 따로 파괴된 경우
+		if (bindedHolder == null)
+		{
+			Debug.Log("Holder is null");
+			Destroy(shotLine.gameObject);
 
-		// 슛라인 파괴
-		Destroy(shotLine.gameObject);
-
-        // 타겟 홀더를 향해 날아감
-        if (targetHolder != null)
-        {
-			// 날아갈 벡터의 방향
-            Vector3 shotVector = (targetHolder.transform.position - transform.position);
-
-			// 날아갈 파워 설정
-            shotVector = Vector3.Normalize(shotVector);
-            rigidbody2d.AddForce(shotVector * shotPower * gameManager.shotPower);
-        }
-		// 캐치 실패
+			rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * 10f;
+		}
+		// 슛라인만 따로 파괴된 경우
+		else if (shotLine == null)
+		{
+			Debug.Log("Shotline is null");
+			rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * 15f;
+		}
+		// 정상 작동
 		else
 		{
-			rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * 30f;
+			// 홀더 파괴
+			//bindedHolder.tag = "Untagged";
+			Destroy(bindedHolder.gameObject);
 
+			// 캐치 했는지 판정
+			targetHolder = shotLine.GetComponent<ShotLine>().Judgment();
+
+			// 슛라인 파괴
+			Destroy(shotLine.gameObject);
+
+			// 타겟 홀더를 향해 날아감
+			if (targetHolder != null)
+			{
+				// 날아갈 벡터의 방향
+				Vector3 shotVector = (targetHolder.transform.position - transform.position);
+
+				// 날아갈 파워 설정
+				shotVector = Vector3.Normalize(shotVector);
+				rigidbody2d.AddForce(shotVector * shotPower * gameManager.shotPower);
+			}
+			// 캐치 실패
+			else
+			{
+				rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * 15f;
+			}
 		}
 
 		// 원래 시간으로 초기화

@@ -13,14 +13,20 @@ public class ShotLine : MonoBehaviour
 
 
     // 초기화
-    void Awake()
+    private void Awake()
     {
         gameManager		 = GameObject.Find("GameManager").GetComponent<GameManager>();
         shotLineCollider = GetComponent<ShotLineCollider>();
     }
 
-    // 프레임
-    void Update()
+	// 시작
+	private void Start()
+	{
+		StartCoroutine(TimeDestroy());
+	}
+
+	// 프레임
+	private void Update()
     {
 		// 타이머
 		timer += Time.deltaTime;
@@ -61,4 +67,12 @@ public class ShotLine : MonoBehaviour
 		// 캐치된 홀더 반환
         return catchHolder;
     }
+
+	// 자동 파괴
+	private IEnumerator TimeDestroy()
+	{
+		yield return new WaitForSeconds(2f);
+
+		Destroy(gameObject);
+	}
 }

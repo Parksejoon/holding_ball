@@ -37,6 +37,7 @@ public class Wall : MonoBehaviour
 		{
 			// 파괴 전 홀더 검사
 			gameManager.HolderCheck(collision.gameObject);
+			//Destroy(collision.gameObject);
 		}
 	}
 

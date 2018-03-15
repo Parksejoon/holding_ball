@@ -151,10 +151,12 @@ public class GameManager : MonoBehaviour
 	{
 		if (ball.bindedHolder == target)
 		{
+			Debug.Log("A");
 			ball.UnholdingHolder();
 		}
 		else
 		{
+			Debug.Log("B");
 			// 파괴
 			Destroy(target);
 		}

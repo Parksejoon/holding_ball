@@ -42,21 +42,24 @@ public class ShotLineCollider : MonoBehaviour
             float	distance = 0;										// 거리
 
 			// *issue : 홀더 정보를 얻기 전에 파괴됨*
-			Vector3 holderListPosition = holderList[i].position;		// 홀더 각자의 좌표
+			if (holderList[i] != null)
+			{
+				Vector3 holderListPosition = holderList[i].position;        // 홀더 각자의 좌표
 
-			// 거리를 측정해서 판정진행
-			distance = Mathf.Sqrt(((holderListPosition.x - x) * (holderListPosition.x - x)) + ((holderListPosition.y - y) * (holderListPosition.y - y)));
-			distance = Mathf.Abs(distance - range);
-            
-            // 퍼펙트
-            if (distance < perfectDis)
-            {
-                perfect.Add(holderList[i]);
-            }
-            // 굿
-            else if (distance < goodDis)
-            {
-                good.Add(holderList[i]);
+				// 거리를 측정해서 판정진행
+				distance = Mathf.Sqrt(((holderListPosition.x - x) * (holderListPosition.x - x)) + ((holderListPosition.y - y) * (holderListPosition.y - y)));
+				distance = Mathf.Abs(distance - range);
+
+				// 퍼펙트
+				if (distance < perfectDis)
+				{
+					perfect.Add(holderList[i]);
+				}
+				// 굿
+				else if (distance < goodDis)
+				{
+					good.Add(holderList[i]);
+				}
 			}
 		}
 

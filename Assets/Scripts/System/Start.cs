@@ -8,7 +8,8 @@ public class Start : MonoBehaviour
 	// 일반
 	private GameManager	  gameManager;				// 게임 매니저
 	private HolderManager holderManager;            // 홀더 매니저
-	private Rigidbody2D	  ballRigidbody2d;			// 공의 트랜스폼
+	private Rigidbody2D	  ballRigidbody2d;          // 공의 트랜스폼
+	private Camera		  camera;					// 카메라
 
 
 	// 초기화
@@ -17,6 +18,7 @@ public class Start : MonoBehaviour
 		gameManager     = GetComponent<GameManager>();
 		holderManager   = GetComponent<HolderManager>();
 		ballRigidbody2d = GameObject.Find("BallCollider").GetComponent<Rigidbody2D>();
+		camera		    = GameObject.Find("Main Camera").GetComponent<Camera>();
 	}
 
 	// 프레임
@@ -42,9 +44,10 @@ public class Start : MonoBehaviour
 	{
 		Vector2 targetVec2;
 
-		targetVec2 = Vector3.Normalize(new Vector3(Input.mousePosition.x, Input.mousePosition.y));
+		targetVec2 = camera.ScreenToWorldPoint(Input.mousePosition);
+		targetVec2 = Vector3.Normalize(targetVec2);
 		targetVec2 *= 10f;
-
+		
 		ballRigidbody2d.velocity = targetVec2;
 	}
 }
