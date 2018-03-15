@@ -49,5 +49,7 @@ public class Start : MonoBehaviour
 		targetVec2 *= 10f;
 		
 		ballRigidbody2d.velocity = targetVec2;
+
+		Destroy(this);
 	}
 }

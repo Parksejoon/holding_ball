@@ -17,15 +17,12 @@ public class WallManager : MonoBehaviour
 
 	// 인스펙터 비노출 변수
 	// 일반
-	private GameManager gameManager;                // 게임매니저
 	private Transform	wallsTransform;				// 벽들의 트랜스폼
-	private float		timer = 0f;                 // 타이머	
-	private int[]		termValue = { 0, 1, 1 };	// 도형 텀
+	private float		timer = 0f;                 // 타이머
 
 	// 초기화
 	private void Awake()
 	{
-		gameManager	   = GameObject.Find("GameManager").GetComponent<GameManager>();
 		wallsTransform = GameObject.Find("Walls"). GetComponent<Transform>();
 	}
 
