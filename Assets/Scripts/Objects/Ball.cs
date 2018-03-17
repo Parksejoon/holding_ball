@@ -137,6 +137,9 @@ public class Ball : MonoBehaviour
 			// 슛라인 파괴
 			Destroy(shotLine.gameObject);
 
+			// 물리량 초기화
+			rigidbody2d.velocity = Vector3.zero;
+
 			// 타겟 홀더를 향해 날아감
 			if (targetHolder != null)
 			{

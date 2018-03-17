@@ -50,51 +50,56 @@ public class GameManager : MonoBehaviour
     // 프레임
     void Update()
     {
-        // 클릭 처리 ( PC )
-        if (Input.GetMouseButtonDown(0))
-        {
-            isTouch = true;
-        }
+		// 클릭 처리 ( PC )
+		if (Input.GetMouseButtonDown(0))
+		{
+			isTouch = true;
+		}
 
-        if (!Input.GetMouseButton(0))
-        {
-            isTouch = false;
-        }
+		if (!Input.GetMouseButton(0))
+		{
+			isTouch = false;
+		}
 
-        //// 터치 처리 ( 모바일 )
-        
-        //if (Input.touchCount > 0)
-        //{
-        //    for (int i = 0; i < Input.touchCount; i++)
-        //    {
-        //        touch = Input.GetTouch(i);
-        //        if (touch.phase == TouchPhase.Began)
-        //        {
-        //            isTouch = true;
+		//// 터치 처리 ( 모바일 )
 
-        //            break;
-        //        }
-        //    }
-        //}
+		//if (Input.touchCount > 0)
+		//{
+		//    for (int i = 0; i < Input.touchCount; i++)
+		//    {
+		//        touch = Input.GetTouch(i);
+		//        if (touch.phase == TouchPhase.Began)
+		//        {
+		//            isTouch = true;
 
-        // 홀딩 처리
-        if (isTouch != previousIsTouch)
-        {
-            if (isTouch)
-            {
-                // 홀딩 처리
-                HoldingBall();
-            }
-            else
-            {
-                if (ball.isHolding)
-                {
-                    // 언홀딩 처리
-                    UnHoldingBall();
-                }
+		//            break;
+		//        }
+		//    }
+		//}
 
-            }
-        }
+
+		// 퍼즈상태가 아닐때
+		if (!PauseButton.isPause)
+		{
+			// 홀딩 처리
+			if (isTouch != previousIsTouch)
+			{
+				if (isTouch)
+				{
+					// 홀딩 처리
+					HoldingBall();
+				}
+				else
+				{
+					if (ball.isHolding)
+					{
+						// 언홀딩 처리
+						UnHoldingBall();
+					}
+
+				}
+			}
+		}
 
         previousIsTouch = isTouch;
     }
