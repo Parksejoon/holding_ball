@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
 	private WallManager wallManager;				// 월 매니저
 	private Ball		ball;                       // 볼
     private Touch		touch;                      // 터치 구조체
+	private Camera		camera;						// 카메라
 
 	// 수치
 	[HideInInspector]
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
     {
 		wallManager		= GameObject.Find("WallManager").GetComponent<WallManager>();
         ball			= GameObject.Find("Ball").GetComponent<Ball>();
+		camera			= GameObject.Find("Main Camera").GetComponent<Camera>();
 
         isTouch		    = false;
         previousIsTouch = false;
@@ -146,6 +148,9 @@ public class GameManager : MonoBehaviour
 	{
 		// 월 매니저로 벽 새로생성 요청
 		wallManager.CreateWalls(score);
+
+		// 카메라 줌아웃
+		StartCoroutine(CameraZoomOut());
 	}
 
 	// 홀더 체크
@@ -169,6 +174,18 @@ public class GameManager : MonoBehaviour
 	public void GameOver()
 	{
 		Debug.Log("GG");
+	}
+
+	// 카메라 줌아웃
+	private IEnumerator CameraZoomOut()
+	{
+		for (int i = 0; i < 50; i++)
+		{
+			// 카메라 줌아웃
+			camera.orthographicSize += 0.1f;
+
+			yield return new WaitForSeconds(0.01f);
+		}
 	}
 }
     

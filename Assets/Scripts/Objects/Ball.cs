@@ -61,7 +61,7 @@ public class Ball : MonoBehaviour
 		// 바인딩 홀더를 설정
         bindedHolder = holder;
 
-		Time.timeScale = 0.2f;
+		Time.timeScale = 0.3f;
     }
 
     // 홀더에 언바인딩
@@ -86,6 +86,9 @@ public class Ball : MonoBehaviour
         if (bindedHolder != null)
         {
 			Debug.Log("Ball is holding ! ");
+
+			// 속도 제어
+			rigidbody2d.velocity = bindedHolder.GetComponent<Rigidbody2D>().velocity;
 			
 			// 홀딩 상태로 전환
 			isHolding = true;
