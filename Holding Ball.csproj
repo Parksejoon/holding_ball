@@ -299,6 +299,9 @@
     <Compile Include="Assets\Scripts\UI\PauseButton.cs" />
     <Compile Include="Assets\Scripts\UI\TouchPanel.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Materials\Shader\FinalBack.shader" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>
