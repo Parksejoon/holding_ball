@@ -296,8 +296,8 @@
     <Compile Include="Assets\Scripts\System\Start.cs" />
     <Compile Include="Assets\Scripts\System\WallManager.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
-    <Compile Include="Assets\Scripts\UI\Gauge.cs" />
     <Compile Include="Assets\Scripts\UI\PauseButton.cs" />
+    <Compile Include="Assets\Scripts\UI\TouchPanel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

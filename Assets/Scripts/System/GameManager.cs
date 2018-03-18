@@ -31,9 +31,10 @@ public class GameManager : MonoBehaviour
 	// 수치
 	[HideInInspector]
 	public  float	    shotPower = 0;              // 발사 속도
+	[HideInInspector]
+	public  bool		isTouch;                    // 현제 터치의 상태
 
 	private int			score = 0;                  // 점수
-    private bool		isTouch;                    // 현제 터치의 상태
     private bool		previousIsTouch;            // 이전 터지의 상태
 	
 
@@ -50,11 +51,11 @@ public class GameManager : MonoBehaviour
     // 프레임
     void Update()
     {
-		// 클릭 처리 ( PC )
-		if (Input.GetMouseButtonDown(0))
-		{
-			isTouch = true;
-		}
+		//// 클릭 처리 ( PC )
+		//if (Input.GetMouseButtonDown(0))
+		//{
+		//	isTouch = true;
+		//}
 
 		if (!Input.GetMouseButton(0))
 		{
@@ -78,26 +79,22 @@ public class GameManager : MonoBehaviour
 		//}
 
 
-		// 퍼즈상태가 아닐때
-		if (!PauseButton.isPause)
+		// 홀딩 처리
+		if (isTouch != previousIsTouch)
 		{
-			// 홀딩 처리
-			if (isTouch != previousIsTouch)
+			if (isTouch)
 			{
-				if (isTouch)
+				// 홀딩 처리
+				HoldingBall();
+			}
+			else
+			{
+				if (ball.isHolding)
 				{
-					// 홀딩 처리
-					HoldingBall();
+					// 언홀딩 처리
+					UnHoldingBall();
 				}
-				else
-				{
-					if (ball.isHolding)
-					{
-						// 언홀딩 처리
-						UnHoldingBall();
-					}
 
-				}
 			}
 		}
 
