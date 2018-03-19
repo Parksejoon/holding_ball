@@ -8,8 +8,7 @@ public class SecondBack : MonoBehaviour
 	// 일반
 	private Sprite  sprite;              // 대상 스프라이트
 	private float   rotationSpeed;       // 회전률
-	private float	timer = 0f;			 // 타이머
-
+	
 
 	// 초기화
 	private void Awake()
@@ -20,17 +19,16 @@ public class SecondBack : MonoBehaviour
 	// 프레임
 	private void Update()
 	{
-		timer += Time.deltaTime;
-
-		transform.rotation = Quaternion.Euler(0, 0, rotationSpeed * 10 * timer);
+		transform.rotation = Quaternion.Euler(0, 0, rotationSpeed * 10 * SecondBackList.timer);
 	}
 
 	// 전체 초기화
 	private void Initialize()
 	{
-		sprite = GetComponent<Sprite>();
-		rotationSpeed = Random.Range(-1.2f, 1.2f);
+		sprite		  = GetComponent<Sprite>();
+		rotationSpeed = Random.Range(0.8f, 1.2f);
 
+		transform.position   = new Vector2(Random.Range(-90, 90), Random.Range(-90, 90));
 		transform.localScale = new Vector2(Random.Range(0.5f, 1.5f), Random.Range(0.5f, 1.5f));
 	}
 }
