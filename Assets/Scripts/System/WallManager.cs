@@ -7,7 +7,9 @@ public class WallManager : MonoBehaviour
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
-	private Object		wallsPrefab;			    // 벽 프리팹
+	private Object		wallsPrefab;                // 벽 프리팹
+	[SerializeField]
+	private Material	warWallsMat;			    // 위험 벽 질감
 
 	// 수치
 	[SerializeField]
@@ -19,6 +21,7 @@ public class WallManager : MonoBehaviour
 	// 일반
 	private Transform	wallsTransform;				// 벽들의 트랜스폼
 	private float		timer = 0f;                 // 타이머
+	private int			level = 0;					// 벽 레벨
 
 	// 초기화
 	private void Awake()
@@ -57,11 +60,19 @@ public class WallManager : MonoBehaviour
 		rotationSpeed *= -1;
 
 		// 월 워 설정
-		for (int i = 0; i < Mathf.Min(3, (score / 15) + 1); i++)
+		for (int i = 0; i < Mathf.Min(4, (level / 2) + 1); i++)
 		{
-			walls.transform.GetChild(i).GetComponent<Wall>().isWarWall = true;
+			Transform targetWall = walls.transform.GetChild(i);
+
+			targetWall.GetComponent<Wall>().ActiveWarWall();
+			targetWall.GetComponent<Renderer>().material = warWallsMat;
+
+			Debug.Log("aa");
 		}
-		
+
+		// 레벨 증가
+		level++;
+
 		// 타이머 재설정
 		timer = Random.Range(0, 90);
 	}

@@ -116,17 +116,37 @@ public class GameManager : MonoBehaviour
     }
 
     // 캐치 퍼펙트판정
-    public void PerfectCatch()
+    public void PerfectCatch(float distance)
     {
+		int score = 0;
+		int range = 0;
+
         shotPower = perfectPower * Mathf.Max(1, (score / 30));
-        AddScore(perfectScore);
-    }
+
+		for (int i = 2; range <= distance; range += i, i += 2, score++)
+		{
+			Debug.Log(score);
+		}
+		
+		AddScore(score * 2);
+		Debug.Log(score);
+	}
 
     // 캐치 굿판정
-    public void GoodCatch()
+    public void GoodCatch(float distance)
     {
+		int score = 0;
+		int range = 0;
+
         shotPower = goodPower * Mathf.Max(1, (score / 30));
-        AddScore(goodScore);
+
+		for (int i = 2; range <= distance; range += i, i += 2, score++)
+		{
+			Debug.Log(score);
+		}
+
+		AddScore(score);
+		Debug.Log(score);
     }
 
     // 캐치 페일판정

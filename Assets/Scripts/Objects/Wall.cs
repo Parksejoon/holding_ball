@@ -67,4 +67,11 @@ public class Wall : MonoBehaviour
 
 		Destroy(gameObject);
 	}
+
+	// 위험 벽 활성화
+	public void ActiveWarWall()
+	{
+		isWarWall = true;
+		health = 70;
+	}
 }

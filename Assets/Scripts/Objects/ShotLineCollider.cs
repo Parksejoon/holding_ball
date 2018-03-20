@@ -18,6 +18,10 @@ public class ShotLineCollider : MonoBehaviour
 	[HideInInspector]
 	public List<Transform>  good;                 // 일반 판정 오브젝트 리스트
 	[HideInInspector]
+	public List<float>      perfectDisList;       // 퍼펙트 판정 오브젝트 거리 리스트
+	[HideInInspector]
+	public List<float>      goodDisList;          // 일반 판정 오브젝트 거리 리스트
+	[HideInInspector]
 	public List<Transform>  holderList;           // 홀더 리스트
 
 	
@@ -30,8 +34,10 @@ public class ShotLineCollider : MonoBehaviour
         float y		= transform.position.y;             // 중심 Y좌표
 
 		// 타겟 목록 초기화
-        perfect = new List<Transform>();
-        good	= new List<Transform>();
+        perfect		   = new List<Transform>();
+        good		   = new List<Transform>();
+		perfectDisList = new List<float>();
+		goodDisList    = new List<float>();
 
 		// 홀더 리스트 복사
 		holderList = GameObject.Find("GameManager").GetComponent<HolderManager>().holderList;
@@ -54,11 +60,13 @@ public class ShotLineCollider : MonoBehaviour
 				if (distance < perfectDis)
 				{
 					perfect.Add(holderList[i]);
+					perfectDisList.Add(distance);
 				}
 				// 굿
 				else if (distance < goodDis)
 				{
 					good.Add(holderList[i]);
+					goodDisList.Add(distance);
 				}
 			}
 		}

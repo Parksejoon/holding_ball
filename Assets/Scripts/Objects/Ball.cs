@@ -148,9 +148,11 @@ public class Ball : MonoBehaviour
 			{
 				// 날아갈 벡터의 방향
 				Vector3 shotVector = (targetHolder.transform.position - transform.position);
-
+				
 				// 날아갈 파워 설정
 				shotVector = Vector3.Normalize(shotVector);
+
+				// 가즈아
 				rigidbody2d.AddForce(shotVector * shotPower * gameManager.shotPower);
 			}
 			// 캐치 실패
