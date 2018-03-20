@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    public Rigidbody2D rigidbody2d;
+	public Material met;
+	
 
-    
-    void Awake()
-    {
-        rigidbody2d = GetComponent<Rigidbody2D>();
-
-		rigidbody2d.AddForce(Vector2.up * 100);
+	private void Start()
+	{
+		met.color = Color.HSVToRGB(0.5f, 0.5f, 1);
 	}
 }
