@@ -45,25 +45,25 @@ public class ShotLineCollider : MonoBehaviour
 		// 홀더들을 불러와 판정
 		for (int i = 0; i < holderList.Count; i++)
         {
-            float	distance = 0;										// 거리
+            float	distance = 0;                                       // 공과의 거리
+			float	holdDistance = 0;									// 홀더와의 거리
 
-			// *issue : 홀더 정보를 얻기 전에 파괴됨*
 			if (holderList[i] != null)
 			{
 				Vector3 holderListPosition = holderList[i].position;        // 홀더 각자의 좌표
 
 				// 거리를 측정해서 판정진행
 				distance = Mathf.Sqrt(((holderListPosition.x - x) * (holderListPosition.x - x)) + ((holderListPosition.y - y) * (holderListPosition.y - y)));
-				distance = Mathf.Abs(distance - range);
+				holdDistance = Mathf.Abs(distance - range);
 
 				// 퍼펙트
-				if (distance < perfectDis)
+				if (holdDistance < perfectDis)
 				{
 					perfect.Add(holderList[i]);
 					perfectDisList.Add(distance);
 				}
 				// 굿
-				else if (distance < goodDis)
+				else if (holdDistance < goodDis)
 				{
 					good.Add(holderList[i]);
 					goodDisList.Add(distance);

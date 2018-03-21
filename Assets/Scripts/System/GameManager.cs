@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
 
 	private int			score = 0;                  // 점수
     private bool		previousIsTouch;            // 이전 터지의 상태
+	private bool		canTouch = true;			// 터치 가능?
 	
 
     // 초기화
@@ -82,7 +83,7 @@ public class GameManager : MonoBehaviour
 
 
 		// 홀딩 처리
-		if (isTouch != previousIsTouch)
+		if (isTouch != previousIsTouch && canTouch)
 		{
 			if (isTouch)
 			{
@@ -118,36 +119,39 @@ public class GameManager : MonoBehaviour
     // 캐치 퍼펙트판정
     public void PerfectCatch(float distance)
     {
-		int score = 0;
-		int range = 0;
+		// 발사 속도 설정
+		shotPower = perfectPower * Mathf.Max(1, (score / 30));
 
-        shotPower = perfectPower * Mathf.Max(1, (score / 30));
-
-		for (int i = 2; range <= distance; range += i, i += 2, score++)
-		{
-			Debug.Log(score);
-		}
-		
-		AddScore(score * 2);
-		Debug.Log(score);
+		// 점수 계산
+		AddScore(scoreCompute(distance));
 	}
 
     // 캐치 굿판정
     public void GoodCatch(float distance)
     {
-		int score = 0;
-		int range = 0;
-
+		// 발사 속도 설정
         shotPower = goodPower * Mathf.Max(1, (score / 30));
 
-		for (int i = 2; range <= distance; range += i, i += 2, score++)
+		// 점수 계산
+		AddScore(scoreCompute(distance));
+    }
+
+	// 점수 계산기
+	private int scoreCompute(float distance)
+	{
+		int score = -1;
+		int range = 0;
+
+		for (int i = 2; range <= distance; score++)
 		{
-			Debug.Log(score);
+			i += 2;
+			range += i;
 		}
 
-		AddScore(score);
 		Debug.Log(score);
-    }
+
+		return score;
+	}
 
     // 캐치 페일판정
     public void FailCatch()
@@ -171,6 +175,9 @@ public class GameManager : MonoBehaviour
 
 		// 카메라 줌아웃
 		StartCoroutine(CameraZoomOut());
+
+		// 공 당기기
+		StartCoroutine(BallPull());
 	}
 
 	// 홀더 체크
@@ -180,8 +187,6 @@ public class GameManager : MonoBehaviour
 		{
 			// 언홀딩
 			ball.UnholdingHolder();
-
-			Time.timeScale = 1f;
 		}
 		else
 		{
@@ -206,6 +211,20 @@ public class GameManager : MonoBehaviour
 
 			yield return new WaitForSeconds(0.01f);
 		}
+	}
+
+	// 공 당기기
+	private IEnumerator BallPull()
+	{
+		// 공쪽 코루틴 시작
+		StartCoroutine(ball.BallPullManager());
+
+		// 터치 제어
+		canTouch = false;
+
+		yield return new WaitForSeconds(1f);
+
+		canTouch = true;
 	}
 }
     

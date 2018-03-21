@@ -15,18 +15,20 @@ public class WallManager : MonoBehaviour
 	[SerializeField]
 	private float	    rotationSpeed = 1f;         // 회전속도
 	[SerializeField]
-	private float		wallsScale = 1f;			// 벽의 크기
+	private float		wallsScale = 1f;            // 벽의 크기
 
 	// 인스펙터 비노출 변수
 	// 일반
-	private Transform	wallsTransform;				// 벽들의 트랜스폼
-	private float		timer = 0f;                 // 타이머
-	private int			level = 0;					// 벽 레벨
+	private BackGroundManager	backGroundManager;			// 뒷배경 매니저
+	private Transform			wallsTransform;				// 벽들의 트랜스폼
+	private float				timer = 0f;                 // 타이머
+	private int					level = 0;					// 벽 레벨
 
 	// 초기화
 	private void Awake()
 	{
-		wallsTransform = GameObject.Find("Walls"). GetComponent<Transform>();
+		backGroundManager = GameObject.Find("BackGround").GetComponent<BackGroundManager>();
+		wallsTransform    = GameObject.Find("Walls"). GetComponent<Transform>();
 	}
 
 	// 프레임
@@ -59,15 +61,16 @@ public class WallManager : MonoBehaviour
 
 		rotationSpeed *= -1;
 
+		// 배경 크기 설정
+		backGroundManager.NextScale(wallsScale);
+
 		// 월 워 설정
-		for (int i = 0; i < Mathf.Min(4, (level / 2) + 1); i++)
+		for (int i = 0; i < Mathf.Min(3, (level / 2) + 1); i++)
 		{
 			Transform targetWall = walls.transform.GetChild(i);
 
 			targetWall.GetComponent<Wall>().ActiveWarWall();
 			targetWall.GetComponent<Renderer>().material = warWallsMat;
-
-			Debug.Log("aa");
 		}
 
 		// 레벨 증가

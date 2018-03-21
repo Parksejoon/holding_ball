@@ -18,19 +18,23 @@ public class Ball : MonoBehaviour
     private GameObject  shotLine;               // ShotLine오브젝트
 	private GameManager gameManager;			// 게임 매니저
     private Rigidbody2D rigidbody2d;            // 이 오브젝트의 리짓바디
+	private	Transform	ballTransform;			// 공의 트랜스폼
 
-    // 수치
-    [HideInInspector]
+	// 수치
+	[HideInInspector]
 	public  bool        isHolding;              // 홀딩 상태를 나타냄
     [HideInInspector]
 	public  float       shotPower = 3f;         // 발사 속도
+
+	private bool		isBallPull = false;		// 공 당기는 상태인지
 
 
     // 초기화
     private void Awake()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        rigidbody2d = GetComponentInParent<Rigidbody2D>();
+        gameManager   = GameObject.Find("GameManager").GetComponent<GameManager>();
+        rigidbody2d	  = GetComponentInParent<Rigidbody2D>();
+		ballTransform = transform.parent;
 
         isHolding = false;
     }
@@ -61,8 +65,9 @@ public class Ball : MonoBehaviour
 		// 바인딩 홀더를 설정
         bindedHolder = holder;
 
-		Time.timeScale = 0.3f;
-    }
+		// 시간 제어
+		Time.timeScale = 0.7f;
+	}
 
     // 홀더에 언바인딩
     void UnbindingHolder()
@@ -73,10 +78,11 @@ public class Ball : MonoBehaviour
 			UnholdingHolder();
 		}
 
+		// 시간 제어
+		Time.timeScale = 1f;
+
 		// 바인딩 홀더를 초기화
 		bindedHolder = null;
-	
-		Time.timeScale = 1f;
     }
 
     // 홀더에 홀딩
@@ -85,7 +91,8 @@ public class Ball : MonoBehaviour
         // 바인딩된 홀더가 있는지 확인
         if (bindedHolder != null)
         {
-			Debug.Log("Ball is holding ! ");
+			// 시간 제어
+			Time.timeScale = 0.5f;
 
 			// 속도 제어
 			rigidbody2d.velocity = bindedHolder.GetComponent<Rigidbody2D>().velocity;
@@ -112,6 +119,9 @@ public class Ball : MonoBehaviour
 	{
 		// 홀더에서 탈출
 		isHolding = false;
+
+		// 시간 제어
+		Time.timeScale = 1f;
 
 		// 홀더만 따로 파괴된 경우
 		if (bindedHolder == null)
@@ -161,8 +171,36 @@ public class Ball : MonoBehaviour
 				rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * 15f;
 			}
 		}
-
-		// 원래 시간으로 초기화
-		Time.timeScale = 1f;
     }
+
+	// 공 당기기 제어
+	public IEnumerator BallPullManager()
+	{
+		isBallPull = true;
+		StartCoroutine(BallPull());
+
+		yield return new WaitForSeconds(0.3f);
+
+		isBallPull = false;
+	}
+
+	// 공 당기기
+	private IEnumerator BallPull()
+	{
+		Vector2 tempVector = rigidbody2d.velocity;
+
+		GetComponentInParent<Collider2D>().enabled = false;
+		rigidbody2d.velocity = Vector2.zero;
+
+		while (isBallPull)
+		{
+			ballTransform.position = Vector2.Lerp(ballTransform.position, Vector2.zero, 0.005f);
+
+			yield return new WaitForSeconds(0.01f);
+		}
+
+		GetComponentInParent<Collider2D>().enabled = true;
+		rigidbody2d.velocity = tempVector;
+	}
+
 }

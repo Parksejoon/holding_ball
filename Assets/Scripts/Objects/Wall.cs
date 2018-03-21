@@ -72,6 +72,6 @@ public class Wall : MonoBehaviour
 	public void ActiveWarWall()
 	{
 		isWarWall = true;
-		health = 70;
+		health = 130;
 	}
 }

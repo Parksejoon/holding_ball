@@ -26,7 +26,7 @@ public class ShaderManager : MonoBehaviour
 	// 색 변경
 	private void ChangeColor(float H)
 	{
-		backGround.SetColor("_TopColor", Color.HSVToRGB(H, 0.2f, 1f));
+		backGround.SetColor("_TopColor", Color.HSVToRGB(H, 0.3f, 0.9f));
 		backGround.SetColor("_BotColor", Color.HSVToRGB(H, 0.8f, 0.2f));
 		wall.SetColor("_Color", Color.HSVToRGB(H, 0.45f, 1f));
 		ball.SetColor("_Color", Color.HSVToRGB(H, 0.6f, 1f));

@@ -9,10 +9,6 @@ public class CameraChase : MonoBehaviour
     [SerializeField]
 	private float     speed = 0.05f;               // 카메라 이동 속도
 	[SerializeField]
-	private float     limitX;                      // X좌표 최대치
-	[SerializeField]
-	private float     limitY;                      // Y좌표 최대치
-	[SerializeField]
 	private float     fixX;                        // 고정 x축 좌표
     [SerializeField]
 	private float     fixY;                        // 고정 y축 좌표
@@ -27,17 +23,5 @@ public class CameraChase : MonoBehaviour
 
 		transform.position = new Vector3(Mathf.Lerp(transform.position.x, chaseObject.position.x - fixX, speed),
 										 Mathf.Lerp(transform.position.y, chaseObject.position.y - fixY, speed), -10);
-
-		// X값이 벗어날 때
-		if (transform.position.x >= limitX || transform.position.x <= -limitX)
-		{
-			transform.position = new Vector3(temp.x, transform.position.y, -10);
-		}
-
-		// Y값이 벗어날 때
-		if (transform.position.y >= limitY || transform.position.y <= -limitY)
-		{
-			transform.position = new Vector3(transform.position.x, temp.y, -10);
-		}
     }
 }
