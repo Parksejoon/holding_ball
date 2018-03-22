@@ -6,18 +6,20 @@ public class Wall : MonoBehaviour
 {
 	// 인스펙터 노출 변수
 	// 수치
-	public bool isWarWall = false;    // 게임 오버 벽인지 여부
+	public bool			isWarWall = false;    // 게임 오버 벽인지 여부
 
 	// 인스펙터 비노출 변수
 	// 일반
 	private float		health = 200;         // 체력
 	private GameManager gameManager;          // 게임 매니저
+	private Ball		ball;				  // 공
 
 
 	// 초기화
 	private void Awake()
 	{
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+		ball		= GameObject.Find("Ball").GetComponent<Ball>();
 	}
 
 	// 충돌체 진입
@@ -30,6 +32,9 @@ public class Wall : MonoBehaviour
 			Vector3 ballVelo = collision.gameObject.GetComponent<Rigidbody2D>().velocity;
 
 			AddDamage(Mathf.Abs(ballVelo.x) + Mathf.Abs(ballVelo.y));
+
+			// 더블 초기화
+			ball.ResetDouble();
 		}
 
 		// 홀더일경우
@@ -37,7 +42,7 @@ public class Wall : MonoBehaviour
 		{
 			// 파괴 전 홀더 검사
 			gameManager.HolderCheck(collision.gameObject);
-			//Destroy(collision.gameObject);
+			Destroy(collision.gameObject);
 		}
 	}
 

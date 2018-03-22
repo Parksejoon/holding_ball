@@ -81,7 +81,6 @@ public class GameManager : MonoBehaviour
 		//    }
 		//}
 
-
 		// 홀딩 처리
 		if (isTouch != previousIsTouch && canTouch)
 		{
@@ -123,7 +122,7 @@ public class GameManager : MonoBehaviour
 		shotPower = perfectPower * Mathf.Max(1, (score / 30));
 
 		// 점수 계산
-		AddScore(scoreCompute(distance));
+		AddScore(ScoreCompute(distance));
 	}
 
     // 캐치 굿판정
@@ -133,11 +132,11 @@ public class GameManager : MonoBehaviour
         shotPower = goodPower * Mathf.Max(1, (score / 30));
 
 		// 점수 계산
-		AddScore(scoreCompute(distance));
+		AddScore(ScoreCompute(distance));
     }
 
 	// 점수 계산기
-	private int scoreCompute(float distance)
+	private int ScoreCompute(float distance)
 	{
 		int score = -1;
 		int range = 0;
@@ -147,8 +146,6 @@ public class GameManager : MonoBehaviour
 			i += 2;
 			range += i;
 		}
-
-		Debug.Log(score);
 
 		return score;
 	}
@@ -187,11 +184,6 @@ public class GameManager : MonoBehaviour
 		{
 			// 언홀딩
 			ball.UnholdingHolder();
-		}
-		else
-		{
-			// 파괴
-			Destroy(target);
 		}
 	}
 

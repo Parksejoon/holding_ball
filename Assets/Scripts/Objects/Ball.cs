@@ -7,32 +7,38 @@ public class Ball : MonoBehaviour
     // 인스펙터 노출 변수
 	// 일반
     [SerializeField]
-	private GameObject shotLinePrefab;          // 생성될 ShotLine 프리팹
+	private GameObject		shotLinePrefab;          // 생성될 ShotLine 프리팹
 	
 	// 인스펙터 비노출 변수
     // 일반 변수
     [HideInInspector]
-	public  GameObject  bindedHolder;           // 볼이 바인딩되어있는 홀더
+	public  GameObject		bindedHolder;           // 볼이 바인딩되어있는 홀더
+	[HideInInspector]
+	public	bool			canDouble = true;       // 더블 샷 가능?
 
-    private GameObject  targetHolder;			// 현재 타겟이된 홀더
-    private GameObject  shotLine;               // ShotLine오브젝트
-	private GameManager gameManager;			// 게임 매니저
-    private Rigidbody2D rigidbody2d;            // 이 오브젝트의 리짓바디
-	private	Transform	ballTransform;			// 공의 트랜스폼
-
+	private Camera			camera;					// 카메라
+	private GameObject		targetHolder;			// 현재 타겟이된 홀더
+    private GameObject		shotLine;               // ShotLine오브젝트
+	private GameManager		gameManager;            // 게임 매니저
+	private ShaderManager	shaderManager;			// 쉐이더 매니저
+    private Rigidbody2D		rigidbody2d;            // 이 오브젝트의 리짓바디
+	private	Transform		ballTransform;          // 공의 트랜스폼
+	private bool			isBallPull = false;     // 공 당기는 상태인지
+	
 	// 수치
 	[HideInInspector]
-	public  bool        isHolding;              // 홀딩 상태를 나타냄
+	public  bool			isHolding;              // 홀딩 상태를 나타냄
     [HideInInspector]
-	public  float       shotPower = 3f;         // 발사 속도
+	public  float			shotPower = 3f;         // 발사 속도
 
-	private bool		isBallPull = false;		// 공 당기는 상태인지
 
 
     // 초기화
     private void Awake()
     {
+		camera		  = GameObject.Find("Main Camera").GetComponent<Camera>();
         gameManager   = GameObject.Find("GameManager").GetComponent<GameManager>();
+		shaderManager = GameObject.Find("GameManager").GetComponent<ShaderManager>();
         rigidbody2d	  = GetComponentInParent<Rigidbody2D>();
 		ballTransform = transform.parent;
 
@@ -126,7 +132,6 @@ public class Ball : MonoBehaviour
 		// 홀더만 따로 파괴된 경우
 		if (bindedHolder == null)
 		{
-			Debug.Log("Holder is null");
 			Destroy(shotLine.gameObject);
 
 			rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * 10f;
@@ -134,7 +139,6 @@ public class Ball : MonoBehaviour
 		// 슛라인만 따로 파괴된 경우
 		else if (shotLine == null)
 		{
-			Debug.Log("Shotline is null");
 			rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * 15f;
 		}
 		// 정상 작동
@@ -173,6 +177,29 @@ public class Ball : MonoBehaviour
 		}
     }
 
+	// 더블 샷
+	public void DoubleShot()
+	{
+		// 더블 사용
+		canDouble = false;
+
+		// 물리량 대입
+		rigidbody2d.velocity = Vector3.Normalize(transform.position - camera.ScreenToWorldPoint(Input.mousePosition)) * -30f;
+
+		// 쉐이더 변환
+		shaderManager.BallColor(0f);
+	}
+
+	// 더블 초기화
+	public void ResetDouble()
+	{
+		// 초기화
+		canDouble = true;
+
+		// 쉐이더 변환
+		shaderManager.BallColor(ShaderManager.ballColorS);
+	}
+
 	// 공 당기기 제어
 	public IEnumerator BallPullManager()
 	{
@@ -194,7 +221,7 @@ public class Ball : MonoBehaviour
 
 		while (isBallPull)
 		{
-			ballTransform.position = Vector2.Lerp(ballTransform.position, Vector2.zero, 0.005f);
+			ballTransform.position = Vector2.Lerp(ballTransform.position, Vector2.zero, 0.01f);
 
 			yield return new WaitForSeconds(0.01f);
 		}
@@ -202,5 +229,4 @@ public class Ball : MonoBehaviour
 		GetComponentInParent<Collider2D>().enabled = true;
 		rigidbody2d.velocity = tempVector;
 	}
-
 }
