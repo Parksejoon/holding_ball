@@ -9,14 +9,14 @@ public class WallManager : MonoBehaviour
 	[SerializeField]
 	private Object		wallsPrefab;                // 벽 프리팹
 	[SerializeField]
-	private Material	warWallsMat;			    // 위험 벽 질감
+	private Material	warWallsMat;                // 위험 벽 질감
 
 	// 수치
+	public  float		wallsScale = 1f;            // 벽의 크기
+
 	[SerializeField]
 	private float	    rotationSpeed = 1f;         // 회전속도
-	[SerializeField]
-	private float		wallsScale = 1f;            // 벽의 크기
-
+	
 	// 인스펙터 비노출 변수
 	// 일반
 	private BackGroundManager	backGroundManager;			// 뒷배경 매니저

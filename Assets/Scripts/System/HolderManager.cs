@@ -30,11 +30,12 @@ public class HolderManager : MonoBehaviour
 
 	// 인스펙터 비노출 변수
 	// 일반
-	//[HideInInspector]
+	[HideInInspector]
 	public  List<Transform>   holderList = new List<Transform>();    // 홀더 리스트
     
 	private Ball              ball;                                  // 볼
-	private HolderAlgorithm[] holderAlgorithm;						 // 홀더 샷 알고리즘 목록
+	private WallManager		  wallManager;							 // 월 매니저
+	private HolderAlgorithm[] holderAlgorithm;                       // 홀더 샷 알고리즘 목록
 
 	// 수치
     private float			  pastTime;                              // 경과 시간
@@ -45,8 +46,8 @@ public class HolderManager : MonoBehaviour
     // 초기화
     void Start()
     {
-        ball = GameObject.FindWithTag("Ball").GetComponent<Ball>();
-		
+        ball		= GameObject.FindWithTag("Ball").GetComponent<Ball>();
+
 		// Tornado Slug Round Compression Quarter Shift
 		// 알고리즘 델리게이트 초기화
 		holderAlgorithm = new HolderAlgorithm[]

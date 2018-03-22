@@ -19,7 +19,7 @@ public class BackGroundManager : MonoBehaviour
 	public void NextScale(float wallsScale)
 	{
 		float backSize = backgroundTransform.localScale.x;
-		float scaleValue = (wallsScale - 0.05f) * backSize;
+		float scaleValue = (wallsScale) * backSize;
 
 		backgroundTransform.localScale = new Vector3(scaleValue, 1, scaleValue);
 	}

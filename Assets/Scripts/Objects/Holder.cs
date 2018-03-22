@@ -9,14 +9,23 @@ public class Holder : MonoBehaviour
     private HolderManager holderManager;        // 홀더 매니저
 
 	// 수치
-	private float		  minPowr = 10;         // 최소
-	private float		  maxPowr = 20;         // 최대
+	private float		  minPowr = 10f;        // 최소
+	private float		  maxPowr = 20f;        // 최대
+	private float		  timer = 0f;			// 타이머
 
 
 	// 초기화
-	void Awake()
+	private void Awake()
     {
 		holderManager = GameObject.Find("GameManager").GetComponent<HolderManager>();
+	}
+
+	// 프레임
+	private void Update()
+	{
+		timer += Time.deltaTime;
+
+		transform.rotation = Quaternion.Euler(new Vector3(0, 0, timer * 200f));
 	}
 
 	// 시작
