@@ -294,6 +294,7 @@
     <Compile Include="Assets\Scripts\Objects\Ball.cs" />
     <Compile Include="Assets\Scripts\Objects\CameraChase.cs" />
     <Compile Include="Assets\Scripts\Objects\Holder.cs" />
+    <Compile Include="Assets\Scripts\Objects\LimitWall.cs" />
     <Compile Include="Assets\Scripts\Objects\ShotLine.cs" />
     <Compile Include="Assets\Scripts\Objects\ShotLineCollider.cs" />
     <Compile Include="Assets\Scripts\Objects\Wall.cs" />

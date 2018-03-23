@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour
     public void PerfectCatch(float distance)
     {
 		// 발사 속도 설정
-		shotPower = perfectPower * Mathf.Max(1, (score / 30));
+		shotPower = perfectPower * Mathf.Max(1, (score / 60));
 
 		// 점수 계산
 		AddScore(ScoreCompute(distance));
@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour
     public void GoodCatch(float distance)
     {
 		// 발사 속도 설정
-        shotPower = goodPower * Mathf.Max(1, (score / 30));
+        shotPower = goodPower * Mathf.Max(1, (score / 60));
 
 		// 점수 계산
 		AddScore(ScoreCompute(distance));

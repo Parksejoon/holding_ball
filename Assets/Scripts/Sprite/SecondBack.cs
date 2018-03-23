@@ -28,7 +28,7 @@ public class SecondBack : MonoBehaviour
 		sprite		  = GetComponent<Sprite>();
 		rotationSpeed = Random.Range(0.8f, 1.2f);
 
-		transform.position   = new Vector2(Random.Range(-40, 40), Random.Range(-40, 40));
+		transform.position   = new Vector2(Random.Range(-20, 20), Random.Range(-20, 20));
 		transform.localScale = new Vector2(Random.Range(0.5f, 1.5f), Random.Range(0.5f, 1.5f));
 	}
 }
