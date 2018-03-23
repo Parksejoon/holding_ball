@@ -6,7 +6,6 @@ public class SecondBack : MonoBehaviour
 {
 	// 인스펙터 비노출 변수
 	// 일반
-	private Sprite  sprite;              // 대상 스프라이트
 	private float   rotationSpeed;       // 회전률
 	
 
@@ -25,7 +24,6 @@ public class SecondBack : MonoBehaviour
 	// 전체 초기화
 	private void Initialize()
 	{
-		sprite		  = GetComponent<Sprite>();
 		rotationSpeed = Random.Range(0.8f, 1.2f);
 
 		transform.position   = new Vector2(Random.Range(-20, 20), Random.Range(-20, 20));

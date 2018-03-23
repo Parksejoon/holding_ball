@@ -7,6 +7,8 @@ public class ShotLineCollider : MonoBehaviour
 	// 인스펙터 노출 변수
 	// 수치
 	[SerializeField]
+	private Material		powerHolderMat;		  // 강화 홀더의 머티리얼
+	[SerializeField]
 	private float		    perfectDis;			  // 퍼펙트 판정범위
 	[SerializeField]
 	private float		    goodDis;	  		  // 굿 판정범위
@@ -17,10 +19,6 @@ public class ShotLineCollider : MonoBehaviour
 	public List<Transform>  perfect;              // 퍼펙트 판정 오브젝트 리스트
 	[HideInInspector]
 	public List<Transform>  good;                 // 일반 판정 오브젝트 리스트
-	[HideInInspector]
-	public List<float>      perfectDisList;       // 퍼펙트 판정 오브젝트 거리 리스트
-	[HideInInspector]
-	public List<float>      goodDisList;          // 일반 판정 오브젝트 거리 리스트
 	[HideInInspector]
 	public List<Transform>  holderList;           // 홀더 리스트
 
@@ -36,8 +34,6 @@ public class ShotLineCollider : MonoBehaviour
 		// 타겟 목록 초기화
         perfect		   = new List<Transform>();
         good		   = new List<Transform>();
-		perfectDisList = new List<float>();
-		goodDisList    = new List<float>();
 
 		// 홀더 리스트 복사
 		holderList = GameObject.Find("GameManager").GetComponent<HolderManager>().holderList;
@@ -51,6 +47,7 @@ public class ShotLineCollider : MonoBehaviour
 			if (holderList[i] != null)
 			{
 				Vector3 holderListPosition = holderList[i].position;        // 홀더 각자의 좌표
+				
 
 				// 거리를 측정해서 판정진행
 				distance = Mathf.Sqrt(((holderListPosition.x - x) * (holderListPosition.x - x)) + ((holderListPosition.y - y) * (holderListPosition.y - y)));
@@ -60,17 +57,42 @@ public class ShotLineCollider : MonoBehaviour
 				if (holdDistance < perfectDis)
 				{
 					perfect.Add(holderList[i]);
-					perfectDisList.Add(distance);
+					
+					ChangeHolder(i, ScoreCompute(distance));
+
 				}
 				// 굿
 				else if (holdDistance < goodDis)
 				{
 					good.Add(holderList[i]);
-					goodDisList.Add(distance);
+					
+					ChangeHolder(i, ScoreCompute(distance));
 				}
 			}
 		}
 
         return;
     }
+
+	// 홀더 변환
+	private void ChangeHolder(int i, int score)
+	{
+		holderList[i].gameObject.GetComponent<Holder>().holderPower = score;
+		holderList[i].GetChild(0).gameObject.GetComponent<Renderer>().material = powerHolderMat;
+	}
+
+	// 점수 계산기
+	private int ScoreCompute(float distance)
+	{
+		int score = -1;
+		int range = 0;
+
+		for (int i = 2; range <= distance; score++)
+		{
+			i += 2;
+			range += i;
+		}
+
+		return score;
+	}
 }

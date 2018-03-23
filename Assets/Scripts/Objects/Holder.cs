@@ -6,12 +6,15 @@ public class Holder : MonoBehaviour
 {
 	// 인스펙터 비노출 변수
 	// 일반 변수
-    private HolderManager holderManager;        // 홀더 매니저
+    private HolderManager	holderManager;         // 홀더 매니저
 
 	// 수치
-	private float		  minPowr = 10f;        // 최소
-	private float		  maxPowr = 20f;        // 최대
-	private float		  timer = 0f;			// 타이머
+	//[HideInInspector]
+	public  int				holderPower = 0;	   // 홀더 파워
+
+	private float			minPowr = 10f;         // 최소
+	private float			maxPowr = 20f;         // 최대
+	private float			timer = 0f;			   // 타이머
 
 
 	// 초기화

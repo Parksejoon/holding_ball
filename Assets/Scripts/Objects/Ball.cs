@@ -8,10 +8,12 @@ public class Ball : MonoBehaviour
 	// 일반
     [SerializeField]
 	private GameObject		shotLinePrefab;          // 생성될 ShotLine 프리팹
-	
+	[SerializeField]
+	private ParticleSystem  destroyParticle;		 // 파괴 파티클
+
 	// 인스펙터 비노출 변수
-    // 일반 변수
-    [HideInInspector]
+	// 일반 변수
+	[HideInInspector]
 	public  GameObject		bindedHolder;           // 볼이 바인딩되어있는 홀더
 	[HideInInspector]
 	public	bool			canDouble = true;       // 더블 샷 가능?
@@ -49,7 +51,7 @@ public class Ball : MonoBehaviour
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		// 홀더일경우 홀더에 바인딩함
-		if (bindedHolder == null && other.gameObject.tag == "Holder")
+		if (bindedHolder == null && (other.gameObject.tag == "Holder" || other.gameObject.tag == "PowerHolder"))
 		{
 			BindingHolder(other.gameObject);
         }
@@ -59,7 +61,7 @@ public class Ball : MonoBehaviour
     void OnTriggerExit2D(Collider2D other)
     {
 		// 현재 바인딩중인 홀더일경우 바인딩을 해제함
-		if (bindedHolder == other.gameObject && other.gameObject.tag == "Holder")
+		if (bindedHolder == other.gameObject && (other.gameObject.tag == "Holder" || other.gameObject.tag == "PowerHolder"))
 		{
 			UnbindingHolder();
 		}
@@ -147,6 +149,9 @@ public class Ball : MonoBehaviour
 			// 홀더 파괴
 			//bindedHolder.tag = "Untagged";
 			Destroy(bindedHolder.gameObject);
+			
+			// 파티클 생성
+			Instantiate(destroyParticle, transform.position, Quaternion.identity);
 
 			// 캐치 했는지 판정
 			targetHolder = shotLine.GetComponent<ShotLine>().Judgment();

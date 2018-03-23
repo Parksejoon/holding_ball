@@ -10,10 +10,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
 	private Text		scoreText;                  // 점수
 	[SerializeField]
-	private int			perfectScore = 2;		    // 퍼펙트시 추가 점수
-	[SerializeField]
-	private int			goodScore = 1;		        // 굿시 추가 점수
-	[SerializeField]
 	private int			failScore = 0;              // 페일시 추가 점수
 	[SerializeField]
 	private float		perfectPower = 200f;        // 퍼펙트시 슛 파워
@@ -120,9 +116,6 @@ public class GameManager : MonoBehaviour
     {
 		// 발사 속도 설정
 		shotPower = perfectPower * Mathf.Max(1, (score / 60));
-
-		// 점수 계산
-		AddScore(ScoreCompute(distance));
 	}
 
     // 캐치 굿판정
@@ -130,25 +123,8 @@ public class GameManager : MonoBehaviour
     {
 		// 발사 속도 설정
         shotPower = goodPower * Mathf.Max(1, (score / 60));
-
-		// 점수 계산
-		AddScore(ScoreCompute(distance));
     }
 
-	// 점수 계산기
-	private int ScoreCompute(float distance)
-	{
-		int score = -1;
-		int range = 0;
-
-		for (int i = 2; range <= distance; score++)
-		{
-			i += 2;
-			range += i;
-		}
-
-		return score;
-	}
 
     // 캐치 페일판정
     public void FailCatch()
