@@ -76,6 +76,11 @@ public class WallManager : MonoBehaviour
 		// 레벨 증가
 		level++;
 
+		if (level >= 4)
+		{
+			wallsScale = 1f;
+		}
+
 		// 타이머 재설정
 		timer = Random.Range(0, 90);
 	}

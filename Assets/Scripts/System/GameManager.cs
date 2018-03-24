@@ -23,7 +23,8 @@ public class GameManager : MonoBehaviour
 	private WallManager wallManager;				// 월 매니저
 	private Ball		ball;                       // 볼
     private Touch		touch;                      // 터치 구조체
-	private Camera		camera;						// 카메라
+	private Camera		camera;                     // 카메라
+	private int			wallCount = 0;				// 벽 카운트
 
 	// 수치
 	[HideInInspector]
@@ -112,14 +113,14 @@ public class GameManager : MonoBehaviour
     }
 
     // 캐치 퍼펙트판정
-    public void PerfectCatch(float distance)
+    public void PerfectCatch()
     {
 		// 발사 속도 설정
 		shotPower = perfectPower * Mathf.Max(1, (score / 60));
 	}
 
     // 캐치 굿판정
-    public void GoodCatch(float distance)
+    public void GoodCatch()
     {
 		// 발사 속도 설정
         shotPower = goodPower * Mathf.Max(1, (score / 60));
@@ -146,8 +147,11 @@ public class GameManager : MonoBehaviour
 		// 월 매니저로 벽 새로생성 요청
 		wallManager.CreateWalls(score);
 
-		// 카메라 줌아웃
-		StartCoroutine(CameraZoomOut());
+		if (wallCount++ < 4)
+		{
+			// 카메라 줌아웃
+			StartCoroutine(CameraZoomOut());
+		}
 
 		// 공 당기기
 		StartCoroutine(BallPull());

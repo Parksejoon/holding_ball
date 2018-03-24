@@ -8,9 +8,7 @@ public class Ball : MonoBehaviour
 	// 일반
     [SerializeField]
 	private GameObject		shotLinePrefab;          // 생성될 ShotLine 프리팹
-	[SerializeField]
-	private ParticleSystem  destroyParticle;		 // 파괴 파티클
-
+	
 	// 인스펙터 비노출 변수
 	// 일반 변수
 	[HideInInspector]
@@ -148,10 +146,8 @@ public class Ball : MonoBehaviour
 		{
 			// 홀더 파괴
 			//bindedHolder.tag = "Untagged";
+		    gameManager.AddScore(bindedHolder.GetComponent<Holder>().holderPower);
 			Destroy(bindedHolder.gameObject);
-			
-			// 파티클 생성
-			Instantiate(destroyParticle, transform.position, Quaternion.identity);
 
 			// 캐치 했는지 판정
 			targetHolder = shotLine.GetComponent<ShotLine>().Judgment();
@@ -189,7 +185,7 @@ public class Ball : MonoBehaviour
 		canDouble = false;
 
 		// 물리량 대입
-		rigidbody2d.velocity = Vector3.Normalize(transform.position - camera.ScreenToWorldPoint(Input.mousePosition)) * -30f;
+		rigidbody2d.velocity = Vector3.Normalize(transform.position - camera.ScreenToWorldPoint(Input.mousePosition)) * shotPower * -5f;
 
 		// 쉐이더 변환
 		shaderManager.BallColor(0f);
@@ -211,7 +207,7 @@ public class Ball : MonoBehaviour
 		isBallPull = true;
 		StartCoroutine(BallPull());
 
-		yield return new WaitForSeconds(0.3f);
+		yield return new WaitForSeconds(0.4f);
 
 		isBallPull = false;
 	}
@@ -226,7 +222,7 @@ public class Ball : MonoBehaviour
 
 		while (isBallPull)
 		{
-			ballTransform.position = Vector2.Lerp(ballTransform.position, Vector2.zero, 0.01f);
+			ballTransform.position = Vector2.Lerp(ballTransform.position, Vector2.zero, 0.04f);
 
 			yield return new WaitForSeconds(0.01f);
 		}
