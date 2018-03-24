@@ -42,19 +42,10 @@ public class Wall : MonoBehaviour
 		{
 			// 홀더의 파워 검사
 			Holder targetHolder = collision.gameObject.GetComponent<Holder>();
-
-			// 파워 감소
-			if (1 <= targetHolder.holderPower)
-			{
-				targetHolder.holderPower--;
-			}
-			// 0이면 파괴
-			else
-			{
-				// 파괴 전 홀더 검사
-				gameManager.HolderCheck(collision.gameObject);
-				Destroy(collision.gameObject);
-			}
+			
+			// 파괴 전 홀더 검사
+			gameManager.HolderCheck(collision.gameObject);
+			Destroy(collision.gameObject);
 		}
 	}
 

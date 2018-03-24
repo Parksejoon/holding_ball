@@ -146,6 +146,7 @@ public class Ball : MonoBehaviour
 		{
 			// 홀더 파괴
 			//bindedHolder.tag = "Untagged";
+			bindedHolder.GetComponent<Holder>().DestroyParticle();
 		    gameManager.AddScore(bindedHolder.GetComponent<Holder>().holderPower);
 			Destroy(bindedHolder.gameObject);
 

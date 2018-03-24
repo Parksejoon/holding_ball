@@ -7,7 +7,9 @@ public class ShotLineCollider : MonoBehaviour
 	// 인스펙터 노출 변수
 	// 수치
 	[SerializeField]
-	private Material		powerHolderMat;		  // 강화 홀더의 머티리얼
+	private Material		powerHolderMat;       // 강화 홀더의 머티리얼
+	[SerializeField]
+	private ParticleSystem	powerHolderParticle;  // 강화 홀더의 이펙트 파티클
 	[SerializeField]
 	private float		    perfectDis;			  // 퍼펙트 판정범위
 	[SerializeField]
@@ -81,9 +83,10 @@ public class ShotLineCollider : MonoBehaviour
 
 		holderList[i].gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
-		targetHolder.holderPower   = score;
-		targetHolder.rotationPower = 0;
-		StartCoroutine(targetHolder.Destroyer());
+		targetHolder.holderPower     = score;
+		targetHolder.rotationPower   = 0;
+		targetHolder.destroyParticle = powerHolderParticle;
+		targetHolder.StartDestroyer();
 
 		holderList[i].GetChild(0).gameObject.GetComponent<Renderer>().material = powerHolderMat;
 	}

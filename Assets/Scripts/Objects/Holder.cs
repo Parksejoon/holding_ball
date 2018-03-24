@@ -51,14 +51,17 @@ public class Holder : MonoBehaviour
     {
         // 홀더 리스트에서 해당 항목을 삭제
         holderManager.holderList.Remove(transform);
-		
-		// *issue : instatiate function must not to use in OnDestroy()
-		// 파티클 생성
-		Instantiate(destroyParticle, transform.position, Quaternion.identity);
 
 		// 코루틴 중지 (오류 방지)
 		StopCoroutine("Destroyer");
     }
+
+	// 파티클 효과
+	public void DestroyParticle()
+	{
+		// 파티클 생성
+		Instantiate(destroyParticle, transform.position, Quaternion.identity);
+	}
 
 	// 랜덤 벡터
 	private Vector2 RandomVec2()
@@ -73,8 +76,18 @@ public class Holder : MonoBehaviour
 		return value;
 	}
 
+	// 코루틴 시작
+	public void StartDestroyer()
+	{
+		// 파괴 진행중이 아닐때만 코루틴 실행
+		if (sprite.color.a == 1)
+		{
+			StartCoroutine(Destroyer());
+		}
+	}
+
 	// 자폭(?)
-	public IEnumerator Destroyer()
+	private IEnumerator Destroyer()
 	{
 		float alpha = 1f;
 		
@@ -82,11 +95,11 @@ public class Holder : MonoBehaviour
 		{
 			sprite.color = new Color(1f, 1f, 1f, alpha);
 
-			alpha = 0;
+			alpha -= 0.01f;
 
 			Debug.Log(sprite.color.a);
 
-			yield return new WaitForSeconds(0.1f);
+			yield return new WaitForSeconds(0.01f);
 
 			if (sprite.color.a <= 0)
 			{
