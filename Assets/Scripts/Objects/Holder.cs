@@ -97,8 +97,6 @@ public class Holder : MonoBehaviour
 
 			alpha -= 0.01f;
 
-			Debug.Log(sprite.color.a);
-
 			yield return new WaitForSeconds(0.01f);
 
 			if (sprite.color.a <= 0)

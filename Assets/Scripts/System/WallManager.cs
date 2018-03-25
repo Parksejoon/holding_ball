@@ -7,15 +7,17 @@ public class WallManager : MonoBehaviour
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
-	private Object		wallsPrefab;                // 벽 프리팹
+	private GameObject			wallDestroyEffect;			// 벽 파괴 이펙트
 	[SerializeField]
-	private Material	warWallsMat;                // 위험 벽 질감
+	private Object				wallsPrefab;                // 벽 프리팹
+	[SerializeField]
+	private Material			warWallsMat;                // 위험 벽 질감
 
 	// 수치
-	public  float		wallsScale = 1f;            // 벽의 크기
+	public  float				wallsScale = 1f;            // 벽의 크기
 
 	[SerializeField]
-	private float	    rotationSpeed = 1f;         // 회전속도
+	private float				rotationSpeed = 1f;         // 회전속도
 	
 	// 인스펙터 비노출 변수
 	// 일반
@@ -39,14 +41,19 @@ public class WallManager : MonoBehaviour
 		wallsTransform.rotation = Quaternion.Euler(0, 0, timer * rotationSpeed);
 	}
 
-	// 벽 생성
+	// 벽 재생성
 	public void CreateWalls(int score)
 	{
+		// 현재 벽 크기
 		float wallsSize = wallsTransform.localScale.x;
-		
+
+		// 파괴 이펙트
+		GameObject particle = Instantiate(wallDestroyEffect, transform.position, Quaternion.Euler(0, 0, timer * rotationSpeed));    // 파티클 생성
+		wallsTransform.localScale = new Vector3(wallsSize, wallsSize);
+
 		// 생성
-		GameObject walls = Instantiate(wallsPrefab, new Vector3(0, 0, 0), Quaternion.identity, transform) as GameObject;			// 벽 생성
-		
+		GameObject walls = Instantiate(wallsPrefab, new Vector3(0, 0, 0), Quaternion.identity, transform) as GameObject;            // 벽 생성
+
 		// 기존 벽을 파괴
 		Destroy(wallsTransform.gameObject);
 
@@ -54,10 +61,10 @@ public class WallManager : MonoBehaviour
 		wallsTransform = walls.GetComponent<Transform>();
 
 		// 벽 크기 및 회전량 설정
-		float scaleValue = wallsScale * wallsSize;		// 크기값 설정
+		float scaleValue = wallsScale * wallsSize;      // 크기값 설정
 
-		wallsTransform.localScale = new Vector3(scaleValue, scaleValue);
-		wallsTransform.rotation = Quaternion.Euler(0, 0, 0);
+		particle.transform.localScale = new Vector3(scaleValue, scaleValue);
+		wallsTransform.rotation		  = Quaternion.Euler(0, 0, 0);
 
 		rotationSpeed *= -1;
 

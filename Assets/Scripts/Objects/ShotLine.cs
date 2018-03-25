@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class ShotLine : MonoBehaviour
 {
+	// 인스펙터 노출 변수
+	// 일반
+	[SerializeField]
+	private GameObject		 afterEffect;			   // 잔상
+
 	// 인스펙터 비노출 변수
     // 일반 변수
     private GameManager      gameManager;              // 게임 매니저
@@ -18,7 +23,7 @@ public class ShotLine : MonoBehaviour
         gameManager		 = GameObject.Find("GameManager").GetComponent<GameManager>();
         shotLineCollider = GetComponent<ShotLineCollider>();
     }
-
+	
 	// 시작
 	private void Start()
 	{
@@ -36,6 +41,9 @@ public class ShotLine : MonoBehaviour
 
 		// 점점 범위 확대
 		transform.localScale += new Vector3(speedScale, speedScale);
+
+		// 회전
+		//transform.rotation = Quaternion.Euler(new Vector3(0, 0, 300000 * (timer - 0.1f) * (timer - 0.1f)));
     } 
 
     // 현재 가지고있는 홀더를 반환
@@ -63,6 +71,11 @@ public class ShotLine : MonoBehaviour
         {
             gameManager.FailCatch();
         }
+
+		// 잔상효과
+		GameObject tempObject = Instantiate(afterEffect, transform.position, Quaternion.identity);
+
+		tempObject.transform.localScale = transform.lossyScale * 0.3f;
 
 		// 캐치된 홀더 반환
         return catchHolder;
