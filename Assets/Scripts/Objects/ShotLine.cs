@@ -75,7 +75,7 @@ public class ShotLine : MonoBehaviour
 		// 잔상효과
 		GameObject tempObject = Instantiate(afterEffect, transform.position, Quaternion.identity);
 
-		tempObject.transform.localScale = transform.lossyScale * 0.3f;
+		tempObject.transform.localScale = (transform.localScale) * 0.2f;
 
 		// 캐치된 홀더 반환
         return catchHolder;
