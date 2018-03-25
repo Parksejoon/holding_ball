@@ -7,7 +7,9 @@ public class Ball : MonoBehaviour
     // 인스펙터 노출 변수
 	// 일반
     [SerializeField]
-	private GameObject		shotLinePrefab;          // 생성될 ShotLine 프리팹
+	private GameObject		shotLinePrefab;         // 생성될 ShotLine 프리팹
+	[SerializeField]
+	private GameObject		destroyParticle;		// 공 파괴 파티클 
 	
 	// 인스펙터 비노출 변수
 	// 일반 변수
@@ -106,8 +108,8 @@ public class Ball : MonoBehaviour
 			// 홀딩 상태로 전환
 			isHolding = true;
 
-            // 슛라인 생성
-            shotLine = Instantiate(shotLinePrefab, transform.position, Quaternion.identity, transform);
+			// 슛라인 생성
+			CreateShotLine();
             
             return true;
         }
@@ -177,7 +179,18 @@ public class Ball : MonoBehaviour
 				rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * 15f;
 			}
 		}
-    }
+	}
+
+	// 슛라인 생성
+	private void CreateShotLine()
+	{
+		shotLine = Instantiate(shotLinePrefab, transform.position, Quaternion.identity, transform);
+
+		if (canDouble)
+		{
+			shotLine.GetComponent<Transform>().GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = new Color(0.69f, 0.93f, 1f);
+		}
+	}
 
 	// 더블 샷
 	public void DoubleShot()
@@ -200,6 +213,14 @@ public class Ball : MonoBehaviour
 
 		// 쉐이더 변환
 		shaderManager.BallColor(ShaderManager.ballColorS);
+	}
+
+	// 공 파괴
+	public void BallDestroy()
+	{
+		Instantiate(destroyParticle, transform.position, Quaternion.identity);
+
+		Destroy(transform.parent.gameObject);
 	}
 
 	// 공 당기기 제어

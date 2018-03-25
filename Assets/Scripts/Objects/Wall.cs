@@ -28,6 +28,12 @@ public class Wall : MonoBehaviour
 		// 볼일경우
 		if (collision.gameObject.tag == "Ball")
 		{
+			// 워 월인지 확인
+			if (isWarWall)
+			{
+				gameManager.GameOver();
+			}
+
 			// 벽 체력 깍임
 			Vector3 ballVelo = collision.gameObject.GetComponent<Rigidbody2D>().velocity;
 
@@ -67,12 +73,6 @@ public class Wall : MonoBehaviour
 		// 게임 매니저로 전달
 		gameManager.WallDestroy();
 
-		// 워 월인지 확인
-		if (isWarWall)
-		{
-			gameManager.GameOver();
-		}
-
 		Destroy(gameObject);
 	}
 
@@ -80,6 +80,5 @@ public class Wall : MonoBehaviour
 	public void ActiveWarWall()
 	{
 		isWarWall = true;
-		health = 130;
 	}
 }

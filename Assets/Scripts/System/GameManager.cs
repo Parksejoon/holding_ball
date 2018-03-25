@@ -171,6 +171,11 @@ public class GameManager : MonoBehaviour
 	public void GameOver()
 	{
 		Debug.Log("GG");
+
+		// ☆★☆스크립트 다끊고 제거해야함☆★☆
+
+		//ball.BallDestroy();
+		//Destroy(camera.GetComponent<CameraChase>());
 	}
 
 	// 카메라 줌아웃

@@ -90,7 +90,10 @@ namespace UnityStandardAssets.ImageEffects
             brightPassFilterMaterial = CheckShaderAndCreateMaterial(brightPassFilterShader, brightPassFilterMaterial);
 
             if (!isSupported)
-                ReportAutoDisable ();
+			{
+				ReportAutoDisable();
+			}
+
             return isSupported;
         }
 
@@ -99,6 +102,7 @@ namespace UnityStandardAssets.ImageEffects
             if (CheckResources()==false)
             {
                 Graphics.Blit (source, destination);
+
                 return;
             }
 
@@ -106,12 +110,15 @@ namespace UnityStandardAssets.ImageEffects
 
             doHdr = false;
             if (hdr == HDRBloomMode.Auto)
+			{
 #if UNITY_5_6_OR_NEWER
-                doHdr = source.format == RenderTextureFormat.ARGBHalf && GetComponent<Camera>().allowHDR;
+				doHdr = source.format == RenderTextureFormat.ARGBHalf && GetComponent<Camera>().allowHDR;
 #else
                 doHdr = source.format == RenderTextureFormat.ARGBHalf && GetComponent<Camera>().hdr;
 #endif
-            else {
+			}
+			else
+			{
                 doHdr = hdr == HDRBloomMode.On;
             }
 
@@ -119,7 +126,9 @@ namespace UnityStandardAssets.ImageEffects
 
             BloomScreenBlendMode realBlendMode = screenBlendMode;
             if (doHdr)
-                realBlendMode = BloomScreenBlendMode.Add;
+			{
+				realBlendMode = BloomScreenBlendMode.Add;
+			}
 
             var rtFormat= (doHdr) ? RenderTextureFormat.ARGBHalf : RenderTextureFormat.Default;
             var rtW2= source.width/2;
@@ -133,14 +142,16 @@ namespace UnityStandardAssets.ImageEffects
             // downsample
             RenderTexture quarterRezColor = RenderTexture.GetTemporary (rtW4, rtH4, 0, rtFormat);
             RenderTexture halfRezColorDown = RenderTexture.GetTemporary (rtW2, rtH2, 0, rtFormat);
-            if (quality > BloomQuality.Cheap) {
+            if (quality > BloomQuality.Cheap)
+			{
                 Graphics.Blit (source, halfRezColorDown, screenBlend, 2);
                 RenderTexture rtDown4 = RenderTexture.GetTemporary (rtW4, rtH4, 0, rtFormat);
                 Graphics.Blit (halfRezColorDown, rtDown4, screenBlend, 2);
                 Graphics.Blit (rtDown4, quarterRezColor, screenBlend, 6);
                 RenderTexture.ReleaseTemporary(rtDown4);
             }
-            else {
+            else
+			{
                 Graphics.Blit (source, halfRezColorDown);
                 Graphics.Blit (halfRezColorDown, quarterRezColor, screenBlend, 6);
             }
@@ -150,10 +161,16 @@ namespace UnityStandardAssets.ImageEffects
             RenderTexture secondQuarterRezColor = RenderTexture.GetTemporary (rtW4, rtH4, 0, rtFormat);
             BrightFilter (bloomThreshold * bloomThresholdColor, quarterRezColor, secondQuarterRezColor);
 
-            // blurring
+			// blurring
 
-            if (bloomBlurIterations < 1) bloomBlurIterations = 1;
-            else if (bloomBlurIterations > 10) bloomBlurIterations = 10;
+			if (bloomBlurIterations < 1)
+			{
+				bloomBlurIterations = 1;
+			}
+			else if (bloomBlurIterations > 10)
+			{
+				bloomBlurIterations = 10;
+			}
 
             for (int iter = 0; iter < bloomBlurIterations; iter++)
 			{
@@ -279,8 +296,10 @@ namespace UnityStandardAssets.ImageEffects
                     }
 
                     if (lensflareMode == (LensFlareStyle) 1)
-                        // anamorphic lens flares
-                        AddTo (1.0f, quarterRezColor, secondQuarterRezColor);
+					{
+						// anamorphic lens flares
+						AddTo(1.0f, quarterRezColor, secondQuarterRezColor);
+					}
                     else
 					{
                         // "combined" lens flares
