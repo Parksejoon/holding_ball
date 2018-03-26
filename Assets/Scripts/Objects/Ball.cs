@@ -198,6 +198,9 @@ public class Ball : MonoBehaviour
 		// 더블 사용
 		canDouble = false;
 
+		// 파티클
+		Instantiate(destroyParticle, transform.position, Quaternion.identity);
+
 		// 물리량 대입
 		rigidbody2d.velocity = Vector3.Normalize(transform.position - camera.ScreenToWorldPoint(Input.mousePosition)) * shotPower * -5f;
 

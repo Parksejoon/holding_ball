@@ -5,6 +5,10 @@ using UnityEngine;
 public class Wall : MonoBehaviour
 {
 	// 인스펙터 노출 변수
+	// 일반
+	[SerializeField]
+	private GameObject	collisionEffect;      // 벽 충돌 이펙트
+
 	// 수치
 	public bool			isWarWall = false;    // 게임 오버 벽인지 여부
 
@@ -28,6 +32,9 @@ public class Wall : MonoBehaviour
 		// 볼일경우
 		if (collision.gameObject.tag == "Ball")
 		{
+			// 파티클 효과
+			Instantiate(collisionEffect, collision.transform.position, Quaternion.identity);
+
 			// 워 월인지 확인
 			if (isWarWall)
 			{
