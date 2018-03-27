@@ -11,7 +11,7 @@ public class Ball : MonoBehaviour
 	[SerializeField]
 	private GameObject		destroyParticle;        // 공 파괴 파티클 
 	[SerializeField]
-	private GameObject		doubleParticle;			// 더블 파티클 
+	private GameObject		doubleParticle;         // 더블 파티클 
 
 	// 인스펙터 비노출 변수
 	// 일반 변수
