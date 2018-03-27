@@ -33,7 +33,7 @@ public class Wall : MonoBehaviour
 		if (collision.gameObject.tag == "Ball")
 		{
 			// 파티클 효과
-			Instantiate(collisionEffect, collision.transform.position, Quaternion.identity);
+			Instantiate(collisionEffect, collision.contacts[0].point, Quaternion.identity);
 
 			// 워 월인지 확인
 			if (isWarWall)

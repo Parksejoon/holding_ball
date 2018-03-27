@@ -9,8 +9,10 @@ public class Ball : MonoBehaviour
     [SerializeField]
 	private GameObject		shotLinePrefab;         // 생성될 ShotLine 프리팹
 	[SerializeField]
-	private GameObject		destroyParticle;		// 공 파괴 파티클 
-	
+	private GameObject		destroyParticle;        // 공 파괴 파티클 
+	[SerializeField]
+	private GameObject		doubleParticle;			// 더블 파티클 
+
 	// 인스펙터 비노출 변수
 	// 일반 변수
 	[HideInInspector]
@@ -199,7 +201,7 @@ public class Ball : MonoBehaviour
 		canDouble = false;
 
 		// 파티클
-		Instantiate(destroyParticle, transform.position, Quaternion.identity);
+		Instantiate(doubleParticle, transform.position, Quaternion.identity);
 
 		// 물리량 대입
 		rigidbody2d.velocity = Vector3.Normalize(transform.position - camera.ScreenToWorldPoint(Input.mousePosition)) * shotPower * -5f;
