@@ -14,12 +14,6 @@ public class CameraEffect : MonoBehaviour
 	public float flashPower = 0.04f;                            // 플래쉬 파워
 
 
-	// 시작
-	private void Start()
-	{
-		FlashBoom();
-	}
-
 	// 플래쉬 효과
 	public void FlashBoom()
 	{

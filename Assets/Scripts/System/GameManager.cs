@@ -137,7 +137,12 @@ public class GameManager : MonoBehaviour
     // 점수 상승
     public void AddScore(int upScore)
     {
-        score += upScore;
+		if (upScore >= 4)
+		{
+			GameObject.Find("Main Camera").GetComponent<CameraEffect>().FlashBoom();
+		}
+
+		score += upScore;
         scoreText.text = score.ToString();
     }
 

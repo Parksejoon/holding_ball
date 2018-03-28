@@ -14,7 +14,6 @@ public class ShotLine : MonoBehaviour
 	private GameManager      gameManager;              // 게임 매니저
     private GameObject       catchHolder;              // 영역에 들어온 홀더들
     private ShotLineCollider shotLineCollider;         // 슛라인 충돌검사
-	private CameraEffect	 cameraEffect;             // 카메라 이펙트
 	private float			 timer = 0;				   // 타이머
 
 
@@ -23,7 +22,6 @@ public class ShotLine : MonoBehaviour
     {
         gameManager		 = GameObject.Find("GameManager").GetComponent<GameManager>();
         shotLineCollider = GetComponent<ShotLineCollider>();
-		cameraEffect	 = GameObject.Find("Main Camera").GetComponent<CameraEffect>();
     }
 	
 	// 시작
@@ -51,8 +49,6 @@ public class ShotLine : MonoBehaviour
     // 현재 가지고있는 홀더를 반환
     public GameObject Judgment()
 	{
-		cameraEffect.FlashBoom();
-
 		// 홀더 + 판정 초기화
 		catchHolder = null;
         shotLineCollider.Judgment();

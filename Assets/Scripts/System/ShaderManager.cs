@@ -5,28 +5,33 @@ using UnityEngine;
 public class ShaderManager : MonoBehaviour
 {
 	// 정적 변수
-	public static float ballColorS = 0.6f;		// 공 색(HSV)중 S값
+	public static float ballColorS = 0.6f;      // 공 색(HSV)중 S값
+	public static float nowH = 0;				// 현재의 H값
 
 	// 인스펙터 노출 변수
 	// 일반
-	[SerializeField]
-	private Material	backGround;				// 뒷배경 질감
-	[SerializeField]
-	private Material	ball;					// 공 질감
-	[SerializeField]
-	private Material	wall;                   // 벽 질감
-	[SerializeField]
-	private Material	warWall;                // 위험 벽 질감
+	public	Color		mainColor;				// 메인 컬러
 
-	// 인스펙터 비노출 변수
-	// 수치
-	private float		nowH = 0;                // 현재의 H값
+	[SerializeField]
+	private Material	backGround;             // 뒷배경
+	[SerializeField]
+	private Material	ball;					// 공
+	[SerializeField]
+	private Material	wall;                   // 벽
+	[SerializeField]
+	private Material	warWall;                // 위험 벽
+	[SerializeField]
+	private Material	powHolder;	            // 강화 홀더
 
 
 	// 시작
-	private void Start()
+	private void Update()
 	{
-		ChangeColor(0.6f);
+		float temp;
+		float realH;
+
+		Color.RGBToHSV(mainColor, out realH, out temp, out temp);
+		ChangeColor(realH);
 	}
 
 	// 색 변경
@@ -36,6 +41,7 @@ public class ShaderManager : MonoBehaviour
 		backGround.SetColor("_BotColor", Color.HSVToRGB(H, 0.8f, 0.2f));
 		wall.SetColor("_Color", Color.HSVToRGB(H, 0.45f, 1f));
 		ball.SetColor("_Color", Color.HSVToRGB(H, ballColorS, 1f));
+		powHolder.SetColor("_Color", Color.HSVToRGB(H, 0.2f, 1f));
 
 		nowH = H;
 	}
