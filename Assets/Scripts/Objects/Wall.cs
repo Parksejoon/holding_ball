@@ -10,11 +10,13 @@ public class Wall : MonoBehaviour
 	private GameObject	collisionEffect;      // 벽 충돌 이펙트
 
 	// 수치
-	public bool			isWarWall = false;    // 게임 오버 벽인지 여부
+	public  bool		isWarWall = false;    // 게임 오버 벽인지 여부
 
+	[SerializeField]
+	private float		health = 200;         // 체력
+										
 	// 인스펙터 비노출 변수
 	// 일반
-	private float		health = 200;         // 체력
 	private GameManager gameManager;          // 게임 매니저
 	private Ball		ball;				  // 공
 

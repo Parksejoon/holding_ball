@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 	[HideInInspector]
 	public  bool		isTouch;                    // 현제 터치의 상태
 
-	private int			score = 0;                  // 점수
+	public  int			score = 0;                  // 점수
     private bool		previousIsTouch;            // 이전 터지의 상태
 	private bool		canTouch = true;			// 터치 가능?
 	
@@ -168,7 +168,7 @@ public class GameManager : MonoBehaviour
 		if (ball.bindedHolder == target)
 		{
 			// 언홀딩
-			ball.UnholdingHolder();
+			ball.UnbindingHolder();
 		}
 	}
 

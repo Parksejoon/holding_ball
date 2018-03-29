@@ -50,7 +50,7 @@ public class Ball : MonoBehaviour
     }
 
 	// 트리거 진입
-	void OnTriggerEnter2D(Collider2D other)
+	private void OnTriggerEnter2D(Collider2D other)
 	{
 		// 홀더일경우 홀더에 바인딩함
 		if (bindedHolder == null && (other.gameObject.tag == "Holder" || other.gameObject.tag == "PowerHolder"))
@@ -60,7 +60,7 @@ public class Ball : MonoBehaviour
     }
 
     // 트리거 탈출
-    void OnTriggerExit2D(Collider2D other)
+    private void OnTriggerExit2D(Collider2D other)
     {
 		// 현재 바인딩중인 홀더일경우 바인딩을 해제함
 		if (bindedHolder == other.gameObject && (other.gameObject.tag == "Holder" || other.gameObject.tag == "PowerHolder"))
@@ -70,7 +70,7 @@ public class Ball : MonoBehaviour
 	}
 
     // 홀더에 바인딩
-    void BindingHolder(GameObject holder)
+    private void BindingHolder(GameObject holder)
     {
 		// 바인딩 홀더를 설정
         bindedHolder = holder;
@@ -80,7 +80,7 @@ public class Ball : MonoBehaviour
 	}
 
     // 홀더에 언바인딩
-    void UnbindingHolder()
+    public void UnbindingHolder()
 	{
 		if (isHolding)
 		{

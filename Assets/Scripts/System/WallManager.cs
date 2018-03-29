@@ -73,7 +73,7 @@ public class WallManager : MonoBehaviour
 		backGroundManager.NextScale(wallsScale);
 
 		// 월 워 설정
-		for (int i = 0; i < Mathf.Min(3, level + 1); i++)
+		for (int i = 0; i < Mathf.Min(4, level + 1); i++)
 		{
 			Transform targetWall = walls.transform.GetChild(i);
 
