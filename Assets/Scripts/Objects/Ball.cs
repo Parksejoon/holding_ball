@@ -190,7 +190,7 @@ public class Ball : MonoBehaviour
 
 		if (canDouble)
 		{
-			shotLine.GetComponent<Transform>().GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = new Color(ShaderManager.nowH, 0.93f, 1f);
+			shotLine.GetComponent<Transform>().GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = Color.HSVToRGB(ShaderManager.nowH, 0.3f, 1f);
 		}
 	}
 
