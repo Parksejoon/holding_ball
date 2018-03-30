@@ -7,8 +7,6 @@ public class WallManager : MonoBehaviour
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
-	private GameObject[]		wallDestroyEffect;			// 벽 파괴 이펙트
-	[SerializeField]
 	private Object				wallsPrefab;                // 벽 프리팹
 	[SerializeField]
 	private Material			warWallsMat;                // 위험 벽 질감
@@ -48,9 +46,6 @@ public class WallManager : MonoBehaviour
 	{
 		// 현재 벽 크기
 		float wallsSize = wallsTransform.localScale.x;
-
-		// 파괴 이펙트
-		GameObject particle = Instantiate(wallDestroyEffect[Mathf.Min(3, level)], transform.position, wallsTransform.rotation, transform);    // 파티클 생성
 		
 		// 생성
 		GameObject walls = Instantiate(wallsPrefab, new Vector3(0, 0, 0), Quaternion.identity, transform) as GameObject;            // 벽 생성

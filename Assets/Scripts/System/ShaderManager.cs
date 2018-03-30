@@ -5,7 +5,6 @@ using UnityEngine;
 public class ShaderManager : MonoBehaviour
 {
 	// 정적 변수
-	public static float ballColorS = 0.6f;      // 공 색(HSV)중 S값
 	public static float nowH = 0;				// 현재의 H값
 
 	// 인스펙터 노출 변수
@@ -25,7 +24,7 @@ public class ShaderManager : MonoBehaviour
 
 
 	// 시작
-	private void Update()
+	private void Start()
 	{
 		float temp;
 		float realH;
@@ -40,16 +39,26 @@ public class ShaderManager : MonoBehaviour
 		backGround.SetColor("_TopColor", Color.HSVToRGB(H, 0.3f, 0.9f));
 		backGround.SetColor("_BotColor", Color.HSVToRGB(H, 0.8f, 0.2f));
 		wall.SetColor("_Color", Color.HSVToRGB(H, 0.45f, 1f));
-		ball.SetColor("_Color", Color.HSVToRGB(H, ballColorS, 1f));
+		warWall.SetColor("_Color", Color.HSVToRGB((H + 0.5f) % 1f, 0.45f, 1f));
+		ball.SetColor("_Color", Color.HSVToRGB(H, 0.5f, 1f));
 		powHolder.SetColor("_Color", Color.HSVToRGB(H, 0.2f, 1f));
 
 		nowH = H;
 	}
 
 	// 공 색 변경
-	public void BallColor(float S)
+	public void BallColor(bool isDouble)
 	{
-		ball.SetColor("_Color", Color.HSVToRGB(nowH, S, 1f));
+		// 더블 ( 유색 )
+		if (isDouble)
+		{
+			ball.SetColor("_Color", Color.HSVToRGB(nowH, 0.5f, 1f));
+		}
+		// 무색
+		else
+		{
+			ball.SetColor("_Color", Color.HSVToRGB(nowH, 0f, 1f));
+		}
 	}
 
 	// 색 변경 코루틴 ( 무한 반복 )

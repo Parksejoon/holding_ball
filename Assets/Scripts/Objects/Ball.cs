@@ -207,7 +207,7 @@ public class Ball : MonoBehaviour
 		rigidbody2d.velocity = Vector3.Normalize(transform.position - camera.ScreenToWorldPoint(Input.mousePosition)) * shotPower * -5f;
 
 		// 쉐이더 변환
-		shaderManager.BallColor(0f);
+		shaderManager.BallColor(false);
 	}
 
 	// 더블 초기화
@@ -217,7 +217,7 @@ public class Ball : MonoBehaviour
 		canDouble = true;
 
 		// 쉐이더 변환
-		shaderManager.BallColor(ShaderManager.ballColorS);
+		shaderManager.BallColor(true);
 	}
 
 	// 공 파괴
