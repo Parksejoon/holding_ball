@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -38,7 +39,7 @@ public class GameManager : MonoBehaviour
 	
 
     // 초기화
-    void Awake()
+    private void Awake()
     {
 		wallManager		= GameObject.Find("WallManager").GetComponent<WallManager>();
         ball			= GameObject.Find("Ball").GetComponent<Ball>();
@@ -49,7 +50,7 @@ public class GameManager : MonoBehaviour
     }
 
     // 프레임
-    void Update()
+    private void Update()
     {
 		//// 클릭 처리 ( PC )
 		//if (Input.GetMouseButtonDown(0))
@@ -101,13 +102,13 @@ public class GameManager : MonoBehaviour
     }
 
     // 홀딩 처리
-    void HoldingBall()
+    private void HoldingBall()
     {
 		ball.HoldingHolder();
     }
 
     // 언홀딩 처리
-    void UnHoldingBall()
+    private void UnHoldingBall()
     {
         ball.UnholdingHolder();
     }
@@ -181,6 +182,12 @@ public class GameManager : MonoBehaviour
 
 		//ball.BallDestroy();
 		//Destroy(camera.GetComponent<CameraChase>());
+	}
+
+	// 씬 로드
+	public void SceneLoad(string sceneName)
+	{
+		SceneManager.LoadScene(sceneName);
 	}
 
 	// 카메라 줌아웃
