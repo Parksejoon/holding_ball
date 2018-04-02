@@ -12,9 +12,9 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	private int			failScore = 0;              // 페일시 추가 점수
 	[SerializeField]
-	private float		perfectPower = 200f;        // 퍼펙트시 슛 파워
+	private float		perfectPower = 50f;         // 퍼펙트시 슛 파워
 	[SerializeField]
-	private float		goodPower = 100f;           // 굿시 슛 파워
+	private float		goodPower = 200f;           // 굿시 슛 파워
 	[SerializeField]
 	private float		failPower = 0;              // 페일시 슛 파워
 
@@ -116,14 +116,14 @@ public class GameManager : MonoBehaviour
     public void PerfectCatch()
     {
 		// 발사 속도 설정
-		shotPower = perfectPower * Mathf.Max(1, (score / 60));
+		shotPower = perfectPower * Mathf.Min(Mathf.Max(1f, (score / 60f)), 1.5f);
 	}
 
     // 캐치 굿판정
     public void GoodCatch()
     {
 		// 발사 속도 설정
-        shotPower = goodPower * Mathf.Max(1, (score / 60));
+        shotPower = goodPower * Mathf.Min(Mathf.Max(1f, (score / 60f)), 1.5f);
     }
 
 
