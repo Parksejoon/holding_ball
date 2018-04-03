@@ -76,7 +76,7 @@ public class Holder : MonoBehaviour
 		return value;
 	}
 
-	// 코루틴 시작
+	// 파괴 시작
 	public void StartDestroyer()
 	{
 		// 파괴 진행중이 아닐때만 코루틴 실행
@@ -104,5 +104,7 @@ public class Holder : MonoBehaviour
 				Destroy(gameObject);
 			}
 		}
+
+
 	}
 }

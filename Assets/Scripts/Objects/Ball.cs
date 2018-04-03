@@ -151,7 +151,6 @@ public class Ball : MonoBehaviour
 			// 홀더 파괴
 			//bindedHolder.tag = "Untagged";
 			bindedHolder.GetComponent<Holder>().DestroyParticle();
-		    gameManager.AddScore(bindedHolder.GetComponent<Holder>().holderPower);
 			Destroy(bindedHolder.gameObject);
 
 			// 캐치 했는지 판정
@@ -195,19 +194,22 @@ public class Ball : MonoBehaviour
 	}
 
 	// 더블 샷
-	public void DoubleShot()
+	public void DoubleShot(Vector3 startPos, Vector3 endPos)
 	{
-		// 더블 사용
-		canDouble = false;
+		if (canDouble)
+		{
+			// 더블 사용
+			canDouble = false;
 
-		// 파티클
-		Instantiate(doubleParticle, transform.position, Quaternion.identity);
+			// 파티클
+			Instantiate(doubleParticle, transform.position, Quaternion.identity);
 
-		// 물리량 대입
-		rigidbody2d.velocity = Vector3.Normalize(transform.position - camera.ScreenToWorldPoint(Input.mousePosition)) * shotPower * -5f;
+			// 물리량 대입
+			rigidbody2d.velocity = Vector3.Normalize(startPos - endPos) * shotPower * -5f;
 
-		// 쉐이더 변환
-		shaderManager.BallColor(false);
+			// 쉐이더 변환
+			shaderManager.BallColor(false);
+		}
 	}
 
 	// 더블 초기화
