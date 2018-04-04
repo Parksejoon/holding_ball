@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class ParticleColorFinder : MonoBehaviour
 {
-
 	// 인스펙터 노출 변수
 	// 수치
 	[SerializeField]
-	private bool					  isDefault;                // 시작시 기본 컬러로 시작할지
+	private bool					  isColor;	                // 시작시 기본 컬러로 시작할지
 	[SerializeField]
 	private ShaderManager.Theme	      colorTheme;				// 색 테마
 
@@ -26,7 +25,7 @@ public class ParticleColorFinder : MonoBehaviour
 	// 시작
 	private void Start()
 	{
-		if (isDefault)
+		if (isColor)
 		{
 			ChangeToMainColor();
 		}

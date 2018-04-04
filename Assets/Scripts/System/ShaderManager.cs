@@ -41,8 +41,8 @@ public class ShaderManager : MonoBehaviour
 	// 시작
 	private void Start()
 	{
-		//InitializeColor();
-		//ChangeColor();
+		InitializeColor();
+		ChangeColor();
 	}
 
 	// 색 초기화

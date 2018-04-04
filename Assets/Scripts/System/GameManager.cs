@@ -15,6 +15,10 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	private float		failPower = 0;              // 페일시 슛 파워
 
+	// 수치
+	[SerializeField]
+	private float		levelTimer = 1f;			// 레벨 타이머
+
 	// 인스펙터 비노출 변수
 	// 일반
 	private WallManager wallManager;				// 월 매니저
@@ -30,6 +34,7 @@ public class GameManager : MonoBehaviour
 	public  bool		isTouch;                    // 현제 터치의 상태
 
 	public  int			score = 0;                  // 점수
+	private int			level = 0;					// 레벨
     private bool		previousIsTouch;            // 이전 터지의 상태
 	private bool		canTouch = true;			// 터치 가능?
 	
@@ -49,6 +54,7 @@ public class GameManager : MonoBehaviour
 	private void Start()
 	{
 		PowerCompute();
+		StartCoroutine(LevelTimer());
 	}
 
 	// 프레임
@@ -118,7 +124,7 @@ public class GameManager : MonoBehaviour
 	// 발사 속도 계산기
 	private void PowerCompute()
 	{
-		shotPower = Mathf.Min(Mathf.Max(1f, (score / 200f)), 1.5f);
+		shotPower = Mathf.Min(Mathf.Max(1f, (score / 30f)), 1.5f);
 	}
 
     // 캐치 페일판정
@@ -183,6 +189,17 @@ public class GameManager : MonoBehaviour
 	public void SceneLoad(string sceneName)
 	{
 		SceneManager.LoadScene(sceneName);
+	}
+
+	// 레벨 타이머
+	private IEnumerator LevelTimer()
+	{
+		while (true)
+		{
+			yield return new WaitForSeconds(levelTimer);
+
+			level++;
+		}
 	}
 
 	// 카메라 줌아웃
