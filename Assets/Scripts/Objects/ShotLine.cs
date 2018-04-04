@@ -57,19 +57,16 @@ public class ShotLine : MonoBehaviour
         // 퍼펙트 판정
         if (shotLineCollider.perfect.Count > 0)
         {
-			gameManager.PerfectCatch();
-            catchHolder = shotLineCollider.perfect[shotLineCollider.perfect.Count - 1].gameObject;
+		   catchHolder = shotLineCollider.perfect[shotLineCollider.perfect.Count - 1].gameObject;
         }
         // 굿 판정
         else if (shotLineCollider.good.Count > 0)
 		{
-			gameManager.GoodCatch();
 			catchHolder = shotLineCollider.good[shotLineCollider.good.Count - 1].gameObject;
         }
         // 페일 판정
         else
         {
-            gameManager.FailCatch();
         }
 
 		// 잔상효과

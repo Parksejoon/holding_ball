@@ -100,6 +100,8 @@ public class Holder : MonoBehaviour
 			sprite.color = new Color(1f, 1f, 1f, alpha);
 			alpha -= 0.01f;
 
+			transform.localScale *= 0.99f;
+
 			transform.position = Vector3.Slerp(startPoisition, ballTransform.position, range);
 			range += rangeValue;
 			rangeValue += 0.001f;

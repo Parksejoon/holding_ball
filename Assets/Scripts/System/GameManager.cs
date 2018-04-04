@@ -13,10 +13,6 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	private int			failScore = 0;              // 페일시 추가 점수
 	[SerializeField]
-	private float		perfectPower = 50f;         // 퍼펙트시 슛 파워
-	[SerializeField]
-	private float		goodPower = 200f;           // 굿시 슛 파워
-	[SerializeField]
 	private float		failPower = 0;              // 페일시 슛 파워
 
 	// 인스펙터 비노출 변수
@@ -29,7 +25,7 @@ public class GameManager : MonoBehaviour
 
 	// 수치
 	[HideInInspector]
-	public  float	    shotPower = 0;              // 발사 속도
+	public  float	    shotPower = 10;             // 발사 속도
 	[HideInInspector]
 	public  bool		isTouch;                    // 현제 터치의 상태
 
@@ -49,8 +45,14 @@ public class GameManager : MonoBehaviour
         previousIsTouch = false;
     }
 
-    // 프레임
-    private void Update()
+	// 시작
+	private void Start()
+	{
+		PowerCompute();
+	}
+
+	// 프레임
+	private void Update()
     {
 		//// 클릭 처리 ( PC )
 		//if (Input.GetMouseButtonDown(0))
@@ -112,25 +114,11 @@ public class GameManager : MonoBehaviour
     {
         ball.UnholdingHolder();
     }
-
-    // 캐치 퍼펙트판정
-    public void PerfectCatch()
-    {
-		// 발사 속도 설정
-		shotPower = perfectPower * PowerCompute();
-	}
-
-    // 캐치 굿판정
-    public void GoodCatch()
-    {
-		// 발사 속도 설정
-        shotPower = goodPower * PowerCompute();
-    }
 	
 	// 발사 속도 계산기
-	private float PowerCompute()
+	private void PowerCompute()
 	{
-		return Mathf.Min(Mathf.Max(1f, (score / 150f)), 1.5f);
+		shotPower = Mathf.Min(Mathf.Max(1f, (score / 200f)), 1.5f);
 	}
 
     // 캐치 페일판정
@@ -145,11 +133,13 @@ public class GameManager : MonoBehaviour
     {
 		if (upScore >= 4)
 		{
-			GameObject.Find("Main Camera").GetComponent<CameraEffect>().FlashBoom();
+			//GameObject.Find("Main Camera").GetComponent<CameraEffect>().FlashBoom();
 		}
 
 		score += upScore;
         scoreText.text = score.ToString();
+
+		PowerCompute();
     }
 
 	// 벽 파괴

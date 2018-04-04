@@ -32,8 +32,6 @@ public class Ball : MonoBehaviour
 	// 수치
 	[HideInInspector]
 	public  bool			isHolding;              // 홀딩 상태를 나타냄
-    [HideInInspector]
-	public  float			shotPower = 3f;         // 발사 속도
 
 
 
@@ -128,7 +126,7 @@ public class Ball : MonoBehaviour
         else
 		{
 			// 홀딩 실패	
-			rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * 15f;
+			rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * gameManager.shotPower * 15f;
 
 			return false;
         }
@@ -148,12 +146,12 @@ public class Ball : MonoBehaviour
 		{
 			Destroy(shotLine.gameObject);
 
-			rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * 10f;
+			rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * gameManager.shotPower * 500f;
 		}
 		// 슛라인만 따로 파괴된 경우
 		else if (shotLine == null)
 		{
-			rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * 15f;
+			rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * gameManager.shotPower * 750f;
 		}
 		// 정상 작동
 		else
@@ -182,12 +180,12 @@ public class Ball : MonoBehaviour
 				shotVector = Vector3.Normalize(shotVector);
 
 				// 가즈아
-				rigidbody2d.AddForce(shotVector * shotPower * gameManager.shotPower);
+				rigidbody2d.AddForce(shotVector * gameManager.shotPower * 750f);
 			}
 			// 캐치 실패
 			else
 			{
-				rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * 15f;
+				rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * gameManager.shotPower * 15f;
 			}
 		}
 	}
@@ -199,7 +197,7 @@ public class Ball : MonoBehaviour
 
 		if (canDouble)
 		{
-			shotLine.GetComponent<Transform>().GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = Color.HSVToRGB(ShaderManager.nowH, 0.3f, 1f);
+			shotLine.GetComponent<Transform>().GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = Color.HSVToRGB(ShaderManager.themeColor[(int)ShaderManager.Theme.BASE], 0.3f, 1f);
 		}
 	}
 
@@ -215,7 +213,7 @@ public class Ball : MonoBehaviour
 			Instantiate(doubleParticle, transform.position, Quaternion.identity);
 
 			// 물리량 대입
-			rigidbody2d.velocity = Vector3.Normalize(startPos - endPos) * shotPower * -1f;
+			rigidbody2d.velocity = Vector3.Normalize(startPos - endPos) * gameManager.shotPower * -15f;
 
 			// 쉐이더 변환
 			shaderManager.BallColor(false);
