@@ -79,9 +79,10 @@ public class ShotLineCollider : MonoBehaviour
 	// 홀더 변환
 	private void ChangeHolder(int i, int score)
 	{
-		Holder targetHolder = holderList[i].gameObject.GetComponent<Holder>();
-
 		holderList[i].gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+		holderList[i].gameObject.tag = "PowerHolder";
+
+		Holder targetHolder = holderList[i].gameObject.GetComponent<Holder>();
 
 		targetHolder.holderPower     = score;
 		targetHolder.rotationPower   = 0;
@@ -96,7 +97,7 @@ public class ShotLineCollider : MonoBehaviour
 	{
 		int score = 0;
 
-		for (int range = 2; range <= distance; range += 2)
+		for (int range = 5; range <= distance; range += 5)
 		{
 			score++;
 		}

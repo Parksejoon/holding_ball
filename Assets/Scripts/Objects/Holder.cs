@@ -11,16 +11,15 @@ public class Holder : MonoBehaviour
 	// 인스펙터 비노출 변수
 	// 일반 변수
 	private HolderManager	holderManager;         // 홀더 매니저
-	private SpriteRenderer	sprite;				   // 스프라이트
+	private SpriteRenderer	sprite;                // 스프라이트
+	private Transform		ballTransform;		   // 공
 
 	// 수치
-	//[HideInInspector]
+	[HideInInspector]
 	public  int				holderPower = 0;       // 홀더 파워
 	[HideInInspector]
 	public  float			rotationPower = 1f;    // 회전 속도
-
-	private float			minPowr = 10f;         // 최소
-	private float			maxPowr = 20f;         // 최대
+	
 	private float			timer = 0f;			   // 타이머
 
 
@@ -69,9 +68,7 @@ public class Holder : MonoBehaviour
 		// 반환 벡터
 		Vector2 value;
 
-		// 랜덤 단위벡터 * 랜덤 스칼라
 		value = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
-		value *= Random.Range(minPowr, maxPowr);
 
 		return value;
 	}
@@ -86,25 +83,28 @@ public class Holder : MonoBehaviour
 		}
 	}
 
-	// 자폭(?)
+	// 파괴 비주얼 이펙트
 	private IEnumerator Destroyer()
 	{
 		float alpha = 1f;
-		
+		float range = 0.1f;
+		float rangeValue = 0.02f;
+
+		Vector3 startPoisition = transform.position;
+		ballTransform = GameObject.Find("BallCollider").GetComponent<Transform>();
+
+		yield return new WaitForSeconds(Random.Range(0.8f, 1.2f));
+
 		while (true)
 		{
 			sprite.color = new Color(1f, 1f, 1f, alpha);
-
 			alpha -= 0.01f;
 
+			transform.position = Vector3.Slerp(startPoisition, ballTransform.position, range);
+			range += rangeValue;
+			rangeValue += 0.001f;
+
 			yield return new WaitForSeconds(0.01f);
-
-			if (sprite.color.a <= 0)
-			{
-				Destroy(gameObject);
-			}
 		}
-
-
 	}
 }

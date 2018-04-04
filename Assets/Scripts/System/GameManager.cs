@@ -117,16 +117,21 @@ public class GameManager : MonoBehaviour
     public void PerfectCatch()
     {
 		// 발사 속도 설정
-		shotPower = perfectPower * Mathf.Min(Mathf.Max(1f, (score / 60f)), 1.5f);
+		shotPower = perfectPower * PowerCompute();
 	}
 
     // 캐치 굿판정
     public void GoodCatch()
     {
 		// 발사 속도 설정
-        shotPower = goodPower * Mathf.Min(Mathf.Max(1f, (score / 60f)), 1.5f);
+        shotPower = goodPower * PowerCompute();
     }
-
+	
+	// 발사 속도 계산기
+	private float PowerCompute()
+	{
+		return Mathf.Min(Mathf.Max(1f, (score / 150f)), 1.5f);
+	}
 
     // 캐치 페일판정
     public void FailCatch()

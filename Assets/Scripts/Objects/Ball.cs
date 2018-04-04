@@ -53,17 +53,27 @@ public class Ball : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D other)
 	{
 		// 홀더일경우 홀더에 바인딩함
-		if (bindedHolder == null && (other.gameObject.tag == "Holder" || other.gameObject.tag == "PowerHolder"))
+		if (bindedHolder == null && (other.gameObject.tag == "Holder"))
 		{
 			BindingHolder(other.gameObject);
         }
+
+		// 강화 홀더일 경우 파괴하고 점수증가
+		if (other.gameObject.tag == "PowerHolder")
+		{
+			Holder targetHolder = other.GetComponent<Holder>();
+				
+			targetHolder.DestroyParticle();
+			gameManager.AddScore(targetHolder.holderPower);
+			Destroy(other.gameObject);
+		}
     }
 
     // 트리거 탈출
     private void OnTriggerExit2D(Collider2D other)
     {
 		// 현재 바인딩중인 홀더일경우 바인딩을 해제함
-		if (bindedHolder == other.gameObject && (other.gameObject.tag == "Holder" || other.gameObject.tag == "PowerHolder"))
+		if (bindedHolder == other.gameObject && (other.gameObject.tag == "Holder"))
 		{
 			UnbindingHolder();
 		}
@@ -205,7 +215,7 @@ public class Ball : MonoBehaviour
 			Instantiate(doubleParticle, transform.position, Quaternion.identity);
 
 			// 물리량 대입
-			rigidbody2d.velocity = Vector3.Normalize(startPos - endPos) * shotPower * -5f;
+			rigidbody2d.velocity = Vector3.Normalize(startPos - endPos) * shotPower * -1f;
 
 			// 쉐이더 변환
 			shaderManager.BallColor(false);
