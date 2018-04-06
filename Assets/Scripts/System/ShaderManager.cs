@@ -66,16 +66,18 @@ public class ShaderManager : MonoBehaviour
 	private void ChangeColor()
 	{
 		// base
-		wall.SetColor("_Color", Color.HSVToRGB(themeColor[(int)Theme.BASE], 0.45f, 1f));
 		ball.SetColor("_Color", Color.HSVToRGB(themeColor[(int)Theme.BASE], 0.5f, 1f));
 		powHolder.SetColor("_Color", Color.HSVToRGB(themeColor[(int)Theme.BASE], 0.2f, 1f));
 
 		// side
-		warWall.SetColor("_Color", Color.HSVToRGB(themeColor[(int)Theme.SIDE], 0.45f, 1f));
-
+		wall.SetColor("_Color", Color.HSVToRGB(themeColor[(int)Theme.SIDE], 0.45f, 0.9f));
+		
 		// back
-		backGround.SetColor("_TopColor", Color.HSVToRGB(themeColor[(int)Theme.BACK], 0.3f, 0.9f));
-		backGround.SetColor("_BotColor", Color.HSVToRGB(themeColor[(int)Theme.BACK], 0.8f, 0.2f));
+		backGround.SetColor("_TopColor", backColor + new Color(0.2f, 0.2f, 0.2f));
+		backGround.SetColor("_BotColor", backColor);
+
+		// other
+		warWall.SetColor("_Color", Color.HSVToRGB(0.01f, 0.72f, 0.9f));
 	}
 
 	// 공 색 변경
@@ -84,12 +86,12 @@ public class ShaderManager : MonoBehaviour
 		// 더블 ( 유색 )
 		if (isDouble)
 		{
-			ball.SetColor("_Color", Color.HSVToRGB(themeColor[0], 0.5f, 1f));
+			ball.SetColor("_Color", Color.HSVToRGB(themeColor[(int)Theme.BASE], 0.5f, 1f));
 		}
 		// 무색
 		else
 		{
-			ball.SetColor("_Color", Color.HSVToRGB(themeColor[0], 0f, 1f));
+			ball.SetColor("_Color", Color.HSVToRGB(themeColor[(int)Theme.BASE], 0f, 1f));
 		}
 	}
 }
