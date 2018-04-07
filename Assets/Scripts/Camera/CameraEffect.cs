@@ -12,16 +12,55 @@ public class CameraEffect : MonoBehaviour
 	// 수치
 	public int   flashCount = 30;                               // 플래쉬 단계
 	public float flashPower = 0.04f;                            // 플래쉬 파워
+	public int	 zoomCount = 30;								// 줌 단계
+	public float zoomPower = 0.01f;                             // 줌 파워
 
+	// 인스펙터 비노출 변수
+	// 일반
+	private Camera camera;                                      // 카메라
+
+
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.K))
+		{
+			ZoomIn();
+		}
+	}
+
+	// 초기화
+	private void Awake()
+	{
+		camera = GetComponent<Camera>();
+	}
+
+	// 줌인효과
+	public void ZoomIn()
+	{
+		StartCoroutine(ZoomInCor());
+	}
 
 	// 플래쉬 효과
 	public void FlashBoom()
 	{
-		StartCoroutine(FlashOn());
+		StartCoroutine(FlashBoomCor());
+	}
+
+	// 줌인 코루틴
+	private IEnumerator ZoomInCor()
+	{
+		int counter = zoomCount;
+
+		while (counter-- > 0)
+		{
+			camera.orthographicSize -= zoomPower;
+
+			yield return new WaitForSeconds(0.01f);
+		}
 	}
 
 	// 플래쉬 증가 코루틴
-	private IEnumerator FlashOn()
+	private IEnumerator FlashBoomCor()
 	{
 		int counter = flashCount;
 

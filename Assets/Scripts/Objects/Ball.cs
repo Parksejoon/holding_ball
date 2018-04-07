@@ -233,9 +233,13 @@ public class Ball : MonoBehaviour
 	// 공 파괴
 	public void BallDestroy()
 	{
-		Instantiate(destroyParticle, transform.position, Quaternion.identity);
+		Debug.Log("BallDes");
 
-		Destroy(transform.parent.gameObject);
+		// 충돌체 제거, 물리량 초기화, 이펙트, 매쉬 제거
+		GetComponent<CircleCollider2D>().enabled = false;
+		rigidbody2d.velocity = Vector3.zero;
+		Instantiate(destroyParticle, transform.position, Quaternion.identity);
+		GetComponentInParent<MeshRenderer>().enabled = false;
 	}
 
 	// 공 당기기 제어

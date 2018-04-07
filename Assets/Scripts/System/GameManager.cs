@@ -179,9 +179,8 @@ public class GameManager : MonoBehaviour
 	{
 		Debug.Log("GG");
 
-		// ☆★☆스크립트 다끊고 제거해야함☆★☆
-
-		//ball.BallDestroy();
+		GameObject.Find("TouchPanel").GetComponent<TouchPanel>().enabled = false;
+		ball.BallDestroy();
 		//Destroy(camera.GetComponent<CameraChase>());
 	}
 
