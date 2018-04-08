@@ -106,7 +106,7 @@ public class Ball : MonoBehaviour
     // 홀더에 홀딩
     public bool HoldingHolder()
     {
-        // 바인딩된 홀더가 있는지 확인
+        // 홀딩 성공
         if (bindedHolder != null)
         {
 			// 시간 제어
@@ -122,11 +122,11 @@ public class Ball : MonoBehaviour
 			CreateShotLine();
             
             return true;
-        }
-        else
+		}
+		// 홀딩 실패	
+		else
 		{
-			// 홀딩 실패	
-			rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * gameManager.shotPower * 15f;
+			Penalty();
 
 			return false;
         }
@@ -146,12 +146,12 @@ public class Ball : MonoBehaviour
 		{
 			Destroy(shotLine.gameObject);
 
-			rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * gameManager.shotPower * 500f;
+			Penalty();
 		}
 		// 슛라인만 따로 파괴된 경우
 		else if (shotLine == null)
 		{
-			rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * gameManager.shotPower * 750f;
+			Penalty();
 		}
 		// 정상 작동
 		else
@@ -185,7 +185,7 @@ public class Ball : MonoBehaviour
 			// 캐치 실패
 			else
 			{
-				rigidbody2d.velocity = Vector3.Normalize(new Vector3(transform.position.x, transform.position.y)) * gameManager.shotPower * 15f;
+				Penalty();
 			}
 		}
 	}
@@ -240,6 +240,12 @@ public class Ball : MonoBehaviour
 		rigidbody2d.velocity = Vector3.zero;
 		Instantiate(destroyParticle, transform.position, Quaternion.identity);
 		GetComponentInParent<MeshRenderer>().enabled = false;
+	}
+	
+	// 패널티
+	private void Penalty()
+	{
+		rigidbody2d.velocity = Vector3.Normalize(transform.position) * gameManager.shotPower * 15f;
 	}
 
 	// 공 당기기 제어

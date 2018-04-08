@@ -10,23 +10,15 @@ public class CameraEffect : MonoBehaviour
 	private UnityStandardAssets.ImageEffects.Bloom bloom;       // 번짐 효과 스크립트
 
 	// 수치
-	public int   flashCount = 30;                               // 플래쉬 단계
-	public float flashPower = 0.04f;                            // 플래쉬 파워
-	public int	 zoomCount = 30;								// 줌 단계
-	public float zoomPower = 0.01f;                             // 줌 파워
+	public int		flashCount = 30;							// 플래쉬 단계
+	public float	flashPower = 0.04f;							// 플래쉬 파워
+	public int		zoomCount = 30;								// 줌 단계
+	public float	zoomPower = 0.01f;							// 줌 파워
 
 	// 인스펙터 비노출 변수
 	// 일반
-	private Camera camera;                                      // 카메라
+	private Camera	camera;										// 카메라
 
-
-	private void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.K))
-		{
-			ZoomIn();
-		}
-	}
 
 	// 초기화
 	private void Awake()
@@ -38,6 +30,12 @@ public class CameraEffect : MonoBehaviour
 	public void ZoomIn()
 	{
 		StartCoroutine(ZoomInCor());
+	}
+	
+	// 줌아웃효과
+	public void ZoomOut()
+	{
+		StartCoroutine(ZoomOutCor());
 	}
 
 	// 플래쉬 효과
@@ -54,6 +52,18 @@ public class CameraEffect : MonoBehaviour
 		while (counter-- > 0)
 		{
 			camera.orthographicSize -= zoomPower;
+
+			yield return new WaitForSeconds(0.01f);
+		}
+	}
+
+	// 카메라 줌아웃
+	private IEnumerator ZoomOutCor()
+	{
+		for (int i = 0; i < 50; i++)
+		{
+			// 카메라 줌아웃
+			camera.orthographicSize += 0.1f;
 
 			yield return new WaitForSeconds(0.01f);
 		}

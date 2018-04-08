@@ -9,34 +9,35 @@ public class GameManager : MonoBehaviour
     // 인스펙터 노출 변수
 	// 일반
     [SerializeField]
-	private Text		scoreText;                  // 점수
+	private Text			scoreText;                  // 점수
 	[SerializeField]
-	private int			failScore = 0;              // 페일시 추가 점수
+	private int				failScore = 0;              // 페일시 추가 점수
 	[SerializeField]
-	private float		failPower = 0;              // 페일시 슛 파워
+	private float			failPower = 0;              // 페일시 슛 파워
 
 	// 수치
 	[SerializeField]
-	private float		levelTimer = 1f;			// 레벨 타이머
+	private float			levelTimer = 1f;			// 레벨 타이머
 
 	// 인스펙터 비노출 변수
 	// 일반
-	private WallManager wallManager;				// 월 매니저
-	private Ball		ball;                       // 볼
-    private Touch		touch;                      // 터치 구조체
-	private Camera		camera;                     // 카메라
-	private int			wallCount = 0;				// 벽 카운트
+	private WallManager		wallManager;				// 월 매니저
+	private Ball			ball;                       // 볼
+    private Touch			touch;                      // 터치 구조체
+	private CameraEffect	cameraEffect;               // 카메라 이펙트
+	private UIManager		uiManager;					// UI 매니저
+	private int				wallCount = 0;				// 벽 카운트
 
 	// 수치
 	[HideInInspector]
-	public  float	    shotPower = 10;             // 발사 속도
+	public  float			shotPower = 10;             // 발사 속도
 	[HideInInspector]
-	public  bool		isTouch;                    // 현제 터치의 상태
+	public  bool			isTouch;                    // 현제 터치의 상태
 
-	public  int			score = 0;                  // 점수
-	private int			level = 0;					// 레벨
-    private bool		previousIsTouch;            // 이전 터지의 상태
-	private bool		canTouch = true;			// 터치 가능?
+	public  int				score = 0;                  // 점수
+	private int				level = 0;					// 레벨
+    private bool			previousIsTouch;            // 이전 터지의 상태
+	private bool			canTouch = true;			// 터치 가능?
 	
 
     // 초기화
@@ -44,7 +45,8 @@ public class GameManager : MonoBehaviour
     {
 		wallManager		= GameObject.Find("WallManager").GetComponent<WallManager>();
         ball			= GameObject.Find("Ball").GetComponent<Ball>();
-		camera			= GameObject.Find("Main Camera").GetComponent<Camera>();
+		cameraEffect	= GameObject.Find("Main Camera").GetComponent<CameraEffect>();
+		uiManager		= GameObject.Find("Canvas").GetComponent<UIManager>();
 
         isTouch		    = false;
         previousIsTouch = false;
@@ -156,8 +158,7 @@ public class GameManager : MonoBehaviour
 
 		if (wallCount++ < 4)
 		{
-			// 카메라 줌아웃
-			StartCoroutine(CameraZoomOut());
+			cameraEffect.ZoomOut();
 		}
 
 		// 공 당기기
@@ -177,10 +178,9 @@ public class GameManager : MonoBehaviour
 	// 게임 오버
 	public void GameOver()
 	{
-		Debug.Log("GG");
-
 		GameObject.Find("TouchPanel").GetComponent<TouchPanel>().enabled = false;
 		ball.BallDestroy();
+		cameraEffect.ZoomIn();
 		//Destroy(camera.GetComponent<CameraChase>());
 	}
 
@@ -201,18 +201,6 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	// 카메라 줌아웃
-	private IEnumerator CameraZoomOut()
-	{
-		for (int i = 0; i < 50; i++)
-		{
-			// 카메라 줌아웃
-			camera.orthographicSize += 0.1f;
-
-			yield return new WaitForSeconds(0.01f);
-		}
-	}
-
 	// 공 당기기
 	private IEnumerator BallPull()
 	{
@@ -225,6 +213,14 @@ public class GameManager : MonoBehaviour
 		yield return new WaitForSeconds(1f);
 
 		canTouch = true;
+	}
+
+	// 종료 UI 코루틴
+	private IEnumerator OverCor()
+	{
+		yield return new WaitForSeconds(1f);
+
+		uiManager.ControlPanel((int)UIManager.PanelNum.END, true, true);
 	}
 }
     
