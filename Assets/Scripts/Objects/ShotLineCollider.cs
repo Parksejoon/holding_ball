@@ -50,7 +50,6 @@ public class ShotLineCollider : MonoBehaviour
 			{
 				Vector3 holderListPosition = holderList[i].position;        // 홀더 각자의 좌표
 				
-
 				// 거리를 측정해서 판정진행
 				distance = Mathf.Sqrt(((holderListPosition.x - x) * (holderListPosition.x - x)) + ((holderListPosition.y - y) * (holderListPosition.y - y)));
 				holdDistance = Mathf.Abs(distance - range);

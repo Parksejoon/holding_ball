@@ -181,6 +181,7 @@ public class GameManager : MonoBehaviour
 		GameObject.Find("TouchPanel").GetComponent<TouchPanel>().enabled = false;
 		ball.BallDestroy();
 		cameraEffect.ZoomIn();
+		StartCoroutine(OverCor());
 		//Destroy(camera.GetComponent<CameraChase>());
 	}
 
@@ -218,9 +219,13 @@ public class GameManager : MonoBehaviour
 	// 종료 UI 코루틴
 	private IEnumerator OverCor()
 	{
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(2.5f);
 
-		uiManager.ControlPanel((int)UIManager.PanelNum.END, true, true);
+		uiManager.StartCoroutine(uiManager.FadeOut());
+
+		yield return new WaitForSeconds(2f);
+
+		SceneLoad("MainScene");
 	}
 }
     

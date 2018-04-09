@@ -233,8 +233,6 @@ public class Ball : MonoBehaviour
 	// 공 파괴
 	public void BallDestroy()
 	{
-		Debug.Log("BallDes");
-
 		// 충돌체 제거, 물리량 초기화, 이펙트, 매쉬 제거
 		GetComponent<CircleCollider2D>().enabled = false;
 		rigidbody2d.velocity = Vector3.zero;
