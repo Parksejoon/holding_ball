@@ -6,10 +6,10 @@ public class Start : MonoBehaviour
 {
 	// 인스펙터 비노출 변수
 	// 일반
-	private GameManager	  gameManager;				// 게임 매니저
-	private HolderManager holderManager;            // 홀더 매니저
-	private Rigidbody2D	  ballRigidbody2d;          // 공의 트랜스폼
-	private Camera		  camera;					// 카메라
+	private GameManager		gameManager;				// 게임 매니저
+	private HolderManager	holderManager;				// 홀더 매니저
+	private Rigidbody2D		ballRigidbody2d;			// 공의 트랜스폼
+	private Camera			camera;                     // 카메라
 
 
 	// 초기화

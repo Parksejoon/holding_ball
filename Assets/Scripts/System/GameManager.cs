@@ -33,8 +33,9 @@ public class GameManager : MonoBehaviour
 	public  float			shotPower = 10;             // 발사 속도
 	[HideInInspector]
 	public  bool			isTouch;                    // 현제 터치의 상태
-
+	[HideInInspector]
 	public  int				score = 0;                  // 점수
+
 	private int				level = 0;					// 레벨
     private bool			previousIsTouch;            // 이전 터지의 상태
 	private bool			canTouch = true;			// 터치 가능?
@@ -139,11 +140,7 @@ public class GameManager : MonoBehaviour
     // 점수 상승
     public void AddScore(int upScore)
     {
-		if (upScore >= 4)
-		{
-			//GameObject.Find("Main Camera").GetComponent<CameraEffect>().FlashBoom();
-		}
-
+		// ** 스코어 이펙트 추가 예정 **
 		score += upScore;
         scoreText.text = score.ToString();
 
@@ -221,7 +218,7 @@ public class GameManager : MonoBehaviour
 	{
 		yield return new WaitForSeconds(2.5f);
 
-		uiManager.StartCoroutine(uiManager.FadeOut());
+		uiManager.StartCoroutine(uiManager.FadeOut((Image)null));
 
 		yield return new WaitForSeconds(2f);
 
