@@ -302,6 +302,7 @@
     <Compile Include="Assets\Scripts\Objects\Wall.cs" />
     <Compile Include="Assets\Scripts\Particle\ParticleColorFinder.cs" />
     <Compile Include="Assets\Scripts\Particle\SelfDestroy.cs" />
+    <Compile Include="Assets\Scripts\Sprite\MatColorFinder.cs" />
     <Compile Include="Assets\Scripts\Sprite\SecondBack.cs" />
     <Compile Include="Assets\Scripts\Sprite\SecondBackList.cs" />
     <Compile Include="Assets\Scripts\Sprite\ShotLineAfterEffect.cs" />

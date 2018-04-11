@@ -62,8 +62,20 @@ public class Ball : MonoBehaviour
 			Holder targetHolder = other.GetComponent<Holder>();
 				
 			targetHolder.DestroyParticle();
-			gameManager.AddScore(targetHolder.holderPower);
 			Destroy(other.gameObject);
+
+			gameManager.AddScore(targetHolder.holderPower);
+		}
+
+		// 코인일 경우 코인 증가
+		if (other.gameObject.tag == "Coin")
+		{
+			Coin targetCoin = other.GetComponent<Coin>();
+
+			targetCoin.DestroyParticle();
+			Destroy(other.gameObject);
+
+			gameManager.AddCoin(1);
 		}
     }
 

@@ -57,10 +57,25 @@ public class Wall : MonoBehaviour
 		{
 			// 홀더의 파워 검사
 			Holder targetHolder = collision.gameObject.GetComponent<Holder>();
-			
+
 			// 파괴 전 홀더 검사
 			gameManager.HolderCheck(collision.gameObject);
 			Destroy(collision.gameObject);
+		}
+
+		// 코인일경우
+		if (collision.gameObject.tag == "Coin")
+		{
+			Coin targetCoin = collision.gameObject.GetComponent<Coin>();
+
+			if (targetCoin.bounceCount > 0)
+			{
+				targetCoin.bounceCount--;
+			}
+			else
+			{
+				Destroy(collision.gameObject);
+			}
 		}
 	}
 

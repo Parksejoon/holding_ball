@@ -33,9 +33,9 @@ public class GameManager : MonoBehaviour
 	public  float			shotPower = 10;             // 발사 속도
 	[HideInInspector]
 	public  bool			isTouch;                    // 현제 터치의 상태
-	[HideInInspector]
-	public  int				score = 0;                  // 점수
-
+	
+	private int				score = 0;                  // 점수
+	private int				coin = 0;					// 코인
 	private int				level = 0;					// 레벨
     private bool			previousIsTouch;            // 이전 터지의 상태
 	private bool			canTouch = true;			// 터치 가능?
@@ -146,6 +146,13 @@ public class GameManager : MonoBehaviour
 
 		PowerCompute();
     }
+
+	// 코인 상승
+	public void AddCoin(int upCoin)
+	{
+		coin += upCoin;
+		Debug.Log(coin);
+	}
 
 	// 벽 파괴
 	public void WallDestroy()
