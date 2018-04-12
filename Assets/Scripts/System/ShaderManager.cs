@@ -27,8 +27,6 @@ public class ShaderManager : MonoBehaviour
 	[SerializeField]
 	private Material	wall;                   // 벽
 	[SerializeField]
-	private Material	warWall;                // 위험 벽
-	[SerializeField]
 	private Material	powHolder;              // 강화 홀더
 
 
@@ -75,9 +73,6 @@ public class ShaderManager : MonoBehaviour
 		// back
 		backGround.SetColor("_TopColor", backColor + new Color(0.2f, 0.2f, 0.2f));
 		backGround.SetColor("_BotColor", backColor);
-
-		// other
-		warWall.SetColor("_Color", Color.HSVToRGB(0.01f, 0.72f, 0.9f));
 	}
 
 	// 공 색 변경

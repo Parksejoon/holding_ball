@@ -146,8 +146,8 @@ public class GameManager : MonoBehaviour
 	// 벽 파괴
 	public void WallDestroy()
 	{
-		// 월 매니저로 벽 새로생성 요청
-		wallManager.CreateWalls(score);
+		// 월 매니저로 벽 확대 요청
+		wallManager.NextWalls();
 
 		if (wallCount++ < 4)
 		{

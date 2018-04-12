@@ -291,6 +291,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Custom 2D Colliders\Scripts\ArcCollider2D.cs" />
+    <Compile Include="Assets\Custom 2D Colliders\Scripts\BezierCurveCollider2D.cs" />
+    <Compile Include="Assets\Custom 2D Colliders\Scripts\CapsuleCollider2D.cs" />
+    <Compile Include="Assets\Custom 2D Colliders\Scripts\EllipseCollider2D.cs" />
+    <Compile Include="Assets\Custom 2D Colliders\Scripts\RoundedBoxCollider2D.cs" />
+    <Compile Include="Assets\Custom 2D Colliders\Scripts\StarCollider2D.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraChase.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraEffect.cs" />
     <Compile Include="Assets\Scripts\Objects\Ball.cs" />
@@ -300,6 +306,7 @@
     <Compile Include="Assets\Scripts\Objects\ShotLine.cs" />
     <Compile Include="Assets\Scripts\Objects\ShotLineCollider.cs" />
     <Compile Include="Assets\Scripts\Objects\Wall.cs" />
+    <Compile Include="Assets\Scripts\Objects\WarWall.cs" />
     <Compile Include="Assets\Scripts\Particle\ParticleColorFinder.cs" />
     <Compile Include="Assets\Scripts\Particle\SelfDestroy.cs" />
     <Compile Include="Assets\Scripts\Sprite\MatColorFinder.cs" />

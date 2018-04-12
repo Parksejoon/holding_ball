@@ -10,15 +10,14 @@ public class Wall : MonoBehaviour
 	private GameObject	collisionEffect;      // 벽 충돌 이펙트
 
 	// 수치
-	public  bool		isWarWall = false;    // 게임 오버 벽인지 여부
-
 	[SerializeField]
-	private float		health = 200;         // 체력
+	private float		originalHealth = 200; // 원시 체력
 										
 	// 인스펙터 비노출 변수
 	// 일반
 	private GameManager gameManager;          // 게임 매니저
-	private Ball		ball;				  // 공
+	private Ball		ball;                 // 공
+	private float		health;				  // 체력
 
 
 	// 초기화
@@ -26,6 +25,8 @@ public class Wall : MonoBehaviour
 	{
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		ball		= GameObject.Find("Ball").GetComponent<Ball>();
+
+		ResetHP();
 	}
 
 	// 충돌체 진입
@@ -36,12 +37,6 @@ public class Wall : MonoBehaviour
 		{
 			// 파티클 효과
 			Instantiate(collisionEffect, collision.contacts[0].point, Quaternion.identity);
-
-			// 워 월인지 확인
-			if (isWarWall)
-			{
-				//gameManager.GameOver();
-			}
 
 			// 벽 체력 깍임
 			Vector3 ballVelo = collision.gameObject.GetComponent<Rigidbody2D>().velocity;
@@ -96,13 +91,11 @@ public class Wall : MonoBehaviour
 	{
 		// 게임 매니저로 전달
 		gameManager.WallDestroy();
-
-		Destroy(gameObject);
 	}
 
-	// 위험 벽 활성화
-	public void ActiveWarWall()
+	// 체력 초기화
+	public void ResetHP()
 	{
-		isWarWall = true;
+		health = originalHealth;
 	}
 }

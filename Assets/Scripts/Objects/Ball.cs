@@ -77,6 +77,12 @@ public class Ball : MonoBehaviour
 
 			gameManager.AddCoin(1);
 		}
+
+		// 장애물일 경우 게임 종료
+		if (other.gameObject.tag == "WarWall")
+		{
+			//gameManager.GameOver();
+		}
     }
 
     // 트리거 탈출
