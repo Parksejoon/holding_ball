@@ -13,8 +13,8 @@ public class LimitWall : MonoBehaviour
 			collision.transform.position = Vector3.zero;
 		}
 
-		// 홀더는 파괴처리
-		if (collision.gameObject.tag == "Holder")
+		// 홀더와 코인은 파괴처리
+		if (collision.gameObject.tag == "Holder" || collision.gameObject.tag == "Coin")
 		{
 			Destroy(collision.gameObject);
 		}

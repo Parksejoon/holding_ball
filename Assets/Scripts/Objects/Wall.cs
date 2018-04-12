@@ -40,7 +40,7 @@ public class Wall : MonoBehaviour
 			// 워 월인지 확인
 			if (isWarWall)
 			{
-				gameManager.GameOver();
+				//gameManager.GameOver();
 			}
 
 			// 벽 체력 깍임

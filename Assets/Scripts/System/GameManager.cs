@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
 	private Text			scoreText;                  // 점수
 	[SerializeField]
+	private Text			coinText;					// 코인	
+	[SerializeField]
 	private int				failScore = 0;              // 페일시 추가 점수
 	[SerializeField]
 	private float			failPower = 0;              // 페일시 슛 파워
@@ -151,7 +153,7 @@ public class GameManager : MonoBehaviour
 	public void AddCoin(int upCoin)
 	{
 		coin += upCoin;
-		Debug.Log(coin);
+		coinText.text = coin.ToString();
 	}
 
 	// 벽 파괴

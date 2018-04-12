@@ -5,28 +5,30 @@ using UnityEngine;
 public class HolderManager : MonoBehaviour
 {
 	// 델리게이트
-	private delegate IEnumerator HolderAlgorithm();				   // 홀더 샷 알고리즘 델리게이트
+	private delegate IEnumerator HolderAlgorithm();					// 홀더 샷 알고리즘 델리게이트
 
     // 인스펙터 노출 변수
 	// 일반
     [SerializeField]
-	private GameObject holderPrefab;                               // 생성될 Holder 프리팹
+	private GameObject holderPrefab;							    // 생성될 Holder 프리팹
+	[SerializeField]
+	private GameObject coinPrefab;									// 생성될 Coin 프리팹
     [SerializeField]
-	private float      fixX;                                       // 생성 고정 X좌표
+	private float      fixX;										// 생성 고정 X좌표
     [SerializeField]
-	private float      fixY;                                       // 생성 고정 Y좌표
+	private float      fixY;									    // 생성 고정 Y좌표
 	[SerializeField]
-	private float	   power;                                      // 발사 파워
+	private float	   power;									    // 발사 파워
 	[SerializeField]
-	private float      minRespawnTime;                             // 리스폰 최소시간
+	private float      minRespawnTime;							    // 리스폰 최소시간
     [SerializeField]
-	private float      maxRespawnTime;                             // 리스폰 최대시간
+	private float      maxRespawnTime;								// 리스폰 최대시간
 	[SerializeField]
-	private float	   minTerm;						               // 중간 텀 최소시간
+	private float	   minTerm;										// 중간 텀 최소시간
 	[SerializeField]
-	private float	   maxTerm;					                   // 중간 텀 최대시간
+	private float	   maxTerm;										// 중간 텀 최대시간
 	[SerializeField]
-	private float      amount;                                     // 소환되는 양
+	private float      amount;										// 소환되는 양
 
 	// 인스펙터 비노출 변수
 	// 일반
@@ -48,7 +50,7 @@ public class HolderManager : MonoBehaviour
     {
         ball		= GameObject.FindWithTag("Ball").GetComponent<Ball>();
 
-		// Tornado Slug Round Compression Quarter Shift
+		// Tornado Slug Round Compression Quarter Shift Coinar
 		// 알고리즘 델리게이트 초기화
 		holderAlgorithm = new HolderAlgorithm[]
 						{
@@ -57,7 +59,8 @@ public class HolderManager : MonoBehaviour
 							new HolderAlgorithm(Round),
 							new HolderAlgorithm(Compression),
 							new HolderAlgorithm(Quarter),
-							new HolderAlgorithm(Shift)
+							new HolderAlgorithm(Shift),
+							new HolderAlgorithm(Coinar)
 						};
     }
 
@@ -104,8 +107,20 @@ public class HolderManager : MonoBehaviour
 	// 랜덤 패턴
 	private void RandomPattern()
 	{
-		// Tornado Slug Round Compression Quarter Shift
-		StartCoroutine(holderAlgorithm[Random.Range(0, 6)]());
+		// 0	   1    2     3           4       5     6
+		// Tornado Slug Round Compression Quarter Shift Coinar
+		int index = Random.Range(0, 50);
+
+		if (index >= 48)
+		{
+			index = 6;
+		}
+		else
+		{
+			index %= 6;
+		}
+
+		StartCoroutine(holderAlgorithm[index]());
 	}
 
 	// 회오리
@@ -294,6 +309,28 @@ public class HolderManager : MonoBehaviour
 			count += (int)amount / 2;
 
 			yield return new WaitForSeconds(term + 0.5f);
+		}
+	}
+
+	// 코인
+	private IEnumerator Coinar()
+	{
+		Rigidbody2D target;                                         // 타겟 홀더
+		float term = Random.Range(minTerm, maxTerm);            // 텀
+		int count = 0;                                      // 카운트
+
+
+		while (count < Random.Range(4, 10))
+		{
+			// 생성
+			target = Instantiate(coinPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+
+			// 방향으로 힘 적용
+			target.AddForce(Vector3.Normalize(ball.transform.position) * power);
+			
+			count++;
+
+			yield return new WaitForSeconds(term);
 		}
 	}
 }

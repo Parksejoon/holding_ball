@@ -20,8 +20,6 @@ public class Holder : MonoBehaviour
 	[HideInInspector]
 	public  float			rotationPower = 1f;    // 회전 속도
 	
-	private float			timer = 0f;			   // 타이머
-
 
 	// 초기화
 	private void Awake()
@@ -33,9 +31,7 @@ public class Holder : MonoBehaviour
 	// 프레임
 	private void Update()
 	{
-		timer += Time.deltaTime * rotationPower;
-
-		transform.rotation = Quaternion.Euler(new Vector3(0, 0, timer * 200f));
+		transform.Rotate(new Vector3(0, 0, 3));
 	}
 
 	// 시작

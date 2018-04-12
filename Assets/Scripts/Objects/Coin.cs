@@ -10,8 +10,14 @@ public class Coin : MonoBehaviour
 	private ParticleSystem	destroyParticle;
 		
 	// 수치
-	public float			bounceCount = 0;			// 튕길 수 있는 횟수
-		
+	public float			bounceCount = 0;          // 튕길 수 있는 횟수
+
+
+	// 매 프레임
+	private void Update()
+	{
+		transform.Rotate(new Vector3(0, 0, 3));
+	}
 
 	// 파괴 이펙트
 	public void DestroyParticle()
