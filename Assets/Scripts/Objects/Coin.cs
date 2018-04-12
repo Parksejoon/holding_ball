@@ -13,6 +13,12 @@ public class Coin : MonoBehaviour
 	public float			bounceCount = 0;          // 튕길 수 있는 횟수
 
 
+	// 시작
+	private void Start()
+	{
+		bounceCount = Random.Range(1, 4);
+	}
+
 	// 매 프레임
 	private void Update()
 	{

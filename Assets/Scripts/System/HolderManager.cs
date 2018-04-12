@@ -326,7 +326,7 @@ public class HolderManager : MonoBehaviour
 			target = Instantiate(coinPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
 
 			// 방향으로 힘 적용
-			target.AddForce(Vector3.Normalize(ball.transform.position) * power);
+			target.AddForce(Vector3.Normalize(ball.transform.position) * -power);
 			
 			count++;
 

@@ -12,11 +12,7 @@ public class GameManager : MonoBehaviour
 	private Text			scoreText;                  // 점수
 	[SerializeField]
 	private Text			coinText;					// 코인	
-	[SerializeField]
-	private int				failScore = 0;              // 페일시 추가 점수
-	[SerializeField]
-	private float			failPower = 0;              // 페일시 슛 파워
-
+	
 	// 수치
 	[SerializeField]
 	private float			levelTimer = 1f;			// 레벨 타이머
@@ -129,15 +125,8 @@ public class GameManager : MonoBehaviour
 	// 발사 속도 계산기
 	private void PowerCompute()
 	{
-		shotPower = Mathf.Min(Mathf.Max(1f, (score / 30f)), 1.5f);
+		shotPower = Mathf.Min(Mathf.Max(1f, (level / 30f)), 1.5f);
 	}
-
-    // 캐치 페일판정
-    public void FailCatch()
-    {
-        shotPower = failPower;
-		AddScore(failScore);
-    }
 
     // 점수 상승
     public void AddScore(int upScore)
@@ -145,8 +134,6 @@ public class GameManager : MonoBehaviour
 		// ** 스코어 이펙트 추가 예정 **
 		score += upScore;
         scoreText.text = score.ToString();
-
-		PowerCompute();
     }
 
 	// 코인 상승
@@ -205,6 +192,7 @@ public class GameManager : MonoBehaviour
 			yield return new WaitForSeconds(levelTimer);
 
 			level++;
+			PowerCompute();
 		}
 	}
 
