@@ -153,9 +153,6 @@ public class GameManager : MonoBehaviour
 		{
 			cameraEffect.ZoomOut();
 		}
-
-		// 공 당기기
-		StartCoroutine(BallPull());
 	}
 
 	// 홀더 체크
@@ -194,20 +191,6 @@ public class GameManager : MonoBehaviour
 			level++;
 			PowerCompute();
 		}
-	}
-
-	// 공 당기기
-	private IEnumerator BallPull()
-	{
-		// 공쪽 코루틴 시작
-		StartCoroutine(ball.BallPullManager());
-
-		// 터치 제어
-		canTouch = false;
-
-		yield return new WaitForSeconds(1f);
-
-		canTouch = true;
 	}
 
 	// 종료 UI 코루틴

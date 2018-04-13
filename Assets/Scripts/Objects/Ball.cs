@@ -82,6 +82,7 @@ public class Ball : MonoBehaviour
 		if (other.gameObject.tag == "WarWall")
 		{
 			//gameManager.GameOver();
+			Debug.Log("Over");
 		}
     }
 
@@ -262,35 +263,5 @@ public class Ball : MonoBehaviour
 	private void Penalty()
 	{
 		rigidbody2d.velocity = Vector3.Normalize(transform.position) * gameManager.shotPower * 15f;
-	}
-
-	// 공 당기기 제어
-	public IEnumerator BallPullManager()
-	{
-		isBallPull = true;
-		StartCoroutine(BallPull());
-
-		yield return new WaitForSeconds(0.4f);
-
-		isBallPull = false;
-	}
-
-	// 공 당기기
-	private IEnumerator BallPull()
-	{
-		Vector2 tempVector = rigidbody2d.velocity;
-
-		GetComponentInParent<Collider2D>().enabled = false;
-		rigidbody2d.velocity = Vector2.zero;
-
-		while (isBallPull)
-		{
-			ballTransform.position = Vector2.Lerp(ballTransform.position, Vector2.zero, 0.04f);
-
-			yield return new WaitForSeconds(0.01f);
-		}
-
-		GetComponentInParent<Collider2D>().enabled = true;
-		rigidbody2d.velocity = tempVector;
 	}
 }

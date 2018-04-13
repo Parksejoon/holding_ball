@@ -7,10 +7,12 @@ public class WallManager : MonoBehaviour
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
-	private GameObject			wallsPrefab;                // 벽 프리팹
+	private GameObject			warWall;					// 위험 벽
+	[SerializeField]
+	private GameObject			warWallPrefab;				// 위험 벽 프리팹
 	[SerializeField]
 	private Material			warWallsMat;                // 위험 벽 질감
-
+	
 	// 수치
 	public  float				wallsScale = 1f;            // 벽의 크기
 
@@ -24,6 +26,7 @@ public class WallManager : MonoBehaviour
 	
 	private BackGroundManager	backGroundManager;			// 뒷배경 매니저
 	private Transform			wallsTransform;             // 벽들의 트랜스폼
+	private Transform			warWallsTransform;			// 위험벽들의 트랜스폼
 	private float				rotationSpeed;				// 회전속도
 
 
@@ -32,6 +35,7 @@ public class WallManager : MonoBehaviour
 	{
 		backGroundManager = GameObject.Find("BackGround").GetComponent<BackGroundManager>();
 		wallsTransform    = GameObject.Find("Walls"). GetComponent<Transform>();
+		warWallsTransform = GameObject.Find("WarWalls").GetComponent<Transform>();
 
 		rotationSpeed = originalRotationSpeed;
 	}
@@ -42,12 +46,19 @@ public class WallManager : MonoBehaviour
 		wallsTransform.Rotate(Vector3.forward * rotationSpeed);
 	}
 
+	// 끝날때
+	private void OnDestroy()
+	{
+		Color warWallColor = warWallsMat.GetColor("_Color");
+
+		warWallsMat.SetColor("_Color", new Color(warWallColor.r, warWallColor.g, warWallColor.b, 1f));
+	}
+
 	// 벽 확장
 	public void NextWalls()
 	{
 		// 벽 체력 초기화
-		for (int i = 0; i < 5
-			; i++)
+		for (int i = 0; i < 5; i++)
 		{
 			wallsTransform.GetChild(i).GetComponent<Wall>().ResetHP();
 		}
@@ -55,9 +66,15 @@ public class WallManager : MonoBehaviour
 		// 배경 크기 설정
 		backGroundManager.NextScale(wallsScale);
 
-		// 벽 확장 코루틴 실행
+		// 전체 코루틴 실행
 		StartCoroutine(NextWallsCor());
-		
+		StartCoroutine(WarWallMatFade());
+
+		if (level < 4)
+		{
+			StartCoroutine(NextWarWallCor(wallsTransform.localScale * wallsScale * 1.7f));
+		}
+
 		// 레벨 증가
 		level++;
 
@@ -65,6 +82,7 @@ public class WallManager : MonoBehaviour
 		{
 			wallsScale = 1f;
 		}
+			
 	}
 
 	// 벽 확장 코루틴
@@ -77,12 +95,49 @@ public class WallManager : MonoBehaviour
 		Vector2 endVec2 = new Vector2(scaleValue, scaleValue);
 
 		rotationSpeed *= -1;
+		WarWall.signValue *= -1;
 		while (interValue <= 1)
 		{
-
 			wallsTransform.localScale = Vector3.Lerp(startVec2, endVec2, interValue);
 
 			interValue += 0.1f;
+
+			yield return new WaitForSeconds(0.05f);
+		}
+	}
+
+	// 위험 벽 생성 코루틴
+	IEnumerator NextWarWallCor(Vector3 wallScale)
+	{
+		yield return new WaitForSeconds(1f);
+
+		GameObject target = Instantiate(warWallPrefab, Vector3.zero, Quaternion.identity, warWallsTransform) as GameObject;
+
+		target.transform.localScale = wallScale;
+	}
+
+	// 위험 벽 페이드 코루틴
+	IEnumerator WarWallMatFade()
+	{
+		float alpha = 1f;
+		Color warWallColor = warWallsMat.GetColor("_Color");
+
+		while (alpha >= 0)
+		{
+			alpha -= 0.05f;
+
+			warWallsMat.SetColor("_Color", new Color(warWallColor.r, warWallColor.g, warWallColor.b, alpha));
+
+			yield return new WaitForSeconds(0.05f);
+		}
+		
+		yield return new WaitForSeconds(0.3f);
+
+		while (alpha <= 1)
+		{
+			alpha += 0.08f;
+
+			warWallsMat.SetColor("_Color", new Color(warWallColor.r, warWallColor.g, warWallColor.b, alpha));
 
 			yield return new WaitForSeconds(0.05f);
 		}

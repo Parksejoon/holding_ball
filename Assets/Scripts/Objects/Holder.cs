@@ -31,7 +31,7 @@ public class Holder : MonoBehaviour
 	// 프레임
 	private void Update()
 	{
-		transform.Rotate(new Vector3(0, 0, 3));
+		transform.Rotate(new Vector3(0, 0, 3) * rotationPower);
 	}
 
 	// 시작
