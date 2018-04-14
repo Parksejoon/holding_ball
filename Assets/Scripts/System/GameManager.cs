@@ -23,7 +23,8 @@ public class GameManager : MonoBehaviour
 	private Ball			ball;                       // 볼
     private Touch			touch;                      // 터치 구조체
 	private CameraEffect	cameraEffect;               // 카메라 이펙트
-	private UIManager		uiManager;					// UI 매니저
+	private UIManager		uiManager;                  // UI 매니저
+	private Parser			parser;						// 데이터 파서
 	private int				wallCount = 0;				// 벽 카운트
 
 	// 수치
@@ -33,7 +34,8 @@ public class GameManager : MonoBehaviour
 	public  bool			isTouch;                    // 현제 터치의 상태
 	
 	private int				score = 0;                  // 점수
-	private int				coin = 0;					// 코인
+	private int				bestScore;					// 최고점수
+	private int				coin;						// 코인
 	private int				level = 0;					// 레벨
     private bool			previousIsTouch;            // 이전 터지의 상태
 	private bool			canTouch = true;			// 터치 가능?
@@ -56,6 +58,13 @@ public class GameManager : MonoBehaviour
 	{
 		PowerCompute();
 		StartCoroutine(LevelTimer());
+
+		parser = new Parser();
+
+		coin = parser.GetCoin();
+		bestScore = parser.GetBestScore();
+
+		Debug.Log(bestScore);
 	}
 
 	// 프레임
@@ -108,6 +117,13 @@ public class GameManager : MonoBehaviour
 		}
 
         previousIsTouch = isTouch;
+
+
+		// 테스트 키
+		if (Input.GetKeyDown(KeyCode.K))
+		{
+			GameOver();
+		}
     }
 
     // 홀딩 처리
@@ -168,10 +184,19 @@ public class GameManager : MonoBehaviour
 	// 게임 오버
 	public void GameOver()
 	{
+		// 데이터 저장
+		parser.SetCoin(coin);
+		parser.SetBestScore(Mathf.Max(score, bestScore));
+
+		PlayerPrefs.Save();
+
+
+		// 종료처리
 		GameObject.Find("TouchPanel").GetComponent<TouchPanel>().enabled = false;
 		ball.BallDestroy();
 		cameraEffect.ZoomIn();
 		StartCoroutine(OverCor());
+ 
 		//Destroy(camera.GetComponent<CameraChase>());
 	}
 

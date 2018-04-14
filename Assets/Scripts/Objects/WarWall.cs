@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WarWall : MonoBehaviour
 {
-	public static int	signValue = 1;			// 전체 회전 방향
+	public static float	signValue = 1;			// 전체 회전 방향
 
 	// 인스펙터 비노출 변수
 	// 일반

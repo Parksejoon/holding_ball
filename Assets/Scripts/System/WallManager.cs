@@ -68,11 +68,10 @@ public class WallManager : MonoBehaviour
 
 		// 전체 코루틴 실행
 		StartCoroutine(NextWallsCor());
-		StartCoroutine(WarWallMatFade());
 
 		if (level < 4)
 		{
-			StartCoroutine(NextWarWallCor(wallsTransform.localScale * wallsScale * 1.7f));
+			StartCoroutine(WarWallMatFade(wallsTransform.localScale * wallsScale * 1.5f));
 		}
 
 		// 레벨 증가
@@ -81,6 +80,10 @@ public class WallManager : MonoBehaviour
 		if (level >= 4)
 		{
 			wallsScale = 1f;
+		}
+		else
+		{
+			WarWall.signValue *= 1.1f;
 		}
 			
 	}
@@ -100,28 +103,22 @@ public class WallManager : MonoBehaviour
 		{
 			wallsTransform.localScale = Vector3.Lerp(startVec2, endVec2, interValue);
 
-			interValue += 0.1f;
+			interValue += 0.01f;
 
-			yield return new WaitForSeconds(0.05f);
+			yield return new WaitForSeconds(0.005f);
 		}
 	}
 
-	// 위험 벽 생성 코루틴
-	IEnumerator NextWarWallCor(Vector3 wallScale)
-	{
-		yield return new WaitForSeconds(1f);
-
-		GameObject target = Instantiate(warWallPrefab, Vector3.zero, Quaternion.identity, warWallsTransform) as GameObject;
-
-		target.transform.localScale = wallScale;
-	}
-
 	// 위험 벽 페이드 코루틴
-	IEnumerator WarWallMatFade()
+	IEnumerator WarWallMatFade(Vector3 wallScale)
 	{
+		Wall.isInvincible = true;
+
 		float alpha = 1f;
 		Color warWallColor = warWallsMat.GetColor("_Color");
 
+
+		// 벽 안보이게
 		while (alpha >= 0)
 		{
 			alpha -= 0.05f;
@@ -131,8 +128,18 @@ public class WallManager : MonoBehaviour
 			yield return new WaitForSeconds(0.05f);
 		}
 		
-		yield return new WaitForSeconds(0.3f);
 
+		// 새 벽 생성
+		yield return new WaitForSeconds(0.15f);
+
+		GameObject target = Instantiate(warWallPrefab, Vector3.zero, Quaternion.identity, warWallsTransform) as GameObject;
+
+		target.transform.localScale = wallScale;
+
+		yield return new WaitForSeconds(0.15f);
+
+
+		// 벽 보이게
 		while (alpha <= 1)
 		{
 			alpha += 0.08f;
@@ -141,5 +148,9 @@ public class WallManager : MonoBehaviour
 
 			yield return new WaitForSeconds(0.05f);
 		}
+
+		yield return new WaitForSeconds(1f);
+
+		Wall.isInvincible = false;
 	}
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
+	public static bool isInvincible = false;
+
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
@@ -11,7 +13,7 @@ public class Wall : MonoBehaviour
 
 	// 수치
 	[SerializeField]
-	private float		originalHealth = 200; // 원시 체력
+	private float		originalHealth = 350; // 원시 체력
 										
 	// 인스펙터 비노출 변수
 	// 일반
@@ -77,12 +79,15 @@ public class Wall : MonoBehaviour
 	// 체력 감소
 	private void AddDamage(float damage)
 	{
-		health -= damage;
-		
-		// 체력 0 -> 파괴
-		if (health <= 0)
+		if (!isInvincible)
 		{
-			WallDestroy();
+			health -= damage;
+
+			// 체력 0 -> 파괴
+			if (health <= 0)
+			{
+				WallDestroy();
+			}
 		}
 	}
 

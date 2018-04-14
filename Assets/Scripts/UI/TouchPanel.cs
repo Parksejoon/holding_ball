@@ -40,6 +40,9 @@ public class TouchPanel : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
 	// 드래그 종료
 	public void OnEndDrag(PointerEventData pointerEventData)
 	{
-		ball.DoubleShot(dragStartPosition, pointerEventData.position);
+		if (Vector3.Distance(dragStartPosition, pointerEventData.position) >= 300f)
+		{
+			ball.DoubleShot(dragStartPosition, pointerEventData.position);
+		}
 	}
 }

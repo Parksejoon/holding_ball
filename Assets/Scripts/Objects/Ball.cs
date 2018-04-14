@@ -82,7 +82,6 @@ public class Ball : MonoBehaviour
 		if (other.gameObject.tag == "WarWall")
 		{
 			//gameManager.GameOver();
-			Debug.Log("Over");
 		}
     }
 

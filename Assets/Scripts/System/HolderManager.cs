@@ -150,7 +150,7 @@ public class HolderManager : MonoBehaviour
 		}
 	}
 
-	// 단방향 분사
+	// 양방향 분사
 	private IEnumerator Slug()
 	{
 		Rigidbody2D target;										  // 타겟 홀더
@@ -170,6 +170,12 @@ public class HolderManager : MonoBehaviour
 
 				// 방향으로 힘 적용
 				target.AddForce(WayVector2(angle, power));
+
+				// 생성
+				target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+
+				// 방향으로 힘 적용
+				target.AddForce(WayVector2(180 + angle, power));
 
 				// 분사량에 따라 각도 조절
 				angle += addAngle;
