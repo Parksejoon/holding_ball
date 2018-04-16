@@ -40,6 +40,6 @@ public class ParticleColorFinder : MonoBehaviour
 	// 하얀색으로 재설정
 	private void ChangeToNoneColor()
 	{
-		thisParticle.startColor = new Color(1f, 1f, 1f);
+		thisParticle.startColor = Color.white;
 	}
 }

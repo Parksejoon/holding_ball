@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class Parser
 {
-	// 아시발자퇴하고싶다
+	// 일반
+	private string dataPath = "Assets/Resources/Data/ColorData.txt";
 
-	// 시발 인생 좆같다
 
 	// 코인 저장
 	public void SetCoin(int value)
@@ -36,5 +37,70 @@ public class Parser
 	public void ResetData()
 	{
 		PlayerPrefs.DeleteAll();
+	}
+
+	// 컬러 인덱스를 저장
+	public void SetColorIndex(int ball, int wall, int warWall, int topBack, int botBack)
+	{
+		PlayerPrefs.SetInt("BallColor", ball);
+		PlayerPrefs.SetInt("WallColor", wall);
+		PlayerPrefs.SetInt("WarWallColor", warWall);
+		PlayerPrefs.SetInt("TopBackColor", topBack);
+		PlayerPrefs.SetInt("BotBackColor", botBack);
+	}
+
+	// 컬러 불러오기
+	public void GetColor(ShaderManager shaderManager)
+	{
+		// 데이터 파싱
+		FileStream   fs = new FileStream(dataPath, FileMode.Open);
+		StreamReader sr = new StreamReader(fs);
+		ArrayList	 cListR = new ArrayList();
+		ArrayList	 cListG = new ArrayList();
+		ArrayList	 cListB = new ArrayList();
+
+		string source = sr.ReadLine();	
+		while (source != null)
+		{
+			string[] result = source.Split();
+
+			cListR.Add(float.Parse(result[0]) / 255f);
+			cListG.Add(float.Parse(result[1]) / 255f);
+			cListB.Add(float.Parse(result[2]) / 255f);
+
+			source = sr.ReadLine();
+		}
+
+		int index;
+
+
+		// 베이스
+		index = PlayerPrefs.GetInt("BallColor");
+		Debug.Log(index);
+		shaderManager.baseColor = new Color((float)cListR[index], (float)cListG[index], (float)cListB[index]);
+
+
+		// 벽
+		index = PlayerPrefs.GetInt("WallColor");
+		Debug.Log(index);
+		shaderManager.wallColor = new Color((float)cListR[index], (float)cListG[index], (float)cListB[index]);
+
+
+		// 위험 벽
+		index = PlayerPrefs.GetInt("WarWallColor");
+		Debug.Log(index);
+		shaderManager.warWallColor = new Color((float)cListR[index], (float)cListG[index], (float)cListB[index]);
+
+
+		// 뒷배경 위
+		index = PlayerPrefs.GetInt("TopBackColor");
+		Debug.Log(index);
+		shaderManager.topBackColor = new Color((float)cListR[index], (float)cListG[index], (float)cListB[index]);
+
+
+		// 뒷배경 아래
+		index = PlayerPrefs.GetInt("BotBackColor");
+		Debug.Log(index);
+		shaderManager.botBackColor = new Color((float)cListR[index], (float)cListG[index], (float)cListB[index]);
 	}
 }

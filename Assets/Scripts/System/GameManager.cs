@@ -63,8 +63,7 @@ public class GameManager : MonoBehaviour
 
 		coin = parser.GetCoin();
 		bestScore = parser.GetBestScore();
-
-		Debug.Log(bestScore);
+		parser.SetColorIndex(0, 0, 1, 2, 3);
 	}
 
 	// 프레임

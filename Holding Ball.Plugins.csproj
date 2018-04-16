@@ -327,6 +327,7 @@
   <ItemGroup>
     <None Include="Assets\Materials\Shader\FinalBack.shader" />
     <None Include="Assets\Materials\Shader\Glow.shader" />
+    <None Include="Assets\Resources\Data\ColorData.txt" />
     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Readme.txt" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
