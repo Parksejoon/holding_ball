@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Start : MonoBehaviour
+public class StartManager : MonoBehaviour
 {
 	// 인스펙터 비노출 변수
 	// 일반
@@ -10,6 +10,7 @@ public class Start : MonoBehaviour
 	private HolderManager	holderManager;				// 홀더 매니저
 	private Rigidbody2D		ballRigidbody2d;			// 공의 트랜스폼
 	private Camera			camera;                     // 카메라
+	private Parser			parser;						// 데이터 파서
 
 
 	// 초기화
@@ -19,6 +20,13 @@ public class Start : MonoBehaviour
 		holderManager   = GetComponent<HolderManager>();
 		ballRigidbody2d = GameObject.Find("BallCollider").GetComponent<Rigidbody2D>();
 		camera		    = GameObject.Find("Main Camera").GetComponent<Camera>();
+		parser			= new Parser();
+	}
+
+	// 시작
+	private void Start()
+	{
+		parser.SetColorIndex(0, 1, 2, 3, 4);
 	}
 
 	// 프레임

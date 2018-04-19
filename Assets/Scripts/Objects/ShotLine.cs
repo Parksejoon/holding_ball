@@ -41,10 +41,7 @@ public class ShotLine : MonoBehaviour
 
 		// 점점 범위 확대
 		transform.localScale += new Vector3(speedScale, speedScale);
-
-		// 회전
-		//transform.rotation = Quaternion.Euler(new Vector3(0, 0, 300000 * (timer - 0.1f) * (timer - 0.1f)));
-    } 
+	} 
 
     // 현재 가지고있는 홀더를 반환
     public GameObject Judgment()

@@ -7,23 +7,25 @@ public class CameraEffect : MonoBehaviour
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
-	private UnityStandardAssets.ImageEffects.Bloom bloom;       // 번짐 효과 스크립트
+	private UnityStandardAssets.ImageEffects.Bloom bloom;				// 번짐 효과 스크립트
 
 	// 수치
-	public int		flashCount = 30;							// 플래쉬 단계
-	public float	flashPower = 0.04f;							// 플래쉬 파워
-	public int		zoomCount = 30;								// 줌 단계
-	public float	zoomPower = 0.01f;							// 줌 파워
+	public int				flashCount = 30;							// 플래쉬 단계
+	public float			flashPower = 0.04f;							// 플래쉬 파워
+	public int				zoomCount = 30;								// 줌 단계
+	public float			zoomPower = 0.01f;							// 줌 파워
 
 	// 인스펙터 비노출 변수
 	// 일반
-	private Camera	camera;										// 카메라
+	private Camera			camera;                                     // 카메라
+	private CameraChase		cameraChase;								// 카메라 추적
 
 
 	// 초기화
 	private void Awake()
 	{
-		camera = GetComponent<Camera>();
+		camera		= GetComponent<Camera>();
+		cameraChase = GetComponent<CameraChase>();
 	}
 
 	// 줌인효과
@@ -36,6 +38,8 @@ public class CameraEffect : MonoBehaviour
 	public void ZoomOut()
 	{
 		StartCoroutine(ZoomOutCor());
+
+		cameraChase.NextSize();
 	}
 
 	// 플래쉬 효과

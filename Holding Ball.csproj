@@ -318,7 +318,7 @@
     <Compile Include="Assets\Scripts\System\HolderManager.cs" />
     <Compile Include="Assets\Scripts\System\Parser.cs" />
     <Compile Include="Assets\Scripts\System\ShaderManager.cs" />
-    <Compile Include="Assets\Scripts\System\Start.cs" />
+    <Compile Include="Assets\Scripts\System\StartManager.cs" />
     <Compile Include="Assets\Scripts\System\UIManager.cs" />
     <Compile Include="Assets\Scripts\System\WallManager.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
