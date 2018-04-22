@@ -40,6 +40,7 @@ public class CameraEffect : MonoBehaviour
 		StartCoroutine(ZoomOutCor());
 
 		cameraChase.NextSize();
+		FlashBoom();
 	}
 
 	// 플래쉬 효과
@@ -77,11 +78,12 @@ public class CameraEffect : MonoBehaviour
 	private IEnumerator FlashBoomCor()
 	{
 		int counter = flashCount;
+		float thresholdValue = 0.6f / flashCount;
 
 		while (counter-- > 0)
 		{
 			bloom.bloomIntensity += flashPower;
-
+			
 			yield return new WaitForSeconds(0.005f);
 		}
 

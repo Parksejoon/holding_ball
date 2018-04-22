@@ -313,6 +313,8 @@
     <Compile Include="Assets\Scripts\Sprite\SecondBack.cs" />
     <Compile Include="Assets\Scripts\Sprite\SecondBackList.cs" />
     <Compile Include="Assets\Scripts\Sprite\ShotLineAfterEffect.cs" />
+    <Compile Include="Assets\Scripts\Sprite\ThirdBack.cs" />
+    <Compile Include="Assets\Scripts\Sprite\ThirdBackList.cs" />
     <Compile Include="Assets\Scripts\System\BackGroundManager.cs" />
     <Compile Include="Assets\Scripts\System\GameManager.cs" />
     <Compile Include="Assets\Scripts\System\HolderManager.cs" />

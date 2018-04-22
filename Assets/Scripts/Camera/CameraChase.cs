@@ -43,7 +43,7 @@ public class CameraChase : MonoBehaviour
 	// 다음 사이즈
 	public void NextSize()
 	{
-		limitX *= 1.3f;
-		limitY *= 1.3f;
+		limitX *= 1.4f;
+		limitY *= 1.4f;
 	}
 }

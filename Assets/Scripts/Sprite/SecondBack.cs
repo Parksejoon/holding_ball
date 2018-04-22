@@ -18,7 +18,7 @@ public class SecondBack : MonoBehaviour
 	// 프레임
 	private void Update()
 	{
-		transform.rotation = Quaternion.Euler(0, 0, rotationSpeed * 10 * SecondBackList.timer);
+		transform.Rotate(Vector3.forward * rotationSpeed);
 	}
 
 	// 전체 초기화
@@ -28,5 +28,6 @@ public class SecondBack : MonoBehaviour
 
 		transform.position   = new Vector2(Random.Range(-20, 20), Random.Range(-20, 20));
 		transform.localScale = new Vector2(Random.Range(0.5f, 1.5f), Random.Range(0.5f, 1.5f));
+		transform.rotation	 = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 90)));
 	}
 }
