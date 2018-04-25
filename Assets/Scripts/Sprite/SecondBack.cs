@@ -18,7 +18,7 @@ public class SecondBack : MonoBehaviour
 	// 프레임
 	private void Update()
 	{
-		transform.Rotate(Vector3.forward * rotationSpeed);
+		transform.Rotate(Vector3.forward * rotationSpeed * GameManager.timeValue);
 	}
 
 	// 전체 초기화

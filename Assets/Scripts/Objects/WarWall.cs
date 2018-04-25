@@ -30,6 +30,6 @@ public class WarWall : MonoBehaviour
 	// 매프레임
 	void Update()
 	{
-		transform.Rotate(Vector3.forward * rotationSpeed * signValue);
+		transform.Rotate(Vector3.forward * rotationSpeed * signValue * GameManager.timeValue);
 	}
 }

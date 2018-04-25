@@ -18,7 +18,7 @@ public class ThirdBack : MonoBehaviour
 	// 프레임
 	private void Update()
 	{
-		transform.Rotate(Vector3.forward * rotationSpeed);
+		transform.Rotate(Vector3.forward * rotationSpeed * GameManager.timeValue);
 	}
 
 	// 전체 초기화
@@ -36,12 +36,12 @@ public class ThirdBack : MonoBehaviour
 	{
 		if (position < 0)
 		{
-			return position - 22;
+			return position - 25;
 		}
 
 		if (position >= 0)
 		{
-			return position + 22;
+			return position + 25;
 		}
 
 		return 100f;

@@ -8,7 +8,8 @@ public class UIManager : MonoBehaviour
 	public enum PanelNum
 	{
 		START,
-		MAIN
+		MAIN,
+		PAUSE
 	}
 
 	// 인스펙터 노출 변수
@@ -28,6 +29,48 @@ public class UIManager : MonoBehaviour
 	[SerializeField]
 	private float			fadeTime = 0.03f;       // 페이드 텀
 
+	// 인스펙터 비노출 변수
+	// 수치
+	private float			originalTimeScale;		// 원래 타임스케일 값
+
+
+	// 퍼즈 체크
+	public void CheckPause()
+	{
+		// 퍼즈 해제
+		if (Time.timeScale == 0)
+		{
+			Continue();
+		}
+		// 퍼즈
+		else
+		{
+			Pause();
+		}
+	}
+
+	// 퍼즈
+	private void Pause()
+	{
+		ControlPanel((int)PanelNum.PAUSE, true);
+
+		// 타임 스케일 저장
+		originalTimeScale = Time.timeScale;
+
+		// 정지
+		Time.timeScale = 0f;
+		GameManager.timeValue = 0f;
+	}
+
+	// 해제
+	private void Continue()
+	{
+		ControlPanel((int)PanelNum.PAUSE, false);
+
+		// 타임 스케일 복구
+		Time.timeScale = originalTimeScale;
+		GameManager.timeValue = 1f;
+	}
 
 	// UI 온 / 오프
 	public void ControlPanel(int index, bool isOn)
@@ -42,8 +85,6 @@ public class UIManager : MonoBehaviour
 		StartCoroutine(FadeIn(null));
 		StartCoroutine(StartRoutine());
 	}
-
-	// 메인 UI 생성
 
 	// 페이드 아웃
 	public IEnumerator FadeOut(Image target)

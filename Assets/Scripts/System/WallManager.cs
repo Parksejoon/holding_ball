@@ -43,7 +43,7 @@ public class WallManager : MonoBehaviour
 	// 프레임
 	private void Update()
 	{
-		wallsTransform.Rotate(Vector3.forward * rotationSpeed);
+		wallsTransform.Rotate(Vector3.forward * rotationSpeed * GameManager.timeValue);
 	}
 
 	// 끝날때

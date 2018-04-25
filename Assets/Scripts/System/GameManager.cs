@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+	public static float		timeValue = 1f;				// 시간 값
+
     // 인스펙터 노출 변수
 	// 일반
     [SerializeField]

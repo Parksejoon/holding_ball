@@ -76,31 +76,26 @@ public class Parser
 
 		// 베이스
 		index = PlayerPrefs.GetInt("BallColor");
-		Debug.Log(index);
 		shaderManager.baseColor = new Color((float)cListR[index], (float)cListG[index], (float)cListB[index]);
 
 
 		// 벽
 		index = PlayerPrefs.GetInt("WallColor");
-		Debug.Log(index);
 		shaderManager.wallColor = new Color((float)cListR[index], (float)cListG[index], (float)cListB[index]);
 
 
 		// 위험 벽
 		index = PlayerPrefs.GetInt("WarWallColor");
-		Debug.Log(index);
 		shaderManager.warWallColor = new Color((float)cListR[index], (float)cListG[index], (float)cListB[index]);
 
 
 		// 뒷배경 위
 		index = PlayerPrefs.GetInt("TopBackColor");
-		Debug.Log(index);
 		shaderManager.topBackColor = new Color((float)cListR[index], (float)cListG[index], (float)cListB[index]);
 
 
 		// 뒷배경 아래
 		index = PlayerPrefs.GetInt("BotBackColor");
-		Debug.Log(index);
 		shaderManager.botBackColor = new Color((float)cListR[index], (float)cListG[index], (float)cListB[index]);
 	}
 }
