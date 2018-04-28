@@ -324,6 +324,7 @@
     <Compile Include="Assets\Scripts\System\UIManager.cs" />
     <Compile Include="Assets\Scripts\System\WallManager.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
+    <Compile Include="Assets\Scripts\UI\StartFade.cs" />
     <Compile Include="Assets\Scripts\UI\TouchPanel.cs" />
   </ItemGroup>
   <ItemGroup>

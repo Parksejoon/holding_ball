@@ -81,7 +81,7 @@ public class UIManager : MonoBehaviour
 	// 시작 UI 제거
 	public void DelStartUI()
 	{
-		StartCoroutine(MoveUI(panels[(int)PanelNum.START].GetComponent<RectTransform>(), new Vector2(0, 0), new Vector2(0, -1200), 0.02f));
+		StartCoroutine(MoveUI(panels[(int)PanelNum.START].GetComponent<RectTransform>(), new Vector2(0, 0), new Vector2(0, -3000), 0.1f));
 		StartCoroutine(FadeIn(null));
 		StartCoroutine(StartRoutine());
 	}

@@ -7,7 +7,9 @@ public class CameraEffect : MonoBehaviour
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
-	private UnityStandardAssets.ImageEffects.Bloom bloom;				// 번짐 효과 스크립트
+	private UnityStandardAssets.ImageEffects.Bloom bloom;               // 번짐 효과 스크립트
+	[SerializeField]
+	private UnityStandardAssets.ImageEffects.MotionBlur motionBlur;		// 번짐 효과 스크립트
 
 	// 수치
 	public int				flashCount = 30;							// 플래쉬 단계
@@ -40,13 +42,19 @@ public class CameraEffect : MonoBehaviour
 		StartCoroutine(ZoomOutCor());
 
 		cameraChase.NextSize();
-		FlashBoom();
+		MotionBlur();
 	}
 
 	// 플래쉬 효과
 	public void FlashBoom()
 	{
 		StartCoroutine(FlashBoomCor());
+	}
+
+	// 잔상 효과
+	public void MotionBlur()
+	{
+		StartCoroutine(MotionBlurCor());
 	}
 
 	// 줌인 코루틴
@@ -93,5 +101,15 @@ public class CameraEffect : MonoBehaviour
 
 			yield return new WaitForSeconds(0.001f);
 		}
+	}
+
+	// 모션블러 코루틴
+	private IEnumerator MotionBlurCor()
+	{
+		motionBlur.blurAmount = 0.5f;
+
+		yield return new WaitForSeconds(0.4f);
+		
+		motionBlur.blurAmount = 0;
 	}
 }
