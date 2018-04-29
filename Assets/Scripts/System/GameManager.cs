@@ -50,8 +50,9 @@ public class GameManager : MonoBehaviour
         ball			= GameObject.Find("Ball").GetComponent<Ball>();
 		cameraEffect	= GameObject.Find("Main Camera").GetComponent<CameraEffect>();
 		uiManager		= GameObject.Find("Canvas").GetComponent<UIManager>();
+		parser			= new Parser();
 
-        isTouch		    = false;
+		isTouch		    = false;
         previousIsTouch = false;
     }
 
@@ -61,9 +62,8 @@ public class GameManager : MonoBehaviour
 		PowerCompute();
 		StartCoroutine(LevelTimer());
 
-		parser = new Parser();
-
 		coin = parser.GetCoin();
+		AddCoin(0);
 		bestScore = parser.GetBestScore();
 	}
 
@@ -157,6 +157,8 @@ public class GameManager : MonoBehaviour
 	{
 		coin += upCoin;
 		coinText.text = coin.ToString();
+
+		parser.SetCoin(coin);
 	}
 
 	// 벽 파괴

@@ -18,10 +18,6 @@ public class UIManager : MonoBehaviour
 	private GameObject[]	panels;					// UI 모음
 	[SerializeField]
 	private Image			cover;                  // 페이드 커버
-	[SerializeField]
-	private Text			scoreText;              // 점수 텍스트
-	[SerializeField]
-	private Image			pauseButton;			// 퍼즈버튼
 
 	// 수치
 	[SerializeField]
@@ -171,8 +167,6 @@ public class UIManager : MonoBehaviour
 
 		// 메인패널
 		ControlPanel((int)PanelNum.MAIN, true);
-		StartCoroutine(FadeOut(pauseButton));
-		StartCoroutine(FadeOut(scoreText));
 
 		yield return new WaitForSeconds(0.8f);
 

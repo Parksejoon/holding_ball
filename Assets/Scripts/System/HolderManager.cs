@@ -120,7 +120,8 @@ public class HolderManager : MonoBehaviour
 			index %= 6;
 		}
 
-		StartCoroutine(holderAlgorithm[index]());
+		//StartCoroutine(holderAlgorithm[index]());
+		StartCoroutine(holderAlgorithm[6]());
 	}
 
 	// 회오리
