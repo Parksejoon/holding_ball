@@ -184,6 +184,7 @@ public class GameManager : MonoBehaviour
 	{
 		// 데이터 저장
 		parser.SetCoin(coin);
+		parser.SetLastScore(score);
 		parser.SetBestScore(Mathf.Max(score, bestScore));
 
 		PlayerPrefs.Save();

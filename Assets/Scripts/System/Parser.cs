@@ -21,6 +21,18 @@ public class Parser
 		return PlayerPrefs.GetInt("Coin", 0);
 	}
 
+	// 최근점수 저장
+	public void SetLastScore(int value)
+	{
+		PlayerPrefs.SetInt("LastScore", value);
+	}
+	
+	// 최근점수 불러오기
+	public int GetLastScore()
+	{
+		return PlayerPrefs.GetInt("LastScore", 0);
+	}
+
 	// 최고점수 저장
 	public void SetBestScore(int value)
 	{

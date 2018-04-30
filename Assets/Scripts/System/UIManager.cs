@@ -20,6 +20,8 @@ public class UIManager : MonoBehaviour
 	private GameObject[]	panels;					// UI 모음
 	[SerializeField]
 	private Image			cover;                  // 페이드 커버
+	[SerializeField]
+	private Image			firstCover;				// 시작용 커버
 
 	// 수치
 	[SerializeField]
@@ -86,7 +88,7 @@ public class UIManager : MonoBehaviour
 	public void DelStartUI()
 	{
 		StartCoroutine(MoveUI(panels[(int)PanelNum.START].GetComponent<RectTransform>(), new Vector2(0, 0), new Vector2(0, -3000), 0.1f));
-		StartCoroutine(FadeIn(null));
+		StartCoroutine(FadeIn(firstCover));
 		StartCoroutine(StartRoutine());
 	}
 

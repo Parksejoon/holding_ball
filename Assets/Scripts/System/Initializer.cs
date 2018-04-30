@@ -31,9 +31,12 @@ public class Initializer : MonoBehaviour
 	{
 		int coin = parser.GetCoin();
 		int bestScore = parser.GetBestScore();
+		int lastScore = parser.GetLastScore();
 
 
 		gameManager.Initialize(coin, bestScore);
 		uiManager.SetText(1, coin.ToString());
+		uiManager.SetText(2, bestScore.ToString());
+		uiManager.SetText(3, lastScore.ToString());
 	}
 }
