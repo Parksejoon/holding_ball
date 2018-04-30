@@ -15,6 +15,8 @@ public class UIManager : MonoBehaviour
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
+	private Text[]			texts;					// 텍스트 모음
+	[SerializeField]
 	private GameObject[]	panels;					// UI 모음
 	[SerializeField]
 	private Image			cover;                  // 페이드 커버
@@ -29,6 +31,12 @@ public class UIManager : MonoBehaviour
 	// 수치
 	private float			originalTimeScale;		// 원래 타임스케일 값
 
+
+	// 텍스트 설정
+	public void SetText(int ind, string str)
+	{
+		texts[ind].text = str;
+	}
 
 	// 퍼즈 체크
 	public void CheckPause()

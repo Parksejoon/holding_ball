@@ -318,6 +318,7 @@
     <Compile Include="Assets\Scripts\System\BackGroundManager.cs" />
     <Compile Include="Assets\Scripts\System\GameManager.cs" />
     <Compile Include="Assets\Scripts\System\HolderManager.cs" />
+    <Compile Include="Assets\Scripts\System\Initializer.cs" />
     <Compile Include="Assets\Scripts\System\Parser.cs" />
     <Compile Include="Assets\Scripts\System\ShaderManager.cs" />
     <Compile Include="Assets\Scripts\System\StartManager.cs" />

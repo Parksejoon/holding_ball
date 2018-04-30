@@ -7,14 +7,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 	public static float		timeValue = 1f;				// 시간 값
-
-    // 인스펙터 노출 변수
-	// 일반
-    [SerializeField]
-	private Text			scoreText;                  // 점수
-	[SerializeField]
-	private Text			coinText;					// 코인	
 	
+	// 인스펙터 노출 변수
 	// 수치
 	[SerializeField]
 	private float			levelTimer = 1f;			// 레벨 타이머
@@ -61,10 +55,6 @@ public class GameManager : MonoBehaviour
 	{
 		PowerCompute();
 		StartCoroutine(LevelTimer());
-
-		coin = parser.GetCoin();
-		AddCoin(0);
-		bestScore = parser.GetBestScore();
 	}
 
 	// 프레임
@@ -112,7 +102,6 @@ public class GameManager : MonoBehaviour
 					// 언홀딩 처리
 					UnHoldingBall();
 				}
-
 			}
 		}
 
@@ -125,6 +114,13 @@ public class GameManager : MonoBehaviour
 			GameOver();
 		}
     }
+
+	// 데이터 초기화
+	public void Initialize(int _coin, int _bestScore)
+	{
+		coin = _coin;
+		bestScore = _bestScore;
+	}
 
     // 홀딩 처리
     private void HoldingBall()
@@ -149,14 +145,14 @@ public class GameManager : MonoBehaviour
     {
 		// ** 스코어 이펙트 추가 예정 **
 		score += upScore;
-        scoreText.text = score.ToString();
+		uiManager.SetText(0, score.ToString());
     }
 
 	// 코인 상승
 	public void AddCoin(int upCoin)
 	{
 		coin += upCoin;
-		coinText.text = coin.ToString();
+		uiManager.SetText(1, coin.ToString());
 
 		parser.SetCoin(coin);
 	}
@@ -198,8 +194,6 @@ public class GameManager : MonoBehaviour
 		ball.BallDestroy();
 		cameraEffect.ZoomIn();
 		StartCoroutine(OverCor());
- 
-		//Destroy(camera.GetComponent<CameraChase>());
 	}
 
 	// 씬 로드
