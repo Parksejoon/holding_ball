@@ -34,7 +34,8 @@ public class GameManager : MonoBehaviour
 	private int				coin;						// 코인
 	private int				level = 0;					// 레벨
     private bool			previousIsTouch;            // 이전 터지의 상태
-	private bool			canTouch = true;			// 터치 가능?
+	private bool			canTouch = true;            // 터치 가능?
+	private bool			isSecond = false;			// 두 번째 목숨?
 	
 
     // 초기화
@@ -182,25 +183,47 @@ public class GameManager : MonoBehaviour
 	// 게임 오버
 	public void GameOver()
 	{
-		// 데이터 저장
-		parser.SetCoin(coin);
-		parser.SetLastScore(score);
-		parser.SetBestScore(Mathf.Max(score, bestScore));
-
-		PlayerPrefs.Save();
-
-
-		// 종료처리
+		// 공 파괴 및 터치 금지 설정
 		GameObject.Find("TouchPanel").GetComponent<TouchPanel>().enabled = false;
 		ball.BallDestroy();
-		cameraEffect.ZoomIn();
-		StartCoroutine(OverCor());
+
+		// 계속할것인지
+		StartCoroutine(Continue());
 	}
+
 
 	// 씬 로드
 	public void SceneLoad(string sceneName)
 	{
 		SceneManager.LoadScene(sceneName);
+	}
+
+	// 계속하기 루틴
+	private IEnumerator Continue()
+	{
+		if (!isSecond)
+		{
+			yield return new WaitForSeconds(3f);
+			
+			// 공 재생성 및 터치 금지 해제
+			GameObject.Find("TouchPanel").GetComponent<TouchPanel>().enabled = true;
+			ball.RegenBall();
+
+			isSecond = true;
+		}
+		else
+		{
+			// 데이터 저장
+			parser.SetCoin(coin);
+			parser.SetLastScore(score);
+			parser.SetBestScore(Mathf.Max(score, bestScore));
+
+			PlayerPrefs.Save();
+
+			// 종료처리
+			cameraEffect.ZoomIn();
+			StartCoroutine(OverCor());
+		}		
 	}
 
 	// 레벨 타이머

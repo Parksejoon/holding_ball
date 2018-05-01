@@ -257,6 +257,13 @@ public class Ball : MonoBehaviour
 		Instantiate(destroyParticle, transform.position, Quaternion.identity);
 		GetComponentInParent<MeshRenderer>().enabled = false;
 	}
+
+	// 공 재생성
+	public void RegenBall()
+	{
+		GetComponent<CircleCollider2D>().enabled = true;
+		GetComponentInParent<MeshRenderer>().enabled = true;
+	}
 	
 	// 패널티
 	private void Penalty()
