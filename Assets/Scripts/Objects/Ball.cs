@@ -9,11 +9,13 @@ public class Ball : MonoBehaviour
     [SerializeField]
 	private GameObject		shotLinePrefab;         // 생성될 ShotLine 프리팹
 	[SerializeField]
-	private GameObject		regenParticle;			// 공 재생성 파티클 
+	private GameObject		regenParticle;          // 공 재생성 파티클 
+	[SerializeField]
+	private GameObject		regenParticle_None;     // 공 재생성 파티클 ( 무색 )
 	[SerializeField]
 	private GameObject		destroyParticle;        // 공 파괴 파티클 
 	[SerializeField]
-	private GameObject		destroyParticle_None;   // 공 파괴 파티클 ( 무색 전용 )
+	private GameObject		destroyParticle_None;   // 공 파괴 파티클 ( 무색 )
 	[SerializeField]
 	private GameObject		doubleParticle;         // 더블 파티클 
 
@@ -274,7 +276,15 @@ public class Ball : MonoBehaviour
 	// 공 재생성
 	public void RegenBall()
 	{
-		Instantiate(regenParticle, transform.position, Quaternion.identity);
+		if (canDouble)
+		{
+			Instantiate(regenParticle, transform.position, Quaternion.identity);
+		}
+		else
+		{
+			Instantiate(regenParticle_None, transform.position, Quaternion.identity);
+		}
+
 		GetComponent<CircleCollider2D>().enabled = true;
 		GetComponentInParent<MeshRenderer>().enabled = true;
 	}
