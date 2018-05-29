@@ -56,7 +56,7 @@ namespace System
 		public void CheckPause()
 		{
 			// 퍼즈 해제
-			if (Math.Abs(Time.timeScale) < 0)
+			if (Time.timeScale == 0)
 			{
 				Continue();
 			}
