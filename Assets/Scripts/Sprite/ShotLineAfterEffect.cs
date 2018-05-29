@@ -1,49 +1,50 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ShotLineAfterEffect : MonoBehaviour
+namespace Sprite
 {
-	// 인스펙터 노출 변수
-	// 수치
-	[SerializeField]
-	private float		   fadePower = 0.07f;		// 페이드효과 파워
-
-	// 인스펙터 비노출 변수
-	// 일반
-	private SpriteRenderer sprite;                  // 스프라이트
-
-
-	// 초기화
-	private void Awake()
+	public class ShotLineAfterEffect : MonoBehaviour
 	{
-		sprite = GetComponent<SpriteRenderer>();
-	}
+		// 인스펙터 노출 변수
+		// 수치
+		[SerializeField]
+		private float		   fadePower = 0.07f;		// 페이드효과 파워
 
-	// 시작
-	private void Start()
-	{
-		StartCoroutine(FadeOut());
-	}
+		// 인스펙터 비노출 변수
+		// 일반
+		private SpriteRenderer sprite;                  // 스프라이트
 
-	// 사라짐
-	private IEnumerator FadeOut()
-	{
-		float alpha = 1f;
 
-		while (true)
+		// 초기화
+		private void Awake()
 		{
-			sprite.color = new Color(1, 1, 1, alpha);
+			sprite = GetComponent<SpriteRenderer>();
+		}
 
-			alpha -= fadePower;
+		// 시작
+		private void Start()
+		{
+			StartCoroutine(FadeOut());
+		}
 
-			yield return new WaitForSeconds(0.01f);
+		// 사라짐
+		private IEnumerator FadeOut()
+		{
+			float alpha = 1f;
 
-			if (sprite.color.a <= 0)
+			while (true)
 			{
-				Destroy(gameObject);
+				sprite.color = new Color(1, 1, 1, alpha);
+
+				alpha -= fadePower;
+
+				yield return new WaitForSeconds(0.01f);
+
+				if (sprite.color.a <= 0)
+				{
+					Destroy(gameObject);
+				}
 			}
 		}
 	}
-
 }

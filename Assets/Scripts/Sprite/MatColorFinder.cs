@@ -1,14 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class MatColorFinder : MonoBehaviour
+namespace Sprite
 {
-	// 초기화
-	void Start()
+	public class MatColorFinder : MonoBehaviour
 	{
-		SpriteRenderer sr =	GetComponent<SpriteRenderer>();
+		// 초기화
+		void Start()
+		{
+			SpriteRenderer sr =	GetComponent<SpriteRenderer>();
 
-		sr.color = sr.material.GetColor("_Color");
+			sr.color = sr.material.GetColor("_Color");
+		}
 	}
 }

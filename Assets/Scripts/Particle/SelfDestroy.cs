@@ -1,26 +1,28 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SelfDestroy : MonoBehaviour
+namespace Particle
 {
-	// 인스펙터 노출 변수
-	// 수치
-	[SerializeField]
-	private float timer = 1f;                   // 몇초 후 삭제될지
-
-
-	// 시작
-	private void Start()
+	public class SelfDestroy : MonoBehaviour
 	{
-		StartCoroutine(Destroyer());
-	}
+		// 인스펙터 노출 변수
+		// 수치
+		[SerializeField]
+		private float timer = 1f;                   // 몇초 후 삭제될지
 
-	// 파괴 코루틴
-	private IEnumerator Destroyer()
-	{
-		yield return new WaitForSeconds(timer);
 
-		Destroy(gameObject);
+		// 시작
+		private void Start()
+		{
+			StartCoroutine(Destroyer());
+		}
+
+		// 파괴 코루틴
+		private IEnumerator Destroyer()
+		{
+			yield return new WaitForSeconds(timer);
+
+			Destroy(gameObject);
+		}
 	}
 }
