@@ -6,16 +6,12 @@ namespace System
 	{
 		// 인스펙터 비노출 변수
 		// 일반
-		private GameManager		gameManager;                // 게임 매니저
-		private UIManager		uiManager;					// UI 매니저
 		private Parser			parser;                     // 파서
 
 
 		// 초기화
 		private void Awake()
 		{
-			gameManager = GetComponent<GameManager>();
-			uiManager	= GameObject.Find("Canvas").GetComponent<UIManager>();
 			parser		= new Parser();
 		}
 
@@ -28,15 +24,15 @@ namespace System
 		// 초기화
 		private void Initialize()
 		{
-			int coin = parser.GetCoin();
+			int coin 	  = parser.GetCoin();
 			int bestScore = parser.GetBestScore();
 			int lastScore = parser.GetLastScore();
 
 
-			gameManager.Initialize(coin, bestScore);
-			uiManager.SetText(1, coin.ToString());
-			uiManager.SetText(2, bestScore.ToString());
-			uiManager.SetText(3, lastScore.ToString());
+			GameManager.instance.Initialize(coin, bestScore);
+			UIManager.instance.SetText(1, coin.ToString());
+			UIManager.instance.SetText(2, bestScore.ToString());
+			UIManager.instance.SetText(3, lastScore.ToString());
 		}
 	}
 }

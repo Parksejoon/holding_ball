@@ -9,7 +9,6 @@ namespace UI
 	{
 		// 인스펙터 비노출 변수
 		// 일반
-		private GameManager gameManager;            // 게임 매니저
 		private Ball		ball;					// 공
 		private int			currentTouchCount = 0;  // 최근 터치 횟수
 		private Vector3		dragStartPosition;		// 드래그 시작 위치
@@ -18,14 +17,13 @@ namespace UI
 		// 초기화
 		private void Awake()
 		{
-			gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 			ball		= GameObject.Find("Ball").GetComponent<Ball>();
 		}
 
 		// 터치 시작
 		public void OnPointerDown(PointerEventData pointerEventData)
 		{
-			gameManager.isTouch = true;
+			GameManager.instance.isTouch = true;
 		}
 
 		// 드래그 시작

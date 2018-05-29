@@ -6,6 +6,8 @@ namespace System
 {
 	public class UIManager : MonoBehaviour
 	{
+		public static UIManager instance;
+		
 		public enum PanelNum
 		{
 			START,
@@ -16,24 +18,33 @@ namespace System
 		// 인스펙터 노출 변수
 		// 일반
 		[SerializeField]
-		private UnityEngine.UI.Text[]			texts;					// 텍스트 모음
+		private UnityEngine.UI.Text[]		texts;					// 텍스트 모음
 		[SerializeField]
-		private GameObject[]	panels;					// UI 모음
+		private GameObject[]				panels;					// UI 모음
 		[SerializeField]
-		private Image			cover;                  // 페이드 커버
+		private Image						cover;                  // 페이드 커버
 		[SerializeField]
-		private Image			firstCover;				// 시작용 커버
+		private Image						firstCover;				// 시작용 커버
 
 		// 수치
 		[SerializeField]
-		private float			fadeValue = 0.03f;		// 페이드 속도
+		private float						fadeValue = 0.03f;		// 페이드 속도
 		[SerializeField]
-		private float			fadeTime = 0.03f;       // 페이드 텀
+		private float						fadeTime = 0.03f;       // 페이드 텀
 
 		// 인스펙터 비노출 변수
 		// 수치
-		private float			originalTimeScale;		// 원래 타임스케일 값
+		private float						originalTimeScale;		// 원래 타임스케일 값
 
+		
+		// 초기화
+		private void Awake()
+		{
+			if (instance == null)
+			{
+				instance = this;
+			}
+		}
 
 		// 텍스트 설정
 		public void SetText(int ind, string str)
@@ -66,7 +77,7 @@ namespace System
 
 			// 정지
 			Time.timeScale = 0f;
-			GameManager.timeValue = 0f;
+			GameManager.instance.timeValue = 0f;
 		}
 
 		// 해제
@@ -76,7 +87,7 @@ namespace System
 
 			// 타임 스케일 복구
 			Time.timeScale = originalTimeScale;
-			GameManager.timeValue = 1f;
+			GameManager.instance.timeValue = 1f;
 		}
 
 		// UI 온 / 오프

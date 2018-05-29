@@ -28,7 +28,7 @@ namespace Objects
 		// 매프레임
 		void Update()
 		{
-			transform.Rotate(Vector3.forward * rotationSpeed * signValue * GameManager.timeValue);
+			transform.Rotate(Vector3.forward * rotationSpeed * signValue * GameManager.instance.timeValue);
 		}
 	}
 }

@@ -29,7 +29,6 @@ namespace Objects
 
 		private GameObject		targetHolder;			// 현재 타겟이된 홀더
 		private GameObject		shotLine;               // ShotLine오브젝트
-		private GameManager		gameManager;            // 게임 매니저
 		private ShaderManager	shaderManager;			// 쉐이더 매니저
 		private Rigidbody2D		rigidbody2d;            // 이 오브젝트의 리짓바디
 		private bool			isBallPull = false;     // 공 당기는 상태인지
@@ -43,7 +42,6 @@ namespace Objects
 		// 초기화
 		private void Awake()
 		{
-			gameManager   = GameObject.Find("GameManager").GetComponent<GameManager>();
 			shaderManager = GameObject.Find("GameManager").GetComponent<ShaderManager>();
 			rigidbody2d	  = GetComponentInParent<Rigidbody2D>();
 
@@ -67,7 +65,7 @@ namespace Objects
 				otherTargetHolder.DestroyParticle();
 				Destroy(other.gameObject);
 
-				gameManager.AddScore(otherTargetHolder.holderPower);
+				GameManager.instance.AddScore(otherTargetHolder.holderPower);
 			}
 
 			// 코인일 경우 코인 증가
@@ -78,13 +76,13 @@ namespace Objects
 				targetCoin.DestroyParticle();
 				Destroy(other.gameObject);
 
-				gameManager.AddCoin(1);
+				GameManager.instance.AddCoin(1);
 			}
 
 			// 장애물일 경우 게임 종료
 			if (other.gameObject.CompareTag("WarWall"))
 			{
-				//gameManager.GameOver();
+				//GameManager.instance.GameOver();
 			}
 		}
 
@@ -201,7 +199,7 @@ namespace Objects
 					shotVector = Vector3.Normalize(shotVector);
 
 					// 가즈아
-					rigidbody2d.AddForce(shotVector * gameManager.shotPower * 750f);
+					rigidbody2d.AddForce(shotVector * GameManager.instance.shotPower * 750f);
 				}
 				// 캐치 실패
 				else
@@ -234,7 +232,7 @@ namespace Objects
 				Instantiate(doubleParticle, transform.position, Quaternion.identity);
 
 				// 물리량 대입
-				rigidbody2d.velocity = Vector3.Normalize(startPos - endPos) * gameManager.shotPower * -15f;
+				rigidbody2d.velocity = Vector3.Normalize(startPos - endPos) * GameManager.instance.shotPower * -15f;
 
 				// 쉐이더 변환
 				shaderManager.BallColor(false);
@@ -289,7 +287,7 @@ namespace Objects
 		// 패널티
 		private void Penalty()
 		{
-			rigidbody2d.velocity = Vector3.Normalize(transform.position) * gameManager.shotPower * 15f;
+			rigidbody2d.velocity = Vector3.Normalize(transform.position) * GameManager.instance.shotPower * 15f;
 		}
 	}
 }

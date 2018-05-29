@@ -6,17 +6,15 @@ namespace System
 	{
 		// 인스펙터 비노출 변수
 		// 일반
-		private GameManager		gameManager;				// 게임 매니저
 		private HolderManager	holderManager;				// 홀더 매니저
 		private Rigidbody2D		ballRigidbody2d;			// 공의 트랜스폼
-		private Camera			camera;                     // 카메라
+		private new Camera		camera;                     // 카메라
 		private Parser			parser;						// 데이터 파서
 
 
 		// 초기화
 		private void Awake()
 		{
-			gameManager     = GetComponent<GameManager>();
 			holderManager   = GetComponent<HolderManager>();
 			ballRigidbody2d = GameObject.Find("BallCollider").GetComponent<Rigidbody2D>();
 			camera		    = GameObject.Find("Main Camera").GetComponent<Camera>();
@@ -43,7 +41,7 @@ namespace System
 		// 스크립트 초기화
 		private void Initialize()
 		{
-			gameManager.enabled = true;
+			GameManager.instance.enabled = true;
 			holderManager.enabled = true;
 		}
 

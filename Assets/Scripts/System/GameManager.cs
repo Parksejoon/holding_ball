@@ -10,20 +10,20 @@ namespace System
 {
 	public class GameManager : MonoBehaviour
 	{
-		public static float		timeValue = 1f;				// 시간 값
+		public static GameManager instance;
 	
 		// 인스펙터 노출 변수
 		// 수치
 		[SerializeField]
 		private float			levelTimer = 1f;			// 레벨 타이머
+		
+		public  float			timeValue = 1f;				// 시간 값
 
 		// 인스펙터 비노출 변수
 		// 일반
-		private WallManager		wallManager;				// 월 매니저
 		private Ball			ball;                       // 볼
 		private Touch			touch;                      // 터치 구조체
 		private CameraEffect	cameraEffect;               // 카메라 이펙트
-		private UIManager		uiManager;                  // UI 매니저
 		private Parser			parser;						// 데이터 파서
 		private int				wallCount;  				// 벽 카운트
 
@@ -45,10 +45,13 @@ namespace System
 		// 초기화
 		private void Awake()
 		{
-			wallManager		= GameObject.Find("WallManager").GetComponent<WallManager>();
+			if (instance == null)
+			{
+				instance 		= this;				
+			}
+			
 			ball			= GameObject.Find("Ball").GetComponent<Ball>();
 			cameraEffect	= GameObject.Find("Main Camera").GetComponent<CameraEffect>();
-			uiManager		= GameObject.Find("Canvas").GetComponent<UIManager>();
 			parser			= new Parser();
 
 			isTouch		    = false;
@@ -150,14 +153,14 @@ namespace System
 		{
 			// ** 스코어 이펙트 추가 예정 **
 			score += upScore;
-			uiManager.SetText(0, score.ToString());
+			UIManager.instance.SetText(0, score.ToString());
 		}
 
 		// 코인 상승
 		public void AddCoin(int upCoin)
 		{
 			coin += upCoin;
-			uiManager.SetText(1, coin.ToString());
+			UIManager.instance.SetText(1, coin.ToString());
 
 			parser.SetCoin(coin);
 		}
@@ -166,7 +169,7 @@ namespace System
 		public void WallDestroy()
 		{
 			// 월 매니저로 벽 확대 요청
-			wallManager.NextWalls();
+			WallManager.instance.NextWalls();
 
 			if (wallCount++ < 4)
 			{
@@ -247,7 +250,7 @@ namespace System
 		{
 			yield return new WaitForSeconds(2.5f);
 
-			uiManager.StartCoroutine(uiManager.FadeOut((Image)null));
+			UIManager.instance.StartCoroutine(UIManager.instance.FadeOut((Image)null));
 
 			yield return new WaitForSeconds(2f);
 

@@ -6,6 +6,8 @@ namespace System
 {
 	public class WallManager : MonoBehaviour
 	{
+		public static WallManager instance;
+		
 		// 인스펙터 노출 변수
 		// 일반
 		[SerializeField]
@@ -33,6 +35,11 @@ namespace System
 		// 초기화
 		private void Awake()
 		{
+			if (instance == null)
+			{
+				instance = this;				
+			}
+			
 			backGroundManager = GameObject.Find("BackGround").GetComponent<BackGroundManager>();
 			wallsTransform    = GameObject.Find("Walls"). GetComponent<Transform>();
 			warWallsTransform = GameObject.Find("WarWalls").GetComponent<Transform>();
@@ -43,7 +50,7 @@ namespace System
 		// 프레임
 		private void Update()
 		{
-			wallsTransform.Rotate(Vector3.forward * rotationSpeed * GameManager.timeValue);
+			wallsTransform.Rotate(Vector3.forward * rotationSpeed * GameManager.instance.timeValue);
 		}
 
 		// 끝날때

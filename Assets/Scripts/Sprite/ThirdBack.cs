@@ -20,7 +20,7 @@ namespace Sprite
 		// 프레임
 		private void Update()
 		{
-			transform.Rotate(Vector3.forward * rotationSpeed * GameManager.timeValue);
+			transform.Rotate(Vector3.forward * rotationSpeed * GameManager.instance.timeValue);
 		}
 
 		// 전체 초기화

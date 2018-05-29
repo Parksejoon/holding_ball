@@ -34,7 +34,7 @@ namespace Objects
 		// 프레임
 		private void Update()
 		{
-			transform.Rotate(new Vector3(0, 0, 3) * rotationPower * GameManager.timeValue);
+			transform.Rotate(new Vector3(0, 0, 3) * rotationPower * GameManager.instance.timeValue);
 		}
 
 		// 시작

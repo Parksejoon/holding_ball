@@ -24,7 +24,7 @@ namespace Objects
 		// 매 프레임
 		private void Update()
 		{
-			transform.Rotate(new Vector3(0, 0, 3) * GameManager.timeValue);
+			transform.Rotate(new Vector3(0, 0, 3) * GameManager.instance.timeValue);
 		}
 
 		// 파괴 이펙트

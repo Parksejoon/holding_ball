@@ -39,7 +39,6 @@ namespace System
 		public  List<Transform>   holderList = new List<Transform>();    // 홀더 리스트
     
 		private Ball              ball;                                  // 볼
-		private WallManager		   wallManager;							 // 월 매니저
 		private HolderAlgorithm[] holderAlgorithm;                       // 홀더 샷 알고리즘 목록
 
 		// 수치
@@ -49,7 +48,7 @@ namespace System
 
 
 		// 초기화
-		void Start()
+		public void Start()
 		{
 			ball		= GameObject.FindWithTag("Ball").GetComponent<Ball>();
 
@@ -68,7 +67,7 @@ namespace System
 		}
 
 		// 프레임
-		void Update()
+		public void Update()
 		{
 			// 볼이 홀딩상태 또는 바인딩상태가 아닐때만 시간을 측정
 			if (ball.bindedHolder == null)

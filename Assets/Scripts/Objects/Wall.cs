@@ -18,7 +18,6 @@ namespace Objects
 										
 		// 인스펙터 비노출 변수
 		// 일반
-		private GameManager gameManager;          // 게임 매니저
 		private Ball		ball;                 // 공
 		private float		health;				  // 체력
 
@@ -26,7 +25,6 @@ namespace Objects
 		// 초기화
 		private void Awake()
 		{
-			gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 			ball		= GameObject.Find("Ball").GetComponent<Ball>();
 
 			ResetHP();
@@ -54,7 +52,7 @@ namespace Objects
 			if (collision.gameObject.CompareTag("Holder"))
 			{
 				// 파괴 전 홀더 검사
-				gameManager.HolderCheck(collision.gameObject);
+				GameManager.instance.HolderCheck(collision.gameObject);
 				Destroy(collision.gameObject);
 			}
 
@@ -93,7 +91,7 @@ namespace Objects
 		private void WallDestroy()
 		{
 			// 게임 매니저로 전달
-			gameManager.WallDestroy();
+			GameManager.instance.WallDestroy();
 		}
 
 		// 체력 초기화
