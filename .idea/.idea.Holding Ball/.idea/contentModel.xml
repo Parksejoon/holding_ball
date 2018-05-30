@@ -37,42 +37,54 @@
         </e>
       </e>
       <e p="Assets\Scripts" t="Include">
-        <e p="CameraSystem" t="Include">
-          <e p="CameraChase.cs" t="Include" />
-          <e p="CameraEffect.cs" t="Include" />
-        </e>
         <e p="Objects" t="Include">
-          <e p="Ball.cs" t="Include" />
-          <e p="Coin.cs" t="Include" />
-          <e p="Holder.cs" t="Include" />
-          <e p="LimitWall.cs" t="Include" />
-          <e p="ShotLine.cs" t="Include" />
-          <e p="ShotLineCollider.cs" t="Include" />
-          <e p="Wall.cs" t="Include" />
-          <e p="WarWall.cs" t="Include" />
+          <e p="Ball" t="Include">
+            <e p="Ball.cs" t="Include" />
+            <e p="ShotLine.cs" t="Include" />
+            <e p="ShotLineCollider.cs" t="Include" />
+          </e>
+          <e p="Peripheral" t="Include">
+            <e p="Coin.cs" t="Include" />
+            <e p="Holder.cs" t="Include" />
+          </e>
+          <e p="Wall" t="Include">
+            <e p="LimitWall.cs" t="Include" />
+            <e p="Wall.cs" t="Include" />
+            <e p="WarWall.cs" t="Include" />
+          </e>
         </e>
         <e p="Particle" t="Include">
           <e p="ParticleColorFinder.cs" t="Include" />
           <e p="SelfDestroy.cs" t="Include" />
         </e>
         <e p="Sprite" t="Include">
+          <e p="Background" t="Include">
+            <e p="SecondBack.cs" t="Include" />
+            <e p="SecondBackList.cs" t="Include" />
+            <e p="ThirdBack.cs" t="Include" />
+            <e p="ThirdBackList.cs" t="Include" />
+          </e>
           <e p="MatColorFinder.cs" t="Include" />
-          <e p="SecondBack.cs" t="Include" />
-          <e p="SecondBackList.cs" t="Include" />
           <e p="ShotLineAfterEffect.cs" t="Include" />
-          <e p="ThirdBack.cs" t="Include" />
-          <e p="ThirdBackList.cs" t="Include" />
         </e>
-        <e p="System" t="Include">
-          <e p="BackGroundManager.cs" t="Include" />
-          <e p="GameManager.cs" t="Include" />
-          <e p="HolderManager.cs" t="Include" />
-          <e p="Initializer.cs" t="Include" />
-          <e p="Parser.cs" t="Include" />
+        <e p="Systems" t="Include">
+          <e p="CameraSystems" t="Include">
+            <e p="CameraChase.cs" t="Include" />
+            <e p="CameraEffect.cs" t="Include" />
+          </e>
+          <e p="DataSystems" t="Include">
+            <e p="Initializer.cs" t="Include" />
+            <e p="Parser.cs" t="Include" />
+          </e>
+          <e p="InGameSystems" t="Include">
+            <e p="BackGroundManager.cs" t="Include" />
+            <e p="GameManager.cs" t="Include" />
+            <e p="HolderManager.cs" t="Include" />
+            <e p="WallManager.cs" t="Include" />
+          </e>
           <e p="ShaderManager.cs" t="Include" />
           <e p="StartManager.cs" t="Include" />
           <e p="UIManager.cs" t="Include" />
-          <e p="WallManager.cs" t="Include" />
         </e>
         <e p="Test.cs" t="Include" />
         <e p="UI" t="Include">
