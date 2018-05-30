@@ -4,7 +4,6 @@ using Objects;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace System
 {
@@ -153,14 +152,16 @@ namespace System
 		{
 			// ** 스코어 이펙트 추가 예정 **
 			score += upScore;
-			UIManager.instance.SetText(0, score.ToString());
+			UIEffecter.instance.SetText(0, score.ToString());
+			//UIManager.instance.SetText(0, score.ToString());
 		}
 
 		// 코인 상승
 		public void AddCoin(int upCoin)
 		{
 			coin += upCoin;
-			UIManager.instance.SetText(1, coin.ToString());
+			UIEffecter.instance.SetText(1, coin.ToString());
+			//UIManager.instance.SetText(1, coin.ToString());
 
 			parser.SetCoin(coin);
 		}
@@ -250,7 +251,8 @@ namespace System
 		{
 			yield return new WaitForSeconds(2.5f);
 
-			UIManager.instance.StartCoroutine(UIManager.instance.FadeOut((Image)null));
+			UIEffecter.instance.FadeAlphaFunc(0, 3, 1, 0.1f, false, false);
+			//UIManager.instance.StartCoroutine(UIManager.instance.FadeOut((Image)null));
 
 			yield return new WaitForSeconds(2f);
 

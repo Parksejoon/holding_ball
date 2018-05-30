@@ -90,6 +90,7 @@
     <Compile Include="Assets\Scripts\UI\CoinRotation.cs" />
     <Compile Include="Assets\Scripts\UI\StartFade.cs" />
     <Compile Include="Assets\Scripts\UI\TouchPanel.cs" />
+    <Compile Include="Assets\Scripts\UI\UIEffecter.cs" />
     <None Include="Assets\Resources\Data\ColorData.txt" />
     <None Include="Assets\Materials\Shader\Glow.shader" />
     <None Include="Assets\Materials\Shader\FinalBack.shader" />

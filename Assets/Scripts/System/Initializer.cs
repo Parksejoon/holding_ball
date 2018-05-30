@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UI;
+using UnityEngine;
 
 namespace System
 {
@@ -30,9 +31,12 @@ namespace System
 
 
 			GameManager.instance.Initialize(coin, bestScore);
-			UIManager.instance.SetText(1, coin.ToString());
-			UIManager.instance.SetText(2, bestScore.ToString());
-			UIManager.instance.SetText(3, lastScore.ToString());
+			UIEffecter.instance.SetText(1, coin.ToString());
+			UIEffecter.instance.SetText(2, bestScore.ToString());
+			UIEffecter.instance.SetText(3, lastScore.ToString());
+			//UIManager.instance.SetText(1, coin.ToString());
+			//UIManager.instance.SetText(2, bestScore.ToString());
+			//UIManager.instance.SetText(3, lastScore.ToString());
 		}
 	}
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI
@@ -30,13 +29,15 @@ namespace UI
 			{
 				thisText.color = new Color(thisText.color.r, thisText.color.g, thisText.color.b, 0);
 
-				UIManager.instance.StartCoroutine(UIManager.instance.FadeOut(thisText));
+				//StartCoroutine(UIManager.instance.FadeOut(thisText));
+				UIEffecter.instance.StartCoroutine(UIEffecter.instance.FadeAlpha(thisText, 1, 0.2f, false, false));
 			}
 			else
 			{
 				thisImg.color = new Color(thisImg.color.r, thisImg.color.g, thisImg.color.b, 0);
 
-				UIManager.instance.StartCoroutine(UIManager.instance.FadeOut(thisImg));
+				//StartCoroutine(UIManager.instance.FadeOut(thisImg));
+				UIEffecter.instance.StartCoroutine(UIEffecter.instance.FadeAlpha(thisImg, 1, 0.2f, false, false));
 			}
 		}
 	}

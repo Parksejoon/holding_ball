@@ -79,6 +79,7 @@
           <e p="CoinRotation.cs" t="Include" />
           <e p="StartFade.cs" t="Include" />
           <e p="TouchPanel.cs" t="Include" />
+          <e p="UIEffecter.cs" t="Include" />
         </e>
       </e>
       <e p="Assets\Standard Assets" t="Include">
