@@ -14,7 +14,7 @@ namespace UI
 		// 초기화
 		private void Awake()
 		{
-			thisImg   = GetComponent<Image>();
+			thisImg = GetComponent<Image>();
 
 			if (thisImg == null)
 			{
@@ -30,14 +30,14 @@ namespace UI
 				thisText.color = new Color(thisText.color.r, thisText.color.g, thisText.color.b, 0);
 
 				//StartCoroutine(UIManager.instance.FadeOut(thisText));
-				UIEffecter.instance.StartCoroutine(UIEffecter.instance.FadeAlpha(thisText, 1, 0.2f, false, false));
+				UIEffecter.instance.StartCoroutine(UIEffecter.instance.FadeAlpha(thisText, 1, 2f, false, false));
 			}
 			else
 			{
 				thisImg.color = new Color(thisImg.color.r, thisImg.color.g, thisImg.color.b, 0);
 
 				//StartCoroutine(UIManager.instance.FadeOut(thisImg));
-				UIEffecter.instance.StartCoroutine(UIEffecter.instance.FadeAlpha(thisImg, 1, 0.2f, false, false));
+				UIEffecter.instance.StartCoroutine(UIEffecter.instance.FadeAlpha(thisImg, 1, 2f, false, false));
 			}
 		}
 	}
