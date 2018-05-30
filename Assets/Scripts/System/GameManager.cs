@@ -198,7 +198,17 @@ namespace System
 			// 계속할것인지
 			StartCoroutine(Continue());
 		}
-
+		
+		// 자살
+		public void Suicide()
+		{
+			UIEffecter.instance.SetUI(2, false);
+			timeValue = 1f;
+			Time.timeScale = 1f;
+			isSecond = true;
+			
+			GameOver();
+		}
 
 		// 씬 로드
 		public void SceneLoad(string sceneName)

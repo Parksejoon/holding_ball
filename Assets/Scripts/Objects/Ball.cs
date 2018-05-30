@@ -101,9 +101,6 @@ namespace Objects
 		{
 			// 바인딩 홀더를 설정
 			bindedHolder = holder;
-
-			// 시간 제어
-			Time.timeScale = 0.7f;
 		}
 
 		// 홀더에 언바인딩
@@ -156,9 +153,6 @@ namespace Objects
 		{
 			// 홀더에서 탈출
 			isHolding = false;
-
-			// 시간 제어
-			Time.timeScale = 1f;
 
 			// 홀더만 따로 파괴된 경우
 			if (bindedHolder == null)
