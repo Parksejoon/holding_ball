@@ -1,5 +1,4 @@
-﻿using System;
-using Objects;
+﻿using Systems.InGameSystems;
 using Objects.Ball;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -18,7 +17,7 @@ namespace UI
 		// 초기화
 		private void Awake()
 		{
-			ball		= GameObject.Find("Ball").GetComponent<Ball>();
+			ball = GameObject.Find("Ball").GetComponent<Ball>();
 		}
 
 		// 터치 시작

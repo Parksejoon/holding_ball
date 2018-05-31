@@ -1,14 +1,12 @@
 ﻿using System.Collections;
 using Systems.DataSystems;
-using Systems.InGameSystems;
 using CameraSystem;
-using Objects;
 using Objects.Ball;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace System
+namespace Systems.InGameSystems
 {
 	public class GameManager : MonoBehaviour
 	{

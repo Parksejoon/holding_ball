@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Objects;
 using Objects.Ball;
 using UnityEngine;
 
-namespace System
+namespace Systems.InGameSystems
 {
 	public class HolderManager : MonoBehaviour
 	{

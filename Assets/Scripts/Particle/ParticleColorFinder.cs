@@ -1,5 +1,4 @@
-﻿using System;
-using Systems;
+﻿using Systems;
 using UnityEngine;
 
 namespace Particle
