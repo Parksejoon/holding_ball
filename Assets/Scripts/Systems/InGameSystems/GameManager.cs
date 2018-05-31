@@ -47,7 +47,7 @@ namespace Systems.InGameSystems
 		{
 			if (instance == null)
 			{
-				instance 		= this;				
+				instance 	= this;				
 			}
 			
 			ball			= GameObject.Find("Ball").GetComponent<Ball>();
