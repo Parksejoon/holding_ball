@@ -11,6 +11,7 @@ namespace Objects.Wall
 			if (collision.gameObject.CompareTag("Ball"))
 			{
 				collision.transform.position = Vector3.zero;
+				collision.rigidbody.velocity = Vector3.zero;
 			}
 
 			// 홀더와 코인은 파괴처리

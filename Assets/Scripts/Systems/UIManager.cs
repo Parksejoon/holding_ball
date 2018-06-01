@@ -48,7 +48,6 @@ namespace Systems
 		private void Pause()
 		{
 			UIEffecter.instance.SetUI(2, true);
-			//ControlPanel((int)PanelNum.PAUSE, true);
 
 			// 타임 스케일 저장
 			originalTimeScale = Time.timeScale;
@@ -62,7 +61,6 @@ namespace Systems
 		private void Continue()
 		{
 			UIEffecter.instance.SetUI(2, false);
-			//ControlPanel((int)PanelNum.PAUSE, false);
 		
 			// 타임 스케일 복구
 			Time.timeScale = originalTimeScale;

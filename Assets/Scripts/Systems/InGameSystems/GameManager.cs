@@ -263,7 +263,6 @@ namespace Systems.InGameSystems
 			yield return new WaitForSeconds(2.5f);
 
 			UIEffecter.instance.FadeAlphaFunc(0, 3, 1, 0.1f, false, false);
-			//UIManager.instance.StartCoroutine(UIManager.instance.FadeOut((Image)null));
 
 			yield return new WaitForSeconds(2f);
 
