@@ -87,8 +87,8 @@
     <Compile Include="Assets\Scripts\Systems\StartManager.cs" />
     <Compile Include="Assets\Scripts\Systems\UIManager.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
+    <Compile Include="Assets\Scripts\UI\AlphaSlider.cs" />
     <Compile Include="Assets\Scripts\UI\CoinRotation.cs" />
-    <Compile Include="Assets\Scripts\UI\Slider.cs" />
     <Compile Include="Assets\Scripts\UI\StartFade.cs" />
     <Compile Include="Assets\Scripts\UI\TouchPanel.cs" />
     <Compile Include="Assets\Scripts\UI\UIEffecter.cs" />
