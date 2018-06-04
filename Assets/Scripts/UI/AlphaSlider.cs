@@ -16,6 +16,7 @@ namespace UI
 		private Image 			thisImg;				// 이 이미지
 		private Vector2 		originPos;				// 최초 위치
 		private Vector2 		startPos;				// 시작 위치
+		private Vector2 		previousPos;			// 이전 위치
 		private Color 			imgColor;				// 이미지 색
 		private float 			originAlpha;			// 최초 알파
 		
@@ -34,18 +35,20 @@ namespace UI
 		// 드래그 시작
 		public void OnBeginDrag(PointerEventData eventData)
 		{
-			startPos = eventData.position;
+			startPos 	= eventData.position;
+			previousPos = startPos;
 		}
 		
 		// 드래그 중
 		public void OnDrag(PointerEventData eventData)
 		{
 			// 알파 조절
-			imgColor.a = (1 - (Vector2.Distance(eventData.position, startPos) / disValue)) - originAlpha;
+			imgColor.a = 1 - (Vector2.Distance(eventData.position, startPos) / disValue) - originAlpha / 2;
 			thisImg.color = imgColor;
 			
 			// 위치 조절
-			thisRect.position = eventData.position;
+			thisRect.position -= (Vector3)(previousPos - eventData.position);
+			previousPos = eventData.position;
 		}
 
 		// 드래그 종료
