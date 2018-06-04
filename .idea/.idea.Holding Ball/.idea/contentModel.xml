@@ -88,8 +88,8 @@
         </e>
         <e p="Test.cs" t="Include" />
         <e p="UI" t="Include">
-          <e p="AlphaSlider.cs" t="Include" />
           <e p="CoinRotation.cs" t="Include" />
+          <e p="CoverSlider.cs" t="Include" />
           <e p="StartFade.cs" t="Include" />
           <e p="TouchPanel.cs" t="Include" />
           <e p="UIEffecter.cs" t="Include" />
