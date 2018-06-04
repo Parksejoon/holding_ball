@@ -15,9 +15,9 @@ namespace UI
 		// 일반
 		private RectTransform 	thisRect;				// 이 이미지의 rect transform
 		private Image 			thisImg;				// 이 이미지
-		private Vector2 		originPos;				// 최초 위치
+//		private Vector2 		originPos;				// 최초 위치
 		private Vector2 		startPos;				// 시작 위치
-		private Vector2 		previousPos;			// 이전 위치
+//		private Vector2 		previousPos;			// 이전 위치
 		private Vector2 		midPos;					// 중앙 위치
 		private Color 			imgColor;				// 이미지 색
 		private float 			originAlpha;			// 최초 알파
@@ -29,7 +29,7 @@ namespace UI
 		{
 			thisRect 	= GetComponent<RectTransform>();
 			thisImg  	= GetComponent<Image>();
-			originPos 	= thisRect.position;
+//			originPos 	= thisRect.position;
 			startPos 	= thisRect.position;
 			imgColor    = thisImg.color;
 			midPos 		= new Vector2(Screen.width / 2f, Screen.height / 2f);
@@ -43,7 +43,7 @@ namespace UI
 		public void OnBeginDrag(PointerEventData eventData)
 		{
 			startPos 	= eventData.position;
-			previousPos = startPos;
+//			previousPos = startPos;
 		}
 		
 		// 드래그 중
@@ -59,22 +59,22 @@ namespace UI
 			
 			// 방향 측정
 			// 왼쪽
-			if (startPos.x - midPos.x - eventData.position.x < midPos.x - slideDis)
+			if (eventData.position.x < startPos.x - slideDis)
 			{
 				Debug.Log("left");
 			}
 			// 오른쪽
-			if (startPos.x + midPos.x + eventData.position.x > midPos.x + slideDis)
+			if (eventData.position.x > startPos.x + slideDis)
 			{
 				Debug.Log("right");	
 			}
 			// 위쪽
-			if (startPos.y + midPos.y + eventData.position.y > midPos.y + slideDis)
+			if (eventData.position.y > startPos.y + slideDis)
 			{	
 				Debug.Log("up");
 			}
 			// 아래쪽
-			if (startPos.y - midPos.y - eventData.position.y < midPos.y - slideDis)
+			if (eventData.position.y < startPos.y - slideDis)
 			{	
 				Debug.Log("down");
 			}
