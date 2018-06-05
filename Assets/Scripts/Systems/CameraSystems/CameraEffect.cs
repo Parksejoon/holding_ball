@@ -1,8 +1,7 @@
 ﻿using System.Collections;
-using Systems.CameraSystems;
 using UnityEngine;
 
-namespace CameraSystem
+namespace Systems.CameraSystems
 {
 	public class CameraEffect : MonoBehaviour
 	{
