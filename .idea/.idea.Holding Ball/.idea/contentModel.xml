@@ -71,6 +71,7 @@
           <e p="CameraSystems" t="Include">
             <e p="CameraChase.cs" t="Include" />
             <e p="CameraEffect.cs" t="Include" />
+            <e p="CameraMovement.cs" t="Include" />
           </e>
           <e p="DataSystems" t="Include">
             <e p="Initializer.cs" t="Include" />
