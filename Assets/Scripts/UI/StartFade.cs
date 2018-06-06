@@ -5,6 +5,11 @@ namespace UI
 {
 	public class StartFade : MonoBehaviour
 	{
+		// 인스펙터 노출 변수
+		// 수치
+		[SerializeField]
+		private float 		goalAlpha; 				// 목표 알파
+		
 		// 인스펙터 비노출 변수
 		// 일반
 		private Image		thisImg;                // 이 이미지
@@ -29,15 +34,13 @@ namespace UI
 			{
 				thisText.color = new Color(thisText.color.r, thisText.color.g, thisText.color.b, 0);
 
-				//StartCoroutine(UIManager.instance.FadeOut(thisText));
-				UIEffecter.instance.StartCoroutine(UIEffecter.instance.FadeAlpha(thisText, 1, 0.3f, false, false));
+				UIEffecter.instance.FadeEffect(thisText.gameObject, new Vector2(goalAlpha, 0), 0.3f, UIEffecter.FadeFlag.ALPHA);
 			}
 			else
 			{
 				thisImg.color = new Color(thisImg.color.r, thisImg.color.g, thisImg.color.b, 0);
 
-				//StartCoroutine(UIManager.instance.FadeOut(thisImg));
-				UIEffecter.instance.StartCoroutine(UIEffecter.instance.FadeAlpha(thisImg, 1, 0.3f, false, false));
+				UIEffecter.instance.FadeEffect(thisImg.gameObject, new Vector2(goalAlpha, 0), 0.3f, UIEffecter.FadeFlag.ALPHA);
 			}
 		}
 	}

@@ -113,13 +113,13 @@ namespace UI
 			// 알파 원래대로
 			for (int i = 0; i < 4; i++)
 			{
-				StartCoroutine(UIEffecter.instance.FadeAlpha(slideWayImg[i], originAlpha, 0.1f, false, false));	
+				UIEffecter.instance.FadeEffect(slideWayImg[i].gameObject, new Vector2(originAlpha, 0), 0.1f, UIEffecter.FadeFlag.ALPHA);
 			}
 
 			// 위치 원래대로
 			for (int i = 0; i < 4; i++)
 			{
-				StartCoroutine(UIEffecter.instance.FadePosition(slideWayRect[i], slideWayOriginPos[i], 0.1f, false, false));
+				UIEffecter.instance.FadeEffect(slideWayRect[i].gameObject, slideWayOriginPos[i], 0.1f, UIEffecter.FadeFlag.POSITION);
 			}
 
 			// 플래그 삭제

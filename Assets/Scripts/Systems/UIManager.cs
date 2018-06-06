@@ -72,8 +72,10 @@ namespace Systems
 		{
 			restartButton.interactable = true;
 			
-			UIEffecter.instance.FadePositionFunc(0, new Vector2(0, -3000), 0.1f, false, false);
-			UIEffecter.instance.FadeAlphaFunc(0, 4, 0, 0.1f, true, false);
+			UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[0], new Vector2(0, -3000), 0.1f, UIEffecter.FadeFlag.POSITION);
+			UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[4], new Vector2(0, 0), 0.1f, UIEffecter.FadeFlag.ALPHA | UIEffecter.FadeFlag.FINDIABL);
+			//UIEffecter.instance.FadePositionFunc(0, new Vector2(0, -3000), 0.1f, false, false);
+			//UIEffecter.instance.FadeAlphaFunc(0, 4, 0, 0.1f, true, false);
 			
 			StartCoroutine(StartRoutine());
 		}

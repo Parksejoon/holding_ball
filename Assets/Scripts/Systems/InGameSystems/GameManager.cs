@@ -262,7 +262,8 @@ namespace Systems.InGameSystems
 		{
 			yield return new WaitForSeconds(2.5f);
 
-			UIEffecter.instance.FadeAlphaFunc(0, 3, 1, 0.1f, false, false);
+			UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[3], new Vector2(1, 0), 0.1f, UIEffecter.FadeFlag.ALPHA);
+			//UIEffecter.instance.FadeAlphaFunc(0, 3, 1, 0.1f, false, false);
 
 			yield return new WaitForSeconds(2f);
 

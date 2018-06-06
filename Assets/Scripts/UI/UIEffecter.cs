@@ -1,19 +1,29 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
 using UnityEngine.UI;
+using Image = UnityEngine.UI.Image;
 
 namespace UI
 {
     public class UIEffecter : MonoBehaviour
     {
+        public enum FadeFlag
+        {
+            NONE        = 0x00,            // 아무것도 안함
+            POSITION    = 0x01,            // 위치 변경 페이드
+            SCALE       = 0x02,            // 크기 변경 페이드
+            ALPHA       = 0x04,            // 알파 변경 페이드
+            FINENABL    = 0x08,            // 종료 후 UI 켜기
+            FINDIABL    = 0x16             // 종료 후 UI 끄기
+        }
+        
         public static UIEffecter instance;
     
         // 인스펙터 노출 변수
         // 일반
-        [SerializeField]
-        private Text[]             texts;				 // 텍스트 집합
-        [SerializeField]
-        private GameObject[]       panels;              // ui 집합
+        public  Text[]             texts;				 // 텍스트 집합
+        public  GameObject[]       panels;              // ui 집합
     
         // 수치
         [SerializeField]
@@ -40,54 +50,51 @@ namespace UI
         {
             panels[index].gameObject.SetActive(enable);
         }
-    
-        // UI 위치 페이드
-        public void FadePositionFunc(int index, Vector2 goalPos, float time, bool useFinalEnable, bool finalEnable)
-        {
-            StartCoroutine(FadePosition(panels[index].GetComponent<RectTransform>(), goalPos, time, useFinalEnable, finalEnable));
-        }
-    
-        // UI 알파 페이드
-        public void FadeAlphaFunc(int arrayOffset, int index, float goalAlpha, float time, bool useFinalEnable, bool finalEnable)
-        {
-            switch (arrayOffset)
-            {
-                case 0:
-                    StartCoroutine(FadeAlpha(panels[index].GetComponent<Image>(), goalAlpha, time, useFinalEnable, finalEnable));
-                
-                    break;
-                case 1:
-                    StartCoroutine(FadeAlpha(texts[index], goalAlpha, time, useFinalEnable, finalEnable));
-                
-                    break;
-                default:
-                    Debug.Log("arrayOffset");
-                
-                    break;
-            }
-        }
-    
-        // UI 크기 페이드
-        public void FadeScaleFunc(int index, Vector2 goalScale, float time, bool useFinalEnable, bool finalEnable)
-        {
-            StartCoroutine(FadeScale(panels[index].GetComponent<RectTransform>(), goalScale, time, useFinalEnable, finalEnable));
-        }
         
-        // 옵션 플레그 확인
-        private void CheckFlag(GameObject target, float time, bool useFinalEnable, bool finalEnable)
+        // UI 페이드 효과
+        public void FadeEffect(GameObject target, Vector2 goalVal, float time, FadeFlag optionFlag)
         {
-            // 종료 후 enable 설정
-            if (useFinalEnable)
+            // 위치 변경 페이드
+            if ((optionFlag & FadeFlag.POSITION) == FadeFlag.POSITION)
             {
-                StartCoroutine(AfterEnable(target, time, finalEnable));
+                StartCoroutine(FadePosition(target.GetComponent<RectTransform>(), goalVal, time));
+            }
+            
+            // 크기 변경 페이드
+            if ((optionFlag & FadeFlag.SCALE) == FadeFlag.SCALE)
+            {
+                StartCoroutine(FadeScale(target.GetComponent<RectTransform>(), goalVal, time));
+            }
+            
+            // 알파 변경 페이드
+            if ((optionFlag & FadeFlag.ALPHA) == FadeFlag.ALPHA)
+            {
+                if (target.GetComponent<Image>() != null)
+                {
+                    StartCoroutine(FadeAlpha(target.GetComponent<Image>(), goalVal.x, time));
+                }
+                else
+                {
+                    StartCoroutine(FadeAlpha(target.GetComponent<Text>(), goalVal.x, time));
+                }
+            }
+            
+            // 종료 후 enable 설정
+            if ((optionFlag & FadeFlag.FINENABL) == FadeFlag.FINENABL)
+            {
+               StartCoroutine(AfterEnable(target.gameObject, time, true));
+            }
+            
+            // 종료 후 disable 설정
+            if ((optionFlag & FadeFlag.FINDIABL) == FadeFlag.FINDIABL)
+            {
+                StartCoroutine(AfterEnable(target.gameObject, time, false));
             }
         }
     
         // 위치 페이드
-        public IEnumerator FadePosition(RectTransform target, Vector2 goalPos, float time, bool useFinalEnable, bool finalEnable)
+        private IEnumerator FadePosition(RectTransform target, Vector2 goalPos, float time)
         {
-            CheckFlag(target.gameObject, time, useFinalEnable, finalEnable);
-            
             Vector2 startPos    = target.position;
             int     count       = (int)(time / fadeGap);
             int     originCount = count;
@@ -103,10 +110,28 @@ namespace UI
             target.position = goalPos;
         }
     
-        // 알파 페이드 ( 이미지 )
-        public IEnumerator FadeAlpha(Image target, float goalAlpha, float time, bool useFinalEnable, bool finalEnable)
+        // 크기 페이드
+        private IEnumerator FadeScale(RectTransform target, Vector2 goalScale, float time)
         {
-            CheckFlag(target.gameObject, time, useFinalEnable, finalEnable);
+            Vector2 originScale = target.localScale;
+            int     count = (int)(time / fadeGap);
+            int     originCount = count;
+        
+        
+            while (count > 0)
+            {
+                target.localScale = Vector2.Lerp(goalScale, originScale, (float)count / originCount);
+            
+                count -= 1;
+                yield return new WaitForSeconds(fadeGap);
+            }
+        
+            target.localScale = goalScale;
+        }
+    
+        // 알파 페이드 ( 이미지 )
+        private IEnumerator FadeAlpha(Image target, float goalAlpha, float time)
+        {
 
             Color originColor = target.color;
             float startAlpha  = target.color.a;
@@ -127,9 +152,8 @@ namespace UI
         }
     
         // 알파 페이드 ( 텍스트 )
-        public IEnumerator FadeAlpha(Text target, float goalAlpha, float time, bool useFinalEnable, bool finalEnable)
+        private IEnumerator FadeAlpha(Text target, float goalAlpha, float time)
         {
-            CheckFlag(target.gameObject, time, useFinalEnable, finalEnable);
 
             Color originColor = target.color;
             float startAlpha  = target.color.a;
@@ -148,30 +172,9 @@ namespace UI
             originColor.a = goalAlpha;
             target.color = originColor;
         }
-    
-        // 크기 페이드
-        public IEnumerator FadeScale(RectTransform target, Vector2 goalScale, float time, bool useFinalEnable, bool finalEnable)
-        {
-            CheckFlag(target.gameObject, time, useFinalEnable, finalEnable);
-
-            Vector2 originScale = target.localScale;
-            int     count = (int)(time / fadeGap);
-            int     originCount = count;
-        
-        
-            while (count > 0)
-            {
-                target.localScale = Vector2.Lerp(goalScale, originScale, (float)count / originCount);
-            
-                count -= 1;
-                yield return new WaitForSeconds(fadeGap);
-            }
-        
-            target.localScale = goalScale;
-        }
         
         // 페이드 종료 후 enable
-        public IEnumerator AfterEnable(GameObject target, float time, bool enable)
+        private IEnumerator AfterEnable(GameObject target, float time, bool enable)
         {
             yield return new WaitForSeconds(time);
             
