@@ -262,6 +262,9 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="JetBrains.Rider.Unity.Editor.Plugin.Repacked">
+      <HintPath>Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.Advertisements">
       <HintPath>C:/Users/qkeh4/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/UnityEngine.Advertisements.dll</HintPath>
     </Reference>
@@ -297,37 +300,39 @@
     <Compile Include="Assets\Custom 2D Colliders\Scripts\EllipseCollider2D.cs" />
     <Compile Include="Assets\Custom 2D Colliders\Scripts\RoundedBoxCollider2D.cs" />
     <Compile Include="Assets\Custom 2D Colliders\Scripts\StarCollider2D.cs" />
-    <Compile Include="Assets\Scripts\Camera\CameraChase.cs" />
-    <Compile Include="Assets\Scripts\Camera\CameraEffect.cs" />
-    <Compile Include="Assets\Scripts\Objects\Ball.cs" />
-    <Compile Include="Assets\Scripts\Objects\Coin.cs" />
-    <Compile Include="Assets\Scripts\Objects\Holder.cs" />
-    <Compile Include="Assets\Scripts\Objects\LimitWall.cs" />
-    <Compile Include="Assets\Scripts\Objects\ShotLine.cs" />
-    <Compile Include="Assets\Scripts\Objects\ShotLineCollider.cs" />
-    <Compile Include="Assets\Scripts\Objects\Wall.cs" />
-    <Compile Include="Assets\Scripts\Objects\WarWall.cs" />
+    <Compile Include="Assets\Scripts\Objects\Ball\Ball.cs" />
+    <Compile Include="Assets\Scripts\Objects\Ball\ShotLine.cs" />
+    <Compile Include="Assets\Scripts\Objects\Ball\ShotLineCollider.cs" />
+    <Compile Include="Assets\Scripts\Objects\Peripheral\Coin.cs" />
+    <Compile Include="Assets\Scripts\Objects\Peripheral\Holder.cs" />
+    <Compile Include="Assets\Scripts\Objects\Wall\LimitWall.cs" />
+    <Compile Include="Assets\Scripts\Objects\Wall\Wall.cs" />
+    <Compile Include="Assets\Scripts\Objects\Wall\WarWall.cs" />
     <Compile Include="Assets\Scripts\Particle\ParticleColorFinder.cs" />
     <Compile Include="Assets\Scripts\Particle\SelfDestroy.cs" />
+    <Compile Include="Assets\Scripts\Sprite\Background\SecondBack.cs" />
+    <Compile Include="Assets\Scripts\Sprite\Background\SecondBackList.cs" />
+    <Compile Include="Assets\Scripts\Sprite\Background\ThirdBack.cs" />
+    <Compile Include="Assets\Scripts\Sprite\Background\ThirdBackList.cs" />
     <Compile Include="Assets\Scripts\Sprite\MatColorFinder.cs" />
-    <Compile Include="Assets\Scripts\Sprite\SecondBack.cs" />
-    <Compile Include="Assets\Scripts\Sprite\SecondBackList.cs" />
     <Compile Include="Assets\Scripts\Sprite\ShotLineAfterEffect.cs" />
-    <Compile Include="Assets\Scripts\Sprite\ThirdBack.cs" />
-    <Compile Include="Assets\Scripts\Sprite\ThirdBackList.cs" />
-    <Compile Include="Assets\Scripts\System\BackGroundManager.cs" />
-    <Compile Include="Assets\Scripts\System\GameManager.cs" />
-    <Compile Include="Assets\Scripts\System\HolderManager.cs" />
-    <Compile Include="Assets\Scripts\System\Initializer.cs" />
-    <Compile Include="Assets\Scripts\System\Parser.cs" />
-    <Compile Include="Assets\Scripts\System\ShaderManager.cs" />
-    <Compile Include="Assets\Scripts\System\StartManager.cs" />
-    <Compile Include="Assets\Scripts\System\UIManager.cs" />
-    <Compile Include="Assets\Scripts\System\WallManager.cs" />
+    <Compile Include="Assets\Scripts\Systems\CameraSystems\CameraChase.cs" />
+    <Compile Include="Assets\Scripts\Systems\CameraSystems\CameraEffect.cs" />
+    <Compile Include="Assets\Scripts\Systems\CameraSystems\CameraMovement.cs" />
+    <Compile Include="Assets\Scripts\Systems\DataSystems\Initializer.cs" />
+    <Compile Include="Assets\Scripts\Systems\DataSystems\Parser.cs" />
+    <Compile Include="Assets\Scripts\Systems\InGameSystems\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Systems\InGameSystems\HolderManager.cs" />
+    <Compile Include="Assets\Scripts\Systems\InGameSystems\WallManager.cs" />
+    <Compile Include="Assets\Scripts\Systems\ShaderManager.cs" />
+    <Compile Include="Assets\Scripts\Systems\StartManager.cs" />
+    <Compile Include="Assets\Scripts\Systems\UIManager.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
     <Compile Include="Assets\Scripts\UI\CoinRotation.cs" />
+    <Compile Include="Assets\Scripts\UI\CoverSlider.cs" />
     <Compile Include="Assets\Scripts\UI\StartFade.cs" />
     <Compile Include="Assets\Scripts\UI\TouchPanel.cs" />
+    <Compile Include="Assets\Scripts\UI\UIEffecter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Materials\Shader\FinalBack.shader" />

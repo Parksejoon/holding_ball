@@ -16,7 +16,7 @@ public class Wall : MonoBehaviour
 										
 	// 인스펙터 비노출 변수
 	// 일반
-	private Ball.Ball	ball;                 // 공
+	private Ball		ball;                 // 공
 	private float		health;               // 체력
 		
 	// 수치
@@ -26,7 +26,7 @@ public class Wall : MonoBehaviour
 	// 초기화
 	private void Awake()
 	{
-		ball			= GameObject.Find("Ball").GetComponent<Ball.Ball>();
+		ball			= GameObject.Find("Ball").GetComponent<Ball>();
 
 		rotationSpeed	= Random.Range(-0.5f, 0.5f);
 

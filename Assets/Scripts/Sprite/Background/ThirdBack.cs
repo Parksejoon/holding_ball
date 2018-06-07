@@ -1,5 +1,4 @@
-﻿using Systems.InGameSystems;
-using UnityEngine;
+﻿using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class ThirdBack : MonoBehaviour

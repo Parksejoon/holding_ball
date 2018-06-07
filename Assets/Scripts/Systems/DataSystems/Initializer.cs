@@ -1,6 +1,4 @@
-﻿using Systems.InGameSystems;
-using UI;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Initializer : MonoBehaviour
 {
