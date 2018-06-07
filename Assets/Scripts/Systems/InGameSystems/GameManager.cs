@@ -25,7 +25,6 @@ namespace Systems.InGameSystems
 		private Touch			touch;                      // 터치 구조체
 		private CameraEffect	cameraEffect;               // 카메라 이펙트
 		private Parser			parser;						// 데이터 파서
-		private int				wallCount;  				// 벽 카운트
 
 		// 수치
 		[HideInInspector]
@@ -154,7 +153,6 @@ namespace Systems.InGameSystems
 			// ** 스코어 이펙트 추가 예정 **
 			score += upScore;
 			UIEffecter.instance.SetText(0, score.ToString());
-			//UIManager.instance.SetText(0, score.ToString());
 		}
 
 		// 코인 상승
@@ -162,7 +160,6 @@ namespace Systems.InGameSystems
 		{
 			coin += upCoin;
 			UIEffecter.instance.SetText(1, coin.ToString());
-			//UIManager.instance.SetText(1, coin.ToString());
 
 			parser.SetCoin(coin);
 		}
@@ -171,12 +168,7 @@ namespace Systems.InGameSystems
 		public void WallDestroy()
 		{
 			// 월 매니저로 벽 확대 요청
-			WallManager.instance.NextWalls();
-
-			if (wallCount++ < 4)
-			{
-				cameraEffect.ZoomOut();
-			}
+			WallManager.instance.InitWalls();
 		}
 
 		// 홀더 체크
@@ -263,7 +255,6 @@ namespace Systems.InGameSystems
 			yield return new WaitForSeconds(2.5f);
 
 			UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[3], new Vector2(1, 0), 0.1f, UIEffecter.FadeFlag.ALPHA);
-			//UIEffecter.instance.FadeAlphaFunc(0, 3, 1, 0.1f, false, false);
 
 			yield return new WaitForSeconds(2f);
 

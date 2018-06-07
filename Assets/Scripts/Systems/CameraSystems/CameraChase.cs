@@ -16,7 +16,7 @@ namespace Systems.CameraSystems
 		private Transform	chaseObject;					// 쫒아갈 오브젝트    
 
 		public  float		limitX = 6f;					// 최대 X
-		public  float		limitY = 2.15f;                 // 최대 Y
+		public  float		limitY = 2.15f;                // 최대 Y
 
 		// 인스펙터 비노출 변수
 		// 일반
@@ -38,13 +38,6 @@ namespace Systems.CameraSystems
 			{
 				transform.position = new Vector3(transform.position.x, temp.y, -10);
 			}
-		}
-
-		// 다음 사이즈
-		public void NextSize()
-		{
-			limitX *= 1.4f;
-			limitY *= 1.4f;
 		}
 	}
 }

@@ -36,27 +36,6 @@ namespace Systems.CameraSystems
 		{
 			StartCoroutine(ZoomInCor());
 		}
-	
-		// 줌아웃효과
-		public void ZoomOut()
-		{
-			StartCoroutine(ZoomOutCor());
-
-			cameraChase.NextSize();
-			MotionBlur();
-		}
-
-		// 플래쉬 효과
-		public void FlashBoom()
-		{
-			StartCoroutine(FlashBoomCor());
-		}
-
-		// 잔상 효과
-		public void MotionBlur()
-		{
-			StartCoroutine(MotionBlurCor());
-		}
 
 		// 줌인 코루틴
 		private IEnumerator ZoomInCor()

@@ -14,7 +14,7 @@ namespace Sprite.Background
 		// 전체 초기화
 		private void Initialize()
 		{
-			transform.position   = new Vector2(Random.Range(-20, 20), Random.Range(-20, 20));
+			transform.position   = new Vector2(Random.Range(-70, 70), Random.Range(-70, 70));
 			transform.localScale = new Vector2(Random.Range(0.5f, 1.5f), Random.Range(0.5f, 1.5f));
 		}
 	}
