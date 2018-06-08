@@ -75,6 +75,12 @@ public class UIEffecter : MonoBehaviour
                 StartCoroutine(FadeAlpha(target.GetComponent<Text>(), goalVal.x, time));
             }
         }
+
+		// 각도 변경 페이드
+		if ((optionFlag & FadeFlag.ANGLE) == FadeFlag.ANGLE)
+		{
+			StartCoroutine(FadeAngle(target.GetComponent<RectTransform>(), goalVal, time));
+		}
             
         // 종료 후 enable 설정
         if ((optionFlag & FadeFlag.FINENABL) == FadeFlag.FINENABL)

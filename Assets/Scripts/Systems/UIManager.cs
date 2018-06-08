@@ -85,8 +85,11 @@ public class UIManager : MonoBehaviour
 	// 시작버튼 클릭 루틴
 	private IEnumerator StartRoutine()
 	{
-		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[0], new Vector2(0, 0), 0.8f, UIEffecter.FadeFlag.ALPHA | UIEffecter.FadeFlag.FINDIABL);
-		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[4], new Vector2(0, 0), 0.5f, UIEffecter.FadeFlag.ALPHA | UIEffecter.FadeFlag.FINDIABL);
+		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[0], Vector2.zero, 1.2f, UIEffecter.FadeFlag.ALPHA | UIEffecter.FadeFlag.FINDIABL);
+		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[4], new Vector2(Screen.width / 2f, Screen.height / 2f), 0.1f, UIEffecter.FadeFlag.POSITION);
+		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[4], new Vector3(0, 0, 360), 0.1f, UIEffecter.FadeFlag.ANGLE);
+		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[4], Vector2.zero, 0.8f, UIEffecter.FadeFlag.ALPHA | UIEffecter.FadeFlag.FINDIABL);
+
 
 		yield return null;
 
