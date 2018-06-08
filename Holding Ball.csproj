@@ -319,7 +319,6 @@
     <Compile Include="Assets\Scripts\Sprite\ShotLineAfterEffect.cs" />
     <Compile Include="Assets\Scripts\Systems\CameraSystems\CameraChase.cs" />
     <Compile Include="Assets\Scripts\Systems\CameraSystems\CameraEffect.cs" />
-    <Compile Include="Assets\Scripts\Systems\CameraSystems\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\Systems\DataSystems\Initializer.cs" />
     <Compile Include="Assets\Scripts\Systems\DataSystems\Parser.cs" />
     <Compile Include="Assets\Scripts\Systems\InGameSystems\GameManager.cs" />
@@ -329,8 +328,10 @@
     <Compile Include="Assets\Scripts\Systems\StartManager.cs" />
     <Compile Include="Assets\Scripts\Systems\UIManager.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
+    <Compile Include="Assets\Scripts\UI\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\UI\CoinRotation.cs" />
     <Compile Include="Assets\Scripts\UI\CoverSlider.cs" />
+    <Compile Include="Assets\Scripts\UI\PlayEffect.cs" />
     <Compile Include="Assets\Scripts\UI\StartFade.cs" />
     <Compile Include="Assets\Scripts\UI\TouchPanel.cs" />
     <Compile Include="Assets\Scripts\UI\UIEffecter.cs" />

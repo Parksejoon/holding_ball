@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Collections;
 
 public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
@@ -13,12 +14,12 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 			
 	// 수치
 	public  int 			disValue = 3000;		// 거리에 따른 페이드 비율
-	public  float 			slideDisPer = 0.5f;		// 슬라이드 거리 비율
-		
+	public  float 			slideDisPer = 0.5f;     // 슬라이드 거리 비율
+
 	// 인스펙터 비노출 변수
 	// 일반
 	private RectTransform 	thisRect;				// 이 이미지의 rect transform
-	private Color 			imgColor;				// 이미지 색
+	private Color 			imgColor;               // 이미지 색
 	private RectTransform[]	slideWayRect;			// 방향별 rect transform
 	private Vector2[] 		slideWayOriginPos;		// 방향별 원래 위치
 	private bool[] 			isSliding;              // 슬라이드중인지				
@@ -34,6 +35,9 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 	private Vector2 		midPos;					// 중앙 위치
 	private int 		 	slideDis;				// 슬라이드 거리
 	private float 			originAlpha;            // 최초 알파
+
+	[HideInInspector]
+	public  bool			usingLock;				// 사용 락
 
 
 	// 초기화
@@ -74,67 +78,70 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 	// 드래그 중
 	public void OnDrag(PointerEventData eventData)
 	{
-		// 알파 조절
-		float pointerDis = Vector2.Distance(eventData.position, startPos);
-			
-		imgColor.a = (pointerDis - slideDis) / disValue;
-		targetSlideFunc = StopSlide;
-			
-		// 방향 측정
-		// 왼쪽
-		if (eventData.position.x < startPos.x - slideDis && isSliding[0])
+		if (!usingLock)
 		{
-			slideWayImg[0].color = imgColor;
-			slideWayRect[0].position = Vector2.Lerp(slideWayOriginPos[0], midPos, Mathf.Max(0, imgColor.a / slideMovePer));
-			slideWayRect[0].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, Mathf.Max(0, imgColor.a / slideMovePer)));
+			// 알파 조절
+			float pointerDis = Vector2.Distance(eventData.position, startPos);
 
-			isSliding[1] = isSliding[2] = isSliding[3] = false;
+			imgColor.a = (pointerDis - slideDis) / disValue;
+			targetSlideFunc = StopSlide;
 
-			if (imgColor.a >= 0.7f)
+			// 방향 측정
+			// 왼쪽
+			if (eventData.position.x < startPos.x - slideDis && isSliding[0])
 			{
-				targetSlideFunc = slideFuncs[0];
+				slideWayImg[0].color = imgColor;
+				slideWayRect[0].position = Vector2.Lerp(slideWayOriginPos[0], midPos, Mathf.Max(0, imgColor.a / slideMovePer));
+				slideWayRect[0].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, Mathf.Max(0, imgColor.a / slideMovePer)));
+
+				isSliding[1] = isSliding[2] = isSliding[3] = false;
+
+				if (imgColor.a >= 0.7f)
+				{
+					targetSlideFunc = slideFuncs[0];
+				}
 			}
-		}
-		// 오른쪽
-		if (eventData.position.x > startPos.x + slideDis && isSliding[1])
-		{
-			slideWayImg[1].color = imgColor;
-			slideWayRect[1].position = Vector2.Lerp(slideWayOriginPos[1], midPos, Mathf.Max(0, imgColor.a / slideMovePer));
-			slideWayRect[1].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, Mathf.Max(0, imgColor.a / slideMovePer)));
-
-			isSliding[0] = isSliding[2] = isSliding[3] = false;
-
-			if (imgColor.a >= 0.7f)
+			// 오른쪽
+			if (eventData.position.x > startPos.x + slideDis && isSliding[1])
 			{
-				targetSlideFunc = slideFuncs[1];
+				slideWayImg[1].color = imgColor;
+				slideWayRect[1].position = Vector2.Lerp(slideWayOriginPos[1], midPos, Mathf.Max(0, imgColor.a / slideMovePer));
+				slideWayRect[1].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, Mathf.Max(0, imgColor.a / slideMovePer)));
+
+				isSliding[0] = isSliding[2] = isSliding[3] = false;
+
+				if (imgColor.a >= 0.7f)
+				{
+					targetSlideFunc = slideFuncs[1];
+				}
 			}
-		}
-		// 위쪽
-		if (eventData.position.y > startPos.y + slideDis && isSliding[2])
-		{	
-			slideWayImg[2].color = imgColor;
-			slideWayRect[2].position = Vector2.Lerp(slideWayOriginPos[2], midPos, Mathf.Max(0, imgColor.a / slideMovePer));
-			slideWayRect[2].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, Mathf.Max(0, imgColor.a / slideMovePer)));
-
-			isSliding[0] = isSliding[1] = isSliding[3] = false;
-
-			if (imgColor.a >= 0.7f)
+			// 위쪽
+			if (eventData.position.y > startPos.y + slideDis && isSliding[2])
 			{
-				targetSlideFunc = slideFuncs[2];
+				slideWayImg[2].color = imgColor;
+				slideWayRect[2].position = Vector2.Lerp(slideWayOriginPos[2], midPos, Mathf.Max(0, imgColor.a / slideMovePer));
+				slideWayRect[2].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, Mathf.Max(0, imgColor.a / slideMovePer)));
+
+				isSliding[0] = isSliding[1] = isSliding[3] = false;
+
+				if (imgColor.a >= 0.7f)
+				{
+					targetSlideFunc = slideFuncs[2];
+				}
 			}
-		}
-		// 아래쪽
-		if (eventData.position.y < startPos.y - slideDis && isSliding[3])
-		{	
-			slideWayImg[3].color = imgColor;
-			slideWayRect[3].position = Vector2.Lerp(slideWayOriginPos[3], midPos, Mathf.Max(0, imgColor.a / slideMovePer));
-			slideWayRect[3].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, Mathf.Max(0, imgColor.a / slideMovePer)));
-
-			isSliding[0] = isSliding[1] = isSliding[2] = false;
-
-			if (imgColor.a >= 0.7f)
+			// 아래쪽
+			if (eventData.position.y < startPos.y - slideDis && isSliding[3])
 			{
-				targetSlideFunc = slideFuncs[3];
+				slideWayImg[3].color = imgColor;
+				slideWayRect[3].position = Vector2.Lerp(slideWayOriginPos[3], midPos, Mathf.Max(0, imgColor.a / slideMovePer));
+				slideWayRect[3].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, Mathf.Max(0, imgColor.a / slideMovePer)));
+
+				isSliding[0] = isSliding[1] = isSliding[2] = false;
+
+				if (imgColor.a >= 0.7f)
+				{
+					targetSlideFunc = slideFuncs[3];
+				}
 			}
 		}
 	}
@@ -142,7 +149,10 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 	// 드래그 종료
 	public void OnEndDrag(PointerEventData eventData)
 	{
-		targetSlideFunc();
+		if (!usingLock)
+		{
+			targetSlideFunc();
+		}
 	}
 
 	// 슬라이드 마무리

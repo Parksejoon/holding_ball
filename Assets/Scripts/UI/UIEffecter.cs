@@ -11,20 +11,22 @@ public class UIEffecter : MonoBehaviour
         SCALE       = 0x02,             // 크기 변경 페이드
         ALPHA       = 0x04,	            // 알파 변경 페이드
 		ANGLE		= 0x08, 			// 각도 변경 페이드
-        FINENABL    = 0x10,             // 종료 후 UI 켜기
-        FINDIABL    = 0x20              // 종료 후 UI 끄기
+        FINDISABLE  = 0x10,             // 종료 후 UI 끄기
+        FINDESTROY  = 0x20              // 종료 후 UI 파괴
     }
         
-    public static UIEffecter instance;
+    public static UIEffecter	instance;
     
     // 인스펙터 노출 변수
     // 일반
-    public  Text[]             texts;				 // 텍스트 집합
-    public  GameObject[]       panels;              // ui 집합
+    public  Text[]				texts;					// 텍스트 집합
+    public  GameObject[]		panels;					// ui 집합
     
     // 수치
     [SerializeField]
-    private float              fadeGap = 0.01f;     // 페이드 효과 간격
+    private float				fadeGap = 0.01f;		// 페이드 효과 간격
+	[SerializeField]
+	private float				finTimeGap = 0.1f;		// 일정 시간 후 종료할 때 뒤에 잠시 부하를 위한 기다림 시간
     
     
     // 초기화
@@ -83,15 +85,15 @@ public class UIEffecter : MonoBehaviour
 		}
             
         // 종료 후 enable 설정
-        if ((optionFlag & FadeFlag.FINENABL) == FadeFlag.FINENABL)
+        if ((optionFlag & FadeFlag.FINDISABLE) == FadeFlag.FINDISABLE)
         {
-            StartCoroutine(AfterEnable(target.gameObject, time, true));
+            StartCoroutine(AfterEnable(target.gameObject, time, false));
         }
             
         // 종료 후 disable 설정
-        if ((optionFlag & FadeFlag.FINDIABL) == FadeFlag.FINDIABL)
+        if ((optionFlag & FadeFlag.FINDESTROY) == FadeFlag.FINDESTROY)
         {
-            StartCoroutine(AfterEnable(target.gameObject, time, false));
+            StartCoroutine(AfterEnable(target.gameObject, time, true));
 		}
     }
     
@@ -196,11 +198,16 @@ public class UIEffecter : MonoBehaviour
         target.color = originColor;
     }
         
-    // 페이드 종료 후 enable
-    private IEnumerator AfterEnable(GameObject target, float time, bool enable)
+    // 페이드 종료 후 disalbe or destroy
+    private IEnumerator AfterEnable(GameObject target, float time, bool isDes)
     {
-        yield return new WaitForSeconds(time);
-            
-        target.SetActive(enable);
+        yield return new WaitForSeconds(time + finTimeGap);
+        
+		if (isDes)
+		{
+			Destroy(target.gameObject);
+		}
+
+        target.SetActive(false);
     }
 }

@@ -13,7 +13,9 @@ public class UIManager : MonoBehaviour
 	[SerializeField]
 	private StartManager	startManager;           // 시작 매니저
 	[SerializeField]
-	private CoverSlider		coverSlider;			// 커버 슬라이더
+	private CoverSlider		coverSlider;            // 커버 슬라이더
+	[SerializeField]
+	private PlayEffect		playEffect;				// 시작 이펙트
 		
 	// 인스펙터 비노출 변수
 	// 수치
@@ -76,20 +78,30 @@ public class UIManager : MonoBehaviour
 	// 시작 UI 제거 및 시작
 	public void SetUIs()
 	{
+		// 커버 슬라이더 락
+		coverSlider.usingLock = true;
+
+		// 게임 실행
 		restartButton.interactable = true;
 		startManager.enabled = true;
 		
+		// 루틴 실행
 		StartCoroutine(StartRoutine());
 	}
 
 	// 시작버튼 클릭 루틴
 	private IEnumerator StartRoutine()
 	{
-		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[0], Vector2.zero, 1.2f, UIEffecter.FadeFlag.ALPHA | UIEffecter.FadeFlag.FINDIABL);
-		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[4], new Vector2(Screen.width / 2f, Screen.height / 2f), 0.1f, UIEffecter.FadeFlag.POSITION);
-		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[4], new Vector3(0, 0, 360), 0.1f, UIEffecter.FadeFlag.ANGLE);
-		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[4], Vector2.zero, 0.8f, UIEffecter.FadeFlag.ALPHA | UIEffecter.FadeFlag.FINDIABL);
+		// 사라짐
+		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[0], Vector2.zero, 1.2f, UIEffecter.FadeFlag.ALPHA | UIEffecter.FadeFlag.FINDISABLE);
+		//UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[0], Vector2.zero, 1.2f, UIEffecter.FadeFlag.ALPHA);
 
+		// 중앙으로
+		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[4], new Vector2(Screen.width / 2f, Screen.height / 2f), 0.2f, UIEffecter.FadeFlag.POSITION);
+		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[4], new Vector3(0, 0, 360), 0.2f, UIEffecter.FadeFlag.ANGLE);
+		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[4], Vector2.zero, 0.8f, UIEffecter.FadeFlag.ALPHA | UIEffecter.FadeFlag.FINDISABLE);
+		//UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[4], Vector2.zero, 1f, UIEffecter.FadeFlag.ALPHA);
+		playEffect.StartEffect();
 
 		yield return null;
 
