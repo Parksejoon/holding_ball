@@ -83,6 +83,7 @@ public class Ball : MonoBehaviour
 		if (other.gameObject.CompareTag("WarWall"))
 		{
 			//GameManager.instance.GameOver();
+			Debug.Log("ASD");
 		}
 
 		// 벽일 경우 이펙트 발생 및 더블 초기화, 바운스 카운트 증가

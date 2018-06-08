@@ -21,8 +21,6 @@ public class CameraMovement : MonoBehaviour
 	private void FixedUpdate()
 	{
 		newPos = -Camera.main.ScreenToWorldPoint(Input.mousePosition) * 0.1f;
-			
-		Debug.Log(newPos);
 
 		if (newPos.x < limitPos.x && newPos.x > -limitPos.x)
 		{

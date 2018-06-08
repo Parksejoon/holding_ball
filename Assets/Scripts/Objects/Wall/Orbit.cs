@@ -24,7 +24,7 @@ public class Orbit : MonoBehaviour
 	{
 		transform.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360)));
 
-		int limit = Random.Range(3, 5);
+		int limit = Random.Range(5, 12);
 		for (int i = 0; i < limit; i++)
 		{
 			CreateWall();

@@ -54,14 +54,12 @@ public class UIEffecter : MonoBehaviour
         if ((optionFlag & FadeFlag.POSITION) == FadeFlag.POSITION)
         {
             StartCoroutine(FadePosition(target.GetComponent<RectTransform>(), goalVal, time));
-			Debug.Log("POSITION");
         }
             
         // 크기 변경 페이드
         if ((optionFlag & FadeFlag.SCALE) == FadeFlag.SCALE)
         {
             StartCoroutine(FadeScale(target.GetComponent<RectTransform>(), goalVal, time));
-			Debug.Log("SCALE");
 		}
             
         // 알파 변경 페이드
@@ -75,21 +73,18 @@ public class UIEffecter : MonoBehaviour
             {
                 StartCoroutine(FadeAlpha(target.GetComponent<Text>(), goalVal.x, time));
             }
-			Debug.Log("ALPHA");
         }
             
         // 종료 후 enable 설정
         if ((optionFlag & FadeFlag.FINENABL) == FadeFlag.FINENABL)
         {
             StartCoroutine(AfterEnable(target.gameObject, time, true));
-			Debug.Log("FINENABLE");
         }
             
         // 종료 후 disable 설정
         if ((optionFlag & FadeFlag.FINDIABL) == FadeFlag.FINDIABL)
         {
             StartCoroutine(AfterEnable(target.gameObject, time, false));
-			Debug.Log("FINDISABLE");
 		}
     }
     
