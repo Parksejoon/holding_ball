@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Orbit : MonoBehaviour
 {
@@ -15,12 +16,40 @@ public class Orbit : MonoBehaviour
 	private void Awake()
 	{
 		walls			= GetComponentsInChildren<Wall>();
-		rotationSpeed	= Random.Range(-0.5f, 0.5f);
+		ResetRotationSpeed(1);
 	}
 
 	// 시작 초기화
 	private void Start()
 	{
 		transform.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360)));
+
+		int limit = Random.Range(3, 5);
+		for (int i = 0; i < limit; i++)
+		{
+			CreateWall();
+		}
+	}
+
+	// 매 프레임
+	private void FixedUpdate()
+	{
+		transform.Rotate(Vector3.forward * rotationSpeed);
+	}
+
+	// 회전 초기화 
+	public void ResetRotationSpeed(float val)
+	{
+		val = Mathf.Min(7, val);
+
+		rotationSpeed = Random.Range(-0.5f * val, 0.5f * val);
+	}
+
+	// 벽 생성
+	public void CreateWall()
+	{
+		GameObject target = Instantiate(WallManager.instance.wallPrefab, Vector3.zero, Quaternion.identity, transform);
+
+		target.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 6.7f * nextWallIndex++));
 	}
 }

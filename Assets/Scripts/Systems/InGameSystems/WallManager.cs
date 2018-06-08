@@ -3,14 +3,14 @@
 public class WallManager : MonoBehaviour
 {
 	public static WallManager instance;
-		
+
 	// 인스펙터 노출 변수
 	// 일반
-	[SerializeField]
-	private GameObject			warWallPrefab;				// 위험 벽 프리팹
+	public  GameObject			wallPrefab;	                // 벽 프리팹
+	
 	[SerializeField]
 	private Material			warWallsMat;                // 위험 벽 질감
-
+	
 	// 수치
 	[SerializeField]
 	private float				originalRotationSpeed = 1f; // 원시 회전속도
@@ -56,7 +56,7 @@ public class WallManager : MonoBehaviour
 		// 궤도 방향 변경
 		foreach (Orbit orbit in orbits)
 		{
-			
+			orbit.ResetRotationSpeed(1);
 		}
 
 		// 회전 방향 전환
