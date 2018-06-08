@@ -7,11 +7,12 @@ public class UIEffecter : MonoBehaviour
 {
     public enum FadeFlag
     {
-        POSITION    = 0x01,            // 위치 변경 페이드
-        SCALE       = 0x02,            // 크기 변경 페이드
-        ALPHA       = 0x04,            // 알파 변경 페이드
-        FINENABL    = 0x08,            // 종료 후 UI 켜기
-        FINDIABL    = 0x10             // 종료 후 UI 끄기
+        POSITION    = 0x01,             // 위치 변경 페이드
+        SCALE       = 0x02,             // 크기 변경 페이드
+        ALPHA       = 0x04,	            // 알파 변경 페이드
+		ANGLE		= 0x08, 			// 각도 변경 페이드
+        FINENABL    = 0x10,             // 종료 후 UI 켜기
+        FINDIABL    = 0x20              // 종료 후 UI 끄기
     }
         
     public static UIEffecter instance;
@@ -125,6 +126,26 @@ public class UIEffecter : MonoBehaviour
         target.localScale = goalScale;
     }
     
+	// 회전 페이드
+	private IEnumerator FadeAngle(RectTransform target, Vector2 goalAngle, float time)
+	{
+		Quaternion originAngle = target.localRotation;
+		Quaternion goalAngleQuat = Quaternion.Euler(goalAngle);
+		int count = (int)(time / fadeGap);
+		int originCount = count;
+
+
+		while (count > 0)
+		{
+			target.localRotation = Quaternion.Lerp(goalAngleQuat, originAngle, (float)count / originCount);
+
+			count -= 1;
+			yield return new WaitForSeconds(fadeGap);
+		}
+
+		target.localRotation = goalAngleQuat;
+	}
+
     // 알파 페이드 ( 이미지 )
     private IEnumerator FadeAlpha(Image target, float goalAlpha, float time)
     {

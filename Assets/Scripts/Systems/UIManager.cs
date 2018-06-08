@@ -9,11 +9,15 @@ public class UIManager : MonoBehaviour
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
-	private Button 						restartButton;			// 재시작 버튼
+	private Button 			restartButton;          // 재시작 버튼
+	[SerializeField]
+	private StartManager	startManager;           // 시작 매니저
+	[SerializeField]
+	private CoverSlider		coverSlider;			// 커버 슬라이더
 		
 	// 인스펙터 비노출 변수
 	// 수치
-	private float						originalTimeScale;		// 원래 타임스케일 값
+	private float			originalTimeScale;		// 원래 타임스케일 값
 		
 		
 	// 초기화
@@ -24,7 +28,13 @@ public class UIManager : MonoBehaviour
 			instance = this;
 		}
 	}
-		
+
+	// 시작 초기화
+	private void Start()
+	{
+		coverSlider.slideFuncs[3] = SetUIs;
+	}
+
 	// 퍼즈 체크
 	public void CheckPause()
 	{
@@ -67,26 +77,20 @@ public class UIManager : MonoBehaviour
 	public void SetUIs()
 	{
 		restartButton.interactable = true;
-			
-		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[0], new Vector2(0, -3000), 0.1f, UIEffecter.FadeFlag.POSITION);
-		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[4], new Vector2(0, 0), 0.1f, UIEffecter.FadeFlag.ALPHA | UIEffecter.FadeFlag.FINDIABL);
-		//UIEffecter.instance.FadePositionFunc(0, new Vector2(0, -3000), 0.1f, false, false);
-		//UIEffecter.instance.FadeAlphaFunc(0, 4, 0, 0.1f, true, false);
-			
+		startManager.enabled = true;
+		
 		StartCoroutine(StartRoutine());
 	}
 
 	// 시작버튼 클릭 루틴
 	private IEnumerator StartRoutine()
 	{
-		yield return new WaitForSeconds(0.2f);
+		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[0], new Vector2(0, 0), 0.8f, UIEffecter.FadeFlag.ALPHA | UIEffecter.FadeFlag.FINDIABL);
+		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[4], new Vector2(0, 0), 0.5f, UIEffecter.FadeFlag.ALPHA | UIEffecter.FadeFlag.FINDIABL);
+
+		yield return null;
 
 		// 메인패널
 		UIEffecter.instance.SetUI(1, true);
-		
-		yield return new WaitForSeconds(0.8f);
-
-		// 시작패널
-		UIEffecter.instance.SetUI(0, true);
 	}
 }
