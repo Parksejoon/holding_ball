@@ -15,10 +15,12 @@ public class Ball : MonoBehaviour
 	[SerializeField]
 	private GameObject		destroyParticle_None;   // 공 파괴 파티클 ( 무색 )
 	[SerializeField]
-	private GameObject		doubleParticle;         // 더블 파티클 
+	private GameObject		doubleParticle;         // 더블 파티클
+	[SerializeField]
+	private GameObject		collisionEffect;        // 벽 충돌 이펙트
 
 	// 인스펙터 비노출 변수
-	// 일반 변수
+	// 일반
 	[HideInInspector]
 	public  GameObject		bindedHolder;           // 볼이 바인딩되어있는 홀더
 	[HideInInspector]
@@ -33,6 +35,8 @@ public class Ball : MonoBehaviour
 	// 수치
 	[HideInInspector]
 	public  bool			isHolding;              // 홀딩 상태를 나타냄
+	[HideInInspector]
+	public  int				bounceCount;			// 튕긴 횟수
 
 
 	// 초기화
@@ -79,6 +83,19 @@ public class Ball : MonoBehaviour
 		if (other.gameObject.CompareTag("WarWall"))
 		{
 			//GameManager.instance.GameOver();
+		}
+
+		// 벽일 경우 이펙트 발생 및 더블 초기화, 바운스 카운트 증가
+		if (other.gameObject.CompareTag("Wall"))
+		{
+			// 파티클 효과
+			Instantiate(collisionEffect, transform.position, Quaternion.identity);
+
+			// 바운스 카운트 증가
+			AddBounceCount();
+
+			// 더블 초기화
+			ResetDouble();
 		}
 	}
 
@@ -199,24 +216,13 @@ public class Ball : MonoBehaviour
 		}
 	}
 
-	// 슛라인 생성
-	private void CreateShotLine()
-	{
-		shotLine = Instantiate(shotLinePrefab, transform.position, Quaternion.identity, transform);
-
-		if (canDouble)
-		{
-			shotLine.GetComponent<Transform>().GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = Color.HSVToRGB(ShaderManager.themeColor[(int)ShaderManager.Theme.BASE], 0.3f, 1f);
-		}
-	}
-
 	// 더블 샷
 	public void DoubleShot(Vector3 startPos, Vector3 endPos)
 	{
 		if (canDouble)
 		{
 			// 더블 사용
-			canDouble = false;
+			/* canDouble = false; */
 
 			// 파티클
 			Instantiate(doubleParticle, transform.position, Quaternion.identity);
@@ -273,10 +279,30 @@ public class Ball : MonoBehaviour
 		GetComponent<CircleCollider2D>().enabled = true;
 		GetComponentInParent<MeshRenderer>().enabled = true;
 	}
-	
+
+	// 슛라인 생성
+	private void CreateShotLine()
+	{
+		shotLine = Instantiate(shotLinePrefab, transform.position, Quaternion.identity, transform);
+
+		if (canDouble)
+		{
+			shotLine.GetComponent<Transform>().GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = Color.HSVToRGB(ShaderManager.themeColor[(int)ShaderManager.Theme.BASE], 0.3f, 1f);
+		}
+	}
+
 	// 패널티
 	private void Penalty()
 	{
 		rigidbody2d.velocity = Vector3.Normalize(transform.position) * GameManager.instance.shotPower * 15f;
+	}
+
+	// 바운스 카운트 증가
+	private void AddBounceCount()
+	{
+		Debug.Log("Test");
+		if (++bounceCount > 10)
+		{
+		}
 	}
 }

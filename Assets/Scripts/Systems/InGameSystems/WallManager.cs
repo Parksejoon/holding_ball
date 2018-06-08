@@ -18,7 +18,7 @@ public class WallManager : MonoBehaviour
 	// 인스펙터 비노출 변수
 	// 일반
 	private Transform			wallsTransform;             // 벽들의 트랜스폼
-	private Wall[]				walls;						// 일반 벽들
+	private Orbit[]				orbits;						// 궤도들
 	private float				rotationSpeed;				// 회전속도
 
 
@@ -31,7 +31,7 @@ public class WallManager : MonoBehaviour
 		}
 
 		wallsTransform  = GameObject.Find("Walls"). GetComponent<Transform>();
-		walls			= GetComponentsInChildren<Wall>();
+		orbits			= GetComponentsInChildren<Orbit>();
 
 		rotationSpeed = originalRotationSpeed;
 	}
@@ -53,14 +53,14 @@ public class WallManager : MonoBehaviour
 	// 벽 초기화
 	public void InitWalls()
 	{
-		// 벽 체력 초기화
-		foreach (Wall wall in walls)
+		// 궤도 방향 변경
+		foreach (Orbit orbit in orbits)
 		{
-			wall.ResetHP();
+			
 		}
 
 		// 회전 방향 전환
 		rotationSpeed *= -1;
-		Wall.signValue *= -1;
+		//Wall.signValue *= -1;
 	}
 }
