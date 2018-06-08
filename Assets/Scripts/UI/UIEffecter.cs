@@ -7,12 +7,11 @@ public class UIEffecter : MonoBehaviour
 {
     public enum FadeFlag
     {
-        NONE        = 0x00,            // 아무것도 안함
         POSITION    = 0x01,            // 위치 변경 페이드
         SCALE       = 0x02,            // 크기 변경 페이드
         ALPHA       = 0x04,            // 알파 변경 페이드
         FINENABL    = 0x08,            // 종료 후 UI 켜기
-        FINDIABL    = 0x16             // 종료 후 UI 끄기
+        FINDIABL    = 0x10             // 종료 후 UI 끄기
     }
         
     public static UIEffecter instance;
