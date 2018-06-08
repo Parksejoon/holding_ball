@@ -40,7 +40,7 @@ public class ArcCollider2D : MonoBehaviour {
     [Range(10,90)]
     public int smoothness = 24;
 
-    [Range(10, 360)]
+    [Range(5, 360)]
     public int totalAngle = 360;
 
     [Range(0, 360)]
