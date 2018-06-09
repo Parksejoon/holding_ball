@@ -46,18 +46,10 @@ public class Laser : MonoBehaviour
 	// 트리거 진입
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		Debug.Log(other.gameObject.tag);
 		if (other.CompareTag("Wall"))
 		{
-			Debug.Log("SDF");
 			other.GetComponent<Wall>().AddStack(-1);
 		}
-	}
-
-	// 충돌체 진입
-	private void OnCollisionEnter2D(Collision2D collision)
-	{
-		Debug.Log("SDF");
 	}
 
 	// 레이저 발사 코루틴
