@@ -40,6 +40,7 @@ public class StartManager : MonoBehaviour
 	private void Initialize()
 	{
 		GameManager.instance.enabled = true;
+		LaserManager.instance.enabled = true;
 		holderManager.enabled = true;
 	}
 

@@ -92,18 +92,19 @@ public class UIManager : MonoBehaviour
 	// 시작버튼 클릭 루틴
 	private IEnumerator StartRoutine()
 	{
-		// 사라짐
-		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[0], Vector2.zero, 1.2f, UIEffecter.FadeFlag.ALPHA | UIEffecter.FadeFlag.FINDISABLE);
-		//UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[0], Vector2.zero, 1.2f, UIEffecter.FadeFlag.ALPHA);
-
 		// 중앙으로
 		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[4], new Vector2(Screen.width / 2f, Screen.height / 2f), 0.2f, UIEffecter.FadeFlag.POSITION);
 		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[4], new Vector3(0, 0, 360), 0.2f, UIEffecter.FadeFlag.ANGLE);
-		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[4], Vector2.zero, 0.8f, UIEffecter.FadeFlag.ALPHA | UIEffecter.FadeFlag.FINDISABLE);
-		//UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[4], Vector2.zero, 1f, UIEffecter.FadeFlag.ALPHA);
+		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[4], new Vector2(10, 10), 3.5f, UIEffecter.FadeFlag.SCALE);
 		playEffect.StartEffect();
 
-		yield return null;
+		yield return new WaitForSeconds(0.2f);
+
+		// 슬라이드 패널 삭제
+		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[0], Vector2.zero, 1.2f, UIEffecter.FadeFlag.ALPHA | UIEffecter.FadeFlag.FINDISABLE);
+
+		// 버튼 사라짐
+		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[4], new Vector2(0, 0), 0.4f, UIEffecter.FadeFlag.ALPHA);
 
 		// 메인패널
 		UIEffecter.instance.SetUI(1, true);

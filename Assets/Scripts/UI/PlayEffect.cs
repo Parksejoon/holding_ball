@@ -20,7 +20,7 @@ public class PlayEffect : MonoBehaviour
 		GameObject target;
 
 		target = Instantiate(playParticle, transform.position, Quaternion.identity, transform);
-		UIEffecter.instance.FadeEffect(target, new Vector2(60, 60), 2f, UIEffecter.FadeFlag.SCALE);
+		UIEffecter.instance.FadeEffect(target, new Vector2(50, 50), 2f, UIEffecter.FadeFlag.SCALE);
 		UIEffecter.instance.FadeEffect(target, new Vector2(0, 0), 0.4f, UIEffecter.FadeFlag.ALPHA);
 		UIEffecter.instance.FadeEffect(target, Vector2.zero, 5f, UIEffecter.FadeFlag.FINDESTROY);
 	}

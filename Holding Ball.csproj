@@ -305,6 +305,7 @@
     <Compile Include="Assets\Scripts\Objects\Ball\ShotLineCollider.cs" />
     <Compile Include="Assets\Scripts\Objects\Peripheral\Coin.cs" />
     <Compile Include="Assets\Scripts\Objects\Peripheral\Holder.cs" />
+    <Compile Include="Assets\Scripts\Objects\Wall\Laser.cs" />
     <Compile Include="Assets\Scripts\Objects\Wall\LimitWall.cs" />
     <Compile Include="Assets\Scripts\Objects\Wall\Orbit.cs" />
     <Compile Include="Assets\Scripts\Objects\Wall\Wall.cs" />
@@ -323,6 +324,7 @@
     <Compile Include="Assets\Scripts\Systems\DataSystems\Parser.cs" />
     <Compile Include="Assets\Scripts\Systems\InGameSystems\GameManager.cs" />
     <Compile Include="Assets\Scripts\Systems\InGameSystems\HolderManager.cs" />
+    <Compile Include="Assets\Scripts\Systems\InGameSystems\LaserManager.cs" />
     <Compile Include="Assets\Scripts\Systems\InGameSystems\WallManager.cs" />
     <Compile Include="Assets\Scripts\Systems\ShaderManager.cs" />
     <Compile Include="Assets\Scripts\Systems\StartManager.cs" />
