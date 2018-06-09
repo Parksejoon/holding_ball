@@ -12,7 +12,7 @@ public class ShotLine : MonoBehaviour
 	// 일반 변수
 	private GameObject       catchHolder;              // 영역에 들어온 홀더들
 	private ShotLineCollider shotLineCollider;         // 슛라인 충돌검사
-	private float			  timer;				    // 타이머
+	private float			 timer;					   // 타이머
 
 
 	// 초기화
@@ -34,7 +34,7 @@ public class ShotLine : MonoBehaviour
 		timer += Time.deltaTime;
 
 		// 그래프 계산식
-		float speedScale = (10f * (timer - 0.12f) * (timer - 0.12f)) + 0.2f;
+		float speedScale = (8f * (timer - 0.12f) * (timer - 0.12f)) + 0.2f;
 
 		// 점점 범위 확대
 		transform.localScale += new Vector3(speedScale, speedScale);
