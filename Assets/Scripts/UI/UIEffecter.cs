@@ -53,35 +53,45 @@ public class UIEffecter : MonoBehaviour
     // UI 페이드 효과
     public void FadeEffect(GameObject target, Vector2 goalVal, float time, FadeFlag optionFlag)
     {
-        // 위치 변경 페이드
-        if ((optionFlag & FadeFlag.POSITION) == FadeFlag.POSITION)
-        {
-            StartCoroutine(FadePosition(target.GetComponent<RectTransform>(), goalVal, time));
-        }
-            
-        // 크기 변경 페이드
-        if ((optionFlag & FadeFlag.SCALE) == FadeFlag.SCALE)
-        {
-            StartCoroutine(FadeScale(target.GetComponent<RectTransform>(), goalVal, time));
-		}
-            
-        // 알파 변경 페이드
-        if ((optionFlag & FadeFlag.ALPHA) == FadeFlag.ALPHA)
-        {
-            if (target.GetComponent<Image>() != null)
-            {
-                StartCoroutine(FadeAlpha(target.GetComponent<Image>(), goalVal.x, time));
-            }
-            else
-            {
-                StartCoroutine(FadeAlpha(target.GetComponent<Text>(), goalVal.x, time));
-            }
-        }
-
-		// 각도 변경 페이드
-		if ((optionFlag & FadeFlag.ANGLE) == FadeFlag.ANGLE)
+		try
 		{
-			StartCoroutine(FadeAngle(target.GetComponent<RectTransform>(), goalVal, time));
+			// 위치 변경 페이드
+			if ((optionFlag & FadeFlag.POSITION) == FadeFlag.POSITION)
+			{
+				StartCoroutine(FadePosition(target.GetComponent<RectTransform>(), goalVal, time));
+			}
+
+			// 크기 변경 페이드
+			if ((optionFlag & FadeFlag.SCALE) == FadeFlag.SCALE)
+			{
+				StartCoroutine(FadeScale(target.GetComponent<RectTransform>(), goalVal, time));
+			}
+
+			// 알파 변경 페이드
+			if ((optionFlag & FadeFlag.ALPHA) == FadeFlag.ALPHA)
+			{
+				if (target.GetComponent<Image>() != null)
+				{
+					StartCoroutine(FadeAlpha(target.GetComponent<Image>(), goalVal.x, time));
+				}
+				else if (target.GetComponent<Text>() != null)
+				{
+					StartCoroutine(FadeAlpha(target.GetComponent<Text>(), goalVal.x, time));
+				}
+				else
+				{
+					StartCoroutine(FadeAlpha(target.GetComponent<SpriteRenderer>(), goalVal.x, time));
+				}
+			}
+
+			// 각도 변경 페이드
+			if ((optionFlag & FadeFlag.ANGLE) == FadeFlag.ANGLE)
+			{
+				StartCoroutine(FadeAngle(target.GetComponent<RectTransform>(), goalVal, time));
+			}
+		}
+		catch
+		{
 		}
             
         // 종료 후 enable 설정
@@ -196,10 +206,31 @@ public class UIEffecter : MonoBehaviour
         
         originColor.a = goalAlpha;
         target.color = originColor;
-    }
-        
-    // 페이드 종료 후 disalbe or destroy
-    private IEnumerator AfterEnable(GameObject target, float time, bool isDes)
+	}
+	
+	// 알파 페이드 ( 스프라이트 )
+	private IEnumerator FadeAlpha(SpriteRenderer target, float goalAlpha, float time)
+	{
+		Color originColor = target.color;
+		float startAlpha = target.color.a;
+		int count = (int)(time / fadeGap);
+		int originCount = count;
+
+		while (count > 0)
+		{
+			originColor.a = Mathf.Lerp(goalAlpha, startAlpha, (float)count / originCount);
+			target.color = originColor;
+
+			count -= 1;
+			yield return new WaitForSeconds(fadeGap);
+		}
+
+		originColor.a = goalAlpha;
+		target.color = originColor;
+	}
+
+	// 페이드 종료 후 disalbe or destroy
+	private IEnumerator AfterEnable(GameObject target, float time, bool isDes)
     {
         yield return new WaitForSeconds(time + finTimeGap);
         

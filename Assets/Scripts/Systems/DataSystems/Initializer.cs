@@ -25,8 +25,7 @@ public class Initializer : MonoBehaviour
 		int coin 	  = parser.GetCoin();
 		int bestScore = parser.GetBestScore();
 		int lastScore = parser.GetLastScore();
-
-
+		
 		GameManager.instance.Initialize(coin, bestScore);
 		UIEffecter.instance.SetText(1, coin.ToString());
 		UIEffecter.instance.SetText(2, bestScore.ToString());
