@@ -24,11 +24,7 @@ public class Orbit : MonoBehaviour
 	{
 		transform.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360)));
 
-		int limit = Random.Range(10, 18);
-		for (int i = 0; i < limit; i++)
-		{
-			CreateWall();
-		}
+		CreateWall(Random.Range(30, 38));
 	}
 
 	// 매 프레임
@@ -46,10 +42,13 @@ public class Orbit : MonoBehaviour
 	}
 
 	// 벽 생성
-	public void CreateWall()
+	public void CreateWall(int size)
 	{
-		GameObject target = Instantiate(WallManager.instance.wallPrefab, Vector3.zero, Quaternion.identity, transform);
+		for (int i = 0; i < size; i++)
+		{
+			GameObject target = Instantiate(WallManager.instance.wallPrefab, Vector3.zero, Quaternion.identity, transform);
 
-		target.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 6.7f * nextWallIndex++));
+			target.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 6.7f * nextWallIndex++));
+		}
 	}
 }

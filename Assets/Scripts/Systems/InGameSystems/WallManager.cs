@@ -61,6 +61,14 @@ public class WallManager : MonoBehaviour
 
 		// 회전 방향 전환
 		rotationSpeed *= -1;
-		//Wall.signValue *= -1;
+	}
+
+	// 벽 새로 생성
+	public void CreateWalls(int level)
+	{
+		for (int i = 0; i < level; i++)
+		{
+			orbits[Random.Range(0, 5)].CreateWall(Random.Range(5, 10));
+		}
 	}
 }

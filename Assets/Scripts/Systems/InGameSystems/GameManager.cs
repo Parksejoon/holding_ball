@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 	// 인스펙터 노출 변수
 	// 수치
 	[SerializeField]
-	private float			levelTimer = 1f;			// 레벨 타이머
+	private float			levelTimer = 1f;            // 레벨 타이머
 		
 	public  float			timeValue = 1f;				// 시간 값
 
@@ -147,6 +147,11 @@ public class GameManager : MonoBehaviour
 		// ** 스코어 이펙트 추가 예정 **
 		score += upScore;
 		UIEffecter.instance.SetText(0, score.ToString());
+
+		if (score % 100 == 0)
+		{
+			WallManager.instance.CreateWalls(2);
+		}
 	}
 
 	// 코인 상승
