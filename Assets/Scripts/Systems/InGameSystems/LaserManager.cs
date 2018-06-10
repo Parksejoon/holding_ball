@@ -12,6 +12,8 @@ public class LaserManager : MonoBehaviour
 	private GameObject	laserPrefab;                // 레이저 프리팹
 
 	// 수치
+	public int			amountPerShot = 1;			// 한 번 발사시 나가는 양
+
 	[SerializeField]
 	private float		minDelay;					// 최소 딜레이
 	[SerializeField]
@@ -48,7 +50,14 @@ public class LaserManager : MonoBehaviour
 		{
 			yield return new WaitForSeconds(Random.Range(minDelay, maxDelay));
 
-			CreateLaser(1f);
+			for (int i = 0; i < amountPerShot; i++)
+			{
+				CreateLaser(Mathf.Min(GameManager.instance.level / 4f, 3.5f));
+				
+				yield return new WaitForSeconds(0.2f);
+			}
+
+			amountPerShot = (GameManager.instance.level / 3) + 1;
 		}
 	}
 }

@@ -42,9 +42,9 @@ public class Wall : MonoBehaviour
 	private IEnumerator DestroyAnimation()
 	{
 		boxCollider2D.enabled = false;
-		UIEffecter.instance.FadeEffect(spriteObj, Vector2.zero, 1f, UIEffecter.FadeFlag.ALPHA);
+		UIEffecter.instance.FadeEffect(spriteObj, Vector2.zero, 1.5f, UIEffecter.FadeFlag.ALPHA);
 
-		yield return new WaitForSeconds(1.5f);
+		yield return new WaitForSeconds(3f);
 
 		Destroy(gameObject);
 	}

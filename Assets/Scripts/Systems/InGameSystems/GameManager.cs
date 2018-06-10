@@ -5,13 +5,15 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 	public static GameManager instance;
-	
+
 	// 인스펙터 노출 변수
 	// 수치
 	[SerializeField]
-	private float			levelTimer = 1f;            // 레벨 타이머
-		
-	public  float			timeValue = 1f;				// 시간 값
+	private float			levelTimer = 30f;           // 레벨 타이머
+
+	public int				level = 0;                  // 레벨
+	public float			shotPower = 10;             // 발사 속도
+	public float			timeValue = 1f;				// 시간 값
 
 	// 인스펙터 비노출 변수
 	// 일반
@@ -22,14 +24,11 @@ public class GameManager : MonoBehaviour
 
 	// 수치
 	[HideInInspector]
-	public  float			shotPower = 10;             // 발사 속도
-	[HideInInspector]
 	public  bool			isTouch;                    // 현제 터치의 상태
 	
 	private int				score;	                    // 점수
 	private int				bestScore;					// 최고점수
 	private int				coin;						// 코인
-	private int				level;   					// 레벨
 	private bool			previousIsTouch;            // 이전 터지의 상태
 	private bool			canTouch = true;            // 터치 가능?
 	private bool			isSecond;					// 두 번째 목숨?
@@ -138,7 +137,7 @@ public class GameManager : MonoBehaviour
 	// 발사 속도 계산기
 	private void PowerCompute()
 	{
-		shotPower = Mathf.Min(Mathf.Max(1f, (level / 30f)), 1.5f);
+		shotPower = Mathf.Min(level * 0.17f + 1, 2f);
 	}
 
 	// 점수 상승
@@ -150,7 +149,7 @@ public class GameManager : MonoBehaviour
 
 		if (score % 100 == 0)
 		{
-			WallManager.instance.CreateWalls(2);
+			WallManager.instance.CreateWalls();
 		}
 	}
 

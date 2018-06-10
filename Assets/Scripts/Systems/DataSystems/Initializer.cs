@@ -30,8 +30,5 @@ public class Initializer : MonoBehaviour
 		UIEffecter.instance.SetText(1, coin.ToString());
 		UIEffecter.instance.SetText(2, bestScore.ToString());
 		UIEffecter.instance.SetText(3, lastScore.ToString());
-		//UIManager.instance.SetText(1, coin.ToString());
-		//UIManager.instance.SetText(2, bestScore.ToString());
-		//UIManager.instance.SetText(3, lastScore.ToString());
 	}
 }

@@ -35,8 +35,6 @@ public class Ball : MonoBehaviour
 	// 수치
 	[HideInInspector]
 	public  bool			isHolding;              // 홀딩 상태를 나타냄
-	[HideInInspector]
-	public  int				bounceCount;			// 튕긴 횟수
 
 
 	// 초기화
@@ -91,9 +89,6 @@ public class Ball : MonoBehaviour
 		{
 			// 파티클 효과
 			Instantiate(collisionEffect, transform.position, Quaternion.identity);
-
-			// 바운스 카운트 증가
-			AddBounceCount();
 
 			// 더블 초기화
 			ResetDouble();
@@ -296,14 +291,5 @@ public class Ball : MonoBehaviour
 	private void Penalty()
 	{
 		rigidbody2d.velocity = Vector3.Normalize(transform.position) * GameManager.instance.shotPower * 15f;
-	}
-
-	// 바운스 카운트 증가
-	private void AddBounceCount()
-	{
-		Debug.Log("Test");
-		if (++bounceCount > 10)
-		{
-		}
 	}
 }
