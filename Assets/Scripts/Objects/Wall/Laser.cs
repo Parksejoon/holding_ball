@@ -57,14 +57,14 @@ public class Laser : MonoBehaviour
 	{
 		yield return new WaitForSeconds(startDelay);
 
-		Instantiate(shotParticle, Vector3.zero, transform.rotation, transform).transform.localPosition = new Vector3(0.25f, 0, 0); ;
+		Instantiate(shotParticle, Vector3.zero, transform.rotation, transform).transform.localPosition = new Vector3(0.28f, 0, 0); ;
 		boxCollider2D.enabled = true;
 
 		yield return new WaitForSeconds(0.8f);
 
 		boxCollider2D.enabled = false;
 
-		yield return new WaitForSeconds(3f);
+		yield return new WaitForSeconds(6f);
 
 		Destroy(gameObject);
 	}
