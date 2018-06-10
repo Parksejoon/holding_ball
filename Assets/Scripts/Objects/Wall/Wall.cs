@@ -5,15 +5,17 @@ public class Wall : MonoBehaviour
 {
 	// 인스펙터 노출 변수
 	// 수치
-	[SerializeField]
-	private int				stack = 3;				// 방어력 스택
+	public  int				stack = 3;				// 방어력 스택
 
 	// 인스펙터 비노출 변수
 	// 일반
 	private BoxCollider2D	boxCollider2D;			// 이 물체의 충돌체
-	private GameObject		spriteObj;				// 스프라이트 오브젝트
+	private GameObject		spriteObj;              // 스프라이트 오브젝트
 
+	// 수치
+	public  float			stackAlpha;				// 방어력 비례 투명도
 
+	
 	// 초기화
 	private void Awake()
 	{
@@ -38,7 +40,7 @@ public class Wall : MonoBehaviour
 		}
 		else
 		{
-			UIEffecter.instance.FadeEffect(spriteObj, new Vector2(0.3f * stack, 0), 1f, UIEffecter.FadeFlag.ALPHA);
+			UIEffecter.instance.FadeEffect(spriteObj, new Vector2(stackAlpha * stack, 0), 1f, UIEffecter.FadeFlag.ALPHA);
 		}
 	}
 

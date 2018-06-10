@@ -36,6 +36,16 @@ public class WallManager : MonoBehaviour
 		rotationSpeed = originalRotationSpeed;
 	}
 
+	// 시작
+	private void Start()
+	{
+
+		for (int i = 0; i < 5; i++)
+		{
+			orbits[i].CreateWall(Random.Range(30, 38), orbits.Length - i);
+		}
+	}
+
 	// 프레임
 	private void Update()
 	{
@@ -70,7 +80,7 @@ public class WallManager : MonoBehaviour
 
 		for (int i = 0; i < Mathf.Min(2, 5 - (level / 4)); i++)
 		{
-			orbits[Random.Range(0, 5)].CreateWall(Random.Range(Mathf.Min(8, 13 - level / 6), Mathf.Min(12, 20 - level / 6)));
+			orbits[Random.Range(0, 5)].CreateWall(Random.Range(Mathf.Min(8, 13 - level / 6), Mathf.Min(12, 20 - level / 6)), orbits.Length - i);
 		}
 	}
 }

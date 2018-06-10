@@ -258,7 +258,7 @@ public class UIEffecter : MonoBehaviour
 
 		while (count > 0)
 		{
-			val = (int)Mathf.Lerp(startValue, goalValue, (float)count / originCount);
+			val = (int)Mathf.Lerp(goalValue, startValue, (float)count / originCount);
 			target.text = val.ToString();
 
 			count -= 1;
