@@ -335,6 +335,7 @@
     <Compile Include="Assets\Scripts\UI\CoverSlider.cs" />
     <Compile Include="Assets\Scripts\UI\PlayEffect.cs" />
     <Compile Include="Assets\Scripts\UI\StartFade.cs" />
+    <Compile Include="Assets\Scripts\UI\TimerText.cs" />
     <Compile Include="Assets\Scripts\UI\TouchPanel.cs" />
     <Compile Include="Assets\Scripts\UI\UIEffecter.cs" />
   </ItemGroup>

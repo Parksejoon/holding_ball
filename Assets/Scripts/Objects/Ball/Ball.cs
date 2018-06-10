@@ -1,36 +1,38 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class Ball : MonoBehaviour
 {
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
-	private GameObject		shotLinePrefab;         // 생성될 ShotLine 프리팹
+	private GameObject			shotLinePrefab;         // 생성될 ShotLine 프리팹
 	[SerializeField]
-	private GameObject		regenParticle;          // 공 재생성 파티클 
+	private GameObject			regenParticle;          // 공 재생성 파티클 
 	[SerializeField]
-	private GameObject		regenParticle_None;     // 공 재생성 파티클 ( 무색 )
+	private GameObject			regenParticle_None;     // 공 재생성 파티클 ( 무색 )
 	[SerializeField]
-	private GameObject		destroyParticle;        // 공 파괴 파티클 
+	private GameObject			destroyParticle;        // 공 파괴 파티클 
 	[SerializeField]
-	private GameObject		destroyParticle_None;   // 공 파괴 파티클 ( 무색 )
+	private GameObject			destroyParticle_None;   // 공 파괴 파티클 ( 무색 )
 	[SerializeField]
-	private GameObject		doubleParticle;         // 더블 파티클
+	private GameObject			doubleParticle;         // 더블 파티클
 	[SerializeField]
-	private GameObject		collisionEffect;        // 벽 충돌 이펙트
+	private GameObject			collisionEffect;        // 벽 충돌 이펙트
 
 	// 인스펙터 비노출 변수
 	// 일반
 	[HideInInspector]
-	public  GameObject		bindedHolder;           // 볼이 바인딩되어있는 홀더
+	public  GameObject			bindedHolder;           // 볼이 바인딩되어있는 홀더
 	[HideInInspector]
-	public	bool			canDouble = true;       // 더블 샷 가능?
+	public	bool				canDouble = true;       // 더블 샷 가능?
 
-	private GameObject		targetHolder;			// 현재 타겟이된 홀더
-	private GameObject		shotLine;               // ShotLine오브젝트
-	private ShaderManager	shaderManager;			// 쉐이더 매니저
-	private Rigidbody2D		rigidbody2d;            // 이 오브젝트의 리짓바디
-	private bool			isBallPull = false;     // 공 당기는 상태인지
+	private GameObject			targetHolder;			// 현재 타겟이된 홀더
+	private GameObject			shotLine;               // ShotLine오브젝트
+	private ShaderManager		shaderManager;			// 쉐이더 매니저
+	private Rigidbody2D			rigidbody2d;            // 이 오브젝트의 리짓바디
+	private GameObject			ballInvObj;				// 공의 물리 오브젝트
+	private bool				isBallPull = false;     // 공 당기는 상태인지
 	
 	// 수치
 	[HideInInspector]
@@ -40,8 +42,9 @@ public class Ball : MonoBehaviour
 	// 초기화
 	private void Awake()
 	{
-		shaderManager = GameObject.Find("GameManager").GetComponent<ShaderManager>();
-		rigidbody2d	  = GetComponentInParent<Rigidbody2D>();
+		shaderManager		= GameObject.Find("GameManager").GetComponent<ShaderManager>();
+		rigidbody2d			= GetComponentInParent<Rigidbody2D>();
+		ballInvObj			= transform.parent.gameObject;
 
 		isHolding = false;
 	}
@@ -143,6 +146,9 @@ public class Ball : MonoBehaviour
 			// 홀딩 상태로 전환
 			isHolding = true;
 
+			// 공 통과상태로 변화
+			ballInvObj.layer = 15;
+
 			// 슛라인 생성
 			CreateShotLine();
             
@@ -210,6 +216,9 @@ public class Ball : MonoBehaviour
 				Penalty();
 			}
 		}
+
+		// 공 원래상태로 변화
+		ballInvObj.layer = 9;
 	}
 
 	// 더블 샷
@@ -219,6 +228,9 @@ public class Ball : MonoBehaviour
 		{
 			// 더블 사용
 			/* canDouble = false; */
+
+			// 일정시간 벽 통과가능 상태로 변환
+			StartCoroutine(MomentInvisible());
 
 			// 파티클
 			Instantiate(doubleParticle, transform.position, Quaternion.identity);
@@ -291,5 +303,15 @@ public class Ball : MonoBehaviour
 	private void Penalty()
 	{
 		rigidbody2d.velocity = Vector3.Normalize(transform.position) * GameManager.instance.shotPower * 15f;
+	}
+
+	// 일정시간 공 통과상태
+	private IEnumerator MomentInvisible()
+	{
+		ballInvObj.layer = 15;
+
+		yield return new WaitForSeconds(0.5f);
+		
+		ballInvObj.layer = 9;
 	}
 }
