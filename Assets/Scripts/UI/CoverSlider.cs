@@ -21,7 +21,8 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 	private RectTransform 	thisRect;				// 이 이미지의 rect transform
 	private Color 			imgColor;               // 이미지 색
 	private RectTransform[]	slideWayRect;			// 방향별 rect transform
-	private Vector2[] 		slideWayOriginPos;		// 방향별 원래 위치
+	private Vector2[] 		slideWayOriginPos;      // 방향별 원래 위치
+	private Vector2[]		slideWayOriginScale;    // 방향별 원래 크기
 	private bool[] 			isSliding;              // 슬라이드중인지				
 	private SlideFunc		targetSlideFunc;        // 슬라이드 호출 함수 델리게이트
 	private Vector3			maxAngle;				// 360도 벡터
@@ -62,7 +63,13 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 		{
 			slideWayOriginPos[i] = slideWayRect[i].position;
 		}
-			
+
+		slideWayOriginScale = new Vector2[4];
+		for (int i = 0; i < 4; i++)
+		{
+			slideWayOriginScale[i] = slideWayRect[i].localScale;
+		}
+
 		startPos 	= thisRect.position;
 		midPos 		= new Vector2(Screen.width / 2f, Screen.height / 2f);
 		slideDis 	= (int)(midPos.x * slideDisPer);
@@ -86,13 +93,16 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 			imgColor.a = (pointerDis - slideDis) / disValue;
 			targetSlideFunc = StopSlide;
 
+			float lerpValue = Mathf.Max(0, imgColor.a / slideMovePer);
+
 			// 방향 측정
 			// 왼쪽
 			if (eventData.position.x < startPos.x - slideDis && isSliding[0])
 			{
 				slideWayImg[0].color = imgColor;
-				slideWayRect[0].position = Vector2.Lerp(slideWayOriginPos[0], midPos, Mathf.Max(0, imgColor.a / slideMovePer));
-				slideWayRect[0].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, Mathf.Max(0, imgColor.a / slideMovePer)));
+				slideWayRect[0].position = Vector2.Lerp(slideWayOriginPos[0], midPos, lerpValue);
+				slideWayRect[0].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, lerpValue));
+				slideWayRect[0].localScale = Vector2.Lerp(slideWayOriginScale[0], slideWayOriginScale[0] + Vector2.one * 3, lerpValue);
 
 				isSliding[1] = isSliding[2] = isSliding[3] = false;
 
@@ -105,8 +115,9 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 			if (eventData.position.x > startPos.x + slideDis && isSliding[1])
 			{
 				slideWayImg[1].color = imgColor;
-				slideWayRect[1].position = Vector2.Lerp(slideWayOriginPos[1], midPos, Mathf.Max(0, imgColor.a / slideMovePer));
-				slideWayRect[1].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, Mathf.Max(0, imgColor.a / slideMovePer)));
+				slideWayRect[1].position = Vector2.Lerp(slideWayOriginPos[1], midPos, lerpValue);
+				slideWayRect[1].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, lerpValue));
+				slideWayRect[1].localScale = Vector2.Lerp(slideWayOriginScale[1], slideWayOriginScale[1] + Vector2.one * 3, lerpValue);
 
 				isSliding[0] = isSliding[2] = isSliding[3] = false;
 
@@ -119,8 +130,9 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 			if (eventData.position.y > startPos.y + slideDis && isSliding[2])
 			{
 				slideWayImg[2].color = imgColor;
-				slideWayRect[2].position = Vector2.Lerp(slideWayOriginPos[2], midPos, Mathf.Max(0, imgColor.a / slideMovePer));
-				slideWayRect[2].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, Mathf.Max(0, imgColor.a / slideMovePer)));
+				slideWayRect[2].position = Vector2.Lerp(slideWayOriginPos[2], midPos, lerpValue);
+				slideWayRect[2].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, lerpValue));
+				slideWayRect[2].localScale = Vector2.Lerp(slideWayOriginScale[2], slideWayOriginScale[2] + Vector2.one * 3, lerpValue);
 
 				isSliding[0] = isSliding[1] = isSliding[3] = false;
 
@@ -133,8 +145,9 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 			if (eventData.position.y < startPos.y - slideDis && isSliding[3])
 			{
 				slideWayImg[3].color = imgColor;
-				slideWayRect[3].position = Vector2.Lerp(slideWayOriginPos[3], midPos, Mathf.Max(0, imgColor.a / slideMovePer));
-				slideWayRect[3].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, Mathf.Max(0, imgColor.a / slideMovePer)));
+				slideWayRect[3].position = Vector2.Lerp(slideWayOriginPos[3], midPos, lerpValue);
+				slideWayRect[3].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, lerpValue));
+				slideWayRect[3].localScale = Vector2.Lerp(slideWayOriginScale[3], slideWayOriginScale[3] + Vector2.one * 3, lerpValue);
 
 				isSliding[0] = isSliding[1] = isSliding[2] = false;
 
@@ -168,6 +181,12 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 		for (int i = 0; i < 4; i++)
 		{
 			UIEffecter.instance.FadeEffect(slideWayRect[i].gameObject, slideWayOriginPos[i], 0.1f, UIEffecter.FadeFlag.POSITION);
+		}
+
+		// 크기 원래대로
+		for (int i = 0; i < 4; i++)
+		{
+			UIEffecter.instance.FadeEffect(slideWayRect[i].gameObject, slideWayOriginScale[i], 0.1f, UIEffecter.FadeFlag.SCALE);
 		}
 
 		// 플래그 삭제
