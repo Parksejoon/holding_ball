@@ -305,6 +305,7 @@
     <Compile Include="Assets\Scripts\Objects\Ball\ShotLineCollider.cs" />
     <Compile Include="Assets\Scripts\Objects\Peripheral\Coin.cs" />
     <Compile Include="Assets\Scripts\Objects\Peripheral\Holder.cs" />
+    <Compile Include="Assets\Scripts\Objects\Peripheral\Spot.cs" />
     <Compile Include="Assets\Scripts\Objects\Wall\Laser.cs" />
     <Compile Include="Assets\Scripts\Objects\Wall\LimitWall.cs" />
     <Compile Include="Assets\Scripts\Objects\Wall\Orbit.cs" />

@@ -12,9 +12,6 @@ public class Wall : MonoBehaviour
 	private BoxCollider2D	boxCollider2D;			// 이 물체의 충돌체
 	private GameObject		spriteObj;              // 스프라이트 오브젝트
 
-	// 수치
-	public  float			stackAlpha;				// 방어력 비례 투명도
-
 	
 	// 초기화
 	private void Awake()
@@ -27,6 +24,7 @@ public class Wall : MonoBehaviour
 	private void Start()
 	{
 		UIEffecter.instance.FadeEffect(spriteObj, Vector2.one, 1f, UIEffecter.FadeFlag.ALPHA);
+		AddStack(0);
 	}
 
 	// 스택 재조정
@@ -40,7 +38,7 @@ public class Wall : MonoBehaviour
 		}
 		else
 		{
-			UIEffecter.instance.FadeEffect(spriteObj, new Vector2(stackAlpha * stack, 0), 1f, UIEffecter.FadeFlag.ALPHA);
+			UIEffecter.instance.FadeEffect(spriteObj, new Vector2(0.2f * stack, 0), 1f, UIEffecter.FadeFlag.ALPHA);
 		}
 	}
 

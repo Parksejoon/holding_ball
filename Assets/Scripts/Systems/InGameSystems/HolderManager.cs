@@ -35,7 +35,6 @@ public class HolderManager : MonoBehaviour
 	[HideInInspector]
 	public  List<Transform>   holderList = new List<Transform>();    // 홀더 리스트
     
-	private Ball              ball;                                  // 볼
 	private HolderAlgorithm[] holderAlgorithm;                       // 홀더 샷 알고리즘 목록
 
 	// 수치
@@ -47,8 +46,6 @@ public class HolderManager : MonoBehaviour
 	// 초기화
 	public void Start()
 	{
-		ball		= GameObject.FindWithTag("Ball").GetComponent<Ball>();
-
 		// Tornado Slug Round Compression Quarter Shift Coinar
 		// 알고리즘 델리게이트 초기화
 		holderAlgorithm = new []
@@ -67,7 +64,7 @@ public class HolderManager : MonoBehaviour
 	public void Update()
 	{
 		// 볼이 홀딩상태 또는 바인딩상태가 아닐때만 시간을 측정
-		if (ball.bindedHolder == null)
+		if (Ball.instance.bindedHolder == null)
 		{
 			// 카운트중인지 확인 후 카운트 진행
 			if (isPasting)
@@ -331,7 +328,7 @@ public class HolderManager : MonoBehaviour
 			target = Instantiate(coinPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
 
 			// 방향으로 힘 적용
-			target.AddForce(Vector3.Normalize(ball.transform.position) * -power);
+			target.AddForce(Vector3.Normalize(Ball.instance.transform.position) * -power);
 			
 			count++;
 

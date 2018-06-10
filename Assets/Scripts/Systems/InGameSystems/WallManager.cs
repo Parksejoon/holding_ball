@@ -73,7 +73,7 @@ public class WallManager : MonoBehaviour
 		rotationSpeed *= -1;
 	}
 
-	// 벽 새로 생성
+	// 벽들 새로 생성
 	public void CreateWalls()
 	{
 		int level = GameManager.instance.level;
@@ -82,5 +82,11 @@ public class WallManager : MonoBehaviour
 		{
 			orbits[Random.Range(0, 5)].CreateWall(Random.Range(Mathf.Min(8, 13 - level / 6), Mathf.Min(12, 20 - level / 6)), orbits.Length - i);
 		}
+	}
+
+	// 벽 새로 생성
+	public void CreateWall(int orbitNum, int wallCount, int wallStack)
+	{
+		orbits[orbitNum].CreateWall(wallCount, wallStack);
 	}
 }

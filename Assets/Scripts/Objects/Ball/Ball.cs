@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Ball : MonoBehaviour
 {
+	public static Ball instance;
+
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
@@ -31,8 +33,7 @@ public class Ball : MonoBehaviour
 	private GameObject			shotLine;               // ShotLine오브젝트
 	private ShaderManager		shaderManager;			// 쉐이더 매니저
 	private Rigidbody2D			rigidbody2d;            // 이 오브젝트의 리짓바디
-	private GameObject			ballInvObj;				// 공의 물리 오브젝트
-	private bool				isBallPull = false;     // 공 당기는 상태인지
+	private GameObject			ballInvObj;             // 공의 물리 오브젝트
 	
 	// 수치
 	[HideInInspector]
@@ -42,6 +43,11 @@ public class Ball : MonoBehaviour
 	// 초기화
 	private void Awake()
 	{
+		if (instance == null)
+		{
+			instance = this;
+		}
+
 		shaderManager		= GameObject.Find("GameManager").GetComponent<ShaderManager>();
 		rigidbody2d			= GetComponentInParent<Rigidbody2D>();
 		ballInvObj			= transform.parent.gameObject;
@@ -106,13 +112,6 @@ public class Ball : MonoBehaviour
 		{
 			UnbindingHolder();
 		}
-	}
-
-	// 홀더에 바인딩
-	private void BindingHolder(GameObject holder)
-	{
-		// 바인딩 홀더를 설정
-		bindedHolder = holder;
 	}
 
 	// 홀더에 언바인딩
@@ -286,6 +285,13 @@ public class Ball : MonoBehaviour
 
 		GetComponent<CircleCollider2D>().enabled = true;
 		GetComponentInParent<MeshRenderer>().enabled = true;
+	}
+
+	// 홀더에 바인딩
+	private void BindingHolder(GameObject holder)
+	{
+		// 바인딩 홀더를 설정
+		bindedHolder = holder;
 	}
 
 	// 슛라인 생성

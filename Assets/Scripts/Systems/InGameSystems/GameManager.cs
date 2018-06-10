@@ -7,17 +7,22 @@ public class GameManager : MonoBehaviour
 	public static GameManager instance;
 
 	// 인스펙터 노출 변수
+	// 일반
+	[SerializeField]
+	private GameObject		spotPrefab;					// 스팟 프리팹
+
 	// 수치
 	[SerializeField]
 	private float			levelTimer = 30f;           // 레벨 타이머
+	[SerializeField]
+	private float			spotTimer = 10f;            // 스팟 타이머
 
 	public int				level = 0;                  // 레벨
 	public float			shotPower = 10;             // 발사 속도
-	public float			timeValue = 1f;				// 시간 값
+	public float			timeValue = 1f;             // 시간 값
 
 	// 인스펙터 비노출 변수
 	// 일반
-	private Ball			ball;                       // 볼
 	private Touch			touch;                      // 터치 구조체
 	private CameraEffect	cameraEffect;               // 카메라 이펙트
 	private Parser			parser;						// 데이터 파서
@@ -42,7 +47,6 @@ public class GameManager : MonoBehaviour
 			instance 	= this;				
 		}
 			
-		ball			= GameObject.Find("Ball").GetComponent<Ball>();
 		cameraEffect	= GameObject.Find("Main Camera").GetComponent<CameraEffect>();
 		parser			= new Parser();
 
@@ -55,6 +59,7 @@ public class GameManager : MonoBehaviour
 	{
 		PowerCompute();
 		StartCoroutine(LevelTimer());
+		StartCoroutine(SpotTimer());
 	}
 
 	// 프레임
@@ -97,7 +102,7 @@ public class GameManager : MonoBehaviour
 			}
 			else
 			{
-				if (ball.isHolding)
+				if (Ball.instance.isHolding)
 				{
 					// 언홀딩 처리
 					UnHoldingBall();
@@ -125,13 +130,13 @@ public class GameManager : MonoBehaviour
 	// 홀딩 처리
 	private void HoldingBall()
 	{
-		ball.HoldingHolder();
+		Ball.instance.HoldingHolder();
 	}
 
 	// 언홀딩 처리
 	private void UnHoldingBall()
 	{
-		ball.UnholdingHolder();
+		Ball.instance.UnholdingHolder();
 	}
 	
 	// 발사 속도 계산기
@@ -172,10 +177,10 @@ public class GameManager : MonoBehaviour
 	// 홀더 체크
 	public void HolderCheck(GameObject target)
 	{
-		if (ball.bindedHolder == target)
+		if (Ball.instance.bindedHolder == target)
 		{
 			// 언홀딩
-			ball.UnbindingHolder();
+			Ball.instance.UnbindingHolder();
 		}
 	}
 
@@ -184,7 +189,7 @@ public class GameManager : MonoBehaviour
 	{
 		// 공 파괴 및 터치 금지 설정
 		GameObject.Find("TouchPanel").GetComponent<TouchPanel>().enabled = false;
-		ball.BallDestroy();
+		Ball.instance.BallDestroy();
 
 		// 계속할것인지
 		StartCoroutine(Continue());
@@ -207,6 +212,14 @@ public class GameManager : MonoBehaviour
 		SceneManager.LoadScene(sceneName);
 	}
 
+	// 스팟 생성
+	public void CreateSpot()
+	{
+		Vector2 createPos = new Vector2(Random.Range(-1f, 1f), Random.Range(1f, 1f)).normalized * Random.Range(-25f, 25f);
+
+		UIEffecter.instance.FadeEffect(Instantiate(spotPrefab, createPos, Quaternion.identity, transform).transform.GetChild(0).gameObject, new Vector2(0.2f, 0), 0.1f, UIEffecter.FadeFlag.ALPHA);
+	}
+
 	// 계속하기 루틴
 	private IEnumerator Continue()
 	{
@@ -216,7 +229,7 @@ public class GameManager : MonoBehaviour
 			
 			// 공 재생성 및 터치 금지 해제
 			GameObject.Find("TouchPanel").GetComponent<TouchPanel>().enabled = true;
-			ball.RegenBall();
+			Ball.instance.RegenBall();
 
 			isSecond = true;
 		}
@@ -244,6 +257,17 @@ public class GameManager : MonoBehaviour
 
 			level++;
 			PowerCompute();
+		}
+	}
+
+	// 스팟 생성 타이머
+	private IEnumerator SpotTimer()
+	{
+		while (true)
+		{
+			yield return new WaitForSeconds(spotTimer);
+			
+			CreateSpot();	
 		}
 	}
 
