@@ -106,9 +106,15 @@ public class UIEffecter : MonoBehaviour
             StartCoroutine(AfterEnable(target.gameObject, time, true));
 		}
     }
-    
-    // 위치 페이드
-    private IEnumerator FadePosition(RectTransform target, Vector2 goalPos, float time)
+	
+	// 숫자 변경 효과
+	public void ChangeNumberEffect(Text target, int goalValue, float time)
+	{
+		StartCoroutine(ChangeNumber(target, goalValue, time));
+	}
+
+	// 위치 페이드
+	private IEnumerator FadePosition(RectTransform target, Vector2 goalPos, float time)
     {
         Vector2 startPos    = target.position;
         int     count       = (int)(time / fadeGap);
@@ -241,4 +247,24 @@ public class UIEffecter : MonoBehaviour
 
         target.SetActive(false);
     }
+
+	// 숫자 변경 효과
+	private IEnumerator ChangeNumber(Text target, int goalValue, float time)
+	{
+		int val;
+		int startValue = int.Parse(target.text);
+		int count = (int)(time / fadeGap);
+		int originCount = count;
+
+		while (count > 0)
+		{
+			val = (int)Mathf.Lerp(startValue, goalValue, (float)count / originCount);
+			target.text = val.ToString();
+
+			count -= 1;
+			yield return new WaitForSeconds(fadeGap);
+		}
+		
+		target.text = goalValue.ToString();
+	}
 }

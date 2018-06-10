@@ -102,6 +102,7 @@ public class UIManager : MonoBehaviour
 
 		// 슬라이드 패널 삭제
 		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[0], Vector2.zero, 1.2f, UIEffecter.FadeFlag.ALPHA | UIEffecter.FadeFlag.FINDISABLE);
+		UIEffecter.instance.ChangeNumberEffect(UIEffecter.instance.texts[0], 0, 0.5f);
 
 		// 버튼 사라짐
 		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[4], new Vector2(0, 0), 0.4f, UIEffecter.FadeFlag.ALPHA);
