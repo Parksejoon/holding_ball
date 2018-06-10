@@ -93,7 +93,7 @@ public class ShotLineCollider : MonoBehaviour
 	{
 		int score = 0;
 
-		for (int range = 5; range <= distance; range += 5)
+		for (int range = 0; range <= distance; range += 5)
 		{
 			score++;
 		}

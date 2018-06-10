@@ -6,7 +6,7 @@ public class Wall : MonoBehaviour
 	// 인스펙터 노출 변수
 	// 수치
 	[SerializeField]
-	private int				stack = 1;				// 방어력 스택
+	private int				stack = 3;				// 방어력 스택
 
 	// 인스펙터 비노출 변수
 	// 일반
@@ -35,6 +35,10 @@ public class Wall : MonoBehaviour
 		if (stack == 0)
 		{
 			StartCoroutine(DestroyAnimation());
+		}
+		else
+		{
+			UIEffecter.instance.FadeEffect(spriteObj, new Vector2(0.3f * stack, 0), 1f, UIEffecter.FadeFlag.ALPHA);
 		}
 	}
 
