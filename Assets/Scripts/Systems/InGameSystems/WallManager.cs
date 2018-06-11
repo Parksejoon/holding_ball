@@ -40,9 +40,9 @@ public class WallManager : MonoBehaviour
 	private void Start()
 	{
 
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < orbits.Length; i++)
 		{
-			orbits[i].CreateWall(Random.Range(30, 38), orbits.Length - i);
+			orbits[i].CreateWall(Random.Range(30, 38), i + 1);
 		}
 	}
 

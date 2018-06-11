@@ -31,7 +31,6 @@ public class Ball : MonoBehaviour
 
 	private GameObject			targetHolder;			// 현재 타겟이된 홀더
 	private GameObject			shotLine;               // ShotLine오브젝트
-	private ShaderManager		shaderManager;			// 쉐이더 매니저
 	private Rigidbody2D			rigidbody2d;            // 이 오브젝트의 리짓바디
 	private GameObject			ballInvObj;             // 공의 물리 오브젝트
 	
@@ -47,8 +46,7 @@ public class Ball : MonoBehaviour
 		{
 			instance = this;
 		}
-
-		shaderManager		= GameObject.Find("GameManager").GetComponent<ShaderManager>();
+		
 		rigidbody2d			= GetComponentInParent<Rigidbody2D>();
 		ballInvObj			= transform.parent.gameObject;
 
@@ -238,7 +236,7 @@ public class Ball : MonoBehaviour
 			rigidbody2d.velocity = Vector3.Normalize(startPos - endPos) * GameManager.instance.shotPower * -15f;
 
 			// 쉐이더 변환
-			shaderManager.BallColor(false);
+			ShaderManager.instance.ChangeBaseColor(Color.white);
 		}
 	}
 
@@ -249,7 +247,7 @@ public class Ball : MonoBehaviour
 		canDouble = true;
 
 		// 쉐이더 변환
-		shaderManager.BallColor(true);
+		ShaderManager.instance.ChangeBaseColor(Color.blue);
 	}
 
 	// 공 파괴
@@ -301,7 +299,7 @@ public class Ball : MonoBehaviour
 
 		if (canDouble)
 		{
-			shotLine.GetComponent<Transform>().GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = Color.HSVToRGB(ShaderManager.themeColor[(int)ShaderManager.Theme.BASE], 0.3f, 1f);
+			shotLine.GetComponent<Transform>().GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = Color.HSVToRGB(ShaderManager.themeColor[0], 0.3f, 1f);
 		}
 	}
 

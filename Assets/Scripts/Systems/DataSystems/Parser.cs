@@ -51,10 +51,10 @@ public class Parser
 	}
 
 	// 컬러 인덱스를 저장
-	public void SetColorIndex(int ball, int wall, int warWall, int topBack, int botBack)
+	public void SetColorIndex(int ball, int sub, int warWall, int topBack, int botBack)
 	{
 		PlayerPrefs.SetInt("BallColor", ball);
-		PlayerPrefs.SetInt("WallColor", wall);
+		PlayerPrefs.SetInt("SubColor", sub);
 		PlayerPrefs.SetInt("WarWallColor", warWall);
 		PlayerPrefs.SetInt("TopBackColor", topBack);
 		PlayerPrefs.SetInt("BotBackColor", botBack);
@@ -66,18 +66,18 @@ public class Parser
 		// 데이터 파싱
 		FileStream   fs = new FileStream(dataPath, FileMode.Open);
 		StreamReader sr = new StreamReader(fs);
-		ArrayList	 cListR = new ArrayList();
-		ArrayList	 cListG = new ArrayList();
-		ArrayList	 cListB = new ArrayList();
+		ArrayList	 colorLisrR = new ArrayList();
+		ArrayList	 colorLisrG = new ArrayList();
+		ArrayList	 colorLisrB = new ArrayList();
 
 		string source = sr.ReadLine();	
 		while (source != null)
 		{
 			string[] result = source.Split();
 
-			cListR.Add(float.Parse(result[0]) / 255f);
-			cListG.Add(float.Parse(result[1]) / 255f);
-			cListB.Add(float.Parse(result[2]) / 255f);
+			colorLisrR.Add(float.Parse(result[0]) / 255f);
+			colorLisrG.Add(float.Parse(result[1]) / 255f);
+			colorLisrB.Add(float.Parse(result[2]) / 255f);
 
 			source = sr.ReadLine();
 		}
@@ -87,26 +87,26 @@ public class Parser
 
 		// 베이스
 		index = PlayerPrefs.GetInt("BallColor");
-		shaderManager.baseColor = new Color((float)cListR[index], (float)cListG[index], (float)cListB[index]);
+		shaderManager.baseColor = new Color((float)colorLisrR[index], (float)colorLisrG[index], (float)colorLisrB[index]);
 
 
-		// 벽
-		index = PlayerPrefs.GetInt("WallColor");
-		shaderManager.wallColor = new Color((float)cListR[index], (float)cListG[index], (float)cListB[index]);
+		// 서브
+		index = PlayerPrefs.GetInt("SubColor");
+		shaderManager.subColor = new Color((float)colorLisrR[index], (float)colorLisrG[index], (float)colorLisrB[index]);
 
 
 		// 위험 벽
 		index = PlayerPrefs.GetInt("WarWallColor");
-		shaderManager.warWallColor = new Color((float)cListR[index], (float)cListG[index], (float)cListB[index]);
+		shaderManager.warWallColor = new Color((float)colorLisrR[index], (float)colorLisrG[index], (float)colorLisrB[index]);
 
 
 		// 뒷배경 위
 		index = PlayerPrefs.GetInt("TopBackColor");
-		shaderManager.topBackColor = new Color((float)cListR[index], (float)cListG[index], (float)cListB[index]);
+		shaderManager.topBackColor = new Color((float)colorLisrR[index], (float)colorLisrG[index], (float)colorLisrB[index]);
 
 
 		// 뒷배경 아래
 		index = PlayerPrefs.GetInt("BotBackColor");
-		shaderManager.botBackColor = new Color((float)cListR[index], (float)cListG[index], (float)cListB[index]);
+		shaderManager.botBackColor = new Color((float)colorLisrR[index], (float)colorLisrG[index], (float)colorLisrB[index]);
 	}
 }

@@ -95,6 +95,9 @@ public class Spot : MonoBehaviour
 	// 잭팟 루틴
 	private IEnumerator JackpotRoutine()
 	{
+		spriteColor.a = 1f;
+		spriteRenderer.color = spriteColor;
+
 		UIEffecter.instance.FadeEffect(spriteObj, Vector2.zero, 1f, UIEffecter.FadeFlag.ALPHA);
 
 		yield return new WaitForSeconds(3f);
@@ -109,10 +112,10 @@ public class Spot : MonoBehaviour
 		{
 			if (isSpoting)
 			{
-				spriteColor.a += 0.01f;
+				spriteColor.a += 0.005f;
 				spriteRenderer.color = spriteColor;
 				
-				if (spriteColor.a >= 1f)
+				if (spriteColor.a >= 0.9f)
 				{
 					Jackpot();
 				}

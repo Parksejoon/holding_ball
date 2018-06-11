@@ -22,6 +22,7 @@ public class StartManager : MonoBehaviour
 	// 시작
 	private void Start()
 	{
+		// 일단 임의로 컬러 설정
 		parser.SetColorIndex(0, 1, 2, 3, 4);
 	}
 

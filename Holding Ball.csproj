@@ -294,12 +294,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Custom 2D Colliders\Scripts\ArcCollider2D.cs" />
-    <Compile Include="Assets\Custom 2D Colliders\Scripts\BezierCurveCollider2D.cs" />
-    <Compile Include="Assets\Custom 2D Colliders\Scripts\CapsuleCollider2D.cs" />
-    <Compile Include="Assets\Custom 2D Colliders\Scripts\EllipseCollider2D.cs" />
-    <Compile Include="Assets\Custom 2D Colliders\Scripts\RoundedBoxCollider2D.cs" />
-    <Compile Include="Assets\Custom 2D Colliders\Scripts\StarCollider2D.cs" />
     <Compile Include="Assets\Scripts\Objects\Ball\Ball.cs" />
     <Compile Include="Assets\Scripts\Objects\Ball\ShotLine.cs" />
     <Compile Include="Assets\Scripts\Objects\Ball\ShotLineCollider.cs" />
