@@ -88,7 +88,12 @@ public class Spot : MonoBehaviour
 
 			yield return new WaitForSeconds(speed);
 		}
-		
+
+		circleCollider2D.enabled = false;
+		spriteRenderer.color = Color.clear;
+
+		yield return new WaitForSeconds(3f);
+
 		Destroy(gameObject);
 	}
 

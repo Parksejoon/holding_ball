@@ -12,11 +12,7 @@ public class Ball : MonoBehaviour
 	[SerializeField]
 	private GameObject			regenParticle;          // 공 재생성 파티클 
 	[SerializeField]
-	private GameObject			regenParticle_None;     // 공 재생성 파티클 ( 무색 )
-	[SerializeField]
 	private GameObject			destroyParticle;        // 공 파괴 파티클 
-	[SerializeField]
-	private GameObject			destroyParticle_None;   // 공 파괴 파티클 ( 무색 )
 	[SerializeField]
 	private GameObject			doubleParticle;         // 더블 파티클
 	[SerializeField]
@@ -51,6 +47,12 @@ public class Ball : MonoBehaviour
 		ballInvObj			= transform.parent.gameObject;
 
 		isHolding = false;
+	}
+
+	// 시작
+	private void Start()
+	{
+		ResetDouble();
 	}
 
 	// 트리거 진입
@@ -182,7 +184,6 @@ public class Ball : MonoBehaviour
 		else
 		{
 			// 홀더 파괴
-			//bindedHolder.tag = "Untagged";
 			bindedHolder.GetComponent<Holder>().DestroyParticle();
 			Destroy(bindedHolder.gameObject);
 
@@ -224,7 +225,7 @@ public class Ball : MonoBehaviour
 		if (canDouble)
 		{
 			// 더블 사용
-			/* canDouble = false; */
+			canDouble = false;
 
 			// 일정시간 벽 통과가능 상태로 변환
 			StartCoroutine(MomentInvisible());
@@ -236,7 +237,7 @@ public class Ball : MonoBehaviour
 			rigidbody2d.velocity = Vector3.Normalize(startPos - endPos) * GameManager.instance.shotPower * -15f;
 
 			// 쉐이더 변환
-			ShaderManager.instance.ChangeBaseColor(Color.white);
+			ShaderManager.instance.ChangeBaseColor(false);
 		}
 	}
 
@@ -247,42 +248,36 @@ public class Ball : MonoBehaviour
 		canDouble = true;
 
 		// 쉐이더 변환
-		ShaderManager.instance.ChangeBaseColor(Color.blue);
+		ShaderManager.instance.ChangeBaseColor(true);
 	}
 
 	// 공 파괴
 	public void BallDestroy()
 	{
-		// 충돌체 제거, 물리량 초기화, 이펙트, 매쉬 제거
+		// 충돌체 제거 및 물리량 초기화
 		GetComponent<CircleCollider2D>().enabled = false;
 		rigidbody2d.velocity = Vector3.zero;
-
-		if (canDouble)
-		{
-			Instantiate(destroyParticle, transform.position, Quaternion.identity);
-		}
-		else
-		{
-			Instantiate(destroyParticle_None, transform.position, Quaternion.identity);
-		}
-
-		GetComponentInParent<MeshRenderer>().enabled = false;
+		
+		// 파괴 파티클
+		Instantiate(destroyParticle, transform.position, Quaternion.identity);
+		
+		// 시각화 해제
+		transform.GetChild(1).gameObject.SetActive(false);
+		transform.GetChild(2).gameObject.SetActive(false);
 	}
 
 	// 공 재생성
 	public void RegenBall()
 	{
-		if (canDouble)
-		{
-			Instantiate(regenParticle, transform.position, Quaternion.identity);
-		}
-		else
-		{
-			Instantiate(regenParticle_None, transform.position, Quaternion.identity);
-		}
+		// 생성 파티클
+		Instantiate(regenParticle, transform.position, Quaternion.identity);
 
+		// 충돌체 등록
 		GetComponent<CircleCollider2D>().enabled = true;
-		GetComponentInParent<MeshRenderer>().enabled = true;
+
+		// 시각화
+		transform.GetChild(1).gameObject.SetActive(true);
+		transform.GetChild(2).gameObject.SetActive(true);
 	}
 
 	// 홀더에 바인딩

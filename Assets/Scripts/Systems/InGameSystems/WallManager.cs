@@ -8,9 +8,6 @@ public class WallManager : MonoBehaviour
 	// 일반
 	public  GameObject			wallPrefab;	                // 벽 프리팹
 	
-	[SerializeField]
-	private Material			warWallsMat;                // 위험 벽 질감
-	
 	// 수치
 	[SerializeField]
 	private float				originalRotationSpeed = 1f; // 원시 회전속도
@@ -50,14 +47,6 @@ public class WallManager : MonoBehaviour
 	private void Update()
 	{
 		wallsTransform.Rotate(Vector3.forward * rotationSpeed * GameManager.instance.timeValue);
-	}
-
-	// 끝날때
-	private void OnDestroy()
-	{
-		Color warWallColor = warWallsMat.GetColor("_Color");
-
-		warWallsMat.SetColor("_Color", new Color(warWallColor.r, warWallColor.g, warWallColor.b, 1f));
 	}
 
 	// 벽 초기화

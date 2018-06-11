@@ -305,7 +305,6 @@
     <Compile Include="Assets\Scripts\Objects\Wall\Orbit.cs" />
     <Compile Include="Assets\Scripts\Objects\Wall\Wall.cs" />
     <Compile Include="Assets\Scripts\Objects\Wall\WarWall.cs" />
-    <Compile Include="Assets\Scripts\Particle\ParticleColorFinder.cs" />
     <Compile Include="Assets\Scripts\Particle\SelfDestroy.cs" />
     <Compile Include="Assets\Scripts\Sprite\Background\SecondBack.cs" />
     <Compile Include="Assets\Scripts\Sprite\Background\SecondBackList.cs" />

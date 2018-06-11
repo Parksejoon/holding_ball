@@ -7,7 +7,11 @@ public class ShaderManager : MonoBehaviour
 	static public float[] themeColor;           // 테마 컬러들
 
 	// 인스펙터 노출 변수
-	// 일반
+	// 수치
+	public	Color		particleAdditive;       // 파티클 농도
+
+	// 컬러
+	[Space(40)]
 	public  Color		baseColor;              // 베이스 컬러
 	public	Color		subColor;				// 서브 컬러
 
@@ -19,14 +23,14 @@ public class ShaderManager : MonoBehaviour
 	// 베이스 머티리얼
 	[Space(40)]
 	[SerializeField]
-	private Material	baseMat;                // 베이스 머티리얼
+	private Material[]	baseMat;                // 베이스 머티리얼
 	[SerializeField]
 	private Material[]	varBaseMat;             // 변하는 베이스 머티리얼
 
 	// 서브 머티리얼
 	[Space(20)]
 	[SerializeField]
-	private Material	subMat;					// 서브 머티리얼
+	private Material[]	subMat;					// 서브 머티리얼
 
 	// 나머지 머티리얼
 	[Space(20)]
@@ -83,16 +87,23 @@ public class ShaderManager : MonoBehaviour
 	private void SetColor()
 	{
 		// base
-		baseMat.SetColor("_Color", baseColor);
+		foreach (Material material in baseMat)
+		{
+			material.SetColor("_Color", baseColor);
+		}
+
 		foreach (Material material in varBaseMat)
 		{
 			material.SetColor("_Color", baseColor);
 		}
 
 		// sub
-		subMat.SetColor("_Color", subColor);
+		foreach (Material material in subMat)
+		{
+			material.SetColor("_Color", subColor);
+		}
 
-		// other
+		// others
 		// war wall
 		warWall.SetColor("_Color", warWallColor);
 
@@ -102,11 +113,23 @@ public class ShaderManager : MonoBehaviour
 	}
 
 	// 색 변경
-	public void ChangeBaseColor(Color color)
+	public void ChangeBaseColor(bool colored)
 	{
+		Color color;
+
+		if (colored)
+		{
+			color = baseColor;
+		}
+		else
+		{
+			color = subColor;
+		}
+
 		for (int i = 0; i < varBaseMat.Length; i++)
 		{
 			varBaseMat[i].SetColor("_Color", color);
+			varBaseMat[i].SetColor("_TintColor", color - particleAdditive);
 		}
 	}
 }
