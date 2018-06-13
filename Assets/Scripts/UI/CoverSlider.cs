@@ -33,7 +33,6 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 	// 수치
 	private int 			slideMovePer = 1;		// 슬라이드시 움직이는 비율
 	private Vector2 		startPos;				// 시작 위치
-	private Vector2 		midPos;					// 중앙 위치
 	private int 		 	slideDis;				// 슬라이드 거리
 	private float 			originAlpha;            // 최초 알파
 
@@ -71,8 +70,7 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 		}
 
 		startPos 	= thisRect.position;
-		midPos 		= new Vector2(Screen.width / 2f, Screen.height / 2f);
-		slideDis 	= (int)(midPos.x * slideDisPer);
+		slideDis 	= (int)(UIManager.instance.midPos.x * slideDisPer);
 		originAlpha = 0;
 	}
 
@@ -100,7 +98,7 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 			if (eventData.position.x < startPos.x - slideDis && isSliding[0])
 			{
 				slideWayImg[0].color = imgColor;
-				slideWayRect[0].position = Vector2.Lerp(slideWayOriginPos[0], midPos, lerpValue);
+				slideWayRect[0].position = Vector2.Lerp(slideWayOriginPos[0], UIManager.instance.midPos, lerpValue);
 				slideWayRect[0].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, lerpValue));
 				slideWayRect[0].localScale = Vector2.Lerp(slideWayOriginScale[0], slideWayOriginScale[0] + Vector2.one * 3, lerpValue);
 
@@ -115,7 +113,7 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 			if (eventData.position.x > startPos.x + slideDis && isSliding[1])
 			{
 				slideWayImg[1].color = imgColor;
-				slideWayRect[1].position = Vector2.Lerp(slideWayOriginPos[1], midPos, lerpValue);
+				slideWayRect[1].position = Vector2.Lerp(slideWayOriginPos[1], UIManager.instance.midPos, lerpValue);
 				slideWayRect[1].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, lerpValue));
 				slideWayRect[1].localScale = Vector2.Lerp(slideWayOriginScale[1], slideWayOriginScale[1] + Vector2.one * 3, lerpValue);
 
@@ -130,7 +128,7 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 			if (eventData.position.y > startPos.y + slideDis && isSliding[2])
 			{
 				slideWayImg[2].color = imgColor;
-				slideWayRect[2].position = Vector2.Lerp(slideWayOriginPos[2], midPos, lerpValue);
+				slideWayRect[2].position = Vector2.Lerp(slideWayOriginPos[2], UIManager.instance.midPos, lerpValue);
 				slideWayRect[2].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, lerpValue));
 				slideWayRect[2].localScale = Vector2.Lerp(slideWayOriginScale[2], slideWayOriginScale[2] + Vector2.one * 3, lerpValue);
 
@@ -145,7 +143,7 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 			if (eventData.position.y < startPos.y - slideDis && isSliding[3])
 			{
 				slideWayImg[3].color = imgColor;
-				slideWayRect[3].position = Vector2.Lerp(slideWayOriginPos[3], midPos, lerpValue);
+				slideWayRect[3].position = Vector2.Lerp(slideWayOriginPos[3], UIManager.instance.midPos, lerpValue);
 				slideWayRect[3].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, lerpValue));
 				slideWayRect[3].localScale = Vector2.Lerp(slideWayOriginScale[3], slideWayOriginScale[3] + Vector2.one * 3, lerpValue);
 
@@ -169,7 +167,7 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 	}
 
 	// 슬라이드 마무리
-	private void StopSlide()
+	public void StopSlide()
 	{
 		// 알파 원래대로
 		for (int i = 0; i < 4; i++)
