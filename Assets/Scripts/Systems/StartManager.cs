@@ -7,7 +7,7 @@ public class StartManager : MonoBehaviour
 	private HolderManager	holderManager;				// 홀더 매니저
 	private Rigidbody2D		ballRigidbody2d;			// 공의 트랜스폼
 	private new Camera		camera;                     // 카메라
-	private Parser			parser;						// 데이터 파서
+	private Indexer			indexer;					// 인덱서
 
 
 	// 초기화
@@ -16,14 +16,14 @@ public class StartManager : MonoBehaviour
 		holderManager   = GetComponent<HolderManager>();
 		ballRigidbody2d = GameObject.Find("BallCollider").GetComponent<Rigidbody2D>();
 		camera		    = GameObject.Find("Main Camera").GetComponent<Camera>();
-		parser			= new Parser();
+		indexer			= new Indexer();
 	}
 
 	// 시작
 	private void Start()
 	{
 		// 일단 임의로 컬러 설정
-		parser.SetColorIndex(0, 1, 2, 3, 4);
+		indexer.SetColorIndex(0);
 	}
 
 	// 프레임

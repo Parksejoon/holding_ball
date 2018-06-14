@@ -84,7 +84,6 @@ public class Parser
 
 		int index;
 
-
 		// 베이스
 		index = PlayerPrefs.GetInt("BallColor");
 		shaderManager.baseColor = new Color((float)colorLisrR[index], (float)colorLisrG[index], (float)colorLisrB[index]);
