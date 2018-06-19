@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\Sprite\ShotLineAfterEffect.cs" />
     <Compile Include="Assets\Scripts\Systems\CameraSystems\CameraChase.cs" />
     <Compile Include="Assets\Scripts\Systems\CameraSystems\CameraEffect.cs" />
+    <Compile Include="Assets\Scripts\Systems\DataSystems\Indexer.cs" />
     <Compile Include="Assets\Scripts\Systems\DataSystems\Initializer.cs" />
     <Compile Include="Assets\Scripts\Systems\DataSystems\Parser.cs" />
     <Compile Include="Assets\Scripts\Systems\InGameSystems\GameManager.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Assets\Scripts\UI\UIEffecter.cs" />
     <None Include="Assets\Resources\Data\ColorData.txt" />
     <None Include="Assets\Materials\Shader\Glow.shader" />
+    <None Include="Assets\Resources\Data\ColorIndex.txt" />
     <None Include="Assets\Materials\Shader\FinalBack.shader" />
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

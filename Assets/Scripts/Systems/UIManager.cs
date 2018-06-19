@@ -16,14 +16,10 @@ public class UIManager : MonoBehaviour
 	private CoverSlider		coverSlider;            // 커버 슬라이더
 	[SerializeField]
 	private PlayEffect		playEffect;             // 시작 이펙트
-	[SerializeField]
-	private GameObject		colorPicker;			// 컬러 피커
 		
 	// 인스펙터 비노출 변수
 	// 수치
 	private float			originalTimeScale;      // 원래 타임스케일 값
-	private bool			isColorPicking;         // 컬러 피커가 열려있는 상태인가
-	private Vector2			colorPickerOriginPos;	// 컬러 피커 원래 위치
 
 	[HideInInspector]
 	public Vector2			midPos;					// 중앙 지점
@@ -37,8 +33,6 @@ public class UIManager : MonoBehaviour
 			instance = this;
 		}
 
-		colorPickerOriginPos = colorPicker.transform.position;
-
 		midPos = new Vector2(Screen.width / 2f, Screen.height / 2f);
 	}
 
@@ -46,7 +40,6 @@ public class UIManager : MonoBehaviour
 	private void Start()
 	{
 		coverSlider.slideFuncs[3] = StartGame;
-		coverSlider.slideFuncs[1] = OpenColorPicker;
 	}
 
 	// 퍼즈 체크
@@ -101,12 +94,6 @@ public class UIManager : MonoBehaviour
 		StartCoroutine(StartRoutine());
 	}
 
-	// 컬러 피커창 열기
-	public void OpenColorPicker()
-	{
-		StartCoroutine(OpenColorPickerRoutine());
-	}
-
 	// 시작버튼 클릭 루틴
 	private IEnumerator StartRoutine()
 	{
@@ -127,26 +114,5 @@ public class UIManager : MonoBehaviour
 
 		// 메인패널
 		UIEffecter.instance.SetUI(1, true);
-	}
-
-	// 컬러 피커 열기 루틴
-	private IEnumerator OpenColorPickerRoutine()
-	{
-		if (isColorPicking)
-		{
-			// 패널 중앙으로
-			UIEffecter.instance.FadeEffect(colorPicker, midPos, 0.2f, UIEffecter.FadeFlag.POSITION);
-		}
-		else
-		{
-			// 패널 사이드로
-			UIEffecter.instance.FadeEffect(colorPicker, colorPickerOriginPos, 0.2f, UIEffecter.FadeFlag.POSITION);
-		}
-
-		isColorPicking = !isColorPicking;
-		coverSlider.StopSlide();
-
-
-		yield return null;
 	}
 }

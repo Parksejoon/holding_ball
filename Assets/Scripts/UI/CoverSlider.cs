@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using System.Collections;
 
 public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
@@ -10,11 +9,19 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
-	private Image[] 		slideWayImg;			// 방향별 이미지
-			
+	private Image[] 		slideWayImg;            // 방향별 이미지
+
 	// 수치
 	public  int 			disValue = 3000;		// 거리에 따른 페이드 비율
 	public  float 			slideDisPer = 0.5f;     // 슬라이드 거리 비율
+
+	[Space(10)]
+	// 페이드 사용 여부
+	public	bool[]			isUseAlpha    = { true, true, true, true }; // 알파
+	public	bool[]			isUsePosition = { true, true, true, true }; // 위치
+	public	bool[]			isUseRotation = { true, true, true, true };	// 회전
+	public	bool[]			isUseScale    = { true, true, true, true }; // 크기
+
 
 	// 인스펙터 비노출 변수
 	// 일반
@@ -97,10 +104,10 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 			// 왼쪽
 			if (eventData.position.x < startPos.x - slideDis && isSliding[0])
 			{
-				slideWayImg[0].color = imgColor;
-				slideWayRect[0].position = Vector2.Lerp(slideWayOriginPos[0], UIManager.instance.midPos, lerpValue);
-				slideWayRect[0].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, lerpValue));
-				slideWayRect[0].localScale = Vector2.Lerp(slideWayOriginScale[0], slideWayOriginScale[0] + Vector2.one * 3, lerpValue);
+				if (isUseAlpha[0])    { slideWayImg[0].color = imgColor; }
+				if (isUsePosition[0]) { slideWayRect[0].position = Vector2.Lerp(slideWayOriginPos[0], UIManager.instance.midPos, lerpValue); }
+				if (isUseRotation[0]) { slideWayRect[0].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, lerpValue)); }
+				if (isUseScale[0])    { slideWayRect[0].localScale = Vector2.Lerp(slideWayOriginScale[0], slideWayOriginScale[0] + Vector2.one * 3, lerpValue); }
 
 				isSliding[1] = isSliding[2] = isSliding[3] = false;
 
@@ -112,10 +119,10 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 			// 오른쪽
 			if (eventData.position.x > startPos.x + slideDis && isSliding[1])
 			{
-				slideWayImg[1].color = imgColor;
-				slideWayRect[1].position = Vector2.Lerp(slideWayOriginPos[1], UIManager.instance.midPos, lerpValue);
-				slideWayRect[1].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, lerpValue));
-				slideWayRect[1].localScale = Vector2.Lerp(slideWayOriginScale[1], slideWayOriginScale[1] + Vector2.one * 3, lerpValue);
+				if (isUseAlpha[1])    { slideWayImg[1].color = imgColor; }
+				if (isUsePosition[1]) { slideWayRect[1].position = Vector2.Lerp(slideWayOriginPos[1], UIManager.instance.midPos, lerpValue); }
+				if (isUseRotation[1]) { slideWayRect[1].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, lerpValue)); }
+				if (isUseScale[1])    { slideWayRect[1].localScale = Vector2.Lerp(slideWayOriginScale[1], slideWayOriginScale[1] + Vector2.one * 3, lerpValue); }
 
 				isSliding[0] = isSliding[2] = isSliding[3] = false;
 
@@ -127,10 +134,10 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 			// 위쪽
 			if (eventData.position.y > startPos.y + slideDis && isSliding[2])
 			{
-				slideWayImg[2].color = imgColor;
-				slideWayRect[2].position = Vector2.Lerp(slideWayOriginPos[2], UIManager.instance.midPos, lerpValue);
-				slideWayRect[2].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, lerpValue));
-				slideWayRect[2].localScale = Vector2.Lerp(slideWayOriginScale[2], slideWayOriginScale[2] + Vector2.one * 3, lerpValue);
+				if (isUseAlpha[2])    { slideWayImg[2].color = imgColor; }
+				if (isUsePosition[2]) { slideWayRect[2].position = Vector2.Lerp(slideWayOriginPos[2], UIManager.instance.midPos, lerpValue); }
+				if (isUseRotation[2]) { slideWayRect[2].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, lerpValue)); }
+				if (isUseScale[2])    { slideWayRect[2].localScale = Vector2.Lerp(slideWayOriginScale[2], slideWayOriginScale[2] + Vector2.one * 3, lerpValue); }
 
 				isSliding[0] = isSliding[1] = isSliding[3] = false;
 
@@ -142,10 +149,10 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 			// 아래쪽
 			if (eventData.position.y < startPos.y - slideDis && isSliding[3])
 			{
-				slideWayImg[3].color = imgColor;
-				slideWayRect[3].position = Vector2.Lerp(slideWayOriginPos[3], UIManager.instance.midPos, lerpValue);
-				slideWayRect[3].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, lerpValue));
-				slideWayRect[3].localScale = Vector2.Lerp(slideWayOriginScale[3], slideWayOriginScale[3] + Vector2.one * 3, lerpValue);
+				if (isUseAlpha[3])    { slideWayImg[3].color = imgColor; }
+				if (isUsePosition[3]) { slideWayRect[3].position = Vector2.Lerp(slideWayOriginPos[3], UIManager.instance.midPos, lerpValue); }
+				if (isUseRotation[3]) { slideWayRect[3].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, lerpValue)); }
+				if (isUseScale[3])    { slideWayRect[3].localScale = Vector2.Lerp(slideWayOriginScale[3], slideWayOriginScale[3] + Vector2.one * 3, lerpValue); }
 
 				isSliding[0] = isSliding[1] = isSliding[2] = false;
 

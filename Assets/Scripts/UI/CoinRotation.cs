@@ -16,6 +16,6 @@ public class CoinRotation : MonoBehaviour
 	// 프레임
 	private void Update()
 	{
-		rectTransform.Rotate(Vector3.forward * 1f);
+		rectTransform.Rotate(Vector3.forward * 0.1f);
 	}
 }
