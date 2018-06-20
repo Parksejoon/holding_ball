@@ -49,13 +49,13 @@ public class ColorPickPanelManager : MonoBehaviour
 		if (!isColorPicking)
 		{
 			// 패널 중앙으로 & 슬라이더 온
-			UIEffecter.instance.FadeEffect(colorPicker, UIManager.instance.midPos, 0.2f, UIEffecter.FadeFlag.POSITION);
+			UIEffecter.instance.FadeEffect(colorPicker, UIManager.instance.midPos, 0.1f, UIEffecter.FadeFlag.POSITION);
 			pickCoverSliderImg.raycastTarget = true;
 		}
 		else
 		{
 			// 패널 사이드로 & 슬라이더 오프
-			UIEffecter.instance.FadeEffect(colorPicker, colorPickerOriginPos, 0.2f, UIEffecter.FadeFlag.POSITION);
+			UIEffecter.instance.FadeEffect(colorPicker, colorPickerOriginPos, 0.1f, UIEffecter.FadeFlag.POSITION);
 			pickCoverSliderImg.raycastTarget = false;
 		}
 

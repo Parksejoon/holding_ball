@@ -17,6 +17,8 @@ public class Ball : MonoBehaviour
 	private GameObject			doubleParticle;         // 더블 파티클
 	[SerializeField]
 	private GameObject			collisionEffect;        // 벽 충돌 이펙트
+	[SerializeField]
+	private BallParticler		ballParticler;			// 볼 파티클러
 
 	// 인스펙터 비노출 변수
 	// 일반
@@ -32,7 +34,7 @@ public class Ball : MonoBehaviour
 	
 	// 수치
 	[HideInInspector]
-	public  bool			isHolding;              // 홀딩 상태를 나타냄
+	public  bool				isHolding;              // 홀딩 상태를 나타냄
 
 
 	// 초기화
@@ -262,8 +264,8 @@ public class Ball : MonoBehaviour
 		Instantiate(destroyParticle, transform.position, Quaternion.identity);
 		
 		// 시각화 해제
-		transform.GetChild(1).gameObject.SetActive(false);
-		transform.GetChild(2).gameObject.SetActive(false);
+		transform.GetChild(0).gameObject.SetActive(false);
+		ballParticler.SetParticle(false);
 	}
 
 	// 공 재생성
@@ -276,8 +278,8 @@ public class Ball : MonoBehaviour
 		GetComponent<CircleCollider2D>().enabled = true;
 
 		// 시각화
-		transform.GetChild(1).gameObject.SetActive(true);
-		transform.GetChild(2).gameObject.SetActive(true);
+		transform.GetChild(0).gameObject.SetActive(true);
+		ballParticler.SetParticle(true);
 	}
 
 	// 홀더에 바인딩
