@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class Parser
 {
-	// 일반
-	private string dataPath = "Assets/Resources/Data/ColorData.txt";
+	// 일반 변수
+	private string dataPath;				// 데이터 경로
 
+
+	// 생성자
+	public Parser()
+	{
+		dataPath = PathForFile() + "/Resources/Data/ColorData.txt";
+	}
 
 	// 코인 저장
 	public void SetCoin(int value)
@@ -107,5 +113,27 @@ public class Parser
 		// 뒷배경 아래
 		index = PlayerPrefs.GetInt("BotBackColor");
 		shaderManager.botBackColor = new Color((float)colorLisrR[index], (float)colorLisrG[index], (float)colorLisrB[index]);
+	}
+
+	// 플랫폼 경로 변경
+	public string PathForFile()
+	{
+		string path;
+
+		if (Application.platform == RuntimePlatform.IPhonePlayer)
+		{
+			path = Application.dataPath.Substring(0, Application.dataPath.Length - 5);
+			path = Path.Combine(path, "Documents");
+		}
+		else if (Application.platform == RuntimePlatform.Android)
+		{
+			path = Application.persistentDataPath;
+		}
+		else
+		{
+			path = Application.dataPath;
+		}
+
+		return path;
 	}
 }

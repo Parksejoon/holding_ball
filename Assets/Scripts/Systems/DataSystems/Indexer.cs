@@ -1,17 +1,17 @@
 ﻿using System.IO;
-using System.Collections;
 
 public class Indexer
 {
-	// 일반
-	private Parser	parser;
-	private string	dataPath = "Assets/Resources/Data/ColorIndex.txt";
+	// 일반 변수
+	private Parser	parser;             // 파서
+	private string  dataPath;			// 데이터 경로
 
 
 	// 생성자
 	public Indexer()
 	{
 		parser = new Parser();
+		dataPath = parser.PathForFile() + "/Resources/Data/ColorIndex.txt";
 	}
 
 	// 인덱스 저장
