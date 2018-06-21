@@ -225,6 +225,12 @@ public class UIEffecter : MonoBehaviour
 		while (count > 0)
 		{
 			originColor.a = Mathf.Lerp(goalAlpha, startAlpha, (float)count / originCount);
+
+			if (target == null)
+			{
+				break;
+			}
+
 			target.color = originColor;
 
 			count -= 1;
