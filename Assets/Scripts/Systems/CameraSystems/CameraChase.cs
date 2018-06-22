@@ -25,16 +25,16 @@ public class CameraChase : MonoBehaviour
 	private void FixedUpdate()
 	{
 		temp = new Vector3(Mathf.Lerp(transform.position.x, chaseObject.position.x - fixX, speed),
-			Mathf.Lerp(transform.position.y, chaseObject.position.y - fixY, speed), -10);
+			Mathf.Lerp(transform.position.y, chaseObject.position.y - fixY, speed), UIManager.instance.cameraZpos);
 
 		if (temp.x < limitX && temp.x > -limitX)
 		{
-			transform.position = new Vector3(temp.x, transform.position.y, -10);
+			transform.position = new Vector3(temp.x, transform.position.y, UIManager.instance.cameraZpos);
 		}
 
 		if (temp.y < limitY && temp.y > -limitY)
 		{
-			transform.position = new Vector3(transform.position.x, temp.y, -10);
+			transform.position = new Vector3(transform.position.x, temp.y, UIManager.instance.cameraZpos);
 		}
 	}
 }

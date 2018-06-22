@@ -24,12 +24,12 @@ public class CameraMovement : MonoBehaviour
 
 		if (newPos.x < limitPos.x && newPos.x > -limitPos.x)
 		{
-			camera.transform.position = new Vector3(camera.transform.position.x, newPos.y, -10);
+			camera.transform.position = new Vector3(camera.transform.position.x, newPos.y, UIManager.instance.cameraZpos);
 		}
 			
 		if (newPos.y < limitPos.y && newPos.y > -limitPos.y)
 		{
-			camera.transform.position = new Vector3(newPos.x, camera.transform.position.y, -10);	
+			camera.transform.position = new Vector3(newPos.x, camera.transform.position.y, UIManager.instance.cameraZpos);	
 		}
 	}
 }

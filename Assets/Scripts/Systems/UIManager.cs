@@ -22,7 +22,9 @@ public class UIManager : MonoBehaviour
 	private float			originalTimeScale;      // 원래 타임스케일 값
 
 	[HideInInspector]
-	public Vector2			midPos;					// 중앙 지점
+	public Vector2			midPos;                 // 중앙 지점
+	[HideInInspector]
+	public float			cameraZpos = -110f;		// 카메라 z좌표
 		
 		
 	// 초기화
@@ -33,7 +35,8 @@ public class UIManager : MonoBehaviour
 			instance = this;
 		}
 
-		midPos = new Vector2(Screen.width / 2f, Screen.height / 2f);
+		//midPos = new Vector2(Screen.width / 2f, Screen.height / 2f);
+		midPos = Vector2.zero;
 	}
 
 	// 시작 초기화
