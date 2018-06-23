@@ -35,12 +35,12 @@ public class ThirdBack : MonoBehaviour
 	{
 		if (position < 0)
 		{
-			return position - 25;
+			return position - 15;
 		}
 
 		if (position >= 0)
 		{
-			return position + 25;
+			return position + 15;
 		}
 
 		return 100f;
