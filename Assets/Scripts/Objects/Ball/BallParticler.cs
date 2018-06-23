@@ -18,6 +18,13 @@ public class BallParticler : MonoBehaviour
 	// 파티클 온
 	public void SetParticle(bool enabled)
 	{
-		ballParticle.loop = enabled;
+		if (enabled)
+		{
+			ballParticle.Play();
+		}
+		else
+		{
+			ballParticle.Stop();
+		}
 	}
 }
