@@ -295,8 +295,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Objects\Ball\Ball.cs" />
-    <Compile Include="Assets\Scripts\Objects\Ball\BallCircle.cs" />
     <Compile Include="Assets\Scripts\Objects\Ball\BallParticler.cs" />
+    <Compile Include="Assets\Scripts\Objects\Ball\ParticleRotation.cs" />
     <Compile Include="Assets\Scripts\Objects\Ball\ShotLine.cs" />
     <Compile Include="Assets\Scripts\Objects\Ball\ShotLineCollider.cs" />
     <Compile Include="Assets\Scripts\Objects\Peripheral\Coin.cs" />
