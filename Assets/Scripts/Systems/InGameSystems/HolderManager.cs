@@ -63,34 +63,30 @@ public class HolderManager : MonoBehaviour
 	// 프레임
 	public void Update()
 	{
-		// 볼이 홀딩상태 또는 바인딩상태가 아닐때만 시간을 측정
-		if (Ball.instance.bindedHolder == null)
+		// 카운트중인지 확인 후 카운트 진행
+		if (isPasting)
 		{
-			// 카운트중인지 확인 후 카운트 진행
-			if (isPasting)
+			pastTime += Time.deltaTime;
+
+			// 홀더를 생성
+			if (pastTime >= goalTime)
 			{
-				pastTime += Time.deltaTime;
+				// 랜덤 패턴으로 생성 시작
+				RandomPattern();
 
-				// 홀더를 생성
-				if (pastTime >= goalTime)
-				{
-					// 랜덤 패턴으로 생성 시작
-					RandomPattern();
-
-					// 카운트 종료
-					isPasting = false;
-				}
+				// 카운트 종료
+				isPasting = false;
 			}
-			// 아니라면 카운트 시작
-			else
-			{
-				// 카운트 초기화
-				pastTime = 0;
-				goalTime = UnityEngine.Random.Range(minRespawnTime, maxRespawnTime);
+		}
+		// 아니라면 카운트 시작
+		else
+		{
+			// 카운트 초기화
+			pastTime = 0;
+			goalTime = UnityEngine.Random.Range(minRespawnTime, maxRespawnTime);
 
-				// 카운트 시작
-				isPasting = true;
-			}
+			// 카운트 시작
+			isPasting = true;
 		}
 	}
 

@@ -310,8 +310,6 @@
     <Compile Include="Assets\Scripts\Particle\SelfDestroy.cs" />
     <Compile Include="Assets\Scripts\Sprite\Background\SecondBack.cs" />
     <Compile Include="Assets\Scripts\Sprite\Background\SecondBackList.cs" />
-    <Compile Include="Assets\Scripts\Sprite\Background\ThirdBack.cs" />
-    <Compile Include="Assets\Scripts\Sprite\Background\ThirdBackList.cs" />
     <Compile Include="Assets\Scripts\Sprite\MatColorFinder.cs" />
     <Compile Include="Assets\Scripts\Sprite\ShotLineAfterEffect.cs" />
     <Compile Include="Assets\Scripts\Systems\CameraSystems\CameraChase.cs" />

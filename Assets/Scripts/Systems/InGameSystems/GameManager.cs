@@ -174,16 +174,6 @@ public class GameManager : MonoBehaviour
 		WallManager.instance.InitWalls();
 	}
 
-	// 홀더 체크
-	public void HolderCheck(GameObject target)
-	{
-		if (Ball.instance.bindedHolder == target)
-		{
-			// 언홀딩
-			Ball.instance.UnbindingHolder();
-		}
-	}
-
 	// 게임 오버
 	public void GameOver()
 	{
