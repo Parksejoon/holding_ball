@@ -23,6 +23,8 @@ public class Ball : MonoBehaviour
 	// 인스펙터 비노출 변수
 	// 일반
 	[HideInInspector]
+	public  GameObject			bindedHolder;           // 볼이 바인딩되어있는 홀더
+	[HideInInspector]
 	public	bool				canDouble = true;       // 더블 샷 가능?
 
 	private GameObject			targetHolder;			// 현재 타겟이된 홀더
@@ -33,8 +35,6 @@ public class Ball : MonoBehaviour
 	// 수치
 	[HideInInspector]
 	public  bool				isHolding;              // 홀딩 상태를 나타냄
-
-	private bool				canHolding;				// 공이 홀딩 가능한지
 
 
 	// 초기화
@@ -49,8 +49,6 @@ public class Ball : MonoBehaviour
 		ballInvObj			= transform.parent.gameObject;
 
 		isHolding = false;
-
-		canHolding = true;
 	}
 
 	// 시작
@@ -62,6 +60,12 @@ public class Ball : MonoBehaviour
 	// 트리거 진입
 	private void OnTriggerEnter2D(Collider2D other)
 	{
+		// 홀더일경우 홀더에 바인딩함
+		if (bindedHolder == null && (other.gameObject.CompareTag("Holder")))
+		{
+			BindingHolder(other.gameObject);
+		}
+
 		// 강화 홀더일 경우 파괴하고 점수증가
 		if (other.gameObject.CompareTag("PowerHolder"))
 		{
@@ -102,6 +106,16 @@ public class Ball : MonoBehaviour
 		}
 	}
 
+	// 트리거 탈출
+	private void OnTriggerExit2D(Collider2D other)
+	{
+		// 현재 바인딩중인 홀더일경우 바인딩을 해제함
+		if (bindedHolder == other.gameObject && (other.gameObject.CompareTag("Holder")))
+		{
+			UnbindingHolder();
+		}
+	}
+
 	// 홀더에 언바인딩
 	public void UnbindingHolder()
 	{
@@ -113,22 +127,23 @@ public class Ball : MonoBehaviour
 
 		// 시간 제어
 		Time.timeScale = 1f;
+
+		// 바인딩 홀더를 초기화
+		bindedHolder = null;
 	}
 
 	// 홀더에 홀딩
-	public void HoldingHolder()
+	public bool HoldingHolder()
 	{
-		if (canHolding)
+		// 홀딩 성공
+		if (bindedHolder != null)
 		{
-			// 홀딩 쿨다운
-			StartCoroutine(HoldingCooldown());
-
 			// 시간 제어
 			Time.timeScale = 0.5f;
 
 			// 속도 제어
-			rigidbody2d.velocity = Vector3.Normalize(transform.position) * GameManager.instance.shotPower * 5;
-
+			rigidbody2d.velocity = bindedHolder.GetComponent<Rigidbody2D>().velocity;
+			
 			// 홀딩 상태로 전환
 			isHolding = true;
 
@@ -137,8 +152,15 @@ public class Ball : MonoBehaviour
 
 			// 슛라인 생성
 			CreateShotLine();
+            
+			return true;
+		}
+		// 홀딩 실패	
+		else
+		{
+			Penalty();
 
-			return;
+			return false;
 		}
 	}
 
@@ -147,15 +169,26 @@ public class Ball : MonoBehaviour
 	{
 		// 홀더에서 탈출
 		isHolding = false;
-		
+
+		// 홀더만 따로 파괴된 경우
+		if (bindedHolder == null)
+		{
+			Destroy(shotLine.gameObject);
+
+			Penalty();
+		}
 		// 슛라인만 따로 파괴된 경우
-		if (shotLine == null)
+		else if (shotLine == null)
 		{
 			Penalty();
 		}
 		// 정상 작동
 		else
 		{
+			// 홀더 파괴
+			bindedHolder.GetComponent<Holder>().DestroyParticle();
+			Destroy(bindedHolder.gameObject);
+
 			// 캐치 했는지 판정
 			targetHolder = shotLine.GetComponent<ShotLine>().Judgment();
 
@@ -231,6 +264,7 @@ public class Ball : MonoBehaviour
 		Instantiate(destroyParticle, transform.position, Quaternion.identity);
 
 		// 시각화 해제
+		//transform.GetChild(0).gameObject.SetActive(false);
 		ballParticler.SetParticle(false);
 	}
 
@@ -244,9 +278,17 @@ public class Ball : MonoBehaviour
 		GetComponent<CircleCollider2D>().enabled = true;
 
 		// 시각화
+		//transform.GetChild(0).gameObject.SetActive(true);
 		ballParticler.SetParticle(true);
 	}
-	
+
+	// 홀더에 바인딩
+	private void BindingHolder(GameObject holder)
+	{
+		// 바인딩 홀더를 설정
+		bindedHolder = holder;
+	}
+
 	// 슛라인 생성
 	private void CreateShotLine()
 	{
@@ -272,15 +314,5 @@ public class Ball : MonoBehaviour
 		yield return new WaitForSeconds(0.5f);
 		
 		ballInvObj.layer = 9;
-	}
-	
-	// 차지 재사용 쿨타임
-	private IEnumerator HoldingCooldown()
-	{
-		canHolding = false;
-
-		yield return new WaitForSeconds(1f);
-
-		canHolding = true;
 	}
 }
