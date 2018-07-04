@@ -46,7 +46,7 @@ public class WallManager : MonoBehaviour
 	// 프레임
 	private void Update()
 	{
-		wallsTransform.Rotate(Vector3.forward * rotationSpeed * GameManager.instance.timeValue);
+		wallsTransform.Rotate(Vector3.forward * rotationSpeed * GameManager.instance.timeValue * Time.deltaTime);
 	}
 
 	// 벽 초기화

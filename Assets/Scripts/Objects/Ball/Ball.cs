@@ -125,9 +125,6 @@ public class Ball : MonoBehaviour
 			UnholdingHolder();
 		}
 
-		// 시간 제어
-		Time.timeScale = 1f;
-
 		// 바인딩 홀더를 초기화
 		bindedHolder = null;
 	}
@@ -138,9 +135,6 @@ public class Ball : MonoBehaviour
 		// 홀딩 성공
 		if (bindedHolder != null)
 		{
-			// 시간 제어
-			Time.timeScale = 0.5f;
-
 			// 속도 제어
 			rigidbody2d.velocity = bindedHolder.GetComponent<Rigidbody2D>().velocity;
 			
@@ -152,7 +146,10 @@ public class Ball : MonoBehaviour
 
 			// 슛라인 생성
 			CreateShotLine();
-            
+
+			// 시간 제어
+			Time.timeScale = 0.3f;
+
 			return true;
 		}
 		// 홀딩 실패	
@@ -186,8 +183,8 @@ public class Ball : MonoBehaviour
 		else
 		{
 			// 홀더 파괴
-			bindedHolder.GetComponent<Holder>().DestroyParticle();
-			Destroy(bindedHolder.gameObject);
+			//bindedHolder.GetComponent<Holder>().DestroyParticle();
+			//Destroy(bindedHolder.gameObject);
 
 			// 캐치 했는지 판정
 			targetHolder = shotLine.GetComponent<ShotLine>().Judgment();
@@ -202,13 +199,15 @@ public class Ball : MonoBehaviour
 			if (targetHolder != null)
 			{
 				// 날아갈 벡터의 방향
-				Vector3 shotVector = (targetHolder.transform.position - transform.position);
+				Vector3 shotVector = (targetHolder.transform.position - transform.position) * 100;
 				
 				// 날아갈 파워 설정
 				shotVector = Vector3.Normalize(shotVector);
 
 				// 가즈아
-				rigidbody2d.AddForce(shotVector * GameManager.instance.shotPower * 750f);
+				rigidbody2d.AddForce(shotVector * GameManager.instance.shotPower * 1666f);
+
+				StartCoroutine(EnableDrag());
 			}
 			// 캐치 실패
 			else
@@ -219,6 +218,9 @@ public class Ball : MonoBehaviour
 
 		// 공 원래상태로 변화
 		ballInvObj.layer = 9;
+
+		// 시간 제어
+		Time.timeScale = 1f;
 	}
 
 	// 더블 샷
@@ -314,5 +316,14 @@ public class Ball : MonoBehaviour
 		yield return new WaitForSeconds(0.5f);
 		
 		ballInvObj.layer = 9;
+	}
+
+	// 잠시동안 선형 저항 강화
+	private IEnumerator EnableDrag()
+	{
+		yield return new WaitForSeconds(0.1f);
+
+		rigidbody2d.velocity *= 0.45f;
+			
 	}
 }
