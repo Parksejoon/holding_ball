@@ -11,6 +11,6 @@ public class ParticleRotation : MonoBehaviour
 	// 프레임
 	private void FixedUpdate()
 	{
-		transform.Rotate(Vector3.forward * speed);
+		transform.Rotate(Vector3.forward * speed * Random.Range(0.7f, 1f));
 	}
 }

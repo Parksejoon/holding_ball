@@ -53,45 +53,39 @@ public class UIEffecter : MonoBehaviour
     // UI 페이드 효과
     public void FadeEffect(GameObject target, Vector2 goalVal, float time, FadeFlag optionFlag)
     {
-		try
+		// 위치 변경 페이드
+		if ((optionFlag & FadeFlag.POSITION) == FadeFlag.POSITION)
 		{
-			// 위치 변경 페이드
-			if ((optionFlag & FadeFlag.POSITION) == FadeFlag.POSITION)
-			{
-				StartCoroutine(FadePosition(target.GetComponent<RectTransform>(), goalVal, time));
-			}
+			StartCoroutine(FadePosition(target.GetComponent<RectTransform>(), goalVal, time));
+		}
 
-			// 크기 변경 페이드
-			if ((optionFlag & FadeFlag.SCALE) == FadeFlag.SCALE)
-			{
-				StartCoroutine(FadeScale(target.GetComponent<RectTransform>(), goalVal, time));
-			}
+		// 크기 변경 페이드
+		if ((optionFlag & FadeFlag.SCALE) == FadeFlag.SCALE)
+		{
+			StartCoroutine(FadeScale(target.GetComponent<RectTransform>(), goalVal, time));
+		}
 
-			// 알파 변경 페이드
-			if ((optionFlag & FadeFlag.ALPHA) == FadeFlag.ALPHA)
+		// 알파 변경 페이드
+		if ((optionFlag & FadeFlag.ALPHA) == FadeFlag.ALPHA)
+		{
+			if (target.GetComponent<Image>() != null)
 			{
-				if (target.GetComponent<Image>() != null)
-				{
-					StartCoroutine(FadeAlpha(target.GetComponent<Image>(), goalVal.x, time));
-				}
-				else if (target.GetComponent<Text>() != null)
-				{
-					StartCoroutine(FadeAlpha(target.GetComponent<Text>(), goalVal.x, time));
-				}
-				else
-				{
-					StartCoroutine(FadeAlpha(target.GetComponent<SpriteRenderer>(), goalVal.x, time));
-				}
+				StartCoroutine(FadeAlpha(target.GetComponent<Image>(), goalVal.x, time));
 			}
-
-			// 각도 변경 페이드
-			if ((optionFlag & FadeFlag.ANGLE) == FadeFlag.ANGLE)
+			else if (target.GetComponent<Text>() != null)
 			{
-				StartCoroutine(FadeAngle(target.GetComponent<RectTransform>(), goalVal, time));
+				StartCoroutine(FadeAlpha(target.GetComponent<Text>(), goalVal.x, time));
+			}
+			else
+			{
+				StartCoroutine(FadeAlpha(target.GetComponent<SpriteRenderer>(), goalVal.x, time));
 			}
 		}
-		catch
+
+		// 각도 변경 페이드
+		if ((optionFlag & FadeFlag.ANGLE) == FadeFlag.ANGLE)
 		{
+			StartCoroutine(FadeAngle(target.GetComponent<RectTransform>(), goalVal, time));
 		}
             
         // 종료 후 enable 설정
@@ -122,13 +116,21 @@ public class UIEffecter : MonoBehaviour
        
         while (count > 0)
         {
-            target.position = Vector2.Lerp(goalPos, startPos, (float)count / originCount);
+			if (target == null)
+			{
+				break;
+			}
+
+			target.position = Vector2.Lerp(goalPos, startPos, (float)count / originCount);
             
             count -= 1;
             yield return new WaitForSeconds(fadeGap);
         }
 
-        target.position = goalPos;
+		if (target != null)
+		{
+			target.position = goalPos;
+		}
     }
     
     // 크기 페이드
@@ -140,16 +142,24 @@ public class UIEffecter : MonoBehaviour
         
         
         while (count > 0)
-        {
-            target.localScale = Vector2.Lerp(goalScale, originScale, (float)count / originCount);
+		{
+			if (target == null)
+			{
+				break;
+			}
+
+			target.localScale = Vector2.Lerp(goalScale, originScale, (float)count / originCount);
             
             count -= 1;
             yield return new WaitForSeconds(fadeGap);
         }
-        
-        target.localScale = goalScale;
-    }
-    
+
+		if (target != null)
+		{
+			target.localScale = goalScale;
+		}
+	}
+
 	// 회전 페이드
 	private IEnumerator FadeAngle(RectTransform target, Vector2 goalAngle, float time)
 	{
@@ -161,59 +171,85 @@ public class UIEffecter : MonoBehaviour
 
 		while (count > 0)
 		{
+			if (target == null)
+			{
+				break;
+			}
+
 			target.localRotation = Quaternion.Lerp(goalAngleQuat, originAngle, (float)count / originCount);
 
 			count -= 1;
 			yield return new WaitForSeconds(fadeGap);
 		}
 
-		target.localRotation = goalAngleQuat;
+		if (target != null)
+		{
+			target.localRotation = goalAngleQuat;
+		}
 	}
 
-    // 알파 페이드 ( 이미지 )
-    private IEnumerator FadeAlpha(Image target, float goalAlpha, float time)
-    {
+	// 알파 페이드 ( 이미지 )
+	private IEnumerator FadeAlpha(Image target, float goalAlpha, float time)
+	{
 
-        Color originColor = target.color;
-        float startAlpha  = target.color.a;
-        int   count       = (int)(time / fadeGap);
-        int   originCount = count;      
-        
-        while (count > 0)
-        {
-            originColor.a = Mathf.Lerp(goalAlpha, startAlpha, (float)count / originCount);
-            target.color  = originColor;
-            
-            count -= 1;
-            yield return new WaitForSeconds(fadeGap);
-        }
+		Color originColor = target.color;
+		float startAlpha = target.color.a;
+		int count = (int)(time / fadeGap);
+		int originCount = count;
 
-        originColor.a = goalAlpha;
-        target.color = originColor;
-    }
-    
-    // 알파 페이드 ( 텍스트 )
-    private IEnumerator FadeAlpha(Text target, float goalAlpha, float time)
-    {
+		while (count > 0)
+		{
+			if (target == null)
+			{
+				break;
+			}
 
-        Color originColor = target.color;
-        float startAlpha  = target.color.a;
-        int   count       = (int)(time / fadeGap);
-        int   originCount = count;
-        
-        while (count > 0)
-        {
-            originColor.a = Mathf.Lerp(goalAlpha, startAlpha, (float)count / originCount);
-            target.color  = originColor;
-                   
-            count -= 1;
-            yield return new WaitForSeconds(fadeGap);
-        }
-        
-        originColor.a = goalAlpha;
-        target.color = originColor;
+			originColor.a = Mathf.Lerp(goalAlpha, startAlpha, (float)count / originCount);
+			target.color = originColor;
+
+			count -= 1;
+			yield return new WaitForSeconds(fadeGap);
+		}
+
+		originColor.a = goalAlpha;
+
+		if (target != null)
+		{
+			target.color = originColor;
+		}
 	}
-	
+
+	// 알파 페이드 ( 텍스트 )
+	private IEnumerator FadeAlpha(Text target, float goalAlpha, float time)
+	{
+
+		Color originColor = target.color;
+		float startAlpha = target.color.a;
+		int count = (int)(time / fadeGap);
+		int originCount = count;
+
+		while (count > 0)
+		{
+			if (target == null)
+			{
+				break;
+			}
+
+			originColor.a = Mathf.Lerp(goalAlpha, startAlpha, (float)count / originCount);
+			target.color = originColor;
+
+			count -= 1;
+			yield return new WaitForSeconds(fadeGap);
+		}
+
+		originColor.a = goalAlpha;
+
+		if (target != null)
+		{
+			target.color = originColor;
+		}
+	}
+
 	// 알파 페이드 ( 스프라이트 )
 	private IEnumerator FadeAlpha(SpriteRenderer target, float goalAlpha, float time)
 	{
@@ -224,13 +260,12 @@ public class UIEffecter : MonoBehaviour
 
 		while (count > 0)
 		{
-			originColor.a = Mathf.Lerp(goalAlpha, startAlpha, (float)count / originCount);
-
 			if (target == null)
 			{
 				break;
 			}
 
+			originColor.a = Mathf.Lerp(goalAlpha, startAlpha, (float)count / originCount);
 			target.color = originColor;
 
 			count -= 1;
@@ -238,7 +273,11 @@ public class UIEffecter : MonoBehaviour
 		}
 
 		originColor.a = goalAlpha;
-		target.color = originColor;
+
+		if (target != null)
+		{
+			target.color = originColor;
+		}
 	}
 
 	// 페이드 종료 후 disalbe or destroy

@@ -266,7 +266,7 @@ public class Ball : MonoBehaviour
 		Instantiate(destroyParticle, transform.position, Quaternion.identity);
 
 		// 시각화 해제
-		//transform.GetChild(0).gameObject.SetActive(false);
+		transform.GetChild(0).gameObject.SetActive(false);
 		ballParticler.SetParticle(false);
 	}
 
@@ -280,7 +280,7 @@ public class Ball : MonoBehaviour
 		GetComponent<CircleCollider2D>().enabled = true;
 
 		// 시각화
-		//transform.GetChild(0).gameObject.SetActive(true);
+		transform.GetChild(0).gameObject.SetActive(true);
 		ballParticler.SetParticle(true);
 	}
 

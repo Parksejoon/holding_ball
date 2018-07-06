@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-	public Material met;
-	
-
-	private void Start()
+	public void SDF()
 	{
-		met.color = Color.HSVToRGB(0.5f, 0.5f, 1);
+		Debug.Log("SDF");
 	}
 }
