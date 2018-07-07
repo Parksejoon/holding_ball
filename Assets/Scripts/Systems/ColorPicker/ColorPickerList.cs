@@ -5,7 +5,7 @@ public class ColorPickerList : MonoBehaviour, IPointerClickHandler
 {
 	// 인스펙터 비노출 변수
 	// 일반
-	private ColorPicker[]	colorPickerArray;			// 컬러 피커 배열
+	private ColorPicker[]	colorPickerArray;           // 컬러 피커 배열
 
 	// 수치
 	private bool			isEnalbed = false;			// 현재 활성화 상태인지
@@ -14,7 +14,7 @@ public class ColorPickerList : MonoBehaviour, IPointerClickHandler
 	// 초기화
 	private void Awake()
 	{
-		colorPickerArray = GetComponentsInChildren<ColorPicker>();
+		colorPickerArray	= GetComponentsInChildren<ColorPicker>();
 	}
 
 	// 클릭시

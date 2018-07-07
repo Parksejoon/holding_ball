@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Parser
 {
+	public static Parser instance;								// 싱글톤 인스턴스
+
 	// 일반 변수
 	private string		dataPath;								// 데이터 경로
 
@@ -15,6 +17,11 @@ public class Parser
 	// 생성자
 	public Parser()
 	{
+		if (instance == null)
+		{
+			instance = this;
+		}
+
 		dataPath = "Assets/Resources/Data/ColorData.txt";
 		
 		// 색 데이터 파싱

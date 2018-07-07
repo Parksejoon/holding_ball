@@ -1,12 +1,26 @@
 ﻿using System.Collections;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class ColorPicker : MonoBehaviour, IPointerClickHandler
 {
 	// 인스펙터 노출 변수
-	private int		index;       // 몇 번째 피커인지
+	// 수치
+	public  int		index;			// 몇 번째 피커인지
 
+	// 인스펙터 비노출 변수
+	// 일반
+	private Image	image;			// 이 피커의 이미지
+
+
+	// 초기화
+	private void Awake()
+	{
+		image = GetComponent<Image>();
+
+		image.color = Parser.instance.GetColor(index);
+	}
 
 	// 활성화
 	public void SetOn()
