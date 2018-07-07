@@ -28,6 +28,8 @@ public class ColorPickerList : MonoBehaviour, IPointerClickHandler
 		{
 			OnColorPicker();
 		}
+
+		isEnalbed = !isEnalbed;
 	}
 
 	// 컬러피커 온

@@ -19,7 +19,10 @@ public class ColorPicker : MonoBehaviour, IPointerClickHandler
 	{
 		image = GetComponent<Image>();
 
-		image.color = Parser.instance.GetColor(index);
+		Color setColor = Parser.instance.GetColor(index);
+
+		setColor.a = 0;
+		image.color = setColor;
 	}
 
 	// 활성화
@@ -43,7 +46,8 @@ public class ColorPicker : MonoBehaviour, IPointerClickHandler
 	// 오프 애니메이션
 	private void OffAnimation()
 	{
-		Debug.Log(gameObject.name);
+		UIEffecter.instance.FadeEffect(gameObject, Vector2.zero, 0.2f, UIEffecter.FadeFlag.ALPHA);
+		image.raycastTarget = false;
 	}
 
 	// 온 애니메이션
@@ -51,6 +55,7 @@ public class ColorPicker : MonoBehaviour, IPointerClickHandler
 	{
 		yield return new WaitForSeconds(0.1f * index);
 
-		Debug.Log(gameObject.name);
+		UIEffecter.instance.FadeEffect(gameObject, Vector2.one, 0.2f, UIEffecter.FadeFlag.ALPHA);
+		image.raycastTarget = true;
 	}
 }
