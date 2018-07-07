@@ -5,49 +5,33 @@ using UnityEngine;
 public class Parser
 {
 	// 일반 변수
-	private string dataPath;				// 데이터 경로
+	private string		dataPath;								// 데이터 경로
+
+	private ArrayList	colorListR = new ArrayList();			// RGB값들 리스트
+	private ArrayList	colorListG = new ArrayList();
+	private ArrayList	colorListB = new ArrayList();
 
 
 	// 생성자
 	public Parser()
 	{
-		dataPath = PathForFile() + "/Resources/Data/ColorData.txt";
-	}
+		dataPath = "Assets/Resources/Data/ColorData.txt";
+		
+		// 색 데이터 파싱
+		FileStream	 fs = new FileStream(dataPath, FileMode.Open);
+		StreamReader sr = new StreamReader(fs);
 
-	// 코인 저장
-	public void SetCoin(int value)
-	{
-		PlayerPrefs.SetInt("Coin", value);
-	}
+		string source = sr.ReadLine();
+		while (source != null)
+		{
+			string[] result = source.Split();
 
-	// 코인 불러오기
-	public int GetCoin()
-	{
-		return PlayerPrefs.GetInt("Coin", 0);
-	}
+			colorListR.Add(float.Parse(result[0]) / 255f);
+			colorListG.Add(float.Parse(result[1]) / 255f);
+			colorListB.Add(float.Parse(result[2]) / 255f);
 
-	// 최근점수 저장
-	public void SetLastScore(int value)
-	{
-		PlayerPrefs.SetInt("LastScore", value);
-	}
-	
-	// 최근점수 불러오기
-	public int GetLastScore()
-	{
-		return PlayerPrefs.GetInt("LastScore", 0);
-	}
-
-	// 최고점수 저장
-	public void SetBestScore(int value)
-	{
-		PlayerPrefs.SetInt("BestScore", value);
-	}
-
-	// 최고점수 불러오기
-	public int GetBestScore()
-	{
-		return PlayerPrefs.GetInt("BestScore", 0);
+			source = sr.ReadLine();
+		}
 	}
 
 	// 초기화
@@ -56,84 +40,9 @@ public class Parser
 		PlayerPrefs.DeleteAll();
 	}
 
-	// 컬러 인덱스를 저장
-	public void SetColorIndex(int ball, int sub, int warWall, int topBack, int botBack)
+	// 색 가져오기
+	public Color GetColor(int index)
 	{
-		PlayerPrefs.SetInt("BallColor", ball);
-		PlayerPrefs.SetInt("SubColor", sub);
-		PlayerPrefs.SetInt("WarWallColor", warWall);
-		PlayerPrefs.SetInt("TopBackColor", topBack);
-		PlayerPrefs.SetInt("BotBackColor", botBack);
-	}
-
-	// 컬러 불러오기
-	public void GetColor(ShaderManager shaderManager)
-	{
-		// 데이터 파싱
-		FileStream   fs = new FileStream(dataPath, FileMode.Open);
-		StreamReader sr = new StreamReader(fs);
-		ArrayList	 colorLisrR = new ArrayList();
-		ArrayList	 colorLisrG = new ArrayList();
-		ArrayList	 colorLisrB = new ArrayList();
-
-		string source = sr.ReadLine();	
-		while (source != null)
-		{
-			string[] result = source.Split();
-
-			colorLisrR.Add(float.Parse(result[0]) / 255f);
-			colorLisrG.Add(float.Parse(result[1]) / 255f);
-			colorLisrB.Add(float.Parse(result[2]) / 255f);
-
-			source = sr.ReadLine();
-		}
-
-		int index;
-
-		// 베이스
-		index = PlayerPrefs.GetInt("BallColor");
-		shaderManager.baseColor = new Color((float)colorLisrR[index], (float)colorLisrG[index], (float)colorLisrB[index]);
-
-
-		// 서브
-		index = PlayerPrefs.GetInt("SubColor");
-		shaderManager.subColor = new Color((float)colorLisrR[index], (float)colorLisrG[index], (float)colorLisrB[index]);
-
-
-		// 위험 벽
-		index = PlayerPrefs.GetInt("WarWallColor");
-		shaderManager.warWallColor = new Color((float)colorLisrR[index], (float)colorLisrG[index], (float)colorLisrB[index]);
-
-
-		// 뒷배경 위
-		index = PlayerPrefs.GetInt("TopBackColor");
-		shaderManager.topBackColor = new Color((float)colorLisrR[index], (float)colorLisrG[index], (float)colorLisrB[index]);
-
-
-		// 뒷배경 아래
-		index = PlayerPrefs.GetInt("BotBackColor");
-		shaderManager.botBackColor = new Color((float)colorLisrR[index], (float)colorLisrG[index], (float)colorLisrB[index]);
-	}
-
-	// 플랫폼 경로 변경
-	public string PathForFile()
-	{
-		string path;
-
-		if (Application.platform == RuntimePlatform.IPhonePlayer)
-		{
-			path = Application.dataPath.Substring(0, Application.dataPath.Length - 5);
-			path = Path.Combine(path, "Documents");
-		}
-		else if (Application.platform == RuntimePlatform.Android)
-		{
-			path = Application.persistentDataPath;
-		}
-		else
-		{
-			path = Application.dataPath;
-		}
-
-		return path;
+		return new Color((float)colorListR[index], (float)colorListG[index], (float)colorListB[index]);
 	}
 }

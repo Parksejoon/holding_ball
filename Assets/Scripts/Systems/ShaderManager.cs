@@ -60,7 +60,7 @@ public class ShaderManager : MonoBehaviour
 	// 시작
 	private void Start()
 	{
-		parser.GetColor(this);
+		LoadColor();
 
 		InitializeColor();
 		SetColor();
@@ -81,6 +81,32 @@ public class ShaderManager : MonoBehaviour
 
 		Color.RGBToHSV(botBackColor, out backH, out temp, out temp);
 		themeColor[2] = backH;
+	}
+
+	// 컬러 불러오기
+	public void LoadColor()
+	{
+		int index;
+
+		// 베이스
+		index = PlayerPrefs.GetInt("BallColor");
+		baseColor = parser.GetColor(index);
+		
+		// 서브
+		index = PlayerPrefs.GetInt("SubColor");
+		subColor = parser.GetColor(index);
+		
+		// 위험 벽
+		index = PlayerPrefs.GetInt("WarWallColor");
+		warWallColor = parser.GetColor(index);
+		
+		// 뒷배경 위
+		index = PlayerPrefs.GetInt("TopBackColor");
+		topBackColor = parser.GetColor(index);
+		
+		// 뒷배경 아래
+		index = PlayerPrefs.GetInt("BotBackColor");
+		botBackColor = parser.GetColor(index);
 	}
 
 	// 색 설정

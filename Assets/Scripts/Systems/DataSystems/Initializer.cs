@@ -2,17 +2,6 @@
 
 public class Initializer : MonoBehaviour
 {
-	// 인스펙터 비노출 변수
-	// 일반
-	private Parser			parser;                     // 파서
-
-
-	// 초기화
-	private void Awake()
-	{
-		parser		= new Parser();
-	}
-
 	// 시작
 	private void Start()
 	{
@@ -22,8 +11,8 @@ public class Initializer : MonoBehaviour
 	// 초기화
 	private void Initialize()
 	{
-		int coin 	  = parser.GetCoin();
-		int bestScore = parser.GetBestScore();
+		int coin	  = PlayerPrefs.GetInt("Coin", 0);
+		int bestScore = PlayerPrefs.GetInt("BestScore", 0);
 		
 		GameManager.instance.Initialize(coin, bestScore);
 		UIEffecter.instance.SetText(1, coin.ToString());

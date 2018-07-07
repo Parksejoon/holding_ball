@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour
 	// 일반
 	private Touch			touch;                      // 터치 구조체
 	private CameraEffect	cameraEffect;               // 카메라 이펙트
-	private Parser			parser;						// 데이터 파서
 
 	// 수치
 	[HideInInspector]
@@ -48,7 +47,6 @@ public class GameManager : MonoBehaviour
 		}
 			
 		cameraEffect	= GameObject.Find("Main Camera").GetComponent<CameraEffect>();
-		parser			= new Parser();
 
 		isTouch		    = false;
 		previousIsTouch = false;
@@ -164,7 +162,7 @@ public class GameManager : MonoBehaviour
 		coin += upCoin;
 		UIEffecter.instance.SetText(1, coin.ToString());
 
-		parser.SetCoin(coin);
+		PlayerPrefs.SetInt("Coin", coin);
 	}
 
 	// 벽 파괴
@@ -236,10 +234,9 @@ public class GameManager : MonoBehaviour
 		else
 		{
 			// 데이터 저장
-			parser.SetCoin(coin);
-			parser.SetLastScore(score);
-			parser.SetBestScore(Mathf.Max(score, bestScore));
-
+			PlayerPrefs.SetInt("Coin", coin);
+			PlayerPrefs.SetInt("LastScore", score);
+			PlayerPrefs.SetInt("BestScore", Mathf.Max(score, bestScore));
 			PlayerPrefs.Save();
 
 			// 종료처리
