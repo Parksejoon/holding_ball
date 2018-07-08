@@ -4,8 +4,6 @@ public class ShaderManager : MonoBehaviour
 {
 	public static ShaderManager instance;
 	
-	static public float[] themeColor;           // 테마 컬러들
-
 	// 인스펙터 노출 변수
 	// 수치
 	public	Color		particleAdditive;       // 파티클 농도
@@ -52,35 +50,13 @@ public class ShaderManager : MonoBehaviour
 			instance = this;
 		}
 
-		themeColor = new float[3];
-
-		parser = new Parser();
+		parser		= new Parser();
 	}
 
 	// 시작
 	private void Start()
 	{
-		LoadColor();
-
-		InitializeColor();
-		SetColor();
-	}
-
-	// 색 초기화
-	private void InitializeColor()
-	{
-		// BASE SIDE BACK순서
-		float temp;
-		float baseH, subH, backH;
-
-		Color.RGBToHSV(baseColor, out baseH, out temp, out temp);
-		themeColor[0] = baseH;
-
-		Color.RGBToHSV(subColor, out subH, out temp, out temp);
-		themeColor[1] = subH;
-
-		Color.RGBToHSV(botBackColor, out backH, out temp, out temp);
-		themeColor[2] = backH;
+		RefreshColor();
 	}
 
 	// 컬러 불러오기
@@ -116,11 +92,13 @@ public class ShaderManager : MonoBehaviour
 		foreach (Material material in baseMat)
 		{
 			material.SetColor("_Color", baseColor);
+			material.SetColor("_TintColor", baseColor - particleAdditive);
 		}
 
 		foreach (Material material in varBaseMat)
 		{
 			material.SetColor("_Color", baseColor);
+			material.SetColor("_TintColor", baseColor - particleAdditive);
 		}
 
 		// sub
@@ -157,5 +135,12 @@ public class ShaderManager : MonoBehaviour
 			varBaseMat[i].SetColor("_Color", color);
 			varBaseMat[i].SetColor("_TintColor", color - particleAdditive);
 		}
+	}
+
+	// 색 갱신
+	public void RefreshColor()
+	{
+		LoadColor();
+		SetColor();
 	}
 }
