@@ -32,13 +32,13 @@ public class ColorPickerList : MonoBehaviour, IPointerClickHandler
 		{
 			OnColorPicker();
 		}
-
-		isEnalbed = !isEnalbed;
 	}
 
 	// 컬러피커 온
 	private void OnColorPicker()
 	{
+		isEnalbed = true;
+
 		foreach (ColorPicker colorPicker in colorPickerArray)
 		{
 			colorPicker.SetOn();
@@ -48,6 +48,8 @@ public class ColorPickerList : MonoBehaviour, IPointerClickHandler
 	// 컬러피커 오프
 	public void OffColorPicker()
 	{
+		isEnalbed = false;
+
 		foreach (ColorPicker colorPicker in colorPickerArray)
 		{
 			colorPicker.SetOff();

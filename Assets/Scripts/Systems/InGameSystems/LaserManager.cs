@@ -52,12 +52,12 @@ public class LaserManager : MonoBehaviour
 
 			for (int i = 0; i < amountPerShot; i++)
 			{
-				CreateLaser(Mathf.Min(GameManager.instance.level / 4f, 3.5f));
+				CreateLaser(Mathf.Min(GameManager.instance.level / 4f, 2f));
 				
 				yield return new WaitForSeconds(0.2f);
 			}
 
-			amountPerShot = (GameManager.instance.level / 3) + 1;
+			amountPerShot = Mathf.Min((GameManager.instance.level / 3) + 1, 4);
 		}
 	}
 }

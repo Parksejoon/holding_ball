@@ -22,7 +22,7 @@ public class ShotLineAfterEffect : MonoBehaviour
 	// 시작
 	private void Start()
 	{
-		StartCoroutine(FadeOut());
+		//StartCoroutine(FadeOut());
 	}
 
 	// 사라짐

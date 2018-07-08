@@ -41,10 +41,14 @@ public class ColorPicker : MonoBehaviour, IPointerClickHandler
 	// 클릭시
 	public void OnPointerClick(PointerEventData pointerEventData)
 	{
+		// 색 설정
 		ColorPickerList colorPickerList = GetComponentInParent<ColorPickerList>();
 
 		PlayerPrefs.SetInt(colorPickerList.targetColor, index);
 		colorPickerList.OffColorPicker();
+
+		// 색 갱신
+		ShaderManager.instance.RefreshColor();
 	}
 
 	// 오프 애니메이션

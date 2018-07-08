@@ -16,9 +16,9 @@ public class Ball : MonoBehaviour
 	[SerializeField]
 	private GameObject			doubleParticle;         // 더블 파티클
 	[SerializeField]
-	private GameObject			collisionEffect;        // 벽 충돌 이펙트
+	private BallParticler		ballParticler;          // 볼 파티클러
 	[SerializeField]
-	private BallParticler		ballParticler;			// 볼 파티클러
+	private Material			holderSprite;			// 홀더 스프라이트
 
 	// 인스펙터 비노출 변수
 	// 일반
@@ -98,8 +98,11 @@ public class Ball : MonoBehaviour
 		// 벽일 경우 이펙트 발생 및 더블 초기화, 바운스 카운트 증가
 		if (other.gameObject.CompareTag("Wall"))
 		{
-			// 파티클 효과
-			Instantiate(collisionEffect, transform.position, Quaternion.identity);
+			if (!canDouble)
+			{
+				// 초기화 이펙트
+				Instantiate(doubleParticle, transform.position, Quaternion.identity);
+			}
 
 			// 더블 초기화
 			ResetDouble();
@@ -250,7 +253,7 @@ public class Ball : MonoBehaviour
 	{
 		// 초기화
 		canDouble = true;
-
+		
 		// 쉐이더 변환
 		ShaderManager.instance.ChangeBaseColor(true);
 	}
@@ -298,7 +301,7 @@ public class Ball : MonoBehaviour
 
 		if (canDouble)
 		{
-			shotLine.GetComponent<Transform>().GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = Color.HSVToRGB(ShaderManager.themeColor[0], 0.3f, 1f);
+			shotLine.GetComponent<Transform>().GetChild(0).gameObject.GetComponent<SpriteRenderer>().material = holderSprite;
 		}
 	}
 

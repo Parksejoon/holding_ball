@@ -67,6 +67,7 @@ public class ShotLine : MonoBehaviour
 		GameObject tempObject = Instantiate(afterEffect, transform.position, Quaternion.identity);
 
 		tempObject.transform.localScale = (transform.localScale) * 0.2f;
+		UIEffecter.instance.FadeEffect(tempObject, Vector2.zero, 0.7f, UIEffecter.FadeFlag.ALPHA | UIEffecter.FadeFlag.FINDESTROY);
 
 		// 캐치된 홀더 반환
 		return catchHolder;
