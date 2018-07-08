@@ -142,7 +142,5 @@ public class ShaderManager : MonoBehaviour
 	{
 		LoadColor();
 		SetColor();
-
-		Debug.Log("Refresh");
 	}
 }

@@ -65,7 +65,7 @@ public class ColorPicker : MonoBehaviour, IPointerClickHandler
 	// 온 애니메이션
 	private IEnumerator OnAnimation()
 	{
-		yield return new WaitForSeconds(0.1f * index);
+		yield return new WaitForSeconds(0.03f * index);
 
 		UIEffecter.instance.FadeEffect(gameObject, Vector2.one, 0.2f, UIEffecter.FadeFlag.ALPHA);
 		image.raycastTarget = true;
