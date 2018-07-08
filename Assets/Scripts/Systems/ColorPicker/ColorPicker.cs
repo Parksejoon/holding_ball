@@ -7,7 +7,8 @@ public class ColorPicker : MonoBehaviour, IPointerClickHandler
 {
 	// 인스펙터 노출 변수
 	// 수치
-	public  int		index;			// 몇 번째 피커인지
+	public  int		index;          // 몇 번째 피커인지
+
 
 	// 인스펙터 비노출 변수
 	// 일반
@@ -40,7 +41,10 @@ public class ColorPicker : MonoBehaviour, IPointerClickHandler
 	// 클릭시
 	public void OnPointerClick(PointerEventData pointerEventData)
 	{
-		Debug.Log(gameObject.name + " CLICK");
+		ColorPickerList colorPickerList = GetComponentInParent<ColorPickerList>();
+
+		PlayerPrefs.SetInt(colorPickerList.targetColor, index);
+		colorPickerList.OffColorPicker();
 	}
 
 	// 오프 애니메이션

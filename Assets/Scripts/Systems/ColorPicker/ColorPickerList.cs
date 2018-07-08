@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class ColorPickerList : MonoBehaviour, IPointerClickHandler
 {
+	// 인스펙터 노출 변수
+	// 수치
+	public	string			targetColor;				// 타겟 컬러
+
 	// 인스펙터 비노출 변수
 	// 일반
 	private ColorPicker[]	colorPickerArray;           // 컬러 피커 배열
@@ -42,7 +46,7 @@ public class ColorPickerList : MonoBehaviour, IPointerClickHandler
 	}
 
 	// 컬러피커 오프
-	private void OffColorPicker()
+	public void OffColorPicker()
 	{
 		foreach (ColorPicker colorPicker in colorPickerArray)
 		{
