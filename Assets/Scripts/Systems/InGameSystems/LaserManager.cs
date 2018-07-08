@@ -57,7 +57,7 @@ public class LaserManager : MonoBehaviour
 				yield return new WaitForSeconds(0.2f);
 			}
 
-			amountPerShot = Mathf.Min((GameManager.instance.level / 3) + 1, 4);
+			amountPerShot = Mathf.Min((GameManager.instance.level / 3) + 1, 3);
 		}
 	}
 }

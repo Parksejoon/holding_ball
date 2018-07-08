@@ -19,13 +19,6 @@ public class StartManager : MonoBehaviour
 		indexer			= new Indexer();
 	}
 
-	// 시작
-	private void Start()
-	{
-		// 일단 임의로 컬러 설정
-		indexer.SetColorIndex(0);
-	}
-
 	// 프레임
 	private void Update()
 	{

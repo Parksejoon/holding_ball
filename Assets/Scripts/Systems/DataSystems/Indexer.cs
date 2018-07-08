@@ -3,7 +3,7 @@
 public class Indexer
 {
 	// 인덱스 저장
-	public void SetColorIndex(int index)
+	public void SetColorIndex()
 	{
 		PlayerPrefs.SetInt("BallColor",		PlayerPrefs.GetInt("BallColorIndex",	0));
 		PlayerPrefs.SetInt("SubColor",		PlayerPrefs.GetInt("SubColorIndex",		1));

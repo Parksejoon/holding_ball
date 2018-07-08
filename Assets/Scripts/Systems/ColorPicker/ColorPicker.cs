@@ -45,9 +45,13 @@ public class ColorPicker : MonoBehaviour, IPointerClickHandler
 		ColorPickerList colorPickerList = GetComponentInParent<ColorPickerList>();
 
 		PlayerPrefs.SetInt(colorPickerList.targetColor, index);
+		PlayerPrefs.Save();
 		colorPickerList.OffColorPicker();
 
 		// 색 갱신
+		Indexer indexer = new Indexer();
+
+		indexer.SetColorIndex();
 		ShaderManager.instance.RefreshColor();
 	}
 
