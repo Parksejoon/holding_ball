@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-	public void SDF()
+	public Material ballAfterEffect;
+
+	public Sprite target;
+
+	private void Start()
 	{
-		Debug.Log("SDF");
+		ballAfterEffect.SetTexture("_MainTex", target.texture);
 	}
 }

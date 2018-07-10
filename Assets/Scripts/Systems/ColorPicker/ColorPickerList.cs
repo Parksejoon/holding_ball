@@ -6,13 +6,17 @@ using UnityEngine.UI;
 public class ColorPickerList : MonoBehaviour, IPointerClickHandler
 {
 	// 인스펙터 노출 변수
+	// 일반
+	public	GameObject		cover;						// 커버
+
 	// 수치
 	public	string			targetColor;				// 타겟 컬러
 
 	// 인스펙터 비노출 변수
 	// 일반
 	private ColorPicker[]	colorPickerArray;           // 컬러 피커 배열
-	private Image			image;						// 이미지
+	private Image			image;                      // 이미지
+	private Image			coverImage;					// 커버 이미지
 
 	// 수치
 	private bool			isEnalbed = false;			// 현재 활성화 상태인지
@@ -23,6 +27,7 @@ public class ColorPickerList : MonoBehaviour, IPointerClickHandler
 	{
 		colorPickerArray	= GetComponentsInChildren<ColorPicker>();
 		image				= GetComponent<Image>();
+		coverImage			= cover.GetComponent<Image>();
 	}
 
 	// 클릭시
@@ -41,6 +46,11 @@ public class ColorPickerList : MonoBehaviour, IPointerClickHandler
 	// 컬러피커 온
 	private void OnColorPicker()
 	{
+		// 커버 온
+		coverImage.raycastTarget = true;
+		UIEffecter.instance.FadeEffect(cover, new Vector2(0.3f, 0), 0.3f, UIEffecter.FadeFlag.ALPHA);
+
+		// 피커 온
 		StartCoroutine(MomentRaycastOff(2f));
 		isEnalbed = true;
 
@@ -53,6 +63,11 @@ public class ColorPickerList : MonoBehaviour, IPointerClickHandler
 	// 컬러피커 오프
 	public void OffColorPicker()
 	{
+		// 커버 오프
+		coverImage.raycastTarget = false;
+		UIEffecter.instance.FadeEffect(cover, Vector2.zero, 0.3f, UIEffecter.FadeFlag.ALPHA);
+
+		// 피커 오프
 		StartCoroutine(MomentRaycastOff(0.3f));
 		isEnalbed = false;
 
