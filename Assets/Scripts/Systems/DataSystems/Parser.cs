@@ -17,27 +17,25 @@ public class Parser
 	// 생성자
 	public Parser()
 	{
+		// 싱글톤 초기화
 		if (instance == null)
 		{
 			instance = this;
 		}
 
-		dataPath = "Assets/Resources/Data/ColorData.txt";
-		
-		// 색 데이터 파싱
-		FileStream	 fs = new FileStream(dataPath, FileMode.Open);
-		StreamReader sr = new StreamReader(fs);
+		// 데이터 파싱
+		dataPath = "Data/ColorData";
 
-		string source = sr.ReadLine();
-		while (source != null)
+		TextAsset	textAsset	= Resources.Load<TextAsset>(dataPath);
+		string[]	colorText	= textAsset.text.Split('\n');
+
+		foreach (string source in colorText)
 		{
 			string[] result = source.Split();
 
 			colorListR.Add(float.Parse(result[0]) / 255f);
 			colorListG.Add(float.Parse(result[1]) / 255f);
 			colorListB.Add(float.Parse(result[2]) / 255f);
-
-			source = sr.ReadLine();
 		}
 	}
 
