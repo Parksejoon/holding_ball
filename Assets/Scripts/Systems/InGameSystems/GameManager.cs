@@ -213,7 +213,7 @@ public class GameManager : MonoBehaviour
 	// 스팟 생성
 	public void CreateSpot()
 	{
-		Vector2 createPos = new Vector2(Random.Range(-1f, 1f), Random.Range(1f, 1f)).normalized * Random.Range(-100f, 100f);
+		Vector2 createPos = new Vector2(Random.Range(-1f, 1f), Random.Range(1f, 1f)).normalized * Random.Range(-70f, 70f);
 
 		UIEffecter.instance.FadeEffect(Instantiate(spotPrefab, createPos, Quaternion.identity, transform).transform.GetChild(0).gameObject, new Vector2(0.01f, 0), 0.1f, UIEffecter.FadeFlag.ALPHA);
 	}

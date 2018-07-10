@@ -317,9 +317,11 @@
     <Compile Include="Assets\Scripts\Systems\ColorPicker\ColorPicker.cs" />
     <Compile Include="Assets\Scripts\Systems\ColorPicker\ColorPickerList.cs" />
     <Compile Include="Assets\Scripts\Systems\ColorPicker\ColorPickPanelManager.cs" />
+    <Compile Include="Assets\Scripts\Systems\ColorPicker\ParticlePicker.cs" />
     <Compile Include="Assets\Scripts\Systems\DataSystems\Indexer.cs" />
     <Compile Include="Assets\Scripts\Systems\DataSystems\Initializer.cs" />
     <Compile Include="Assets\Scripts\Systems\DataSystems\Parser.cs" />
+    <Compile Include="Assets\Scripts\Systems\InGameSystems\BallParticleManager.cs" />
     <Compile Include="Assets\Scripts\Systems\InGameSystems\GameManager.cs" />
     <Compile Include="Assets\Scripts\Systems\InGameSystems\HolderManager.cs" />
     <Compile Include="Assets\Scripts\Systems\InGameSystems\LaserManager.cs" />
@@ -341,7 +343,6 @@
     <None Include="Assets\Materials\Shader\FinalBack.shader" />
     <None Include="Assets\Materials\Shader\Glow.shader" />
     <None Include="Assets\Resources\Data\ColorData.txt" />
-    <None Include="Assets\Resources\Data\ColorIndex.txt" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Readme.txt" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlurEffectConeTaps.shader" />
