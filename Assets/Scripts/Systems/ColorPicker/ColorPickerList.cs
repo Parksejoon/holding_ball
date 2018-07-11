@@ -16,7 +16,8 @@ public class ColorPickerList : MonoBehaviour, IPointerClickHandler
 	// 일반
 	private ColorPicker[]	colorPickerArray;           // 컬러 피커 배열
 	private Image			image;                      // 이미지
-	private Image			coverImage;					// 커버 이미지
+	private Image			coverImage;                 // 커버 이미지
+	private Vector2			originPos;					// 처음 위치
 
 	// 수치
 	private bool			isEnalbed = false;			// 현재 활성화 상태인지
@@ -46,11 +47,16 @@ public class ColorPickerList : MonoBehaviour, IPointerClickHandler
 	// 컬러피커 온
 	private void OnColorPicker()
 	{
+		// 처음 위치 저장
+		originPos = GetComponent<RectTransform>().position;
+
 		// 커버 온
 		coverImage.raycastTarget = true;
-		UIEffecter.instance.FadeEffect(cover, new Vector2(0.3f, 0), 0.3f, UIEffecter.FadeFlag.ALPHA);
+		UIEffecter.instance.FadeEffect(cover, new Vector2(0.5f, 0), 0.3f, UIEffecter.FadeFlag.ALPHA);
 
 		// 피커 온
+		UIEffecter.instance.FadeEffect(gameObject, Vector2.zero, 0.2f, UIEffecter.FadeFlag.POSITION);
+
 		StartCoroutine(MomentRaycastOff(2f));
 		isEnalbed = true;
 
@@ -68,6 +74,8 @@ public class ColorPickerList : MonoBehaviour, IPointerClickHandler
 		UIEffecter.instance.FadeEffect(cover, Vector2.zero, 0.3f, UIEffecter.FadeFlag.ALPHA);
 
 		// 피커 오프
+		UIEffecter.instance.FadeEffect(gameObject, originPos, 0.2f, UIEffecter.FadeFlag.POSITION);
+
 		StartCoroutine(MomentRaycastOff(0.3f));
 		isEnalbed = false;
 

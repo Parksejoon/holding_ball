@@ -13,6 +13,8 @@ public class BallParticler : MonoBehaviour
 	private void Awake()
 	{
 		ballParticle = GetComponent<ParticleSystem>();
+
+		ballParticle.Stop();
 	}
 
 	// 파티클 온

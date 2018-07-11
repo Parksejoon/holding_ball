@@ -7,22 +7,24 @@ public class ColorPickPanelManager : MonoBehaviour
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
-	private CoverSlider		mainCoverSlider;        // 메인 커버 슬라이더
+	private CoverSlider			mainCoverSlider;        // 메인 커버 슬라이더
 	[SerializeField]
-	private CoverSlider		pickCoverSlider;        // 컬러피커 커버 슬라이더
+	private CoverSlider			pickCoverSlider;        // 컬러피커 커버 슬라이더
 	[SerializeField]
-	private GameObject		colorPicker;            // 컬러 피커// 일반
+	private GameObject			colorPicker;            // 컬러 피커// 일반
 	[SerializeField]
-	private BallParticler	ballParticler;			// 볼 파티클러
+	private BallParticler		ballParticler;          // 볼 파티클러
+	[SerializeField]
+	private ParticlePicker[]	particlePickers;		// 파티클 피커들
 
 
 	// 인스펙터 비노출 변수
 	// 일반
-	private Image			pickCoverSliderImg;		// 컬러피커 커버 슬라이더 이미지
+	private Image				pickCoverSliderImg;		// 컬러피커 커버 슬라이더 이미지
 
 	// 수치
-	private bool			isColorPicking;         // 컬러 피커가 열려있는 상태인가
-	private Vector2			colorPickerOriginPos;   // 컬러 피커 원래 위치
+	private bool				isColorPicking;         // 컬러 피커가 열려있는 상태인가
+	private Vector2				colorPickerOriginPos;   // 컬러 피커 원래 위치
 
 
 	// 초기화
@@ -38,7 +40,6 @@ public class ColorPickPanelManager : MonoBehaviour
 	{
 		mainCoverSlider.slideFuncs[1] = OnOffColorPicker;
 		pickCoverSlider.slideFuncs[1] = OnOffColorPicker;
-		ballParticler.SetParticle(false);
 	}
 	
 	// 컬러 피커창 열기
@@ -56,7 +57,7 @@ public class ColorPickPanelManager : MonoBehaviour
 			UIEffecter.instance.FadeEffect(colorPicker, UIManager.instance.midPos, 0.1f, UIEffecter.FadeFlag.POSITION);
 			pickCoverSliderImg.raycastTarget = true;
 
-			StartCoroutine(OnOffParticler(true));
+			StartCoroutine(SetParticler(0.2f, true));
 		}
 		else
 		{
@@ -64,7 +65,7 @@ public class ColorPickPanelManager : MonoBehaviour
 			UIEffecter.instance.FadeEffect(colorPicker, colorPickerOriginPos, 0.1f, UIEffecter.FadeFlag.POSITION);
 			pickCoverSliderImg.raycastTarget = false;
 
-			ballParticler.SetParticle(false);
+			StartCoroutine(SetParticler(0, false));
 		}
 
 		isColorPicking = !isColorPicking;
@@ -74,11 +75,16 @@ public class ColorPickPanelManager : MonoBehaviour
 	}
 
 	// 파티클 온오프 루틴
-	private IEnumerator OnOffParticler(bool enabled)
+	private IEnumerator SetParticler(float time, bool enabled)
 	{
-		yield return new WaitForSeconds(0.2f);
+		yield return new WaitForSeconds(time);
 
 		ballParticler.SetParticle(enabled);
+
+		foreach (ParticlePicker particlePicker in particlePickers)
+		{
+			particlePicker.SetParticle(enabled);
+		}
 
 	}
 }
