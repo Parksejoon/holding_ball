@@ -32,7 +32,7 @@ public class ParticlePicker : MonoBehaviour, IPointerClickHandler
 	// 시작
 	private void Start()
 	{
-		material.SetTexture("_MainTex", image.sprite.texture);
+		material.SetTexture("_MainTex", BallParticleManager.instance.particleTextures[index].texture);
 	}
 
 	// 클릭시
