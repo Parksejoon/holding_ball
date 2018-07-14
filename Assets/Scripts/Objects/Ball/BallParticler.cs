@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class BallParticler : MonoBehaviour
 {
+	// 인스펙터 노출 변수
+	// 수치
+	[SerializeField]
+	private bool			StartEnable = false;		// 시작 활성화
+
 	// 인스펙터 비노출 변수
 	// 일반
-	private ParticleSystem	ballParticle;        // 공 파티클
+	private ParticleSystem	ballParticle;				// 공 파티클
 
 
 	// 초기화
@@ -14,7 +19,10 @@ public class BallParticler : MonoBehaviour
 	{
 		ballParticle = GetComponent<ParticleSystem>();
 
-		ballParticle.Stop();
+		if (!StartEnable)
+		{
+			ballParticle.Stop();
+		}
 	}
 
 	// 파티클 온
