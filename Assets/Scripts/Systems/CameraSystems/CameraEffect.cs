@@ -7,8 +7,6 @@ public class CameraEffect : MonoBehaviour
 	// 일반
 	[SerializeField]
 	private UnityStandardAssets.ImageEffects.Bloom bloom;               // 번짐 효과 스크립트
-	[SerializeField]
-	private UnityStandardAssets.ImageEffects.MotionBlur motionBlur;		// 번짐 효과 스크립트
 
 	// 수치
 	public int				flashCount = 30;							// 플래쉬 단계
@@ -78,15 +76,5 @@ public class CameraEffect : MonoBehaviour
 
 			yield return new WaitForSeconds(0.001f);
 		}
-	}
-
-	// 모션블러 코루틴
-	private IEnumerator MotionBlurCor()
-	{
-		motionBlur.blurAmount = 0.5f;
-
-		yield return new WaitForSeconds(0.4f);
-		
-		motionBlur.blurAmount = 0;
 	}
 }
