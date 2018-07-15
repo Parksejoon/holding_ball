@@ -30,13 +30,20 @@ public class ShaderManager : MonoBehaviour
 	[SerializeField]
 	private Material[]	subMat;					// 서브 머티리얼
 
-	// 나머지 머티리얼
+	// 위험 머티리얼
+	[Space(20)]
+	[SerializeField]
+	private Material[]	warWall;                // 위험 벽 머티리얼
+
+	// 뒷배경 머티리얼
 	[Space(20)]
 	[SerializeField]
 	private Material	backGround;             // 뒷배경 머티리얼
 	[SerializeField]
-	private Material	warWall;				// 위험 벽 머티리얼
-	
+	private Material[]	topBack;                // 뒷배경 위 머티리얼
+	[SerializeField]
+	private Material[]  botBack;				// 뒷배경 아래 머티리얼
+
 	// 인스펙터 비노출 변수
 	// 일반
 	Parser				parser;					// 데이터 파서
@@ -105,15 +112,33 @@ public class ShaderManager : MonoBehaviour
 		foreach (Material material in subMat)
 		{
 			material.SetColor("_Color", subColor);
+			material.SetColor("_TintColor", subColor - particleAdditive);
 		}
 
-		// others
 		// war wall
-		warWall.SetColor("_Color", warWallColor);
+		foreach (Material material in warWall)
+		{
+			material.SetColor("_Color", warWallColor);
+			material.SetColor("_TintColor", warWallColor);
+		}
 
 		// back
 		backGround.SetColor("_TopColor", topBackColor);
 		backGround.SetColor("_BotColor", botBackColor);
+
+		// top back
+		foreach (Material material in topBack)
+		{
+			material.SetColor("_Color", topBackColor);
+			material.SetColor("_TintColor", topBackColor);
+		}
+
+		// bot back
+		foreach (Material material in botBack)
+		{
+			material.SetColor("_Color", botBackColor);
+			material.SetColor("_TintColor", botBackColor);
+		}
 	}
 
 	// 색 변경
