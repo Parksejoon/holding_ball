@@ -15,8 +15,9 @@ public class ColorPickPanelManager : MonoBehaviour
 	[SerializeField]
 	private BallParticler		ballParticler;          // 볼 파티클러
 	[SerializeField]
-	private ParticlePicker[]	particlePickers;		// 파티클 피커들
-
+	private ParticlePicker[]	particlePickers;        // 파티클 피커들
+	[SerializeField]
+	private GameObject			images;					// 이미지들
 
 	// 인스펙터 비노출 변수
 	// 일반
@@ -56,6 +57,7 @@ public class ColorPickPanelManager : MonoBehaviour
 			// 패널 중앙으로 & 슬라이더 온
 			UIEffecter.instance.FadeEffect(colorPicker, UIManager.instance.midPos, 0.1f, UIEffecter.FadeFlag.POSITION);
 			pickCoverSliderImg.raycastTarget = true;
+			images.SetActive(true);
 
 			StartCoroutine(SetParticler(0.2f, true));
 		}
@@ -64,6 +66,7 @@ public class ColorPickPanelManager : MonoBehaviour
 			// 패널 사이드로 & 슬라이더 오프
 			UIEffecter.instance.FadeEffect(colorPicker, colorPickerOriginPos, 0.1f, UIEffecter.FadeFlag.POSITION);
 			pickCoverSliderImg.raycastTarget = false;
+			images.SetActive(false);
 
 			StartCoroutine(SetParticler(0, false));
 		}
