@@ -17,7 +17,7 @@ public class ColorPickPanelManager : MonoBehaviour
 	[SerializeField]
 	private ParticlePicker[]	particlePickers;        // 파티클 피커들
 	[SerializeField]
-	private GameObject			images;					// 이미지들
+	private GameObject[]		images;					// 이미지들
 
 	// 인스펙터 비노출 변수
 	// 일반
@@ -42,6 +42,22 @@ public class ColorPickPanelManager : MonoBehaviour
 		mainCoverSlider.slideFuncs[1] = OnOffColorPicker;
 		pickCoverSlider.slideFuncs[1] = OnOffColorPicker;
 	}
+
+	// 이미지 온오프
+	private void SetImages(bool enabled)
+	{
+		Vector2 goalVec = Vector2.zero;
+
+		if (enabled)
+		{
+			goalVec = new Vector2(0.1f, 0);
+		}
+
+		foreach (GameObject image in images)
+		{
+			UIEffecter.instance.FadeEffect(image, goalVec, 0.1f, UIEffecter.FadeFlag.ALPHA);
+		}
+	}
 	
 	// 컬러 피커창 열기
 	public void OnOffColorPicker()
@@ -57,7 +73,7 @@ public class ColorPickPanelManager : MonoBehaviour
 			// 패널 중앙으로 & 슬라이더 온
 			UIEffecter.instance.FadeEffect(colorPicker, UIManager.instance.midPos, 0.1f, UIEffecter.FadeFlag.POSITION);
 			pickCoverSliderImg.raycastTarget = true;
-			images.SetActive(true);
+			SetImages(true);
 
 			StartCoroutine(SetParticler(0.2f, true));
 		}
@@ -66,7 +82,7 @@ public class ColorPickPanelManager : MonoBehaviour
 			// 패널 사이드로 & 슬라이더 오프
 			UIEffecter.instance.FadeEffect(colorPicker, colorPickerOriginPos, 0.1f, UIEffecter.FadeFlag.POSITION);
 			pickCoverSliderImg.raycastTarget = false;
-			images.SetActive(false);
+			SetImages(false);
 
 			StartCoroutine(SetParticler(0, false));
 		}
