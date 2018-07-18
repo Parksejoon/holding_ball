@@ -26,7 +26,7 @@ public class ColorPickPanelManager : MonoBehaviour
 	// 수치
 	private bool				isColorPicking;         // 컬러 피커가 열려있는 상태인가
 	private Vector2				colorPickerOriginPos;   // 컬러 피커 원래 위치
-
+	
 
 	// 초기화
 	private void Awake()
