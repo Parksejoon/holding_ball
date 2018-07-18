@@ -17,7 +17,8 @@ public class ParticlePicker : MonoBehaviour, IPointerClickHandler
 	private ParticleSystem	particle;			// 파티클
 
 	// 수치
-	private float			speed = 40f;		// 회전 속도
+	private float			speed = 40f;        // 회전 속도
+	private bool			isPurchase = false;	// 구매 기록
 
 
 	// 초기화
@@ -32,13 +33,25 @@ public class ParticlePicker : MonoBehaviour, IPointerClickHandler
 	// 시작
 	private void Start()
 	{
-		material.SetTexture("_MainTex", BallParticleManager.instance.particleTextures[index].texture);
+		isPurchase = ShopParser.instance.GetParticlePurchaseData(index);
+
+		if (isPurchase)
+		{
+			material.SetTexture("_MainTex", BallParticleManager.instance.particleTextures[index].texture);
+		}
+		else
+		{
+			material.SetTexture("_MainTex", BallParticleManager.instance.particleTextures[11].texture);
+		}
 	}
 
 	// 클릭시
 	public void OnPointerClick(PointerEventData pointerEventData)
 	{
-		BallParticleManager.instance.SetBallParticle(index);
+		if (isPurchase)
+		{
+			BallParticleManager.instance.SetBallParticle(index);
+		}
 	}
 
 	// 파티클 온 오프

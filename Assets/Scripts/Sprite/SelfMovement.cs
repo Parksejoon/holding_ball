@@ -21,6 +21,6 @@ public class SelfMovement : MonoBehaviour
 		float moveValue = Mathf.Cos(Time.timeSinceLevelLoad + randomValue) * 80 * Time.timeScale;
 
 		transform.localPosition = new Vector2(originPos.x, originPos.y + moveValue);
-		transform.Rotate(new Vector3(0, 0, moveValue * 0.01f));
+		transform.Rotate(new Vector3(0, 0, moveValue * 0.001f));
 	}
 }
