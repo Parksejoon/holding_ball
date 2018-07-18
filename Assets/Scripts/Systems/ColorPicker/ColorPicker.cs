@@ -12,18 +12,31 @@ public class ColorPicker : MonoBehaviour, IPointerClickHandler
 
 	// 인스펙터 비노출 변수
 	// 일반
-	private Image	image;			// 이 피커의 이미지
+	private Image	image;          // 이 피커의 이미지
+	private Button	button;			// 이 피커의 버튼
 
 
 	// 초기화
 	private void Awake()
 	{
-		image = GetComponent<Image>();
+		image	= GetComponent<Image>();
+		button	= GetComponent<Button>();
 
+		// 색 설정
 		Color setColor = Parser.instance.GetColor(index);
 
 		setColor.a = 0;
 		image.color = setColor;
+	}
+
+	// 시작
+	private void Start()
+	{
+		// 버튼 상태 초기화
+		if (!ShopParser.instance.GetColorPurchaseData(index))
+		{
+			button.interactable = false;
+		}
 	}
 
 	// 활성화
