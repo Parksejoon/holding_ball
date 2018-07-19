@@ -35,12 +35,22 @@ public class ColorPicker : MonoBehaviour, IPointerClickHandler
 	// 시작
 	private void Start()
 	{
+		Refresh();
+	}
+
+	// 갱신 
+	public void Refresh()
+	{
 		isPurchase = ShopParser.instance.GetColorPurchaseData(index);
 
 		// 버튼 상태 초기화
 		if (!isPurchase)
 		{
 			button.interactable = false;
+		}
+		else
+		{
+			button.interactable = true;
 		}
 	}
 

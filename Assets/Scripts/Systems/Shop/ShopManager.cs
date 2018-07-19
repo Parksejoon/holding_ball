@@ -8,20 +8,27 @@ public class ShopManager : MonoBehaviour
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
-	private GameObject	coinText;			// 코인 텍스트
+	private GameObject		coinText;			// 코인 텍스트
 	[SerializeField]
-	private GameObject	coinImg;            // 코인 이미지
+	private GameObject		coinImg;            // 코인 이미지
 	[SerializeField]
-	private GameObject	cover;              // 커버 이미지
+	private GameObject		cover;              // 커버 이미지
 	[SerializeField]
-	private GameObject	buttonImg;          // 버튼 이미지
+	private GameObject		buttonImg;          // 버튼 이미지
+	[SerializeField]
+	private GameObject		colorImg;           // 색 이미지
+	[SerializeField]
+	private ColorPicker[]	colorPickers;		// 컬러 피커들
+
+	// 수치
+	public int				colorPrice;			// 색 가격
 
 	// 인스펙터 비노출 변수
 	// 일반
-	private Button		buyButton;			// 구매 버튼
+	private Button			buyButton;			// 구매 버튼
 
 	// 수치
-	private bool		enabled = false;	// 활성화 상태 
+	private bool			enabled = false;	// 활성화 상태 
 
 
 	// 초기화
@@ -85,6 +92,73 @@ public class ShopManager : MonoBehaviour
 	// 색 구매
 	public void BuyColor()
 	{
-		Debug.Log("BuyColor!");
+		int coin = PlayerPrefs.GetInt("Coin", 0);
+
+		// 돈이 colorPrice원 이상이면
+		if (coin >= colorPrice)
+		{
+			// 돈 차감
+			coin -= colorPrice;
+			PlayerPrefs.SetInt("Coin", coin);
+			PlayerPrefs.Save();
+
+			UIEffecter.instance.SetText(1, coin.ToString());
+
+			// 남은 색을 배열로 정리
+			string[] dataArr = PlayerPrefs.GetString("ColorPurchase").Split(',');
+			ArrayList colorArr = new ArrayList();
+
+			for (int i = 0; i < dataArr.Length; i++)
+			{
+				if (dataArr[i] == "0")
+				{
+					colorArr.Add(i);
+				}
+			}
+
+			// 남은 색이 1개 이상이면
+			if (colorArr.Count >= 1)
+			{
+				// 랜덤으로 색 설정
+				int targetIndex = Random.Range(0, colorArr.Count - 1);
+				int target = (int)colorArr[targetIndex];
+				Color newColor = Parser.instance.GetColor(target);
+
+				// 색 저장
+				ShopParser.instance.SetColorPurchaseData(target, true);
+
+				// 색 갱신
+				foreach (ColorPicker colorPicker in colorPickers)
+				{
+					colorPicker.Refresh();
+				}
+
+				// 색 시각화
+				newColor.a = 0;
+				colorImg.GetComponent<Image>().color = newColor;
+
+				StartCoroutine(VisualizeColorRoutine());
+			}
+			// 색이 전부 있음
+			else
+			{
+			}
+		}
+		// 돈이없당
+		else
+		{
+		}
+	}
+
+	// 색 표시 루틴 
+	private IEnumerator VisualizeColorRoutine()
+	{
+		buyButton.interactable = false;
+		UIEffecter.instance.FadeEffect(colorImg, Vector2.one, 0.4f, UIEffecter.FadeFlag.ALPHA);
+
+		yield return new WaitForSeconds(1.5f);
+
+		UIEffecter.instance.FadeEffect(colorImg, Vector2.zero, 0.4f, UIEffecter.FadeFlag.ALPHA);
+		buyButton.interactable = true;
 	}
 }
