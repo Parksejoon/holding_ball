@@ -26,7 +26,7 @@ public class UIEffecter : MonoBehaviour
     [SerializeField]
     private float				fadeGap = 0.01f;		// 페이드 효과 간격
 	[SerializeField]
-	private float				finTimeGap = 0.1f;		// 일정 시간 후 종료할 때 뒤에 잠시 부하를 위한 기다림 시간
+	private float				finTimeGap = 0.3f;		// 일정 시간 후 종료할 때 뒤에 잠시 부하를 위한 기다림 시간
     
     
     // 초기화

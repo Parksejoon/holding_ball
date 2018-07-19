@@ -62,7 +62,7 @@ public class ColorPickerList : MonoBehaviour, IPointerClickHandler
 
 			// 커버 온
 			coverImage.raycastTarget = true;
-			UIEffecter.instance.FadeEffect(cover, new Vector2(0.5f, 0), 0.3f, UIEffecter.FadeFlag.ALPHA);
+			UIEffecter.instance.FadeEffect(cover, new Vector2(0.1f, 0), 0.3f, UIEffecter.FadeFlag.ALPHA);
 
 			// 피커 온
 			UIEffecter.instance.FadeEffect(gameObject, Vector2.zero, 0.2f, UIEffecter.FadeFlag.POSITION);

@@ -11,6 +11,8 @@ public class SelfMovement : MonoBehaviour
 	// 시작
 	private void Start()
 	{
+		transform.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 90f)));
+
 		originPos = transform.localPosition;
 		randomValue = Random.Range(-20, 20);
 	}
