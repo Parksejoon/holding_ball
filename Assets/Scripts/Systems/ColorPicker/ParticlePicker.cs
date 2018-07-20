@@ -33,6 +33,12 @@ public class ParticlePicker : MonoBehaviour, IPointerClickHandler
 	// 시작
 	private void Start()
 	{
+		Refresh();
+	}
+
+	// 갱신
+	public void Refresh()
+	{
 		isPurchase = ShopParser.instance.GetParticlePurchaseData(index);
 
 		if (isPurchase)

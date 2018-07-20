@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -128,10 +127,7 @@ public class ShopManager : MonoBehaviour
 				ShopParser.instance.SetColorPurchaseData(target, true);
 
 				// 색 갱신
-				foreach (ColorPicker colorPicker in colorPickers)
-				{
-					colorPicker.Refresh();
-				}
+				RefreshColor();
 
 				// 색 시각화
 				newColor.a = 0;
@@ -147,6 +143,15 @@ public class ShopManager : MonoBehaviour
 		// 돈이없당
 		else
 		{
+		}
+	}
+
+	// 색 갱신
+	private void RefreshColor()
+	{
+		foreach (ColorPicker colorPicker in colorPickers)
+		{
+			colorPicker.Refresh();
 		}
 	}
 
