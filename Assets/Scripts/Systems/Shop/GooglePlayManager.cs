@@ -17,7 +17,7 @@ public class GooglePlayManager : MonoBehaviour
 	// 별점 메뉴 열기
 	public void GoStarScore()
 	{
-		Debug.Log("ASD");
+		coverSlider.StopSlide();
 
 		// 도전과제 클리어
 		ChallengeManager.instance.ClearChallenge(8);

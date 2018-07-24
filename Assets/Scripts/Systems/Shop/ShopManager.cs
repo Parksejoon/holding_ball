@@ -27,7 +27,7 @@ public class ShopManager : MonoBehaviour
 	private Button			buyButton;			// 구매 버튼
 
 	// 수치
-	private bool			enabled = false;	// 활성화 상태 
+	private bool			isEnabled = false;	// 활성화 상태 
 
 
 	// 초기화
@@ -47,7 +47,7 @@ public class ShopManager : MonoBehaviour
 	// 구매 창 열고 닫기
 	public void OnOffPurchaseWindow()
 	{
-		if (enabled)
+		if (isEnabled)
 		{
 			ClosePurchaseWindow();
 		}
@@ -56,7 +56,7 @@ public class ShopManager : MonoBehaviour
 			OpenPurchaseWindow();
 		}
 
-		enabled = !enabled;
+		isEnabled = !isEnabled;
 	}
 
 	// 구매 창 오픈

@@ -9,8 +9,6 @@ public class UIManager : MonoBehaviour
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
-	private Button 			restartButton;          // 재시작 버튼
-	[SerializeField]
 	private StartManager	startManager;           // 시작 매니저
 	[SerializeField]
 	private CoverSlider		coverSlider;            // 커버 슬라이더
@@ -90,7 +88,6 @@ public class UIManager : MonoBehaviour
 		coverSlider.usingLock = true;
 
 		// 게임 실행
-		restartButton.interactable = true;
 		startManager.enabled = true;
 		
 		// 루틴 실행
