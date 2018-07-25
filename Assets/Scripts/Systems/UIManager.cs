@@ -14,7 +14,11 @@ public class UIManager : MonoBehaviour
 	private CoverSlider		coverSlider;            // 커버 슬라이더
 	[SerializeField]
 	private PlayEffect		playEffect;             // 시작 이펙트
-		
+	[SerializeField]
+	private AudioManager	effectAudioManager;     // 효과음 매니저
+	[SerializeField]
+	private AudioManager	backAudioManager;       // 배경음 매니저
+
 	// 인스펙터 비노출 변수
 	// 수치
 	private float			originalTimeScale;      // 원래 타임스케일 값
@@ -43,8 +47,8 @@ public class UIManager : MonoBehaviour
 		coverSlider.slideFuncs[3] = StartGame;
 	}
 
-	// 퍼즈 체크
-	public void CheckPause()
+	// 일시정지 끄고 키기
+	public void OnOffPause()
 	{
 		// 퍼즈 해제
 		if (Time.timeScale == 0)
@@ -56,6 +60,40 @@ public class UIManager : MonoBehaviour
 		{
 			Pause();
 		}
+	}
+
+	// 효과음 끄고 키기
+	public void OnOffEffectAudio(Image target)
+	{
+		// 끄기
+		if (effectAudioManager.audioEnabled)
+		{
+			target.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+		}
+		// 키기
+		else
+		{
+			target.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+		}
+
+		effectAudioManager.audioEnabled = !effectAudioManager.audioEnabled;
+	}
+
+	// 배경음 끄고 키기
+	public void OnOffBackAudio(Image target)
+	{
+		// 끄기
+		if (backAudioManager.audioEnabled)
+		{
+			target.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+		}
+		// 키기
+		else
+		{
+			target.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+		}
+
+		backAudioManager.audioEnabled = !backAudioManager.audioEnabled;
 	}
 
 	// 일시정지

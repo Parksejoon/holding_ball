@@ -319,7 +319,6 @@ public class HolderManager : MonoBehaviour
 	{
 		Rigidbody2D target;												// 타겟 홀더
 		float	term = UnityEngine.Random.Range(minTerm, maxTerm);		// 텀
-		int		count = 0;												// 카운트
 		float	angle = 0;                                              // 발사 각도
 		float	addAngle = (360 / (amount / 2));						// 더해지는 각도
 
