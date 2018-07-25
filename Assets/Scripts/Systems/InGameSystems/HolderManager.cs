@@ -317,22 +317,24 @@ public class HolderManager : MonoBehaviour
 	// 코인
 	private IEnumerator Coinar()
 	{
-		Rigidbody2D target;                                         // 타겟 홀더
-		float term = UnityEngine.Random.Range(minTerm, maxTerm);            // 텀
-		int count = 0;                                      // 카운트
+		Rigidbody2D target;												// 타겟 홀더
+		float	term = UnityEngine.Random.Range(minTerm, maxTerm);		// 텀
+		int		count = 0;												// 카운트
+		float	angle = 0;                                              // 발사 각도
+		float	addAngle = (360 / (amount / 2));						// 더해지는 각도
 
-
-		while (count < UnityEngine.Random.Range(4, 10))
+		for (int i = 0; i < amount / 2; i++)
 		{
 			// 생성
 			target = Instantiate(coinPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
 
 			// 방향으로 힘 적용
-			target.AddForce(Vector3.Normalize(Ball.instance.transform.position) * -power);
-			
-			count++;
+			target.AddForce(WayVector2(angle, power));
 
-			yield return new WaitForSeconds(term);
+			// 분사량에 따라 각도 조절
+			angle += addAngle;
 		}
+
+		yield return null;
 	}
 }
