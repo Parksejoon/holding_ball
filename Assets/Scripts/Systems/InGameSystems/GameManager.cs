@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Advertisements;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,7 +10,9 @@ public class GameManager : MonoBehaviour
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
-	private GameObject		spotPrefab;					// 스팟 프리팹
+	private GameObject		spotPrefab;                 // 스팟 프리팹
+	[SerializeField]
+	private TouchPanel		touchPanel;					// 터치 패널
 
 	// 수치
 	[SerializeField]
@@ -186,11 +189,11 @@ public class GameManager : MonoBehaviour
 	public void GameOver()
 	{
 		// 공 파괴 및 터치 금지 설정
-		GameObject.Find("TouchPanel").GetComponent<TouchPanel>().enabled = false;
+		touchPanel.enabled = false;
 		Ball.instance.BallDestroy();
 
 		// 계속할것인지
-		StartCoroutine(Continue());
+		Continue();
 	}
 		
 	// 자살
@@ -218,30 +221,59 @@ public class GameManager : MonoBehaviour
 		UIEffecter.instance.FadeEffect(Instantiate(spotPrefab, createPos, Quaternion.identity, transform).transform.GetChild(0).gameObject, new Vector2(0.01f, 0), 0.1f, UIEffecter.FadeFlag.ALPHA);
 	}
 
-	// 계속하기 루틴
-	private IEnumerator Continue()
+	// 광고 종료 콜백 메소드
+	public void HandleShowResult(ShowResult result)
 	{
-		if (!isSecond)
+		if (result == ShowResult.Finished)
 		{
-			yield return new WaitForSeconds(3f);
-			
 			// 공 재생성 및 터치 금지 해제
-			GameObject.Find("TouchPanel").GetComponent<TouchPanel>().enabled = true;
+			touchPanel.enabled = true;
 			Ball.instance.RegenBall();
-
-			isSecond = true;
 		}
 		else
 		{
-			// 데이터 저장
-			PlayerPrefs.SetInt("Coin", coin);
-			PlayerPrefs.SetInt("LastScore", score);
-			PlayerPrefs.SetInt("BestScore", Mathf.Max(score, bestScore));
-			PlayerPrefs.Save();
+			StopGame();
+		}
+	}
 
-			// 종료처리
+	// 광고 보여주기
+	public void ShowRewardedAd()
+	{
+		RevivalManager.instance.DeleteRevivalPanel();
+
+		if (Advertisement.IsReady("rewardedVideo"))
+		{
+			var options = new ShowOptions { resultCallback = HandleShowResult };
+			Advertisement.Show("rewardedVideo", options);
+		}
+	}
+
+	// 종료
+	public void StopGame()
+	{
+		// 데이터 저장
+		PlayerPrefs.SetInt("Coin", coin);
+		PlayerPrefs.SetInt("LastScore", score);
+		PlayerPrefs.SetInt("BestScore", Mathf.Max(score, bestScore));
+		PlayerPrefs.Save();
+
+		// 종료처리
+		StartCoroutine(OverCor());
+	}
+
+	// 계속하기 루틴
+	private void Continue()
+	{
+		if (!isSecond)
+		{
+			isSecond = true;
+
+			RevivalManager.instance.OutputRevivalPanel();
+		}
+		else
+		{
+			StopGame();
 			cameraEffect.ZoomIn();
-			StartCoroutine(OverCor());
 		}		
 	}
 
