@@ -70,9 +70,9 @@ public class Ball : MonoBehaviour
 		if (other.gameObject.CompareTag("PowerHolder"))
 		{
 			Holder otherTargetHolder = other.GetComponent<Holder>();
-				
+			
 			otherTargetHolder.DestroyParticle();
-			Destroy(other.gameObject);
+			other.gameObject.SetActive(false);
 
 			GameManager.instance.AddScore(otherTargetHolder.holderPower);
 		}

@@ -2,6 +2,12 @@
 
 public class Initializer : MonoBehaviour
 {
+	// 초기화
+	private void Awake()
+	{
+		Application.targetFrameRate = 60;
+	}
+
 	// 시작
 	private void Start()
 	{

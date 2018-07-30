@@ -28,12 +28,6 @@ public class Holder : MonoBehaviour
 		sprite		  = transform.GetChild(0).GetComponent<SpriteRenderer>();
 	}
 
-	// 프레임
-	private void Update()
-	{
-		//transform.Rotate(new Vector3(0, 0, 3) * rotationPower * GameManager.instance.timeValue);
-	}
-
 	// 시작
 	private void Start()
 	{
@@ -42,7 +36,7 @@ public class Holder : MonoBehaviour
 	}
 
 	// 삭제
-	private void OnDestroy()
+	private void OnDisable()
 	{
 		// 홀더 리스트에서 해당 항목을 삭제
 		holderManager.holderList.Remove(transform);
@@ -82,22 +76,17 @@ public class Holder : MonoBehaviour
 	// 파괴 비주얼 이펙트
 	private IEnumerator Destroyer()
 	{
-		float alpha = 1f;
 		float range = 0.1f;
 		float rangeValue = 0.02f;
 
 		Vector3 startPoisition = transform.position;
-		ballTransform = GameObject.Find("BallCollider").GetComponent<Transform>();
+		
+		ballTransform = Ball.instance.transform;
 
-		yield return new WaitForSeconds(Random.Range(0.8f, 1.2f));
+		yield return new WaitForSeconds(Random.Range(0.8f, 1.4f));
 
 		while (true)
 		{
-			sprite.color = new Color(1f, 1f, 1f, alpha);
-			alpha -= 0.01f;
-
-			transform.localScale *= 0.99f;
-
 			transform.position = Vector3.Slerp(startPoisition, ballTransform.position, range);
 			range += rangeValue;
 			rangeValue += 0.001f;
