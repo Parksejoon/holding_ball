@@ -10,9 +10,9 @@ public class Holder : MonoBehaviour
 
 	// 인스펙터 비노출 변수
 	// 일반 변수
-	private HolderManager	holderManager;         // 홀더 매니저
 	private SpriteRenderer	sprite;                // 스프라이트
-	private Transform		ballTransform;		   // 공
+	private Transform		ballTransform;         // 공
+	private Rigidbody2D		rigidbody2d;		   // 리지드 바디 2d
 
 	// 수치
 	[HideInInspector]
@@ -24,25 +24,33 @@ public class Holder : MonoBehaviour
 	// 초기화
 	private void Awake()
 	{
-		holderManager = GameObject.Find("GameManager").GetComponent<HolderManager>();
 		sprite		  = transform.GetChild(0).GetComponent<SpriteRenderer>();
+		rigidbody2d = GetComponent<Rigidbody2D>();
 	}
 
-	// 시작
-	private void Start()
+	// 활성화
+	private void OnEnable()
 	{
 		// 홀더 리스트에 추가
-		holderManager.holderList.Add(transform);
+		HolderManager.instance.holderList.Add(transform);
 	}
 
-	// 삭제
+	// 비활성화
 	private void OnDisable()
 	{
 		// 홀더 리스트에서 해당 항목을 삭제
-		holderManager.holderList.Remove(transform);
+		HolderManager.instance.holderList.Remove(transform);
+	}
 
+
+	// 삭제
+	public void DeleteHolder()
+	{
 		// 코루틴 중지 (오류 방지)
 		StopCoroutine("Destroyer");
+
+		// 오브젝트 풀에 추가
+		HolderManager.instance.objectPoolManager.PushObjectInPool(rigidbody2d);
 	}
 
 	// 파티클 효과

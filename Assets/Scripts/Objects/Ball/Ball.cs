@@ -22,7 +22,6 @@ public class Ball : MonoBehaviour
 
 	// 인스펙터 비노출 변수
 	// 일반
-	[HideInInspector]
 	public  GameObject			bindedHolder;           // 볼이 바인딩되어있는 홀더
 	[HideInInspector]
 	public	bool				canDouble = true;       // 더블 샷 가능?
@@ -72,7 +71,7 @@ public class Ball : MonoBehaviour
 			Holder otherTargetHolder = other.GetComponent<Holder>();
 			
 			otherTargetHolder.DestroyParticle();
-			other.gameObject.SetActive(false);
+			otherTargetHolder.DeleteHolder();
 
 			GameManager.instance.AddScore(otherTargetHolder.holderPower);
 		}

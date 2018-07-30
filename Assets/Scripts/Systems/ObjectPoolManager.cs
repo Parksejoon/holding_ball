@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectPoolManager : MonoBehaviour
@@ -27,12 +26,6 @@ public class ObjectPoolManager : MonoBehaviour
 	private void Awake()
 	{
 		Initialize();
-	}
-
-	// 프레임
-	private void Update()
-	{
-		Debug.Log(objectPool.Count);
 	}
 
 	// 초기화 
