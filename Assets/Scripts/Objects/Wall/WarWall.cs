@@ -10,7 +10,7 @@ public class WarWall : MonoBehaviour
 		{
 			// 파괴 전 홀더 검사
 			GameManager.instance.HolderCheck(collision.gameObject);
-			collision.gameObject.GetComponent<Holder>().DeleteHolder();
+			Destroy(collision.gameObject);
 		}
 
 		// 코인일경우

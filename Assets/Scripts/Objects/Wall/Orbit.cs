@@ -48,7 +48,7 @@ public class Orbit : MonoBehaviour
 			Wall		targetWall	= target.GetComponent<Wall>();
 
 			target.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 6.945f * nextWallIndex++));
-
+			
 			targetWall.stack = stack;
 		}
 	}

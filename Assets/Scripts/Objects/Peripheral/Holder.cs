@@ -10,9 +10,9 @@ public class Holder : MonoBehaviour
 
 	// 인스펙터 비노출 변수
 	// 일반 변수
+	private HolderManager	holderManager;         // 홀더 매니저
 	private SpriteRenderer	sprite;                // 스프라이트
-	private Transform		ballTransform;         // 공
-	private Rigidbody2D		rigidbody2d;		   // 리지드 바디 2d
+	private Transform		ballTransform;		   // 공
 
 	// 수치
 	[HideInInspector]
@@ -24,33 +24,31 @@ public class Holder : MonoBehaviour
 	// 초기화
 	private void Awake()
 	{
+		holderManager = GameObject.Find("GameManager").GetComponent<HolderManager>();
 		sprite		  = transform.GetChild(0).GetComponent<SpriteRenderer>();
-		rigidbody2d = GetComponent<Rigidbody2D>();
 	}
 
-	// 활성화
-	private void OnEnable()
+	// 프레임
+	private void Update()
+	{
+		//transform.Rotate(new Vector3(0, 0, 3) * rotationPower * GameManager.instance.timeValue);
+	}
+
+	// 시작
+	private void Start()
 	{
 		// 홀더 리스트에 추가
-		HolderManager.instance.holderList.Add(transform);
+		holderManager.holderList.Add(transform);
 	}
-
-	// 비활성화
-	private void OnDisable()
-	{
-		// 홀더 리스트에서 해당 항목을 삭제
-		HolderManager.instance.holderList.Remove(transform);
-	}
-
 
 	// 삭제
-	public void DeleteHolder()
+	private void OnDestroy()
 	{
+		// 홀더 리스트에서 해당 항목을 삭제
+		holderManager.holderList.Remove(transform);
+
 		// 코루틴 중지 (오류 방지)
 		StopCoroutine("Destroyer");
-
-		// 오브젝트 풀에 추가
-		HolderManager.instance.objectPoolManager.PushObjectInPool(rigidbody2d);
 	}
 
 	// 파티클 효과
@@ -84,17 +82,22 @@ public class Holder : MonoBehaviour
 	// 파괴 비주얼 이펙트
 	private IEnumerator Destroyer()
 	{
+		float alpha = 1f;
 		float range = 0.1f;
 		float rangeValue = 0.02f;
 
 		Vector3 startPoisition = transform.position;
-		
-		ballTransform = Ball.instance.transform;
+		ballTransform = GameObject.Find("BallCollider").GetComponent<Transform>();
 
-		yield return new WaitForSeconds(Random.Range(0.8f, 1.4f));
+		yield return new WaitForSeconds(Random.Range(0.8f, 1.2f));
 
 		while (true)
 		{
+			sprite.color = new Color(1f, 1f, 1f, alpha);
+			alpha -= 0.01f;
+
+			transform.localScale *= 0.99f;
+
 			transform.position = Vector3.Slerp(startPoisition, ballTransform.position, range);
 			range += rangeValue;
 			rangeValue += 0.001f;
