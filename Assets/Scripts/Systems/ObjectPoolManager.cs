@@ -14,7 +14,9 @@ public class ObjectPoolManager : MonoBehaviour
 	[SerializeField]
 	private string					defualtTag;								// 원래 태그
 	[SerializeField]
-	private Vector2					defualtPosition;						// 원래 위치
+	private Vector2					defualtPosition;                        // 원래 위치
+	[SerializeField]
+	private Material				defualtMaterial;						// 원래 머티리얼
 
 
 	// 인스펙터 비노출 변수
@@ -42,7 +44,8 @@ public class ObjectPoolManager : MonoBehaviour
 	{
 		target.SetActive(false);
 		target.transform.position	= defualtPosition;
-		target.gameObject.tag		= defualtTag; 
+		target.gameObject.tag		= defualtTag;
+		target.transform.GetChild(0).GetComponent<SpriteRenderer>().material = defualtMaterial;
 
 		objectPool.Enqueue(target);
 	}
