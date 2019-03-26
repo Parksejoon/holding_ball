@@ -9,7 +9,7 @@ public class WarWall : MonoBehaviour
 		if (collision.gameObject.CompareTag("Holder"))
 		{
 			// 파괴 전 홀더 검사
-			GameManager.instance.HolderCheck(collision.gameObject);
+			// GameManager.instance.HolderCheck(collision.gameObject);
 			Destroy(collision.gameObject);
 		}
 

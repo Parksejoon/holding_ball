@@ -76,7 +76,6 @@ public class ColorPicker : MonoBehaviour, IPointerClickHandler
 
 			PlayerPrefs.SetInt(colorPickerList.targetColor, index);
 			PlayerPrefs.Save();
-			//colorPickerList.OffColorPicker();
 
 			// 색 갱신
 			Indexer indexer = new Indexer();

@@ -63,8 +63,8 @@ public class HolderManager : MonoBehaviour
 	// 프레임
 	public void Update()
 	{
-		// 볼이 홀딩상태 또는 바인딩상태가 아닐때만 시간을 측정
-		if (Ball.instance.bindedHolder == null)
+		// 볼이 홀딩상태 아닐때만 시간을 측정
+		if (!Ball.instance.isHolding)
 		{
 			// 카운트중인지 확인 후 카운트 진행
 			if (isPasting)
@@ -122,11 +122,11 @@ public class HolderManager : MonoBehaviour
 	// 회오리
 	private IEnumerator Tornado()
 	{
-		Rigidbody2D target;											// 타겟 홀더
-		float		term = UnityEngine.Random.Range(minTerm, maxTerm);			// 텀
-		int			count = 0;										// 카운트
-		float		angle = 0;									    // 현재 각도
-		float		addAngle = 360 / amount;						// 더해지는 각도
+		Rigidbody2D target;												// 타겟 홀더
+		float		term = UnityEngine.Random.Range(minTerm, maxTerm);	// 텀
+		int			count = 0;											// 카운트
+		float		angle = 0;											// 현재 각도
+		float		addAngle = 360 / amount;							// 더해지는 각도
 	
 		
 		while (count < amount)
@@ -186,11 +186,11 @@ public class HolderManager : MonoBehaviour
 	// 전반향 분사
 	private IEnumerator Round()
 	{
-		Rigidbody2D target;											// 타겟 홀더
-		float		term = UnityEngine.Random.Range(minTerm, maxTerm);			// 텀
-		int			count = 0;										// 카운트
-		float		angle;											// 방향 각도
-		float		addAngle = (360 / (amount / 2));			    // 더해지는 각도
+		Rigidbody2D target;												// 타겟 홀더
+		float		term = UnityEngine.Random.Range(minTerm, maxTerm);	// 텀
+		int			count = 0;											// 카운트
+		float		angle;												// 방향 각도
+		float		addAngle = (360 / (amount / 2));					// 더해지는 각도
 
 		while (count < amount)
 		{

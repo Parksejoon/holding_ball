@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
+# Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holding Ball", "Holding Ball.csproj", "{630850BC-DAF3-D38A-B213-865A65BA0207}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holding Ball.Plugins", "Holding Ball.Plugins.csproj", "{872CAE2C-2319-D6D9-40DB-E35E8C1B0CC4}"

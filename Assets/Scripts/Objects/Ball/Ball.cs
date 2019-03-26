@@ -23,18 +23,16 @@ public class Ball : MonoBehaviour
 	// 인스펙터 비노출 변수
 	// 일반
 	[HideInInspector]
-	public  GameObject			bindedHolder;           // 볼이 바인딩되어있는 홀더
-	[HideInInspector]
 	public	bool				canDouble = true;       // 더블 샷 가능?
 
 	private GameObject			targetHolder;			// 현재 타겟이된 홀더
 	private GameObject			shotLine;               // ShotLine오브젝트
 	private Rigidbody2D			rigidbody2d;            // 이 오브젝트의 리짓바디
 	private GameObject			ballInvObj;             // 공의 물리 오브젝트
-	
+
 	// 수치
 	[HideInInspector]
-	public  bool				isHolding;              // 홀딩 상태를 나타냄
+	public	bool				isHolding;				// 홀딩 상태
 
 
 	// 초기화
@@ -45,10 +43,9 @@ public class Ball : MonoBehaviour
 			instance = this;
 		}
 		
-		rigidbody2d			= GetComponentInParent<Rigidbody2D>();
-		ballInvObj			= transform.parent.gameObject;
-
-		isHolding = false;
+		rigidbody2d	= GetComponentInParent<Rigidbody2D>();
+		ballInvObj	= transform.parent.gameObject;
+		isHolding	= false;
 	}
 
 	// 시작
@@ -60,11 +57,11 @@ public class Ball : MonoBehaviour
 	// 트리거 진입
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		// 홀더일경우 홀더에 바인딩함
-		if (bindedHolder == null && (other.gameObject.CompareTag("Holder")))
-		{
-			BindingHolder(other.gameObject);
-		}
+		//// 홀더일경우 홀더에 바인딩함
+		//if (bindedHolder == null && (other.gameObject.CompareTag("Holder")))
+		//{
+		//	BindingHolder(other.gameObject);
+		//}
 
 		// 강화 홀더일 경우 파괴하고 점수증가
 		if (other.gameObject.CompareTag("PowerHolder"))
@@ -109,78 +106,37 @@ public class Ball : MonoBehaviour
 		}
 	}
 
-	// 트리거 탈출
-	private void OnTriggerExit2D(Collider2D other)
+	// 홀딩
+	public bool Holding()
 	{
-		// 현재 바인딩중인 홀더일경우 바인딩을 해제함
-		if (bindedHolder == other.gameObject && (other.gameObject.CompareTag("Holder")))
-		{
-			UnbindingHolder();
-		}
-	}
+		// 홀딩
+		isHolding = true;
 
-	// 홀더에 언바인딩
-	public void UnbindingHolder()
-	{
-		if (isHolding)
-		{
-			// 홀딩중일시 홀딩 해제
-			UnholdingHolder();
-		}
+		// 속도 제어
+		rigidbody2d.velocity = Vector2.zero;
 
-		// 바인딩 홀더를 초기화
-		bindedHolder = null;
-	}
+		// 공 통과상태로 변화
+		ballInvObj.layer = 15;
 
-	// 홀더에 홀딩
-	public bool HoldingHolder()
-	{
-		// 홀딩 성공
-		if (bindedHolder != null)
-		{
-			// 속도 제어
-			rigidbody2d.velocity = bindedHolder.GetComponent<Rigidbody2D>().velocity;
-			
-			// 홀딩 상태로 전환
-			isHolding = true;
+		// 슛라인 생성
+		CreateShotLine();
 
-			// 공 통과상태로 변화
-			ballInvObj.layer = 15;
+		// 시간 제어
+		Time.timeScale = 0.3f;
 
-			// 슛라인 생성
-			CreateShotLine();
-
-			// 시간 제어
-			Time.timeScale = 0.3f;
-
-			return true;
-		}
-		// 홀딩 실패	
-		else
-		{
-			Penalty();
-
-			return false;
-		}
+		return true;
 	}
 
 	// 홀더에 언홀딩
-	public void UnholdingHolder()
+	public void UnHolding()
 	{
 		// 홀더에서 탈출
 		isHolding = false;
-
-		// 홀더만 따로 파괴된 경우
-		if (bindedHolder == null)
-		{
-			Destroy(shotLine.gameObject);
-
-			Penalty();
-		}
+		
 		// 슛라인만 따로 파괴된 경우
-		else if (shotLine == null)
+		if (shotLine == null)
 		{
-			Penalty();
+			Debug.Log("ShotLine is null");
 		}
 		// 정상 작동
 		else
@@ -197,26 +153,17 @@ public class Ball : MonoBehaviour
 
 			// 물리량 초기화
 			rigidbody2d.velocity = Vector3.zero;
+			
+			// 마우스를 향해 날아감
+			// 날아갈 벡터의 방향
+			Vector2 shotVector = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).normalized;
 
-			// 타겟 홀더를 향해 날아감
-			if (targetHolder != null)
-			{
-				// 날아갈 벡터의 방향
-				Vector3 shotVector = (targetHolder.transform.position - transform.position) * 100;
-				
-				// 날아갈 파워 설정
-				shotVector = Vector3.Normalize(shotVector);
+			Debug.Log(shotVector.x + " " + shotVector.y);
 
-				// 가즈아
-				rigidbody2d.AddForce(shotVector * GameManager.instance.shotPower * 1666f);
+			// 가즈아
+			rigidbody2d.AddForce(shotVector * GameManager.instance.shotPower);
 
-				StartCoroutine(EnableDrag());
-			}
-			// 캐치 실패
-			else
-			{
-				Penalty();
-			}
+			StartCoroutine(EnableDrag());
 		}
 
 		// 공 원래상태로 변화
@@ -241,7 +188,7 @@ public class Ball : MonoBehaviour
 			Instantiate(doubleParticle, transform.position, Quaternion.identity);
 
 			// 물리량 대입
-			rigidbody2d.velocity = Vector3.Normalize(startPos - endPos) * GameManager.instance.shotPower * -15f;
+			rigidbody2d.velocity = Vector3.Normalize(startPos - endPos) * -GameManager.instance.shotPower;
 
 			// 쉐이더 변환
 			ShaderManager.instance.ChangeBaseColor(false);
@@ -287,13 +234,6 @@ public class Ball : MonoBehaviour
 		ballParticler.SetParticle(true);
 	}
 
-	// 홀더에 바인딩
-	private void BindingHolder(GameObject holder)
-	{
-		// 바인딩 홀더를 설정
-		bindedHolder = holder;
-	}
-
 	// 슛라인 생성
 	private void CreateShotLine()
 	{
@@ -303,12 +243,6 @@ public class Ball : MonoBehaviour
 		{
 			shotLine.GetComponent<Transform>().GetChild(0).gameObject.GetComponent<SpriteRenderer>().material = holderSprite;
 		}
-	}
-
-	// 패널티
-	private void Penalty()
-	{
-		rigidbody2d.velocity = Vector3.Normalize(transform.position) * GameManager.instance.shotPower * 15f;
 	}
 
 	// 일정시간 공 통과상태

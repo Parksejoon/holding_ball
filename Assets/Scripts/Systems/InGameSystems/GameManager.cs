@@ -20,8 +20,11 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	private float			spotTimer = 10f;            // 스팟 타이머
 
+	[HideInInspector]
+	public float			shotPower = 1;				// 발사 속도
+
 	public int				level = 0;                  // 레벨
-	public float			shotPower = 10;             // 발사 속도
+	public float			shotPowerCoe = 1000;		// 발사 파워 계수
 	public float			timeValue = 1f;             // 시간 값
 
 	// 인스펙터 비노출 변수
@@ -131,19 +134,20 @@ public class GameManager : MonoBehaviour
 	// 홀딩 처리
 	private void HoldingBall()
 	{
-		Ball.instance.HoldingHolder();
+		Ball.instance.Holding();
 	}
 
 	// 언홀딩 처리
 	private void UnHoldingBall()
 	{
-		Ball.instance.UnholdingHolder();
+		Ball.instance.UnHolding();
 	}
 	
 	// 발사 속도 계산기
 	private void PowerCompute()
 	{
 		shotPower = Mathf.Min(level * 0.17f + 1, 2f);
+		shotPower *= shotPowerCoe;
 	}
 
 	// 점수 상승
@@ -173,16 +177,6 @@ public class GameManager : MonoBehaviour
 	{
 		// 월 매니저로 벽 확대 요청
 		WallManager.instance.InitWalls();
-	}
-
-	// 홀더 체크
-	public void HolderCheck(GameObject target)
-	{
-		if (Ball.instance.bindedHolder == target)
-		{
-			// 언홀딩
-			Ball.instance.UnbindingHolder();
-		}
 	}
 
 	// 게임 오버
