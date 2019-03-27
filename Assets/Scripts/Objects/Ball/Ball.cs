@@ -32,7 +32,9 @@ public class Ball : MonoBehaviour
 
 	// 수치
 	[HideInInspector]
-	public	bool				isHolding;				// 홀딩 상태
+	public	bool				isHolding;              // 홀딩 상태
+
+	private int					isGhost;				// 통과 상태
 
 
 	// 초기화
@@ -46,12 +48,28 @@ public class Ball : MonoBehaviour
 		rigidbody2d	= GetComponentInParent<Rigidbody2D>();
 		ballInvObj	= transform.parent.gameObject;
 		isHolding	= false;
+		isGhost		= 0;
 	}
 
 	// 시작
 	private void Start()
 	{
 		ResetDouble();
+	}
+
+	// 프레임
+	private void Update()
+	{
+		if (isGhost >= 1)
+		{
+			// 공 통과상태로 변환
+			ballInvObj.layer = 15;
+		}
+		else
+		{
+			// 공 통과 안됨상태로 변환
+			ballInvObj.layer = 9;
+		}
 	}
 
 	// 트리거 진입
@@ -116,7 +134,7 @@ public class Ball : MonoBehaviour
 		rigidbody2d.velocity = Vector2.zero;
 
 		// 공 통과상태로 변화
-		ballInvObj.layer = 15;
+		isGhost++;
 
 		// 슛라인 생성
 		CreateShotLine();
@@ -159,6 +177,7 @@ public class Ball : MonoBehaviour
 			Vector2 shotVector = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).normalized;
 
 			Debug.Log(shotVector.x + " " + shotVector.y);
+			
 
 			// 가즈아
 			rigidbody2d.AddForce(shotVector * GameManager.instance.shotPower);
@@ -167,7 +186,7 @@ public class Ball : MonoBehaviour
 		}
 
 		// 공 원래상태로 변화
-		ballInvObj.layer = 9;
+		isGhost--;
 
 		// 시간 제어
 		Time.timeScale = 1f;
@@ -187,8 +206,10 @@ public class Ball : MonoBehaviour
 			// 파티클
 			Instantiate(doubleParticle, transform.position, Quaternion.identity);
 
+			Debug.Log("DoubleShot");
+
 			// 물리량 대입
-			rigidbody2d.velocity = Vector3.Normalize(startPos - endPos) * -GameManager.instance.shotPower;
+			//rigidbody2d.velocity = Vector3.Normalize(startPos - endPos) * -GameManager.instance.shotPower * 1.5f;
 
 			// 쉐이더 변환
 			ShaderManager.instance.ChangeBaseColor(false);
@@ -248,11 +269,11 @@ public class Ball : MonoBehaviour
 	// 일정시간 공 통과상태
 	private IEnumerator MomentInvisible()
 	{
-		ballInvObj.layer = 15;
+		isGhost++;
 
 		yield return new WaitForSeconds(0.5f);
-		
-		ballInvObj.layer = 9;
+
+		isGhost--;
 	}
 
 	// 잠시동안 선형 저항 강화
