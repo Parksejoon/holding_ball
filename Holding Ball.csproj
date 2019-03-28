@@ -272,6 +272,7 @@
     <Compile Include="Assets\Scripts\Test.cs" />
     <Compile Include="Assets\Scripts\UI\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\UI\CoinRotation.cs" />
+    <Compile Include="Assets\Scripts\UI\Cooldown.cs" />
     <Compile Include="Assets\Scripts\UI\CoverSlider.cs" />
     <Compile Include="Assets\Scripts\UI\PlayEffect.cs" />
     <Compile Include="Assets\Scripts\UI\StartFade.cs" />
