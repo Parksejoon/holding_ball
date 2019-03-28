@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class TouchPanel : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
@@ -38,7 +39,15 @@ public class TouchPanel : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
 	{
 		if (Vector3.Distance(dragStartPosition, pointerEventData.position) >= 300f)
 		{
-			ball.DoubleShot(dragStartPosition, pointerEventData.position);
+			StartCoroutine(Double(pointerEventData));
 		}
+	}
+
+	// 더블샷 호출 코루틴(한 프레임에 addforce 두번되서 속도 비정상적임)
+	private IEnumerator Double(PointerEventData pointerEventData)
+	{
+		yield return null;
+
+		ball.DoubleShot(dragStartPosition, pointerEventData.position);
 	}
 }

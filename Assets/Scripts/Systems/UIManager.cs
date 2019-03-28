@@ -21,8 +21,6 @@ public class UIManager : MonoBehaviour
 
 	[HideInInspector]
 	public Vector2			midPos;                 // 중앙 지점
-	[HideInInspector]
-	public float			cameraZpos = -110f;		// 카메라 z좌표
 		
 		
 	// 초기화

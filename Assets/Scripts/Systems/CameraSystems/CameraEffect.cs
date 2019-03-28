@@ -17,14 +17,12 @@ public class CameraEffect : MonoBehaviour
 	// 인스펙터 비노출 변수
 	// 일반
 	private new Camera		camera;                                     // 카메라
-	private CameraChase		cameraChase;								// 카메라 추적
 
 
 	// 초기화
 	private void Awake()
 	{
 		camera		= GetComponent<Camera>();
-		cameraChase = GetComponent<CameraChase>();
 	}
 
 	// 줌인효과

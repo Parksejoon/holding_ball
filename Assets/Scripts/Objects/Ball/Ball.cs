@@ -18,7 +18,10 @@ public class Ball : MonoBehaviour
 	[SerializeField]
 	private BallParticler		ballParticler;          // 볼 파티클러
 	[SerializeField]
-	private Material			holderSprite;			// 홀더 스프라이트
+	private Material			holderSprite;           // 홀더 스프라이트
+
+	// 수치
+	public	 float				holdingCooltime = 1f;	// 홀딩 쿨타임
 
 	// 인스펙터 비노출 변수
 	// 일반
@@ -34,7 +37,8 @@ public class Ball : MonoBehaviour
 	[HideInInspector]
 	public	bool				isHolding;              // 홀딩 상태
 
-	private int					isGhost;				// 통과 상태
+	private int					isGhost;                // 통과 상태
+	private bool				isCool = false;			// 쿨다운 상태
 
 
 	// 초기화
@@ -125,24 +129,29 @@ public class Ball : MonoBehaviour
 	}
 
 	// 홀딩
-	public bool Holding()
+	public void Holding()
 	{
-		// 홀딩
-		isHolding = true;
+		if (!isCool)
+		{
+			// 홀딩
+			isHolding = true;
 
-		// 속도 제어
-		rigidbody2d.velocity = Vector2.zero;
+			// 속도 제어
+			rigidbody2d.velocity = Vector2.zero;
 
-		// 공 통과상태로 변화
-		isGhost++;
+			// 공 통과상태로 변화
+			isGhost++;
 
-		// 슛라인 생성
-		CreateShotLine();
+			// 슛라인 생성
+			CreateShotLine();
 
-		// 시간 제어
-		Time.timeScale = 0.3f;
+			// 시간 제어
+			Time.timeScale = 0.3f;
+		}
+		else
+		{
 
-		return true;
+		}
 	}
 
 	// 홀더에 언홀딩
@@ -152,38 +161,25 @@ public class Ball : MonoBehaviour
 		isHolding = false;
 		
 		// 슛라인만 따로 파괴된 경우
-		if (shotLine == null)
+		if (shotLine != null)
 		{
-			Debug.Log("ShotLine is null");
-		}
-		// 정상 작동
-		else
-		{
-			// 홀더 파괴
-			//bindedHolder.GetComponent<Holder>().DestroyParticle();
-			//Destroy(bindedHolder.gameObject);
-
 			// 캐치 했는지 판정
 			targetHolder = shotLine.GetComponent<ShotLine>().Judgment();
 
 			// 슛라인 파괴
 			Destroy(shotLine.gameObject);
-
-			// 물리량 초기화
-			rigidbody2d.velocity = Vector3.zero;
-			
-			// 마우스를 향해 날아감
-			// 날아갈 벡터의 방향
-			Vector2 shotVector = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).normalized;
-
-			Debug.Log(shotVector.x + " " + shotVector.y);
-			
-
-			// 가즈아
-			rigidbody2d.AddForce(shotVector * GameManager.instance.shotPower);
-
-			StartCoroutine(EnableDrag());
 		}
+
+		// 물리량 초기화
+		rigidbody2d.velocity = Vector3.zero;
+		
+		// 마우스를 향해 날아감
+		// 날아갈 벡터의 방향
+		Vector2 shotVector = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).normalized;
+		rigidbody2d.AddForce(shotVector * GameManager.instance.shotPower);
+
+		// 홀딩 쿨다운 시작
+		StartCoroutine(HoldingCooldown());
 
 		// 공 원래상태로 변화
 		isGhost--;
@@ -193,7 +189,7 @@ public class Ball : MonoBehaviour
 	}
 
 	// 더블 샷
-	public void DoubleShot(Vector3 startPos, Vector3 endPos)
+	public void DoubleShot(Vector2 startPos, Vector2 endPos)
 	{
 		if (canDouble)
 		{
@@ -206,10 +202,12 @@ public class Ball : MonoBehaviour
 			// 파티클
 			Instantiate(doubleParticle, transform.position, Quaternion.identity);
 
-			Debug.Log("DoubleShot");
+			// 물리량 초기화
+			rigidbody2d.velocity = Vector3.zero;
 
 			// 물리량 대입
-			//rigidbody2d.velocity = Vector3.Normalize(startPos - endPos) * -GameManager.instance.shotPower * 1.5f;
+			Vector2 shotVector = (startPos - endPos).normalized;
+			rigidbody2d.AddForce(shotVector * -GameManager.instance.shotPower * 1.2f);
 
 			// 쉐이더 변환
 			ShaderManager.instance.ChangeBaseColor(false);
@@ -276,12 +274,13 @@ public class Ball : MonoBehaviour
 		isGhost--;
 	}
 
-	// 잠시동안 선형 저항 강화
-	private IEnumerator EnableDrag()
+	// 홀딩 쿨다운
+	private IEnumerator HoldingCooldown()
 	{
-		yield return new WaitForSeconds(0.1f);
+		isCool = true;
 
-		rigidbody2d.velocity *= 0.45f;
-			
+		yield return new WaitForSeconds(holdingCooltime);
+
+		isCool = false;
 	}
 }

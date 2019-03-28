@@ -247,8 +247,8 @@
     <Compile Include="Assets\Scripts\Sprite\Background\SecondBackList.cs" />
     <Compile Include="Assets\Scripts\Sprite\MatColorFinder.cs" />
     <Compile Include="Assets\Scripts\Sprite\SelfMovement.cs" />
-    <Compile Include="Assets\Scripts\Systems\CameraSystems\CameraChase.cs" />
     <Compile Include="Assets\Scripts\Systems\CameraSystems\CameraEffect.cs" />
+    <Compile Include="Assets\Scripts\Systems\CameraSystems\ObjChaser.cs" />
     <Compile Include="Assets\Scripts\Systems\Challenge\ChallengeManager.cs" />
     <Compile Include="Assets\Scripts\Systems\ColorPicker\ColorPicker.cs" />
     <Compile Include="Assets\Scripts\Systems\ColorPicker\ColorPickerList.cs" />
