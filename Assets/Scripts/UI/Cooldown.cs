@@ -24,8 +24,8 @@ public class Cooldown : MonoBehaviour
 
 		while (cool >= 0)
 		{
-			cool -= 0.005f;
-			targetImg.fillAmount = 1 - (coolTime - cool) / coolTime;
+			cool -= 0.008f;
+			targetImg.fillAmount = cool / coolTime;
 			yield return new WaitForSeconds(0.005f);
 		}
 
