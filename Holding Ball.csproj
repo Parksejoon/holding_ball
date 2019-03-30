@@ -270,14 +270,15 @@
     <Compile Include="Assets\Scripts\Systems\StartManager.cs" />
     <Compile Include="Assets\Scripts\Systems\UIManager.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
-    <Compile Include="Assets\Scripts\UI\CameraMovement.cs" />
-    <Compile Include="Assets\Scripts\UI\CoinRotation.cs" />
-    <Compile Include="Assets\Scripts\UI\Cooldown.cs" />
-    <Compile Include="Assets\Scripts\UI\CoverSlider.cs" />
-    <Compile Include="Assets\Scripts\UI\PlayEffect.cs" />
-    <Compile Include="Assets\Scripts\UI\StartFade.cs" />
-    <Compile Include="Assets\Scripts\UI\TimerText.cs" />
-    <Compile Include="Assets\Scripts\UI\TouchPanel.cs" />
+    <Compile Include="Assets\Scripts\UI\InGame\CoinRotation.cs" />
+    <Compile Include="Assets\Scripts\UI\InGame\Cooldown.cs" />
+    <Compile Include="Assets\Scripts\UI\InGame\PowerGauge.cs" />
+    <Compile Include="Assets\Scripts\UI\InGame\TimerText.cs" />
+    <Compile Include="Assets\Scripts\UI\Intro\CameraMovement.cs" />
+    <Compile Include="Assets\Scripts\UI\Intro\CoverSlider.cs" />
+    <Compile Include="Assets\Scripts\UI\Intro\PlayEffect.cs" />
+    <Compile Include="Assets\Scripts\UI\Intro\StartFade.cs" />
+    <Compile Include="Assets\Scripts\UI\Intro\TouchPanel.cs" />
     <Compile Include="Assets\Scripts\UI\UIEffecter.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -149,6 +149,9 @@ public class Ball : MonoBehaviour
 
 			// 시간 제어
 			Time.timeScale = 0.3f;
+
+			// 게이지 중지
+			PowerGauge.instance.StopCharge();
 		}
 		else
 		{
@@ -159,35 +162,45 @@ public class Ball : MonoBehaviour
 	// 홀더에 언홀딩
 	public void UnHolding()
 	{
-		// 홀더에서 탈출
-		isHolding = false;
-		
-		// 슛라인만 따로 파괴된 경우
-		if (shotLine != null)
+		if (isHolding)
 		{
-			// 캐치 했는지 판정
-			targetHolder = shotLine.GetComponent<ShotLine>().Judgment();
+			// 홀더에서 탈출
+			isHolding = false;
 
-			// 슛라인 파괴
-			Destroy(shotLine.gameObject);
+			// 게이지 재시작
+			PowerGauge.instance.ReCharge();
+
+			// 슛라인만 따로 파괴된 경우
+			if (shotLine != null)
+			{
+				// 캐치 했는지 판정
+				targetHolder = shotLine.GetComponent<ShotLine>().Judgment();
+
+				// 슛라인 파괴
+				Destroy(shotLine.gameObject);
+			}
+
+			// 물리량 초기화
+			rigidbody2d.velocity = Vector3.zero;
+
+			// 마우스를 향해 날아감
+			// 날아갈 벡터의 방향
+			Vector2 shotVector = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).normalized;
+			rigidbody2d.AddForce(shotVector * GameManager.instance.shotPower);
+
+			// 홀딩 쿨다운 시작
+			StartCoroutine(HoldingCooldown());
+
+			// 공 원래상태로 변화
+			isGhost--;
+
+			// 시간 제어
+			Time.timeScale = 1f;
 		}
+		else
+		{
 
-		// 물리량 초기화
-		rigidbody2d.velocity = Vector3.zero;
-		
-		// 마우스를 향해 날아감
-		// 날아갈 벡터의 방향
-		Vector2 shotVector = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).normalized;
-		rigidbody2d.AddForce(shotVector * GameManager.instance.shotPower);
-
-		// 홀딩 쿨다운 시작
-		StartCoroutine(HoldingCooldown());
-
-		// 공 원래상태로 변화
-		isGhost--;
-
-		// 시간 제어
-		Time.timeScale = 1f;
+		}
 	}
 
 	// 더블 샷
