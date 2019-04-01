@@ -47,8 +47,6 @@ public class TouchPanel : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
 	private IEnumerator Double(PointerEventData pointerEventData)
 	{
 		yield return null;
-		yield return null;
-		yield return null;
 
 		ball.DoubleShot(dragStartPosition, pointerEventData.position);
 	}

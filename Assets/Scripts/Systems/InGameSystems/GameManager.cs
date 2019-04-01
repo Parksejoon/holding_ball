@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour
 	// 발사 속도 계산기
 	private void PowerCompute()
 	{
-		shotPower = Mathf.Min(level * 0.17f + 1, 2f);
+		shotPower = Mathf.Min(level * 0.17f + 1, 1.5f);
 		shotPower *= shotPowerCoe;
 	}
 
@@ -182,8 +182,10 @@ public class GameManager : MonoBehaviour
 	// 게임 오버
 	public void GameOver()
 	{
+
 		// 공 파괴 및 터치 금지 설정
 		touchPanel.enabled = false;
+		Ball.instance.UnHolding();
 		Ball.instance.BallDestroy();
 
 		// 계속할것인지
@@ -193,11 +195,6 @@ public class GameManager : MonoBehaviour
 	// 자살
 	public void Suicide()
 	{
-		UIEffecter.instance.SetUI(2, false);
-		timeValue = 1f;
-		Time.timeScale = 1f;
-		isSecond = true;
-			
 		GameOver();
 	}
 
@@ -245,6 +242,9 @@ public class GameManager : MonoBehaviour
 	// 종료
 	public void StopGame()
 	{
+		// 카메라 줌 인
+		cameraEffect.ZoomIn();
+
 		// 데이터 저장
 		PlayerPrefs.SetInt("Coin", coin);
 		PlayerPrefs.SetInt("LastScore", score);
@@ -267,14 +267,13 @@ public class GameManager : MonoBehaviour
 		else
 		{
 			StopGame();
-			cameraEffect.ZoomIn();
 		}		
 	}
 
 	// 레벨 타이머
 	private IEnumerator LevelTimer()
 	{
-		while (true)
+		while (level < 10)
 		{
 			yield return new WaitForSeconds(levelTimer);
 

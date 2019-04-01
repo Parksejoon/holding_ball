@@ -222,7 +222,7 @@ public class Ball : MonoBehaviour
 
 			// 물리량 대입
 			Vector2 shotVector = (startPos - endPos).normalized;
-			rigidbody2d.AddForce(shotVector * -GameManager.instance.shotPower * 1.2f);
+			rigidbody2d.AddForce(shotVector * -GameManager.instance.shotPower * 1.05f);
 
 			// 쉐이더 변환
 			ShaderManager.instance.ChangeBaseColor(false);

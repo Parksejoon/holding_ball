@@ -67,9 +67,9 @@ public class WallManager : MonoBehaviour
 	{
 		int level = GameManager.instance.level;
 
-		for (int i = 0; i < Mathf.Min(2, 5 - (level / 4)); i++)
+		for (int i = 0; i < Mathf.Min(3, level * 2); i++)
 		{
-			orbits[Random.Range(0, 5)].CreateWall(Random.Range(Mathf.Min(8, 13 - level / 6), Mathf.Min(12, 20 - level / 6)), orbits.Length - i);
+			orbits[Random.Range(0, 5)].CreateWall(Random.Range(level * 10, level * 30), orbits.Length - i);
 		}
 	}
 
