@@ -179,14 +179,14 @@ public class Ball : MonoBehaviour
 				// 슛라인 파괴
 				Destroy(shotLine.gameObject);
 			}
-
+			
 			// 물리량 초기화
 			rigidbody2d.velocity = Vector3.zero;
-
+			
 			// 마우스를 향해 날아감
 			// 날아갈 벡터의 방향
 			Vector2 shotVector = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).normalized;
-			rigidbody2d.AddForce(shotVector * GameManager.instance.shotPower);
+			rigidbody2d.AddForce(shotVector * GameManager.instance.shotPower, ForceMode2D.Impulse);
 
 			// 홀딩 쿨다운 시작
 			StartCoroutine(HoldingCooldown());
@@ -216,13 +216,13 @@ public class Ball : MonoBehaviour
 
 			// 파티클
 			Instantiate(doubleParticle, transform.position, Quaternion.identity);
-
+			
 			// 물리량 초기화
 			rigidbody2d.velocity = Vector3.zero;
 
 			// 물리량 대입
 			Vector2 shotVector = (startPos - endPos).normalized;
-			rigidbody2d.AddForce(shotVector * -GameManager.instance.shotPower * 1.05f);
+			rigidbody2d.AddForce(shotVector * -GameManager.instance.shotPower * 1.05f, ForceMode2D.Impulse);
 
 			// 쉐이더 변환
 			ShaderManager.instance.ChangeBaseColor(false);

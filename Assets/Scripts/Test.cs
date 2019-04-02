@@ -9,24 +9,18 @@ public class Test : MonoBehaviour
 	private void Awake()
 	{
 		rigidbody2d = GetComponent<Rigidbody2D>();
-		StartCoroutine(Zero());
-		StartCoroutine(One());
 	}
 
-	private void Update()
+	private void Start()
 	{
-	}
-
-	IEnumerator One()
-	{
-		yield return null;
-		rigidbody2d.velocity = Vector3.one;
-
-	}
-
-	IEnumerator Zero()
-	{
-		yield return null;
 		rigidbody2d.velocity = Vector3.zero;
+		rigidbody2d.AddForce(Vector2.right * 1, ForceMode2D.Impulse);
+
+		Debug.Log(rigidbody2d.velocity);
+
+		rigidbody2d.velocity = Vector3.zero;
+		rigidbody2d.AddForce(Vector2.up * 1, ForceMode2D.Impulse);
+
+		Debug.Log(rigidbody2d.velocity);
 	}
 }

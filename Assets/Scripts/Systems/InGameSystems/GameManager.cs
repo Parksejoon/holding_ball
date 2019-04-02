@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
 	public float			shotPower = 1;				// 발사 속도
 
 	public int				level = 0;                  // 레벨
-	public float			shotPowerCoe = 1000;		// 발사 파워 계수
+	public float			shotPowerCoe = 10;			// 발사 파워 계수
 	public float			timeValue = 1f;             // 시간 값
 
 	// 인스펙터 비노출 변수
