@@ -112,8 +112,11 @@ public class Ball : MonoBehaviour
 		// 장애물일 경우 게임 종료
 		if (other.gameObject.CompareTag("WarWall") || other.gameObject.CompareTag("Laser"))
 		{
-			//GameManager.instance.GameOver();
+			#if SHOW_DEBUG
 			Debug.Log("GameOver");
+			#else
+			GameManager.instance.GameOver();
+			#endif
 		}
 
 		// 벽일 경우 이펙트 발생 및 더블 초기화, 바운스 카운트 증가

@@ -12,7 +12,9 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	private GameObject		spotPrefab;                 // 스팟 프리팹
 	[SerializeField]
-	private TouchPanel		touchPanel;					// 터치 패널
+	private TouchPanel		touchPanel;                 // 터치 패널
+	[SerializeField]
+	private Transform		ball;						// 공
 
 	// 수치
 	[SerializeField]
@@ -182,7 +184,6 @@ public class GameManager : MonoBehaviour
 	// 게임 오버
 	public void GameOver()
 	{
-
 		// 공 파괴 및 터치 금지 설정
 		touchPanel.enabled = false;
 		Ball.instance.UnHolding();
@@ -195,7 +196,14 @@ public class GameManager : MonoBehaviour
 	// 자살
 	public void Suicide()
 	{
-		GameOver();
+		UIManager.instance.OnOffPause();
+
+		// 공 파괴 및 터치 금지 설정
+		touchPanel.enabled = false;
+		Ball.instance.UnHolding();
+		Ball.instance.BallDestroy();
+
+		FastStopGame();
 	}
 
 	// 씬 로드
@@ -237,6 +245,8 @@ public class GameManager : MonoBehaviour
 			var options = new ShowOptions { resultCallback = HandleShowResult };
 			Advertisement.Show("rewardedVideo", options);
 		}
+
+		ball.position = new Vector2(0, -3.73f);
 	}
 
 	// 종료
@@ -253,6 +263,17 @@ public class GameManager : MonoBehaviour
 
 		// 종료처리
 		StartCoroutine(OverCor());
+	}
+	
+	// 빠른 종료
+	public void FastStopGame()
+	{
+		PlayerPrefs.SetInt("Coin", coin);
+		PlayerPrefs.SetInt("LastScore", score);
+		PlayerPrefs.SetInt("BestScore", Mathf.Max(score, bestScore));
+		PlayerPrefs.Save();
+
+		StartCoroutine(FastOver());
 	}
 
 	// 계속하기 루틴
@@ -301,6 +322,16 @@ public class GameManager : MonoBehaviour
 		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[3], new Vector2(1, 0), 0.1f, UIEffecter.FadeFlag.ALPHA);
 
 		yield return new WaitForSeconds(2f);
+
+		SceneLoad("MainScene");
+	}
+
+	// 빠른 종료 코루틴
+	private IEnumerator FastOver()
+	{
+		UIEffecter.instance.FadeEffect(UIEffecter.instance.panels[3], new Vector2(1, 0), 0.1f, UIEffecter.FadeFlag.ALPHA);
+
+		yield return new WaitForSeconds(1f);
 
 		SceneLoad("MainScene");
 	}

@@ -33,6 +33,9 @@ public class UIManager : MonoBehaviour
 
 		//midPos = new Vector2(Screen.width / 2f, Screen.height / 2f);
 		midPos = Vector2.zero;
+
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
+		Screen.SetResolution(Screen.width, Screen.width * 16 / 9, false);
 	}
 
 	// 시작 초기화

@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-C:/Users/qkeh4/OneDrive/문서/PSJ/Project/HoldingBall/Build/0331_tb_09.apk
+C:/Users/qkeh4/OneDrive/문서/PSJ/Project/HoldingBall/Build/190404_tb_10.apk
 2d5d0598fb1222b142e9665e0b3dc354 Assembly-CSharp.dll:.SecondBackList
 1e7e44af9aa19c16977f363850321fc9 Assembly-CSharp.dll:.WallManager
 f62d1e12c4ea2e5d19ca5a2c81b0bf32 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.TiltShift
@@ -142,7 +142,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.MatColorFinder
 2523b33ee4db626beb94b738c809f130 Assembly-CSharp.dll:.LaserManager
 dd5481137759597d614818793c90a7fe Assembly-CSharp.dll:.ParticleRotation
-e6b62e8616b0fe6a26716ec1780631aa Assembly-CSharp.dll:.Test
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Test
 48f59b6cc936e9e7cd82023a7e6cf23b Assembly-CSharp.dll:.Coin
 88e745da281bc889e248b64cf4d72a54 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.SunShafts
 a0699f81ed68363f4e488afeb7ffbb4a Assembly-CSharp.dll:.ObjChaser
@@ -211,7 +211,7 @@ a43bf082d8a2267852db356f0d849a4c Assembly-CSharp.dll:.UIManager
 013a8f86d54989fb310c8925fbd3ffdb Assembly-CSharp.dll:.PlayEffect
 53dbd7baa3c8da2f87828dd70d70dae4 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.DepthOfFieldDeprecated
 7fc3adfac7efbc0706567dbaca46f637 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.Fisheye
-d7bb0b665800eaa0af5f39db4e5e4060 Assembly-CSharp.dll:.GameManager
+490b09b1243a3e723eb328d29f23ef27 Assembly-CSharp.dll:.GameManager
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.PostEffectsBase
 a645e07bdc8ab7f8c1cb419cec953de8 Assembly-CSharp.dll:.Wall
 e2a8fd4524fc2a3a236b7e7720b544a6 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.EdgeDetection

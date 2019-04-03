@@ -73,8 +73,6 @@ public class RevivalManager : MonoBehaviour
 
 		yield return new WaitForSeconds(outputTime);
 
-		Debug.Log("ASD");
-
 		GameManager.instance.StopGame();
 	}
 }
