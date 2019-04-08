@@ -36,6 +36,7 @@ public class UIManager : MonoBehaviour
 
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		Screen.SetResolution(Screen.width, Screen.width * 16 / 9, false);
+		Application.targetFrameRate = 60;
 	}
 
 	// 시작 초기화

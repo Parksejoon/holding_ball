@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-C:/Users/qkeh4/OneDrive/문서/PSJ/Project/HoldingBall/Build/190404_tb_10.apk
+C:/Users/qkeh4/OneDrive/문서/PSJ/Project/HoldingBall/Build/190405_tb_12.apk
 2d5d0598fb1222b142e9665e0b3dc354 Assembly-CSharp.dll:.SecondBackList
 1e7e44af9aa19c16977f363850321fc9 Assembly-CSharp.dll:.WallManager
 f62d1e12c4ea2e5d19ca5a2c81b0bf32 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.TiltShift
