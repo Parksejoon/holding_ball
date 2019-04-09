@@ -29,8 +29,9 @@ public class Ball : MonoBehaviour
 	// 일반
 	[HideInInspector]
 	public	bool				canDouble = true;       // 더블 샷 가능?
-
-	private GameObject			targetHolder;			// 현재 타겟이된 홀더
+	[HideInInspector]
+	public	Transform			parentTransform;		// 부모의 트랜스폼
+	
 	private GameObject			shotLine;               // ShotLine오브젝트
 	private Rigidbody2D			rigidbody2d;            // 이 오브젝트의 리짓바디
 	private GameObject			ballInvObj;             // 공의 물리 오브젝트
@@ -50,11 +51,12 @@ public class Ball : MonoBehaviour
 		{
 			instance = this;
 		}
-		
-		rigidbody2d	= GetComponentInParent<Rigidbody2D>();
-		ballInvObj	= transform.parent.gameObject;
-		isHolding	= false;
-		isGhost		= 0;
+
+		parentTransform = GetComponentInParent<Transform>();
+		rigidbody2d		= GetComponentInParent<Rigidbody2D>();
+		ballInvObj		= transform.parent.gameObject;
+		isHolding		= false;
+		isGhost			= 0;
 	}
 
 	// 시작
@@ -91,9 +93,9 @@ public class Ball : MonoBehaviour
 		if (other.gameObject.CompareTag("PowerHolder"))
 		{
 			Holder otherTargetHolder = other.GetComponent<Holder>();
-				
+			
 			otherTargetHolder.DestroyParticle();
-			Destroy(other.gameObject);
+			ObjectPoolManager.Release("Holder", other.gameObject);
 
 			GameManager.instance.AddScore(otherTargetHolder.holderPower);
 		}
@@ -177,7 +179,7 @@ public class Ball : MonoBehaviour
 			if (shotLine != null)
 			{
 				// 캐치 했는지 판정
-				targetHolder = shotLine.GetComponent<ShotLine>().Judgment();
+				shotLine.GetComponent<ShotLine>().Judgment();
 
 				// 슛라인 파괴
 				Destroy(shotLine.gameObject);

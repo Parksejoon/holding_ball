@@ -6,16 +6,9 @@ public class TouchPanel : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
 {
 	// 인스펙터 비노출 변수
 	// 일반
-	private Ball		ball;					// 공
 	private int			currentTouchCount = 0;  // 최근 터치 횟수
 	private Vector3		dragStartPosition;		// 드래그 시작 위치
 
-
-	// 초기화
-	private void Awake()
-	{
-		ball = GameObject.Find("Ball").GetComponent<Ball>();
-	}
 
 	// 터치 시작
 	public void OnPointerDown(PointerEventData pointerEventData)
@@ -46,7 +39,7 @@ public class TouchPanel : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
 	// 더블샷 호출 코루틴(한 프레임에 addforce 두번되서 속도 비정상적임)
 	private IEnumerator Double(PointerEventData pointerEventData)
 	{
-		ball.DoubleShot(dragStartPosition, pointerEventData.position);
+		Ball.instance.DoubleShot(dragStartPosition, pointerEventData.position);
 
 		yield return null;
 	}

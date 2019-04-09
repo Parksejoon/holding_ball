@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
 			instance 	= this;				
 		}
 			
-		cameraEffect	= GameObject.Find("Main Camera").GetComponent<CameraEffect>();
+		cameraEffect	= Camera.main.GetComponent<CameraEffect>();
 
 		isTouch		    = false;
 		previousIsTouch = false;

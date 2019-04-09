@@ -2,20 +2,21 @@
 
 public class StartManager : MonoBehaviour
 {
+	// 인스펙터 노출 변수
+	// 일반
+	[SerializeField]
+	private Rigidbody2D		ballRigidbody2d;            // 공의 트랜스폼
+	[SerializeField]
+	private Camera			targetCamera;               // 카메라
+
 	// 인스펙터 비노출 변수
 	// 일반
-	private HolderManager	holderManager;				// 홀더 매니저
-	private Rigidbody2D		ballRigidbody2d;			// 공의 트랜스폼
-	private new Camera		camera;                     // 카메라
 	private Indexer			indexer;					// 인덱서
 
 
 	// 초기화
 	private void Awake()
 	{
-		holderManager   = GetComponent<HolderManager>();
-		ballRigidbody2d = GameObject.Find("BallCollider").GetComponent<Rigidbody2D>();
-		camera		    = GameObject.Find("Main Camera").GetComponent<Camera>();
 		indexer			= new Indexer();
 	}
 
@@ -35,7 +36,7 @@ public class StartManager : MonoBehaviour
 	{
 		GameManager.instance.enabled = true;
 		LaserManager.instance.enabled = true;
-		holderManager.enabled = true;
+		HolderManager.instance.enabled = true;
 	}
 
 	// 게임 시작
@@ -43,7 +44,7 @@ public class StartManager : MonoBehaviour
 	{
 		Vector2 targetVec2;
 
-		targetVec2 = camera.ScreenToWorldPoint(Input.mousePosition);
+		targetVec2 = targetCamera.ScreenToWorldPoint(Input.mousePosition);
 		targetVec2 = Vector3.Normalize(targetVec2);
 		targetVec2 *= 10f;
 		

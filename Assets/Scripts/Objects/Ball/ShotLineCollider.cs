@@ -37,7 +37,7 @@ public class ShotLineCollider : MonoBehaviour
 		good		   = new List<Transform>();
 
 		// 홀더 리스트 복사
-		holderList = GameObject.Find("GameManager").GetComponent<HolderManager>().holderList;
+		holderList = HolderManager.instance.holderList;
 		
 		// 홀더들을 불러와 판정
 		for (int i = 0; i < holderList.Count; i++)
@@ -81,7 +81,6 @@ public class ShotLineCollider : MonoBehaviour
 		Holder targetHolder = holderList[i].gameObject.GetComponent<Holder>();
 
 		targetHolder.holderPower     = score;
-		targetHolder.rotationPower   = 0;
 		targetHolder.destroyParticle = powerHolderParticle;
 		targetHolder.StartDestroyer();
 

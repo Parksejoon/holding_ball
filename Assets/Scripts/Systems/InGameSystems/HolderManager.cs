@@ -4,31 +4,36 @@ using UnityEngine;
 
 public class HolderManager : MonoBehaviour
 {
+	// 싱글톤
+	public static HolderManager instance;							// 인스턴스
+
 	// 델리게이트
 	private delegate IEnumerator HolderAlgorithm();					// 홀더 샷 알고리즘 델리게이트
 
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
-	private GameObject holderPrefab;							    // 생성될 Holder 프리팹
+	private GameObject	holderPrefab;					// 생성될 Holder 프리팹
 	[SerializeField]
-	private GameObject coinPrefab;									// 생성될 Coin 프리팹
+	private GameObject	coinPrefab;						// 생성될 Coin 프리팹
 	[SerializeField]
-	private float      fixX;										// 생성 고정 X좌표
+	private float		fixX;							// 생성 고정 X좌표
 	[SerializeField]
-	private float      fixY;									    // 생성 고정 Y좌표
+	private float		fixY;							// 생성 고정 Y좌표
 	[SerializeField]
-	private float	   power;									    // 발사 파워
+	private float		power;							// 발사 파워
 	[SerializeField]
-	private float      minRespawnTime;							    // 리스폰 최소시간
+	private float		minRespawnTime;					// 리스폰 최소시간
 	[SerializeField]
-	private float      maxRespawnTime;								// 리스폰 최대시간
+	private float		maxRespawnTime;					// 리스폰 최대시간
 	[SerializeField]
-	private float	   minTerm;										// 중간 텀 최소시간
+	private float		minTerm;						// 중간 텀 최소시간
 	[SerializeField]
-	private float	   maxTerm;										// 중간 텀 최대시간
+	private float		maxTerm;						// 중간 텀 최대시간
 	[SerializeField]
-	private float      amount;										// 소환되는 양
+	private float		amount;							// 소환되는 양
+	
+	public	Material	originHolderMat;				// 기본 홀더 머티리얼
 
 	// 인스펙터 비노출 변수
 	// 일반
@@ -38,14 +43,23 @@ public class HolderManager : MonoBehaviour
 	private HolderAlgorithm[] holderAlgorithm;                       // 홀더 샷 알고리즘 목록
 
 	// 수치
-	private float			  pastTime;                               // 경과 시간
-	private float            goalTime;                              // 목표 시간
-	private bool             isPasting; 		                      // 시간이 흘러가고있는가?
+	private float			pastTime;                              // 경과 시간
+	private float			goalTime;                              // 목표 시간
+	private bool			isPasting;                             // 시간이 흘러가고있는가?
 
 
 	// 초기화
+	private void Awake()
+	{
+		instance = this;
+	}
+
+	// 시작
 	public void Start()
 	{
+		ObjectPoolManager.AddObject("Holder", holderPrefab, transform);
+		ObjectPoolManager.Create("Holder", 600);
+
 		// Tornado Slug Round Compression Quarter Shift Coinar
 		// 알고리즘 델리게이트 초기화
 		holderAlgorithm = new []
@@ -132,7 +146,8 @@ public class HolderManager : MonoBehaviour
 		while (count < amount)
 		{
 			// 생성
-			target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+			target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Rigidbody2D>();
+			//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
 
 			// 방향으로 힘 적용
 			target.AddForce(WayVector2(angle, power));
@@ -162,13 +177,15 @@ public class HolderManager : MonoBehaviour
 			for (int i = 0; i < amount / 10; i++)
 			{
 				// 생성
-				target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+				target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Rigidbody2D>();
+				//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
 
 				// 방향으로 힘 적용
 				target.AddForce(WayVector2(angle, power));
 
 				// 생성
-				target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+				target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Rigidbody2D>();
+				//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
 
 				// 방향으로 힘 적용
 				target.AddForce(WayVector2(180 + angle, power));
@@ -199,7 +216,8 @@ public class HolderManager : MonoBehaviour
 			for (int i = 0; i < amount / 2; i++)
 			{
 				// 생성
-				target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+				target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Rigidbody2D>();
+				//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
 
 				// 방향으로 힘 적용
 				target.AddForce(WayVector2(angle, power));
@@ -227,13 +245,15 @@ public class HolderManager : MonoBehaviour
 		while (count < amount)
 		{
 			// 생성
-			target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+			target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Rigidbody2D>();
+			//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
 
 			// 방향으로 힘 적용
 			target.AddForce(WayVector2(angle + minusAngle, power));
 
 			// 생성
-			target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+			target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Rigidbody2D>();
+			//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
 
 			// 방향으로 힘 적용
 			target.AddForce(WayVector2(angle - minusAngle, power));
@@ -260,7 +280,8 @@ public class HolderManager : MonoBehaviour
 			for (int i = 0; i < 4; i++)
 			{
 				// 생성
-				target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+				target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Rigidbody2D>();
+				//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
 
 				// 방향으로 힘 적용
 				target.AddForce(WayVector2(angle + (90 * i), power));
@@ -298,7 +319,8 @@ public class HolderManager : MonoBehaviour
 				for (int j = 0; j < amount / 4; j++)
 				{
 					// 생성
-					target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+					target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Rigidbody2D>();
+					//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
 
 					// 방향으로 힘 적용
 					target.AddForce(WayVector2(angle + (90 * i), finalPower));
@@ -325,7 +347,8 @@ public class HolderManager : MonoBehaviour
 		for (int i = 0; i < amount / 2; i++)
 		{
 			// 생성
-			target = Instantiate(coinPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+			target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Rigidbody2D>();
+			//target = Instantiate(coinPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
 
 			// 방향으로 힘 적용
 			target.AddForce(WayVector2(angle, power));

@@ -10,7 +10,6 @@ public class ShotLine : MonoBehaviour
 
 	// 인스펙터 비노출 변수
 	// 일반 변수
-	private GameObject       catchHolder;              // 영역에 들어온 홀더들
 	private ShotLineCollider shotLineCollider;         // 슛라인 충돌검사
 	private float			 timer;					   // 타이머
 
@@ -41,36 +40,16 @@ public class ShotLine : MonoBehaviour
 	} 
 
 	// 현재 가지고있는 홀더를 반환
-	public GameObject Judgment()
+	public void Judgment()
 	{
 		// 홀더 + 판정 초기화
-		catchHolder = null;
 		shotLineCollider.Judgment();
-
-		// 판정 검사
-		// 퍼펙트 판정
-		if (shotLineCollider.perfect.Count > 0)
-		{
-			catchHolder = shotLineCollider.perfect[shotLineCollider.perfect.Count - 1].gameObject;
-		}
-		// 굿 판정
-		else if (shotLineCollider.good.Count > 0)
-		{
-			catchHolder = shotLineCollider.good[shotLineCollider.good.Count - 1].gameObject;
-		}
-		// 페일 판정
-		else
-		{
-		}
 
 		// 잔상효과
 		GameObject tempObject = Instantiate(afterEffect, transform.position, Quaternion.identity);
 
 		tempObject.transform.localScale = (transform.localScale) * 0.2f;
 		UIEffecter.instance.FadeEffect(tempObject, Vector2.zero, 0.7f, UIEffecter.FadeFlag.ALPHA | UIEffecter.FadeFlag.FINDESTROY);
-
-		// 캐치된 홀더 반환
-		return catchHolder;
 	}
 
 	// 자동 파괴

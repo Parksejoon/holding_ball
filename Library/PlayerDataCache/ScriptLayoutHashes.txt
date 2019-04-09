@@ -1,8 +1,8 @@
 Android
 PlayerPath?
-C:/Users/qkeh4/OneDrive/문서/PSJ/Project/HoldingBall/Build/190405_tb_12.apk
+C:/Users/qkeh4/OneDrive/문서/PSJ/Project/HoldingBall/Build/190409_tb_13_nobloom.apk
 2d5d0598fb1222b142e9665e0b3dc354 Assembly-CSharp.dll:.SecondBackList
-1e7e44af9aa19c16977f363850321fc9 Assembly-CSharp.dll:.WallManager
+876c7425d124b280a6b179c3517aed14 Assembly-CSharp.dll:.WallManager
 f62d1e12c4ea2e5d19ca5a2c81b0bf32 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.TiltShift
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 4b12dd839b2293f8457cd67cc3610b85 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
@@ -17,13 +17,13 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 92d7a83ea3c7404e484f3b2eed421855 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 d29057dcfb9f6888e22b5bc3f21d9b38 UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
 c08b196716247885d3b27f7f282b2568 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.ImageEffectBase
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.StartManager
+7bfef1625ec3f58f7b11a3687ef2ce7e Assembly-CSharp.dll:.StartManager
 a30beadf4d109f44144b9a9f42e61cbf Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.BlurOptimized
-b554c7924cdc84771e57c344211c9bd2 Assembly-CSharp.dll:.HolderManager
+cb2b3acea2771965792729a2947e6137 Assembly-CSharp.dll:.HolderManager
 23b50ef73e2c1a8a76860d35bcbbf8fc Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.GlobalFog
 daabd8d8800a87cff11f866c4d06a232 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.ContrastStretch
 31ac2865258ddbc8f82525645ca875c2 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.VignetteAndChromaticAberration
-b59e1e272eddf1c9079da7002f8b3be4 Assembly-CSharp.dll:.Ball
+d802466ef8848959b9431c2a2dca7e9b Assembly-CSharp.dll:.Ball
 1ad999c1c59cc66b1257b3f9407287bc Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.ColorCorrectionCurves
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
@@ -154,7 +154,7 @@ cac5093fb1baf037bd671ecbc6727828 Assembly-CSharp-firstpass.dll:UnityStandardAsse
 e6181456fed849a6518784c872175003 Assembly-CSharp.dll:.CameraEffect
 30db6bf1abfbd17c6cdd1385b9eba6ca Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.DepthOfField
 94392784523ff8304808464f1a9d0ec9 Assembly-CSharp.dll:.BallParticler
-973f21d914b9145a2617f99ed05f0a69 Assembly-CSharp.dll:.Holder
+d9ecad030c1ec4aa6c0c7dd918b03506 Assembly-CSharp.dll:.Holder
 79668c886ec4b34e67a85e0530cf7b37 Assembly-CSharp.dll:.ColorPickPanelManager
 62a17081e0da1165c1d17290c7687284 Assembly-CSharp.dll:.PowerGauge
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Initializer
@@ -219,4 +219,5 @@ b3432dfe180f02232d7612fb366593d3 Assembly-CSharp-firstpass.dll:UnityStandardAsse
 3ae0dad0b55a80319e1d57c2dce28da7 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.Tonemapping
 0c0963d2603cb8306cf11fef25c94992 Assembly-CSharp.dll:.ShotLineCollider
 81d3fa35f3270744d8c271fbb7597c65 Assembly-CSharp.dll:.SelfDestroy
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ObjectPoolManager
 0540c9b791b5ae3d1b39435dfdb9b9da Assembly-CSharp.dll:.RevivalManager

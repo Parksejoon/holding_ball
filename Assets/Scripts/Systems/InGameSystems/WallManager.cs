@@ -6,6 +6,9 @@ public class WallManager : MonoBehaviour
 
 	// 인스펙터 노출 변수
 	// 일반
+	[SerializeField]
+	private Transform			wallsTransform;             // 벽들의 트랜스폼
+
 	public  GameObject			wallPrefab;	                // 벽 프리팹
 	
 	// 수치
@@ -14,7 +17,6 @@ public class WallManager : MonoBehaviour
 
 	// 인스펙터 비노출 변수
 	// 일반
-	private Transform			wallsTransform;             // 벽들의 트랜스폼
 	private Orbit[]				orbits;						// 궤도들
 	private float				rotationSpeed;				// 회전속도
 
@@ -26,8 +28,7 @@ public class WallManager : MonoBehaviour
 		{
 			instance = this;				
 		}
-
-		wallsTransform  = GameObject.Find("Walls"). GetComponent<Transform>();
+		
 		orbits			= GetComponentsInChildren<Orbit>();
 
 		rotationSpeed = originalRotationSpeed;
