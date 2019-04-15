@@ -23,32 +23,22 @@ public class Wall : MonoBehaviour
 	// 시작
 	private void Start()
 	{
-		UIEffecter.instance.FadeEffect(spriteObj, Vector2.one, 1f, UIEffecter.FadeFlag.ALPHA);
-		AddStack(0);
+		UIEffecter.instance.FadeEffect(spriteObj, Vector2.one, 0.5f, UIEffecter.FadeFlag.ALPHA);
 	}
 
-	// 스택 재조정
-	public void AddStack(int value)
+	// 벽 파괴
+	public void DestroyWall()
 	{
-		stack += value;
-
-		if (stack == 0)
-		{
-			StartCoroutine(DestroyAnimation());
-		}
-		else
-		{
-			UIEffecter.instance.FadeEffect(spriteObj, new Vector2(0.2f * stack, 0), 1f, UIEffecter.FadeFlag.ALPHA);
-		}
+		StartCoroutine(DestroyAnimation());
 	}
 
 	// 파괴 애니메이션
 	private IEnumerator DestroyAnimation()
 	{
 		boxCollider2D.enabled = false;
-		UIEffecter.instance.FadeEffect(spriteObj, Vector2.zero, 1.5f, UIEffecter.FadeFlag.ALPHA);
+		UIEffecter.instance.FadeEffect(spriteObj, Vector2.zero, 0.5f, UIEffecter.FadeFlag.ALPHA);
 
-		yield return new WaitForSeconds(3f);
+		yield return new WaitForSeconds(1f);
 
 		Destroy(gameObject);
 	}
