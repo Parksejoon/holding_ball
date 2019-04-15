@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
 	{
 		PowerCompute();
 		StartCoroutine(LevelTimer());
-		StartCoroutine(SpotTimer());
+		//StartCoroutine(SpotTimer());
 	}
 
 	// 프레임

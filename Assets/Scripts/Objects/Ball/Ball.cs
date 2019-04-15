@@ -19,8 +19,6 @@ public class Ball : MonoBehaviour
 	private BallParticler		ballParticler;          // 볼 파티클러
 	[SerializeField]
 	private Material			holderSprite;           // 홀더 스프라이트
-	[SerializeField]
-	private Cooldown			coolDownImg;			// 쿨다운 이미지
 
 	// 수치
 	public	 float				holdingCooltime = 1f;	// 홀딩 쿨타임
@@ -298,7 +296,6 @@ public class Ball : MonoBehaviour
 	private IEnumerator HoldingCooldown()
 	{
 		isCool = true;
-		coolDownImg.StartCooldown(holdingCooltime);
 
 		yield return new WaitForSeconds(holdingCooltime);
 

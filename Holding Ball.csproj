@@ -254,9 +254,11 @@
     <Compile Include="Assets\Scripts\Systems\ColorPicker\ColorPickerList.cs" />
     <Compile Include="Assets\Scripts\Systems\ColorPicker\ColorPickPanelManager.cs" />
     <Compile Include="Assets\Scripts\Systems\ColorPicker\ParticlePicker.cs" />
+    <Compile Include="Assets\Scripts\Systems\CurrentVersion.cs" />
     <Compile Include="Assets\Scripts\Systems\DataSystems\Indexer.cs" />
     <Compile Include="Assets\Scripts\Systems\DataSystems\Initializer.cs" />
     <Compile Include="Assets\Scripts\Systems\DataSystems\Parser.cs" />
+    <Compile Include="Assets\Scripts\Systems\FPSChecker.cs" />
     <Compile Include="Assets\Scripts\Systems\InGameSystems\BallParticleManager.cs" />
     <Compile Include="Assets\Scripts\Systems\InGameSystems\GameManager.cs" />
     <Compile Include="Assets\Scripts\Systems\InGameSystems\HolderManager.cs" />
@@ -272,7 +274,6 @@
     <Compile Include="Assets\Scripts\Systems\UIManager.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
     <Compile Include="Assets\Scripts\UI\InGame\CoinRotation.cs" />
-    <Compile Include="Assets\Scripts\UI\InGame\Cooldown.cs" />
     <Compile Include="Assets\Scripts\UI\InGame\PowerGauge.cs" />
     <Compile Include="Assets\Scripts\UI\InGame\TimerText.cs" />
     <Compile Include="Assets\Scripts\UI\Intro\CameraMovement.cs" />
