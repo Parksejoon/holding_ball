@@ -9,7 +9,11 @@ public class Coin : MonoBehaviour
 	private ParticleSystem	destroyParticle;
 		
 	// 수치
-	public float			bounceCount; 	         // 튕길 수 있는 횟수
+	public	float			bounceCount;         // 튕길 수 있는 횟수
+
+	// 인스펙터 비노출 변수
+	// 수치
+	private Vector2			velo;				// 속도
 
 
 	// 시작
@@ -22,6 +26,13 @@ public class Coin : MonoBehaviour
 	private void Update()
 	{
 		transform.Rotate(new Vector3(0, 0, 3) * GameManager.instance.timeValue);
+		transform.Translate(velo * Time.smoothDeltaTime);
+	}
+
+	// 속도 조절
+	public void SetVelo(Vector2 value)
+	{
+		velo = value;
 	}
 
 	// 파괴 이펙트

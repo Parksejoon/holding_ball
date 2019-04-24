@@ -112,7 +112,7 @@ public class Ball : MonoBehaviour
 		// 장애물일 경우 게임 종료
 		if (other.gameObject.CompareTag("WarWall") || other.gameObject.CompareTag("Laser"))
 		{
-			#if SHOW_DEBUG
+			#if DEBUG
 			Debug.Log("GameOver");
 			#else
 			GameManager.instance.GameOver();

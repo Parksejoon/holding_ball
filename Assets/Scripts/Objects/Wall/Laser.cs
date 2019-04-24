@@ -46,7 +46,6 @@ public class Laser : MonoBehaviour
 	// 트리거 진입
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		Debug.Log("TASD");
 		if (other.CompareTag("Wall"))
 		{
 			other.GetComponent<Wall>().DestroyWall();

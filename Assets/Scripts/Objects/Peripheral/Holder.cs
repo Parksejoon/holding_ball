@@ -19,8 +19,9 @@ public class Holder : MonoBehaviour
 
 	// 수치
 	[HideInInspector]
-	public  int				holderPower; 			// 홀더 파워
+	public  int				holderPower;            // 홀더 파워
 
+	private Vector2			velo;					// 속도
 	private bool			firstDisable = true;    // 첫 초기화
 	private bool			isDestroying = false;	// 파괴 진행중
 	
@@ -29,6 +30,12 @@ public class Holder : MonoBehaviour
 	private void Awake()
 	{
 		sprite	= transform.GetChild(0).GetComponent<SpriteRenderer>();
+	}
+
+	// 프레임
+	private void Update()
+	{
+		transform.Translate(velo * Time.smoothDeltaTime);
 	}
 
 	// 삭제
@@ -42,6 +49,7 @@ public class Holder : MonoBehaviour
 		{
 			// 홀더 리스트에서 해당 항목을 삭제
 			HolderManager.instance.holderList.Remove(transform);
+			velo = Vector2.zero;
 
 			if (coroutine != null)
 			{
@@ -75,6 +83,12 @@ public class Holder : MonoBehaviour
 	{
 		// 파티클 생성
 		Instantiate(destroyParticle, transform.position, Quaternion.identity);
+	}
+
+	// 속도 지정
+	public void SetVelo(Vector2 value)
+	{
+		velo = value;
 	}
 
 	// 랜덤 벡터

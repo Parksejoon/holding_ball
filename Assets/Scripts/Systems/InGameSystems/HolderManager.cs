@@ -130,13 +130,13 @@ public class HolderManager : MonoBehaviour
 			index %= 6;
 		}
 
-		StartCoroutine(holderAlgorithm[index]());
+		StartCoroutine(holderAlgorithm[0]());
 	}
 
 	// 회오리
 	private IEnumerator Tornado()
 	{
-		Rigidbody2D target;												// 타겟 홀더
+		Holder target;												// 타겟 홀더
 		float		term = UnityEngine.Random.Range(minTerm, maxTerm);	// 텀
 		int			count = 0;											// 카운트
 		float		angle = 0;											// 현재 각도
@@ -146,11 +146,11 @@ public class HolderManager : MonoBehaviour
 		while (count < amount)
 		{
 			// 생성
-			target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Rigidbody2D>();
-			//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+			target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Holder>();
+			//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
 
 			// 방향으로 힘 적용
-			target.AddForce(WayVector2(angle, power));
+			target.SetVelo(WayVector2(angle, power));
 
 			// 각도 추가
 			angle += addAngle;
@@ -164,7 +164,7 @@ public class HolderManager : MonoBehaviour
 	// 양방향 분사
 	private IEnumerator Slug()
 	{
-		Rigidbody2D target;										  // 타겟 홀더
+		Holder target;										  // 타겟 홀더
 		float		term = UnityEngine.Random.Range(minTerm, maxTerm);        // 텀
 		int			count = 0;							   	      // 카운트
 		float		angle;										  // 방향 각도
@@ -177,18 +177,18 @@ public class HolderManager : MonoBehaviour
 			for (int i = 0; i < amount / 10; i++)
 			{
 				// 생성
-				target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Rigidbody2D>();
-				//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+				target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Holder>();
+				//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
 
 				// 방향으로 힘 적용
-				target.AddForce(WayVector2(angle, power));
+				target.SetVelo(WayVector2(angle, power));
 
 				// 생성
-				target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Rigidbody2D>();
-				//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+				target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Holder>();
+				//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
 
 				// 방향으로 힘 적용
-				target.AddForce(WayVector2(180 + angle, power));
+				target.SetVelo(WayVector2(180 + angle, power));
 
 				// 분사량에 따라 각도 조절
 				angle += addAngle;
@@ -203,7 +203,7 @@ public class HolderManager : MonoBehaviour
 	// 전반향 분사
 	private IEnumerator Round()
 	{
-		Rigidbody2D target;												// 타겟 홀더
+		Holder target;												// 타겟 홀더
 		float		term = UnityEngine.Random.Range(minTerm, maxTerm);	// 텀
 		int			count = 0;											// 카운트
 		float		angle;												// 방향 각도
@@ -216,11 +216,11 @@ public class HolderManager : MonoBehaviour
 			for (int i = 0; i < amount / 2; i++)
 			{
 				// 생성
-				target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Rigidbody2D>();
-				//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+				target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Holder>();
+				//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
 
 				// 방향으로 힘 적용
-				target.AddForce(WayVector2(angle, power));
+				target.SetVelo(WayVector2(angle, power));
 
 				// 분사량에 따라 각도 조절
 				angle += addAngle;
@@ -235,7 +235,7 @@ public class HolderManager : MonoBehaviour
 	// 압축
 	private IEnumerator Compression()
 	{
-		Rigidbody2D target;										// 타겟 홀더
+		Holder target;										// 타겟 홀더
 		float		term = UnityEngine.Random.Range(minTerm, maxTerm);      // 텀
 		int			count = 0;                                  // 카운트
 		float		angle = UnityEngine.Random.Range(0, 360);				// 현재 각도
@@ -245,18 +245,18 @@ public class HolderManager : MonoBehaviour
 		while (count < amount)
 		{
 			// 생성
-			target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Rigidbody2D>();
-			//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+			target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Holder>();
+			//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
 
 			// 방향으로 힘 적용
-			target.AddForce(WayVector2(angle + minusAngle, power));
+			target.SetVelo(WayVector2(angle + minusAngle, power));
 
 			// 생성
-			target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Rigidbody2D>();
-			//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+			target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Holder>();
+			//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
 
 			// 방향으로 힘 적용
-			target.AddForce(WayVector2(angle - minusAngle, power));
+			target.SetVelo(WayVector2(angle - minusAngle, power));
 
 			// 각도 추가
 			minusAngle -= addAngle;
@@ -270,7 +270,7 @@ public class HolderManager : MonoBehaviour
 	// 4분할
 	private IEnumerator Quarter()
 	{
-		Rigidbody2D target;									    // 타겟 홀더
+		Holder target;									    // 타겟 홀더
 		float		term = UnityEngine.Random.Range(minTerm, maxTerm);      // 텀
 		int			count = 0;                                  // 카운트
 		float		angle = UnityEngine.Random.Range(0, 90);				// 현재 각도
@@ -280,11 +280,11 @@ public class HolderManager : MonoBehaviour
 			for (int i = 0; i < 4; i++)
 			{
 				// 생성
-				target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Rigidbody2D>();
-				//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+				target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Holder>();
+				//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
 
 				// 방향으로 힘 적용
-				target.AddForce(WayVector2(angle + (90 * i), power));
+				target.SetVelo(WayVector2(angle + (90 * i), power));
 			}
 
 			if (count % 20 >= 0 && count % 20 <= 5)
@@ -302,7 +302,7 @@ public class HolderManager : MonoBehaviour
 	// 변속
 	private IEnumerator Shift()
 	{
-		Rigidbody2D target;										 // 타겟 홀더
+		Holder target;										 // 타겟 홀더
 		float		term = UnityEngine.Random.Range(minTerm, maxTerm);       // 텀
 		int			count = 0;                                   // 카운트
 		float		angle;								   	     // 방향 각도
@@ -319,11 +319,11 @@ public class HolderManager : MonoBehaviour
 				for (int j = 0; j < amount / 4; j++)
 				{
 					// 생성
-					target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Rigidbody2D>();
-					//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+					target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Holder>();
+					//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
 
 					// 방향으로 힘 적용
-					target.AddForce(WayVector2(angle + (90 * i), finalPower));
+					target.SetVelo(WayVector2(angle + (90 * i), finalPower));
 
 					// 분사량에 따라 각도 조절
 					angle += addAngle;
@@ -339,7 +339,7 @@ public class HolderManager : MonoBehaviour
 	// 코인
 	private IEnumerator Coinar()
 	{
-		Rigidbody2D target;												// 타겟 홀더
+		Coin target;												// 타겟 홀더
 		float	term = UnityEngine.Random.Range(minTerm, maxTerm);		// 텀
 		float	angle = 0;                                              // 발사 각도
 		float	addAngle = (360 / (amount / 2));						// 더해지는 각도
@@ -347,11 +347,11 @@ public class HolderManager : MonoBehaviour
 		for (int i = 0; i < amount / 2; i++)
 		{
 			// 생성
-			target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Rigidbody2D>();
-			//target = Instantiate(coinPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Rigidbody2D>();
+			target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Coin>();
+			//target = Instantiate(coinPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
 
 			// 방향으로 힘 적용
-			target.AddForce(WayVector2(angle, power));
+			target.SetVelo(WayVector2(angle, power));
 
 			// 분사량에 따라 각도 조절
 			angle += addAngle;

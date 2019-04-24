@@ -75,11 +75,11 @@ public class ShotLineCollider : MonoBehaviour
 	// 홀더 변환
 	private void ChangeHolder(int i, int score)
 	{
-		holderList[i].gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 		holderList[i].gameObject.tag = "PowerHolder";
 
 		Holder targetHolder = holderList[i].gameObject.GetComponent<Holder>();
 
+		targetHolder.SetVelo(Vector2.zero);
 		targetHolder.holderPower     = score;
 		targetHolder.destroyParticle = powerHolderParticle;
 		targetHolder.StartDestroyer();

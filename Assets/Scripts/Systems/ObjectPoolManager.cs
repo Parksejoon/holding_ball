@@ -70,8 +70,10 @@ public class ObjectPoolManager : MonoBehaviour
 	public static GameObject GetGameObject(string name)
 	{
 		Stack<GameObject> objects = objectPools[name];
-		
-		Debug.Log(objects.Count);
+
+#if DEBUG
+		//Debug.Log(objects.Count);
+#endif
 
 		if (objects.Count <= 0)
 		{
@@ -91,7 +93,9 @@ public class ObjectPoolManager : MonoBehaviour
 	{
 		Stack<GameObject> objects = objectPools[name];
 
-		Debug.Log(objects.Count);
+#if DEBUG
+		//Debug.Log(objects.Count);
+#endif
 
 		if (objects.Count <= 0)
 		{
@@ -109,7 +113,9 @@ public class ObjectPoolManager : MonoBehaviour
 	// 오브젝트 해제
 	public static void Release(string name, GameObject gameObj)
 	{
-		Debug.Log(objectPools[name].Count);
+#if DEBUG
+		//Debug.Log(objectPools[name].Count);
+#endif
 
 		gameObj.SetActive(false);
 
