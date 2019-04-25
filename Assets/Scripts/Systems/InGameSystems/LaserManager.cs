@@ -48,8 +48,8 @@ public class LaserManager : MonoBehaviour
 	{
 		while (true)
 		{
-			//yield return new WaitForSeconds(Random.Range(minDelay, maxDelay));
-			yield return new WaitForSeconds(1f);
+			yield return new WaitForSeconds(Random.Range(minDelay, maxDelay));
+			//yield return new WaitForSeconds(1f);
 
 			for (int i = 0; i < amountPerShot; i++)
 			{

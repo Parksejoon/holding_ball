@@ -174,13 +174,6 @@ public class GameManager : MonoBehaviour
 		PlayerPrefs.SetInt("Coin", coin);
 	}
 
-	// 벽 파괴
-	public void WallDestroy()
-	{
-		// 월 매니저로 벽 확대 요청
-		WallManager.instance.InitWalls();
-	}
-
 	// 게임 오버
 	public void GameOver()
 	{

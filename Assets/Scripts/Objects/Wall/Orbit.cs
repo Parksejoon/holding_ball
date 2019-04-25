@@ -4,19 +4,17 @@ using UnityEngine;
 public class Orbit : MonoBehaviour
 {
 	// 인스펙터 비노출 변수
-	// 일반
-	private Wall[]	walls;                      // 일반 벽들
 
 	// 수치
 	private float	rotationSpeed;              // 회전 속도
-	private int		nextWallIndex = 1;			// 다음 벽 인덱스
+	private int		nextWallIndex = 1;          // 다음 벽 인덱스
+	private bool	colliderEnabled = false;	// 충돌체 상태
 
 
 	// 초기화 
 	private void Awake()
 	{
-		walls			= GetComponentsInChildren<Wall>();
-		ResetRotationSpeed(1);
+		ResetRotationSpeed();
 	}
 
 	// 시작 초기화
@@ -32,11 +30,9 @@ public class Orbit : MonoBehaviour
 	}
 
 	// 회전 초기화 
-	public void ResetRotationSpeed(float val)
+	public void ResetRotationSpeed()
 	{
-		val = Mathf.Min(7, val);
-
-		rotationSpeed = Random.Range(-0.5f * val, 0.5f * val);
+		rotationSpeed = Random.Range(-0.5f, 0.5f);
 	}
 
 	// 벽 생성
@@ -48,8 +44,25 @@ public class Orbit : MonoBehaviour
 			Wall		targetWall	= target.GetComponent<Wall>();
 
 			target.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 6.745f * nextWallIndex++));
-			
 			targetWall.stack = stack;
+
+			if (colliderEnabled)
+			{
+				target.GetComponent<BoxCollider2D>().enabled = true;
+			}
+		}
+	}
+
+	// 충돌체 끄고 키기
+	public void SetCollider(bool enabled)
+	{
+		BoxCollider2D[] colliders = transform.GetComponentsInChildren<BoxCollider2D>();
+
+		colliderEnabled = enabled;
+
+		for (int i = 0; i < colliders.Length; i++)
+		{
+			colliders[i].enabled = enabled;
 		}
 	}
 }

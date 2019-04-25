@@ -50,19 +50,6 @@ public class WallManager : MonoBehaviour
 		wallsTransform.Rotate(Vector3.forward * rotationSpeed * GameManager.instance.timeValue * Time.deltaTime);
 	}
 
-	// 벽 초기화
-	public void InitWalls()
-	{
-		// 궤도 방향 변경
-		foreach (Orbit orbit in orbits)
-		{
-			orbit.ResetRotationSpeed(1);
-		}
-
-		// 회전 방향 전환
-		rotationSpeed *= -1;
-	}
-
 	// 벽들 새로 생성
 	public void CreateWalls()
 	{
