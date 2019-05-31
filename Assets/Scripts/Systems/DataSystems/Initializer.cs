@@ -11,6 +11,8 @@ public class Initializer : MonoBehaviour
 	// 초기화
 	private void Initialize()
 	{
+		Application.targetFrameRate = 60;
+
 		int coin	  = PlayerPrefs.GetInt("Coin", 0);
 		int bestScore = PlayerPrefs.GetInt("BestScore", 0);
 		
