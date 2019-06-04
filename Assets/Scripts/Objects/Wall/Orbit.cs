@@ -43,7 +43,7 @@ public class Orbit : MonoBehaviour
 			GameObject	target		= Instantiate(WallManager.instance.wallPrefab, Vector3.zero, Quaternion.identity, transform);
 			Wall		targetWall	= target.GetComponent<Wall>();
 
-			target.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 6.745f * nextWallIndex++));
+			target.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 32.5f * nextWallIndex++));
 			targetWall.stack = stack;
 
 			if (colliderEnabled)
