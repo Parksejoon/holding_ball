@@ -8,7 +8,7 @@ public class Orbit : MonoBehaviour
 	// 수치
 	private float	rotationSpeed;              // 회전 속도
 	private int		nextWallIndex = 1;          // 다음 벽 인덱스
-	private bool	colliderEnabled = false;	// 충돌체 상태
+	private bool	colliderEnabled = false;    // 충돌체 상태
 
 
 	// 초기화 
@@ -43,7 +43,14 @@ public class Orbit : MonoBehaviour
 			GameObject	target		= Instantiate(WallManager.instance.wallPrefab, Vector3.zero, Quaternion.identity, transform);
 			Wall		targetWall	= target.GetComponent<Wall>();
 
-			target.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 32.5f * nextWallIndex++));
+			// 가장 적게
+			// 32.5 / 오브젝트 x:3 y:0.5
+			// 궤도 크기
+			// 1 2.1 3.8 6.4 9.3
+
+			// 현재 궤도 크기
+			// 5 10 16 25 35
+			target.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 7.5f * nextWallIndex++));
 			targetWall.stack = stack;
 
 			if (colliderEnabled)

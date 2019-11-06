@@ -40,7 +40,8 @@ public class WallManager : MonoBehaviour
 
 		for (int i = 0; i < orbits.Length; i++)
 		{
-			orbits[i].CreateWall(Random.Range(5, 8), i + 1);
+			// 가장 적게 (5, 8)
+			orbits[i].CreateWall(Random.Range(30, 40), i + 1);
 		}
 	}
 
