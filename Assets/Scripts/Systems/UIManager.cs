@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
-	private StartManager	startManager;           // 시작 매니저
+	private InitManager		initManager;            // 초기화 매니저
 	[SerializeField]
 	private CoverSlider		coverSlider;            // 커버 슬라이더
 	[SerializeField]
@@ -90,7 +90,7 @@ public class UIManager : MonoBehaviour
 		coverSlider.usingLock = true;
 
 		// 게임 실행
-		startManager.enabled = true;
+		initManager.enabled = true;
 		
 		// 루틴 실행
 		StartCoroutine(StartRoutine());

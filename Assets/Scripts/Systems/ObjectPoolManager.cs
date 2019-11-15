@@ -11,18 +11,31 @@ public struct ObjectData
 public class ObjectPoolManager : MonoBehaviour
 {
 	// 오브젝트 풀
-	public static Dictionary<string, Stack<GameObject>> objectPools = new Dictionary<string, Stack<GameObject>>();
+	public static Dictionary<string, Stack<GameObject>> objectPools;// = new Dictionary<string, Stack<GameObject>>();
 
-	// 오브젝트 저장
-	private static Dictionary<string, ObjectData> objectList = new Dictionary<string, ObjectData>();
+	// 오브젝트 리스트
+	private static Dictionary<string, ObjectData> objectList;// = new Dictionary<string, ObjectData>();
 
 	// 수치
 	public static int extraCapacity = 50;
 
+	
+	// map 초기화
+	public static void Init()
+	{
+		objectPools = new Dictionary<string, Stack<GameObject>>();
+		objectList = new Dictionary<string, ObjectData>();
+	}
 
 	// 오브젝트 등록
 	public static void AddObject(string name, GameObject prefab, Transform parent)
 	{
+		if (objectList.ContainsKey(name))
+		{
+			Debug.Log("ASD");
+			return;
+		}
+
 		ObjectData data = new ObjectData();
 
 		data.prefab = prefab;

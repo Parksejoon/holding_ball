@@ -265,12 +265,12 @@
     <Compile Include="Assets\Scripts\Systems\InGameSystems\LaserManager.cs" />
     <Compile Include="Assets\Scripts\Systems\InGameSystems\RevivalManager.cs" />
     <Compile Include="Assets\Scripts\Systems\InGameSystems\WallManager.cs" />
+    <Compile Include="Assets\Scripts\Systems\InitManager.cs" />
     <Compile Include="Assets\Scripts\Systems\ObjectPoolManager.cs" />
     <Compile Include="Assets\Scripts\Systems\ShaderManager.cs" />
     <Compile Include="Assets\Scripts\Systems\Shop\GooglePlayManager.cs" />
     <Compile Include="Assets\Scripts\Systems\Shop\ShopManager.cs" />
     <Compile Include="Assets\Scripts\Systems\Shop\ShopParser.cs" />
-    <Compile Include="Assets\Scripts\Systems\StartManager.cs" />
     <Compile Include="Assets\Scripts\Systems\UIManager.cs" />
     <Compile Include="Assets\Scripts\Systems\ZoneCollider.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
