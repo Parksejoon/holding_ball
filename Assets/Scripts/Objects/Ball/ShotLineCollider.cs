@@ -42,8 +42,8 @@ public class ShotLineCollider : MonoBehaviour
 		// 홀더들을 불러와 판정
 		for (int i = 0; i < holderList.Count; i++)
 		{
-			float	distance = 0;                                       // 공과의 거리
-			float	holdDistance = 0;									// 홀더와의 거리
+			float	distance = 0;                                       // 홀더와 공 사이의 거리
+			float	holdDistance = 0;									// 홀더와 라인 사이의 거리
 
 			if (holderList[i] != null)
 			{
@@ -53,20 +53,25 @@ public class ShotLineCollider : MonoBehaviour
 				distance = Mathf.Sqrt(((holderListPosition.x - x) * (holderListPosition.x - x)) + ((holderListPosition.y - y) * (holderListPosition.y - y)));
 				holdDistance = Mathf.Abs(distance - range);
 
-				// 퍼펙트
+				// 퍼펙트 (5점)
 				if (holdDistance < perfectDis)
 				{
-					perfect.Add(holderList[i]);
+					//perfect.Add(holderList[i]);
 					
-					ChangeHolder(i, ScoreCompute(distance));
+					ChangeHolder(i, 5);
 
 				}
-				// 굿
+				// 일반 (4점)
 				else if (holdDistance < goodDis)
 				{
-					good.Add(holderList[i]);
+					//good.Add(holderList[i]);
 					
-					ChangeHolder(i, ScoreCompute(distance));
+					ChangeHolder(i, 4);
+				}
+				// 인사이드 (1점)
+				else if (distance < range)
+				{
+					ChangeHolder(i, 1);
 				}
 			}
 		}
@@ -85,18 +90,5 @@ public class ShotLineCollider : MonoBehaviour
 		targetHolder.StartDestroyer();
 
 		holderList[i].GetChild(0).gameObject.GetComponent<Renderer>().material = powerHolderMat;
-	}
-
-	// 점수 계산기
-	private int ScoreCompute(float distance)
-	{
-		int score = 0;
-
-		for (int range = 0; range <= distance; range += 5)
-		{
-			score++;
-		}
-
-		return score;
 	}
 }

@@ -48,7 +48,7 @@ public class Laser : MonoBehaviour
 	{
 		if (other.CompareTag("Wall"))
 		{
-			other.GetComponent<Wall>().DestroyWall();
+			other.GetComponent<Wall>().DamDealWall();
 		}
 	}
 

@@ -26,20 +26,26 @@ public class Wall : MonoBehaviour
 		UIEffecter.instance.FadeEffect(spriteObj, Vector2.one, 0.5f, UIEffecter.FadeFlag.ALPHA);
 	}
 
-	// 벽 파괴
-	public void DestroyWall()
+	// 벽 대미지 적용
+	public void DamDealWall()
 	{
-		StartCoroutine(DestroyAnimation());
+		StartCoroutine(DamDealWallCor());
 	}
 
 	// 파괴 애니메이션
-	private IEnumerator DestroyAnimation()
+	private IEnumerator DamDealWallCor()
 	{
+		stack--;
+
 		boxCollider2D.enabled = false;
-		UIEffecter.instance.FadeEffect(spriteObj, Vector2.zero, 0.5f, UIEffecter.FadeFlag.ALPHA);
+		UIEffecter.instance.FadeEffect(spriteObj, Vector2.zero + (new Vector2(0.3f, 0.3f) * stack), 0.5f, UIEffecter.FadeFlag.ALPHA);
 
-		yield return new WaitForSeconds(1f);
+		// 스택이 0이되면 파괴
+		if (stack <= 0)
+		{
+			yield return new WaitForSeconds(1f);
 
-		Destroy(gameObject);
+			Destroy(gameObject);
+		}
 	}
 }

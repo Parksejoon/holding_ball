@@ -136,6 +136,7 @@ public class Ball : MonoBehaviour
 	// 홀딩
 	public void Holding()
 	{
+		// 쿨다운 중인지 확인
 		if (!isCool)
 		{
 			// 홀딩
@@ -158,13 +159,14 @@ public class Ball : MonoBehaviour
 		}
 		else
 		{
-
+			// 쿨다운 중
 		}
 	}
 
 	// 홀더에 언홀딩
 	public void UnHolding()
 	{
+		// 이미 홀딩되어있으면
 		if (isHolding)
 		{
 			// 홀더에서 탈출
@@ -173,7 +175,8 @@ public class Ball : MonoBehaviour
 			// 게이지 재시작
 			PowerGauge.instance.ReCharge();
 
-			// 슛라인만 따로 파괴된 경우
+			// 슛라인만 따로 파괴된 경우를 위해 예외처리
+			// 슛라인이 살아있으면
 			if (shotLine != null)
 			{
 				// 캐치 했는지 판정
@@ -202,7 +205,7 @@ public class Ball : MonoBehaviour
 		}
 		else
 		{
-
+			// 홀딩이 안되어있음
 		}
 	}
 
