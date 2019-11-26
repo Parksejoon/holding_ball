@@ -36,7 +36,7 @@ public class Orbit : MonoBehaviour
 	}
 
 	// 벽 생성
-	public void CreateWall(int size, int stack)
+	public void CreateWall(int size)
 	{
 		for (int i = 0; i < size; i++)
 		{
@@ -51,7 +51,6 @@ public class Orbit : MonoBehaviour
 			// 현재 궤도 크기
 			// 5 10 16 25 35
 			target.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 7.5f * nextWallIndex++));
-			targetWall.stack = stack;
 
 			if (colliderEnabled)
 			{

@@ -41,7 +41,7 @@ public class WallManager : MonoBehaviour
 		for (int i = 0; i < orbits.Length; i++)
 		{
 			// 가장 적게 (5, 8)
-			orbits[i].CreateWall(Random.Range(30, 40), i + 1);
+			orbits[i].CreateWall(Random.Range(30, 40));
 		}
 	}
 
@@ -58,13 +58,14 @@ public class WallManager : MonoBehaviour
 
 		for (int i = 0; i < Mathf.Min(3, level * 2); i++)
 		{
-			orbits[Random.Range(0, 5)].CreateWall(Random.Range(level * 10, level * 30), orbits.Length - i);
+			CreateWall(Random.Range(0, 5), Random.Range(level * 10, level * 30));
+			//orbits[Random.Range(0, 5)].CreateWall(Random.Range(level * 10, level * 30));
 		}
 	}
 
 	// 벽 새로 생성
-	public void CreateWall(int orbitNum, int wallCount, int wallStack)
+	public void CreateWall(int orbitNum, int wallCount)
 	{
-		orbits[orbitNum].CreateWall(wallCount, wallStack);
+		orbits[orbitNum].CreateWall(wallCount);
 	}
 }

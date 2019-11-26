@@ -71,7 +71,7 @@ public class Spot : MonoBehaviour
 
 		// 효과 실행
 		Ball.instance.ResetDouble();
-		WallManager.instance.CreateWall(Random.Range(0, 5), 60, 1);
+		WallManager.instance.CreateWall(Random.Range(0, 5), 60);
 	}
 
 	// 영역 축소 루틴

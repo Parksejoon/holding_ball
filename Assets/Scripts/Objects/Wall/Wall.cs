@@ -37,12 +37,13 @@ public class Wall : MonoBehaviour
 	{
 		stack--;
 
-		boxCollider2D.enabled = false;
 		UIEffecter.instance.FadeEffect(spriteObj, Vector2.zero + (new Vector2(0.3f, 0.3f) * stack), 0.5f, UIEffecter.FadeFlag.ALPHA);
 
 		// 스택이 0이되면 파괴
 		if (stack <= 0)
 		{
+			boxCollider2D.enabled = false;
+
 			yield return new WaitForSeconds(1f);
 
 			Destroy(gameObject);
