@@ -158,7 +158,8 @@ public class GameManager : MonoBehaviour
 		// ** 스코어 이펙트 추가 예정 **
 		score += upScore;
 		UIEffecter.instance.SetText(0, score.ToString());
-		PowerGauge.instance.AddPower(upScore * Mathf.Max(0.8f - level * 0.1f, 0.1f));
+		// 게이지를 유지하려면 한 번 홀딩할 때 30점을 먹어야 함
+		PowerGauge.instance.AddPower(upScore * 0.6f);
 		if (score % 100 == 0)
 		{
 			WallManager.instance.CreateWalls();

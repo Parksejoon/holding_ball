@@ -155,7 +155,7 @@ public class Ball : MonoBehaviour
 			Time.timeScale = 0.3f;
 
 			// 게이지 중지
-			PowerGauge.instance.StopCharge();
+			PowerGauge.instance.StopReduce();
 		}
 		else
 		{
@@ -173,7 +173,7 @@ public class Ball : MonoBehaviour
 			isHolding = false;
 
 			// 게이지 재시작
-			PowerGauge.instance.ReCharge();
+			PowerGauge.instance.ReReduce();
 
 			// 슛라인만 따로 파괴된 경우를 위해 예외처리
 			// 슛라인이 살아있으면

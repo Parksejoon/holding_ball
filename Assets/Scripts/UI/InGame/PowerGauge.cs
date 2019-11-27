@@ -17,8 +17,8 @@ public class PowerGauge : MonoBehaviour
 
 	// 인스펙터 비노출 변수
 	// 수치
-	private bool	isStopping = false;		// 중지 플래그
-	private bool	isMinus = false;		// 감소 플래그
+	private bool	isReduce = false;       // 감소 플래그
+	private bool	isStop = true;			// 완전 중지 플래그
 
 
 	// 초기화
@@ -33,6 +33,13 @@ public class PowerGauge : MonoBehaviour
 		StartCoroutine(Charge());
 	}
 
+	// 게이지 시작
+	public void StartGauge()
+	{
+		isReduce = true;
+		isStop = false;
+	}
+
 	// 파워 설정
 	public bool AddPower(float value)
 	{
@@ -42,7 +49,7 @@ public class PowerGauge : MonoBehaviour
 		{
 			power = 0;
 			gauge.fillAmount = 0;
-			Ball.instance.UnHolding();
+			//Ball.instance.UnHolding();
 
 			return false;
 		}
@@ -57,33 +64,47 @@ public class PowerGauge : MonoBehaviour
 		return true;
 	}
 
-	// 차지 중지
-	public void StopCharge()
+	// 감소 중지
+	public void StopReduce()
 	{
-		isStopping = true;
-		isMinus = true;
+		isReduce = false;
 	}
 
-	// 차지 다시 시작
-	public void ReCharge()
+	// 감소 다시 시작
+	public void ReReduce()
 	{
-		isMinus = false;
-		StartCoroutine(ReChargeCorutine());
+		StartCoroutine(ReReduceCorutine());
 	}
+
+	//// 차지 중지
+	//public void StopCharge()
+	//{
+	//	//isStopping = true;
+	//	//isMinus = true;
+	//}
+
+	//// 차지 다시 시작
+	//public void ReCharge()
+	//{
+	//	//isMinus = false;
+	//	//StartCoroutine(ReChargeCorutine());
+	//}
 
 	// 차징 코루틴
 	private IEnumerator Charge()
 	{
 		while (true)
 		{
-			if (!isStopping)
+			// 감소중이면
+			if (isReduce)
 			{
-				AddPower(0.05f);
-				yield return new WaitForSeconds(0.01f);
+				AddPower(-0.2f);
+				yield return null;
 			}
-			else if (isMinus)
+			// 완정중지가 아니면
+			else if (!isStop)
 			{
-				AddPower(-0.3f);
+				AddPower(-0.4f);
 				yield return null;
 			}
 			else
@@ -94,10 +115,13 @@ public class PowerGauge : MonoBehaviour
 	}
 
 	// 차징 중지 코루틴
-	private IEnumerator ReChargeCorutine()
+	private IEnumerator ReReduceCorutine()
 	{
+		isStop = true;
+
 		yield return new WaitForSeconds(1f);
 
-		isStopping = false;
+		isStop = false;
+		isReduce = true;
 	}
 }

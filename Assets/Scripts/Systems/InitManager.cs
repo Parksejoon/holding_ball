@@ -38,12 +38,15 @@ public class InitManager : MonoBehaviour
 		LaserManager.instance.enabled = true;
 		HolderManager.instance.enabled = true;
 
+		PowerGauge.instance.StartGauge();
+
 		ObjectPoolManager.Init();
 	}
 
 	// 게임 시작
 	private void GameStart()
 	{
+		// 마우스 방향으로 이동 시작
 		Vector2 targetVec2;
 
 		targetVec2 = targetCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -51,7 +54,8 @@ public class InitManager : MonoBehaviour
 		targetVec2 *= 10f;
 		
 		ballRigidbody2d.velocity = targetVec2;
-
+		
+		// 스크립트 종료 
 		Destroy(this);
 	}
 }

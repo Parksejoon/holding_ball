@@ -60,6 +60,9 @@ public class HolderManager : MonoBehaviour
 		ObjectPoolManager.AddObject("Holder", holderPrefab, transform);
 		ObjectPoolManager.Create("Holder", 600);
 
+		ObjectPoolManager.AddObject("Coin", coinPrefab, transform);
+		ObjectPoolManager.Create("Coin", 50);
+
 		// Tornado Slug Round Compression Quarter Shift Coinar
 		// 알고리즘 델리게이트 초기화
 		holderAlgorithm = new []
@@ -347,7 +350,7 @@ public class HolderManager : MonoBehaviour
 		for (int i = 0; i < amount / 2; i++)
 		{
 			// 생성
-			target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Coin>();
+			target = ObjectPoolManager.GetGameObject("Coin", new Vector3(fixX, fixY, 0)).GetComponent<Coin>();
 			//target = Instantiate(coinPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
 
 			// 방향으로 힘 적용
