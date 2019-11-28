@@ -8,6 +8,8 @@ public class InitManager : MonoBehaviour
 	private Rigidbody2D		ballRigidbody2d;            // 공의 트랜스폼
 	[SerializeField]
 	private Camera			targetCamera;               // 카메라
+	[SerializeField]
+	private LaserManager	mainLaser;					// 중앙 레이저
 
 	// 인스펙터 비노출 변수
 	// 일반
@@ -34,13 +36,14 @@ public class InitManager : MonoBehaviour
 	// 스크립트 초기화
 	private void Initialize()
 	{
+		ObjectPoolManager.Init();
+
 		GameManager.instance.enabled = true;
-		LaserManager.instance.enabled = true;
 		HolderManager.instance.enabled = true;
 
 		PowerGauge.instance.StartGauge();
 
-		ObjectPoolManager.Init();
+		mainLaser.enabled = true;
 	}
 
 	// 게임 시작
