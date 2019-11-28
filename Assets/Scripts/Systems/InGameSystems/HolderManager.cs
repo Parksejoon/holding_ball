@@ -51,7 +51,22 @@ public class HolderManager : MonoBehaviour
 	// 초기화
 	private void Awake()
 	{
-		instance = this;
+		if (instance == null)
+		{
+			instance = this;
+		}
+		
+		// 패턴 델리게이트 초기화
+		holderPatterns = new[]
+		{
+			new HolderPattern(Tornado),
+			Slug,
+			Round,
+			Compression,
+			Quarter,
+			Shift,
+			Coinar
+		};
 	}
 
 	// 시작
@@ -62,19 +77,6 @@ public class HolderManager : MonoBehaviour
 
 		ObjectPoolManager.AddObject("Coin", coinPrefab, transform);
 		ObjectPoolManager.Create("Coin", 50);
-
-		// Tornado Slug Round Compression Quarter Shift Coinar
-		// 알고리즘 델리게이트 초기화
-		holderPatterns = new []
-		{
-			new HolderPattern(Tornado),
-			Slug,
-			Round,
-			Compression,
-			Quarter,
-			Shift,
-			Coinar
-		};
 	}
 
 	// 프레임

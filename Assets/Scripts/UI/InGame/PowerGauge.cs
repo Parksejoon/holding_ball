@@ -9,7 +9,9 @@ public class PowerGauge : MonoBehaviour
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
-	private Image	gauge;					// 파워 게이지
+	private Image				gauge;						// 파워 게이지
+	[SerializeField]
+	private SpecialLaserManager specialLaserManager;		// 특수 레이저 매니저
 
 	// 수치
 	[SerializeField]
@@ -18,7 +20,8 @@ public class PowerGauge : MonoBehaviour
 	// 인스펙터 비노출 변수
 	// 수치
 	private bool	isReduce = false;       // 감소 플래그
-	private bool	isStop = true;			// 완전 중지 플래그
+	private bool	isStop = true;          // 완전 중지 플래그
+	private bool	gaugeCool = false;		// 게이지 쿨다운 플래그
 
 
 	// 초기화
@@ -49,7 +52,13 @@ public class PowerGauge : MonoBehaviour
 		{
 			power = 0;
 			gauge.fillAmount = 0;
-			//Ball.instance.UnHolding();
+
+			// 게이지 쿨다운중이 아니면
+			if (!gaugeCool)
+			{
+				// 게이지 비어있음
+				GaugeEmpty();
+			}
 
 			return false;
 		}
@@ -62,6 +71,16 @@ public class PowerGauge : MonoBehaviour
 		gauge.fillAmount = power / 100;
 
 		return true;
+	}
+
+	// 게이지 0
+	private void GaugeEmpty()
+	{
+		// 게이지 쿨다운 실행
+		StartCoroutine(GaugeCoolDownCor());
+
+		// 레이저 특수패턴 실행
+		specialLaserManager.ShotLaser();
 	}
 
 	// 감소 중지
@@ -95,22 +114,24 @@ public class PowerGauge : MonoBehaviour
 	{
 		while (true)
 		{
-			// 감소중이면
-			if (isReduce)
+			if (!gaugeCool)
 			{
-				AddPower(-0.2f);
-				yield return null;
+				// 감소중이면
+				if (isReduce)
+				{
+					AddPower(-0.2f);
+				}
+				// 완정중지가 아니면
+				else if (!isStop)
+				{
+					AddPower(-0.4f);
+				}
+				else
+				{
+				}
 			}
-			// 완정중지가 아니면
-			else if (!isStop)
-			{
-				AddPower(-0.4f);
-				yield return null;
-			}
-			else
-			{
-				yield return null;
-			}
+
+			yield return null;
 		}
 	}
 
@@ -123,5 +144,24 @@ public class PowerGauge : MonoBehaviour
 
 		isStop = false;
 		isReduce = true;
+	}
+
+	// 게이지 쿨다운 코루틴
+	private IEnumerator GaugeCoolDownCor()
+	{
+		gaugeCool = true;
+		
+		yield return new WaitForSeconds(2f);
+
+		while (power < 100)
+		{
+			AddPower(0.2f);
+
+			yield return null;
+		}
+
+		yield return new WaitForSeconds(0.5f);
+
+		gaugeCool = false;
 	}
 }

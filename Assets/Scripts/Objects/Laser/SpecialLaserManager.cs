@@ -29,6 +29,12 @@ public class SpecialLaserManager : MonoBehaviour
 		{
 			instance = this;
 		}
+
+		// 패턴 델리게이트 초기화
+		laserPatterns = new[]
+		{
+			new SpecialLaserPattern(Laser4),
+		};
 	}
 
 	// 시작
@@ -37,28 +43,55 @@ public class SpecialLaserManager : MonoBehaviour
 		
 	}
 
-
-	// ========================= 패턴 목록 =========================
-	// ========================= 패턴 목록 =========================
-	// ========================= 패턴 목록 =========================
-	// 단일 대형 레이저
-	private IEnumerator BigLaser()
+	// 특수패턴 사용
+	public void ShotLaser()
 	{
-		Vector2 position;                               // 발사 위치
+		StartCoroutine(laserPatterns[0]());
+	}
 
-		// 방향 설정 후
-		position = new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
+	// ========================= 패턴 목록 =========================
+	// ========================= 패턴 목록 =========================
+	// ========================= 패턴 목록 =========================
+	// 4방향
+	private IEnumerator Laser4()
+	{
+		float lotationPivot = Random.Range(0, 360);
+		Laser targetLaser;
 
-		// 거리 계산
-		position *= 100;
+		targetLaser	= Instantiate(laserPrefab, transform.position, Quaternion.Euler(new Vector3(0, 0, lotationPivot + 0)), transform).GetComponent<Laser>();
+		targetLaser.rotationSpeed = 1f;
 
-		// 레이저 생성
-		Laser targetLaser = Instantiate(laserPrefab,
-			position,
-			Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360))),
-			transform
-			).GetComponent<Laser>();
+		targetLaser = Instantiate(laserPrefab, transform.position, Quaternion.Euler(new Vector3(0, 0, lotationPivot + 90)), transform).GetComponent<Laser>();
+		targetLaser.rotationSpeed = 1f;
+
+		targetLaser = Instantiate(laserPrefab, transform.position, Quaternion.Euler(new Vector3(0, 0, lotationPivot + 180)), transform).GetComponent<Laser>();
+		targetLaser.rotationSpeed = 1f;
+
+		targetLaser = Instantiate(laserPrefab, transform.position, Quaternion.Euler(new Vector3(0, 0, lotationPivot + 270)), transform).GetComponent<Laser>();
+		targetLaser.rotationSpeed = 1f;
+
 
 		yield return null;
 	}
+
+	//// 단일 대형 레이저
+	//private IEnumerator BigLaser()
+	//{
+	//	Vector2 position;                               // 발사 위치
+
+	//	// 방향 설정 후
+	//	position = new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
+
+	//	// 거리 계산
+	//	position *= 100;
+
+	//	// 레이저 생성
+	//	Laser targetLaser = Instantiate(laserPrefab,
+	//		position,
+	//		Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360))),
+	//		transform
+	//		).GetComponent<Laser>();
+
+	//	yield return null;
+	//}
 }
