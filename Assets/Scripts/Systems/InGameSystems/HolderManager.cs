@@ -8,7 +8,7 @@ public class HolderManager : MonoBehaviour
 	public static HolderManager instance;							// 인스턴스
 
 	// 델리게이트
-	private delegate IEnumerator HolderAlgorithm();					// 홀더 샷 알고리즘 델리게이트
+	private delegate IEnumerator HolderPattern();					// 홀더 샷 패턴 델리게이트
 
 	// 인스펙터 노출 변수
 	// 일반
@@ -38,9 +38,9 @@ public class HolderManager : MonoBehaviour
 	// 인스펙터 비노출 변수
 	// 일반
 	[HideInInspector]
-	public  List<Transform>   holderList = new List<Transform>();    // 홀더 리스트
+	public  List<Transform>		holderList = new List<Transform>();    // 홀더 리스트
     
-	private HolderAlgorithm[] holderAlgorithm;                       // 홀더 샷 알고리즘 목록
+	private HolderPattern[]		holderPatterns;						   // 홀더 샷 패턴 리스트
 
 	// 수치
 	private float			pastTime;                              // 경과 시간
@@ -65,9 +65,9 @@ public class HolderManager : MonoBehaviour
 
 		// Tornado Slug Round Compression Quarter Shift Coinar
 		// 알고리즘 델리게이트 초기화
-		holderAlgorithm = new []
+		holderPatterns = new []
 		{
-			new HolderAlgorithm(Tornado),
+			new HolderPattern(Tornado),
 			Slug,
 			Round,
 			Compression,
@@ -133,9 +133,12 @@ public class HolderManager : MonoBehaviour
 			index %= 6;
 		}
 
-		StartCoroutine(holderAlgorithm[index]());
+		StartCoroutine(holderPatterns[index]());
 	}
 
+	// ========================= 패턴 목록 =========================
+	// ========================= 패턴 목록 =========================
+	// ========================= 패턴 목록 =========================
 	// 회오리
 	private IEnumerator Tornado()
 	{
