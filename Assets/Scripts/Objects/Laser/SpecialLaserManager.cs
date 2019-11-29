@@ -55,7 +55,7 @@ public class SpecialLaserManager : MonoBehaviour
 	// 4방향
 	private IEnumerator Laser4()
 	{
-		float lotationPivot = Random.Range(0, 360);
+		float lotationPivot = Random.Range(1, 360) % 90;
 		Laser targetLaser;
 
 		targetLaser	= Instantiate(laserPrefab, transform.position, Quaternion.Euler(new Vector3(0, 0, lotationPivot + 0)), transform).GetComponent<Laser>();

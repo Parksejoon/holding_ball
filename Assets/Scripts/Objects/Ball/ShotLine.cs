@@ -33,10 +33,11 @@ public class ShotLine : MonoBehaviour
 		timer += Time.deltaTime;
 
 		// 그래프 계산식
-		float speedScale = (4f * GameManager.instance.shotPower * (timer - 0.12f) * (timer - 0.12f)) + 0.2f;
+		float speedScale = (Mathf.Sin(timer * 7 - 1.5f) + 1) * 20f;
+		//float speedScale = (4f * GameManager.instance.shotPower * (timer - 0.12f) * (timer - 0.12f)) + 0.2f;
 
 		// 점점 범위 확대
-		transform.localScale += new Vector3(speedScale, speedScale);
+		transform.localScale = new Vector3(speedScale, speedScale);
 	} 
 
 	// 현재 가지고있는 홀더를 반환

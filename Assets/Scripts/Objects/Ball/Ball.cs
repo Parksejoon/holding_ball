@@ -26,7 +26,7 @@ public class Ball : MonoBehaviour
 	// 인스펙터 비노출 변수
 	// 일반
 	[HideInInspector]
-	public	bool				canDouble = true;       // 더블 샷 가능?
+	public	bool				canDash = true;       // 더블 샷 가능?
 	[HideInInspector]
 	public	Transform			parentTransform;		// 부모의 트랜스폼
 	
@@ -60,7 +60,7 @@ public class Ball : MonoBehaviour
 	// 시작
 	private void Start()
 	{
-		ResetDouble();
+		ResetDash();
 	}
 
 	// 프레임
@@ -119,17 +119,17 @@ public class Ball : MonoBehaviour
 			#endif
 		}
 
-		// 벽일 경우 이펙트 발생 및 더블 초기화, 바운스 카운트 증가
+		// 벽일 경우 이펙트 발생 및 대쉬 초기화, 바운스 카운트 증가
 		if (other.gameObject.CompareTag("Wall"))
 		{
-			if (!canDouble)
+			if (!canDash)
 			{
 				// 초기화 이펙트
 				Instantiate(doubleParticle, transform.position, Quaternion.identity);
 			}
 
-			// 더블 초기화
-			ResetDouble();
+			// 대쉬 초기화
+			ResetDash();
 		}
 	}
 
@@ -209,13 +209,13 @@ public class Ball : MonoBehaviour
 		}
 	}
 
-	// 더블 샷
-	public void DoubleShot(Vector2 startPos, Vector2 endPos)
+	// 대쉬
+	public void Dash(Vector2 startPos, Vector2 endPos)
 	{
-		if (canDouble)
+		if (canDash)
 		{
 			// 더블 사용
-			canDouble = false;
+			canDash = false;
 
 			// 일정시간 벽 통과가능 상태로 변환
 			StartCoroutine(MomentInvisible());
@@ -236,10 +236,10 @@ public class Ball : MonoBehaviour
 	}
 
 	// 더블 초기화
-	public void ResetDouble()
+	public void ResetDash()
 	{
 		// 초기화
-		canDouble = true;
+		canDash = true;
 		
 		// 쉐이더 변환
 		ShaderManager.instance.ChangeBaseColor(true);
@@ -279,13 +279,13 @@ public class Ball : MonoBehaviour
 	{
 		shotLine = Instantiate(shotLinePrefab, transform.position, Quaternion.identity, transform);
 
-		if (canDouble)
+		if (canDash)
 		{
 			shotLine.GetComponent<Transform>().GetChild(0).gameObject.GetComponent<SpriteRenderer>().material = holderSprite;
 		}
 	}
 
-	// 일정시간 공 통과상태
+	// 일정시간 공 무적 및 통과 상태
 	private IEnumerator MomentInvisible()
 	{
 		isGhost++;

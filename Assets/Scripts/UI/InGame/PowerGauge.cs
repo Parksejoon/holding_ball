@@ -124,7 +124,7 @@ public class PowerGauge : MonoBehaviour
 				// 완정중지가 아니면
 				else if (!isStop)
 				{
-					AddPower(-0.4f);
+					AddPower(-0.6f);
 				}
 				else
 				{

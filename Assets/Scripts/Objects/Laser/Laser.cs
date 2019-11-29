@@ -30,11 +30,6 @@ public class Laser : MonoBehaviour
 	private void Start()
 	{
 		StartCoroutine(ShotLaser());
-
-		if (Random.Range(0f, 1f) > 0.5f)
-		{
-			rotationSpeed = -rotationSpeed;
-		}
 	}
 
 	// 프레임

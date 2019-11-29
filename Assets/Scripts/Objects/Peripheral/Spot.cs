@@ -70,7 +70,7 @@ public class Spot : MonoBehaviour
 		StartCoroutine(JackpotRoutine());
 
 		// 효과 실행
-		Ball.instance.ResetDouble();
+		Ball.instance.ResetDash();
 		WallManager.instance.CreateWall(Random.Range(0, 5), 60);
 	}
 

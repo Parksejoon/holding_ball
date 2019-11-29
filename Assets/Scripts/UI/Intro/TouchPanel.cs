@@ -32,14 +32,14 @@ public class TouchPanel : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
 	{
 		if (Vector3.Distance(dragStartPosition, pointerEventData.position) >= 300f)
 		{
-			StartCoroutine(Double(pointerEventData));
+			StartCoroutine(DashCor(pointerEventData));
 		}
 	}
 
 	// 더블샷 호출 코루틴(한 프레임에 addforce 두번되서 속도 비정상적임)
-	private IEnumerator Double(PointerEventData pointerEventData)
+	private IEnumerator DashCor(PointerEventData pointerEventData)
 	{
-		Ball.instance.DoubleShot(dragStartPosition, pointerEventData.position);
+		Ball.instance.Dash(dragStartPosition, pointerEventData.position);
 
 		yield return null;
 	}
