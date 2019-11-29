@@ -189,10 +189,10 @@ public class Ball : MonoBehaviour
 			// 물리량 초기화
 			rigidbody2d.velocity = Vector3.zero;
 			
-			// 마우스를 향해 날아감
+			// 터치 방향을 향해 날아감
 			// 날아갈 벡터의 방향
 			Vector2 shotVector = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).normalized;
-			rigidbody2d.AddForce(shotVector * GameManager.instance.shotPower, ForceMode2D.Impulse);
+			rigidbody2d.AddForce(shotVector * GameManager.instance.ShotPower, ForceMode2D.Impulse);
 
 			// 홀딩 쿨다운 시작
 			StartCoroutine(HoldingCooldown());
@@ -203,9 +203,19 @@ public class Ball : MonoBehaviour
 			// 시간 제어
 			Time.timeScale = 1f;
 		}
+		// 홀딩이 안되어있음
 		else
 		{
-			// 홀딩이 안되어있음
+			// 물리량 초기화
+			rigidbody2d.velocity = Vector3.zero;
+
+			// 터치 방향을 향해 날아감
+			// 날아갈 벡터의 방향
+			Vector2 shotVector = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).normalized;
+			rigidbody2d.AddForce(shotVector * GameManager.instance.ShotPower, ForceMode2D.Impulse);
+
+			// 홀딩 쿨다운 시작
+			StartCoroutine(HoldingCooldown());
 		}
 	}
 
@@ -228,7 +238,7 @@ public class Ball : MonoBehaviour
 
 			// 물리량 대입
 			Vector2 shotVector = (startPos - endPos).normalized;
-			rigidbody2d.AddForce(shotVector * -GameManager.instance.shotPower * 1.05f, ForceMode2D.Impulse);
+			rigidbody2d.AddForce(shotVector * -GameManager.instance.ShotPower * 1.05f, ForceMode2D.Impulse);
 
 			// 쉐이더 변환
 			ShaderManager.instance.ChangeBaseColor(false);

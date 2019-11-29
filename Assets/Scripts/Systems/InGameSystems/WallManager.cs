@@ -54,11 +54,9 @@ public class WallManager : MonoBehaviour
 	// 벽들 새로 생성
 	public void CreateWalls()
 	{
-		int level = GameManager.instance.level;
-
-		for (int i = 0; i < Mathf.Min(3, level * 2); i++)
+		for (int i = 0; i < 2; i++)
 		{
-			CreateWall(Random.Range(0, 5), Random.Range(level * 10, level * 30));
+			CreateWall(Random.Range(0, 5), 3);
 			//orbits[Random.Range(0, 5)].CreateWall(Random.Range(level * 10, level * 30));
 		}
 	}

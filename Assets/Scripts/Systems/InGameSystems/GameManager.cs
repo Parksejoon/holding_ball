@@ -10,62 +10,52 @@ public class GameManager : MonoBehaviour
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
-	private GameObject		spotPrefab;                 // 스팟 프리팹
+	private GameObject spotPrefab;             // 스팟 프리팹
 	[SerializeField]
-	private TouchPanel		touchPanel;                 // 터치 패널
+	private TouchPanel touchPanel;             // 터치 패널
 	[SerializeField]
-	private Transform		ball;						// 공
+	private Transform ball;                    // 공
 
 	// 수치
-	[SerializeField]
-	private float			levelTimer = 30f;           // 레벨 타이머
-	[SerializeField]
-	private float			spotTimer = 10f;            // 스팟 타이머
-
-	[HideInInspector]
-	public float			shotPower = 1;				// 발사 속도
-
-	public int				level = 0;                  // 레벨
-	public float			shotPowerCoe = 10;			// 발사 파워 계수
-	public float			timeValue = 1f;             // 시간 값
+	public int level = 0;                  // 레벨
+	public float timeValue = 1f;           // 시간 값
 
 	// 인스펙터 비노출 변수
 	// 일반
-	private Touch			touch;                      // 터치 구조체
-	private CameraEffect	cameraEffect;               // 카메라 이펙트
+	private Touch touch;                      // 터치 구조체
+	private CameraEffect cameraEffect;        // 카메라 이펙트
 
 	// 수치
 	[HideInInspector]
-	public  bool			isTouch;                    // 현제 터치의 상태
-	
-	private int				score;	                    // 점수
-	private int				bestScore;					// 최고점수
-	private int				coin;						// 코인
-	private bool			previousIsTouch;            // 이전 터지의 상태
-	private bool			canTouch = true;            // 터치 가능?
-	private bool			isSecond;					// 두 번째 목숨?
-	
+	public bool isTouch;                    // 현제 터치의 상태
+
+	private int score;                      // 점수
+	private int bestScore;                  // 최고점수
+	private int coin;                       // 코인
+	private bool previousIsTouch;           // 이전 터지의 상태
+	private bool canTouch = true;           // 터치 가능?
+	private bool isSecond;                  // 두 번째 목숨?
+
+	private const float shotPower = 13f;					// 발사 속도
+	public float ShotPower { get { return shotPower; } }	// getter
 
 	// 초기화
 	private void Awake()
 	{
 		if (instance == null)
 		{
-			instance 	= this;				
+			instance = this;
 		}
-			
-		cameraEffect	= Camera.main.GetComponent<CameraEffect>();
 
-		isTouch		    = false;
+		cameraEffect = Camera.main.GetComponent<CameraEffect>();
+
+		isTouch = false;
 		previousIsTouch = false;
 	}
 
 	// 시작
 	private void Start()
 	{
-		PowerCompute();
-		StartCoroutine(LevelTimer());
-		//StartCoroutine(SpotTimer());
 	}
 
 	// 프레임
@@ -144,13 +134,6 @@ public class GameManager : MonoBehaviour
 	{
 		Ball.instance.UnHolding();
 	}
-	
-	// 발사 속도 계산기
-	private void PowerCompute()
-	{
-		shotPower = Mathf.Min(level * 0.17f + 1, 1.5f);
-		shotPower *= shotPowerCoe;
-	}
 
 	// 점수 상승
 	public void AddScore(int upScore)
@@ -160,10 +143,17 @@ public class GameManager : MonoBehaviour
 		UIEffecter.instance.SetText(0, score.ToString());
 		// 게이지를 유지하려면 한 번 홀딩할 때 30점을 먹어야 함
 		PowerGauge.instance.AddPower(upScore * 0.6f);
-		if (score % 100 == 0)
+		if (score % 1000 == 0)
 		{
-			WallManager.instance.CreateWalls();
+			// 레벨 업
+			LevelUp();
 		}
+	}
+
+	// 레벨 상승
+	private void LevelUp()
+	{
+		level++;
 	}
 
 	// 코인 상승
@@ -283,29 +273,6 @@ public class GameManager : MonoBehaviour
 		{
 			StopGame();
 		}		
-	}
-
-	// 레벨 타이머
-	private IEnumerator LevelTimer()
-	{
-		while (level < 10)
-		{
-			yield return new WaitForSeconds(levelTimer);
-
-			level++;
-			PowerCompute();
-		}
-	}
-
-	// 스팟 생성 타이머
-	private IEnumerator SpotTimer()
-	{
-		while (true)
-		{
-			yield return new WaitForSeconds(spotTimer);
-			
-			CreateSpot();	
-		}
 	}
 
 	// 종료 UI 코루틴

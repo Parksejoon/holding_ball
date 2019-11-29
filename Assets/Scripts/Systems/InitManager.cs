@@ -49,14 +49,16 @@ public class InitManager : MonoBehaviour
 	// 게임 시작
 	private void GameStart()
 	{
-		// 마우스 방향으로 이동 시작
-		Vector2 targetVec2;
+		Ball.instance.UnHolding();
 
-		targetVec2 = targetCamera.ScreenToWorldPoint(Input.mousePosition);
-		targetVec2 = Vector3.Normalize(targetVec2);
-		targetVec2 *= 10f;
+		//// 마우스 방향으로 이동 시작
+		//Vector2 targetVec2;
+
+		//targetVec2 = targetCamera.ScreenToWorldPoint(Input.mousePosition);
+		//targetVec2 = Vector3.Normalize(targetVec2);
+		//targetVec2 *= 10f;
 		
-		ballRigidbody2d.velocity = targetVec2;
+		//ballRigidbody2d.velocity = targetVec2;
 		
 		// 스크립트 종료 
 		Destroy(this);
