@@ -10,8 +10,6 @@ public class GameManager : MonoBehaviour
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
-	private GameObject spotPrefab;             // 스팟 프리팹
-	[SerializeField]
 	private TouchPanel touchPanel;             // 터치 패널
 	[SerializeField]
 	private Transform ball;                    // 공
@@ -194,14 +192,6 @@ public class GameManager : MonoBehaviour
 	public void SceneLoad(string sceneName)
 	{
 		SceneManager.LoadScene(sceneName);
-	}
-
-	// 스팟 생성
-	public void CreateSpot()
-	{
-		Vector2 createPos = new Vector2(Random.Range(-1f, 1f), Random.Range(1f, 1f)).normalized * Random.Range(-70f, 70f);
-
-		UIEffecter.instance.FadeEffect(Instantiate(spotPrefab, createPos, Quaternion.identity, transform).transform.GetChild(0).gameObject, new Vector2(0.01f, 0), 0.1f, UIEffecter.FadeFlag.ALPHA);
 	}
 
 	// 광고 종료 콜백 메소드

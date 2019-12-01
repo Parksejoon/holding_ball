@@ -1,0 +1,51 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CircleMaker : MonoBehaviour
+{
+	// 인스펙터 노출 변수
+	// 일반
+	[SerializeField]
+	private GameObject circlePrefab;		// 구체 프리팹
+
+	// 수치
+	[SerializeField]
+	private float respawnTime;				// 재생성 시간
+
+
+	// 초기화
+	private void Awake()
+	{
+		
+	}
+
+	// 시작
+	private void Start()
+	{
+		StartCoroutine(RespawnCor());
+	}
+
+	// 구체 생성
+	public void CreateCircle()
+	{
+		Vector2 createPos = new Vector2(Random.Range(-1f, 1f), Random.Range(1f, 1f)).normalized * Random.Range(-70f, 70f);
+
+		UIEffecter.instance.FadeEffect(
+			Instantiate(circlePrefab, createPos, Quaternion.identity, transform).transform.Find("Sprite").gameObject,
+			new Vector2(0.01f, 0), 0.1f,
+			UIEffecter.FadeFlag.ALPHA);
+	}
+
+	// 재생성 코루틴
+	private IEnumerator RespawnCor()
+	{
+		while (true)
+		{
+			// 재생성
+			CreateCircle();
+
+			yield return new WaitForSeconds(respawnTime);
+		}
+	}
+}

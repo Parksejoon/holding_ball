@@ -236,6 +236,8 @@
     <Compile Include="Assets\Scripts\Objects\Ball\ShotLineCollider.cs" />
     <Compile Include="Assets\Scripts\Objects\Camera\CameraEffect.cs" />
     <Compile Include="Assets\Scripts\Objects\Camera\ObjChaser.cs" />
+    <Compile Include="Assets\Scripts\Objects\Circle\Circle.cs" />
+    <Compile Include="Assets\Scripts\Objects\Circle\CircleMaker.cs" />
     <Compile Include="Assets\Scripts\Objects\Laser\Laser.cs" />
     <Compile Include="Assets\Scripts\Objects\Laser\LaserManager.cs" />
     <Compile Include="Assets\Scripts\Objects\Laser\SpecialLaserManager.cs" />
