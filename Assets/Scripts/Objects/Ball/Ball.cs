@@ -25,8 +25,7 @@ public class Ball : MonoBehaviour
 
 	// 인스펙터 비노출 변수
 	// 일반
-	[HideInInspector]
-	public	bool				canDash = true;       // 더블 샷 가능?
+	public	bool				canDash = true;			// 더블 샷 가능?
 	[HideInInspector]
 	public	Transform			parentTransform;		// 부모의 트랜스폼
 	
@@ -130,6 +129,13 @@ public class Ball : MonoBehaviour
 
 			// 대쉬 초기화
 			ResetDash();
+		}
+
+		// 구체일 경우 대미지를 줌
+		if (other.gameObject.CompareTag("Circle"))
+		{
+
+			other.gameObject.GetComponent<Circle>().Dealt(1);
 		}
 	}
 

@@ -36,11 +36,11 @@ public class Orbit : MonoBehaviour
 	}
 
 	// 벽 생성
-	public void CreateWall(int size)
+	public void CreateWall(int amount)
 	{
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < amount; i++)
 		{
-			GameObject	target		= Instantiate(WallManager.instance.wallPrefab, Vector3.zero, Quaternion.identity, transform);
+			GameObject	target		= Instantiate(WallManager.instance.wallPrefab, transform.position, Quaternion.identity, transform);
 			Wall		targetWall	= target.GetComponent<Wall>();
 
 			// 가장 적게

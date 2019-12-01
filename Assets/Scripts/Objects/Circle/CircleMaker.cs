@@ -31,10 +31,7 @@ public class CircleMaker : MonoBehaviour
 	{
 		Vector2 createPos = new Vector2(Random.Range(-1f, 1f), Random.Range(1f, 1f)).normalized * Random.Range(-70f, 70f);
 
-		UIEffecter.instance.FadeEffect(
-			Instantiate(circlePrefab, createPos, Quaternion.identity, transform).transform.Find("Sprite").gameObject,
-			new Vector2(0.01f, 0), 0.1f,
-			UIEffecter.FadeFlag.ALPHA);
+		Instantiate(circlePrefab, createPos, Quaternion.identity, transform);
 	}
 
 	// 재생성 코루틴
