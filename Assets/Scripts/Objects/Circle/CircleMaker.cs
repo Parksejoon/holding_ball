@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CircleMaker : MonoBehaviour
 {
+	public static CircleMaker instance;
+
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
@@ -17,7 +19,10 @@ public class CircleMaker : MonoBehaviour
 	// 초기화
 	private void Awake()
 	{
-		
+		if (instance == null)
+		{
+			instance = this;
+		}
 	}
 
 	// 시작

@@ -76,10 +76,12 @@ public class UIEffecter : MonoBehaviour
 			{
 				StartCoroutine(FadeAlpha(target.GetComponent<Text>(), goalVal.x, time));
 			}
-			else
+			else if (target.GetComponent<SpriteRenderer>() != null)
 			{
 				StartCoroutine(FadeAlpha(target.GetComponent<SpriteRenderer>(), goalVal.x, time));
 			}
+			else
+			{ }
 		}
 
 		// 각도 변경 페이드

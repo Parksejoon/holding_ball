@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Ball : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class Ball : MonoBehaviour
 	private BallParticler		ballParticler;          // 볼 파티클러
 	[SerializeField]
 	private Material			holderSprite;           // 홀더 스프라이트
+	[SerializeField]
+	private Image				damageGauge;			// 대미지 게이지
 
 	// 수치
 	public	 float				holdingCooltime = 1f;	// 홀딩 쿨타임
@@ -38,7 +41,8 @@ public class Ball : MonoBehaviour
 	public	bool				isHolding;              // 홀딩 상태
 
 	private int					isGhost;                // 통과 상태
-	private bool				isCool = false;			// 쿨다운 상태
+	private bool				isCool;					// 쿨다운 상태
+	private int					damage;					// 현재 대미지
 
 
 	// 초기화
@@ -54,6 +58,8 @@ public class Ball : MonoBehaviour
 		ballInvObj		= transform.parent.gameObject;
 		isHolding		= false;
 		isGhost			= 0;
+		isCool			= false;
+		damage			= 0;
 	}
 
 	// 시작
@@ -125,17 +131,25 @@ public class Ball : MonoBehaviour
 			{
 				// 초기화 이펙트
 				Instantiate(doubleParticle, transform.position, Quaternion.identity);
-			}
 
-			// 대쉬 초기화
-			ResetDash();
+				// 대쉬 초기화
+				ResetDash();
+			}
 		}
 
 		// 구체일 경우 대미지를 줌
 		if (other.gameObject.CompareTag("Circle"))
 		{
+			other.gameObject.GetComponent<Circle>().Dealt(damage);
 
-			other.gameObject.GetComponent<Circle>().Dealt(1);
+			damage = 0;
+			damageGauge.fillAmount = damage / 3f;
+		}
+
+		// 코어일경우 대미지 증가
+		if (other.gameObject.CompareTag("Core"))
+		{
+			UpDamage();
 		}
 	}
 
@@ -251,7 +265,7 @@ public class Ball : MonoBehaviour
 		}
 	}
 
-	// 더블 초기화
+	// 대쉬 초기화
 	public void ResetDash()
 	{
 		// 초기화
@@ -259,6 +273,14 @@ public class Ball : MonoBehaviour
 		
 		// 쉐이더 변환
 		ShaderManager.instance.ChangeBaseColor(true);
+	}
+
+	// 대미지 업
+	public void UpDamage()
+	{
+		damage++;
+
+		damageGauge.fillAmount = damage / 3f;
 	}
 
 	// 공 파괴

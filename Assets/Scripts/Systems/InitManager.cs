@@ -40,6 +40,7 @@ public class InitManager : MonoBehaviour
 
 		GameManager.instance.enabled = true;
 		HolderManager.instance.enabled = true;
+		CircleMaker.instance.enabled = true;
 
 		PowerGauge.instance.StartGauge();
 

@@ -46,6 +46,8 @@ public class PowerGauge : MonoBehaviour
 	// 파워 설정
 	public bool AddPower(float value)
 	{
+		if (Time.timeScale == 0) return false;
+
 		power += value;
 
 		if (power <= 0)

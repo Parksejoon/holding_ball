@@ -139,19 +139,11 @@ public class GameManager : MonoBehaviour
 		// ** 스코어 이펙트 추가 예정 **
 		score += upScore;
 		UIEffecter.instance.SetText(0, score.ToString());
-		// 게이지를 유지하려면 한 번 홀딩할 때 30점을 먹어야 함
+		
 		PowerGauge.instance.AddPower(upScore * 0.6f);
-		if (score % 1000 == 0)
-		{
-			// 레벨 업
-			LevelUp();
-		}
-	}
 
-	// 레벨 상승
-	private void LevelUp()
-	{
-		level++;
+		// 1000점당 1레벨
+		level = (score / 1000) + 1;
 	}
 
 	// 코인 상승
