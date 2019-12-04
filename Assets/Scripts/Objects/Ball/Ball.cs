@@ -21,7 +21,7 @@ public class Ball : MonoBehaviour
 	[SerializeField]
 	private Material			holderSprite;           // 홀더 스프라이트
 	[SerializeField]
-	private Image				damageGauge;			// 대미지 게이지
+	private DamageGauge			damageGauge;			// 대미지 게이지
 
 	// 수치
 	public	 float				holdingCooltime = 1f;	// 홀딩 쿨타임
@@ -143,13 +143,14 @@ public class Ball : MonoBehaviour
 			other.gameObject.GetComponent<Circle>().Dealt(damage);
 
 			damage = 0;
-			damageGauge.fillAmount = damage / 3f;
+			damageGauge.SetGauge(damage);
 		}
 
 		// 코어일경우 대미지 증가
 		if (other.gameObject.CompareTag("Core"))
 		{
-			UpDamage();
+			damage++;
+			damageGauge.SetGauge(damage);
 		}
 	}
 
@@ -273,14 +274,6 @@ public class Ball : MonoBehaviour
 		
 		// 쉐이더 변환
 		ShaderManager.instance.ChangeBaseColor(true);
-	}
-
-	// 대미지 업
-	public void UpDamage()
-	{
-		damage++;
-
-		damageGauge.fillAmount = damage / 3f;
 	}
 
 	// 공 파괴

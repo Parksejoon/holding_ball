@@ -278,6 +278,7 @@
     <Compile Include="Assets\Scripts\UI\ColorPicker\ColorPickPanelManager.cs" />
     <Compile Include="Assets\Scripts\UI\ColorPicker\ParticlePicker.cs" />
     <Compile Include="Assets\Scripts\UI\InGame\CoinRotation.cs" />
+    <Compile Include="Assets\Scripts\UI\InGame\DamageGauge.cs" />
     <Compile Include="Assets\Scripts\UI\InGame\PowerGauge.cs" />
     <Compile Include="Assets\Scripts\UI\InGame\TimerText.cs" />
     <Compile Include="Assets\Scripts\UI\Intro\CameraMovement.cs" />

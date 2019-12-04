@@ -10,7 +10,8 @@ public class Circle : MonoBehaviour
 	private SpriteRenderer[]	sprites;        // 스프라이트들
 
 	// 수치
-	private int		hp;							// 체력
+	private int		hp;                         // 체력
+	private float	rotationSpeed;				// 회전 속도
 
 
 	// 초기화
@@ -25,10 +26,21 @@ public class Circle : MonoBehaviour
 	// 시작
 	private void Start()
 	{
+		rotationSpeed = Random.Range(0, 1);
+		if (rotationSpeed == 0) rotationSpeed = -1f;
+
+
+
 		for (int i = 0; i < 3; i++)
 		{
 			UIEffecter.instance.FadeEffect(sprites[i].gameObject, new Vector2(0.3f, 0.3f), 0.4f, UIEffecter.FadeFlag.ALPHA);
 		}
+	}
+
+	// 매 프레임
+	private void FixedUpdate()
+	{
+		transform.Rotate(Vector3.forward * rotationSpeed);
 	}
 
 	// 데미지를 받음
