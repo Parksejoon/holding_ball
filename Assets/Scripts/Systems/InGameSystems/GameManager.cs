@@ -10,18 +10,18 @@ public class GameManager : MonoBehaviour
 	// 인스펙터 노출 변수
 	// 일반
 	[SerializeField]
-	private TouchPanel touchPanel;             // 터치 패널
+	private TouchPanel	touchPanel;         // 터치 패널
 	[SerializeField]
-	private Transform ball;                    // 공
+	private Transform	ball;               // 공
 
 	// 수치
-	public int level = 0;                  // 레벨
-	public float timeValue = 1f;           // 시간 값
+	public int		level = 1;              // 레벨
+	public float	timeValue = 1f;         // 시간 값
 
 	// 인스펙터 비노출 변수
 	// 일반
-	private Touch touch;                      // 터치 구조체
-	private CameraEffect cameraEffect;        // 카메라 이펙트
+	private Touch			touch;          // 터치 구조체
+	private CameraEffect	cameraEffect;   // 카메라 이펙트
 
 	// 수치
 	[HideInInspector]
@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviour
 		PowerGauge.instance.AddPower(upScore * 0.6f);
 
 		// 1000점당 1레벨
-		level = (score / 1000) + 1;
+		//level = (score / 1000) + 1;
 	}
 
 	// 코인 상승

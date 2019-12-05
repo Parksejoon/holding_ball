@@ -39,13 +39,16 @@ public class HolderManager : MonoBehaviour
 	// 일반
 	[HideInInspector]
 	public  List<Transform>		holderList = new List<Transform>();    // 홀더 리스트
-    
-	private HolderPattern[]		holderPatterns;						   // 홀더 샷 패턴 리스트
 
 	// 수치
 	private float			pastTime;                              // 경과 시간
 	private float			goalTime;                              // 목표 시간
 	private bool			isPasting;                             // 시간이 흘러가고있는가?
+
+	// 홀더 패턴
+	private HolderPattern[] lv1_holderPatterns;                 // 레벨1 패턴 리스트
+	private HolderPattern[] lv2_holderPatterns;                 // 레벨2 패턴 리스트
+	private HolderPattern[] lv3_holderPatterns;                 // 레벨3 패턴 리스트
 
 
 	// 초기화
@@ -55,17 +58,28 @@ public class HolderManager : MonoBehaviour
 		{
 			instance = this;
 		}
-		
+
 		// 패턴 델리게이트 초기화
-		holderPatterns = new[]
+		lv1_holderPatterns = new[]
 		{
-			new HolderPattern(Tornado),
-			Slug,
-			Round,
-			Compression,
-			Quarter,
-			Shift,
-			Coinar
+			new HolderPattern(Coinar),
+			AllwaySlug,
+			ForwaySlugShift,
+			OnewayWideSlug
+		};
+
+		lv2_holderPatterns = new[]
+		{
+			new HolderPattern(Coinar),
+			TwowaySlug,
+			TwowayLineCompress,
+			ForwayLineRotation
+		};
+
+		lv3_holderPatterns = new[]
+		{
+			new HolderPattern(Coinar),
+			OnewayLineRotation,
 		};
 	}
 
@@ -94,7 +108,7 @@ public class HolderManager : MonoBehaviour
 				if (pastTime >= goalTime)
 				{
 					// 랜덤 패턴으로 생성 시작
-					RandomPattern();
+					RunPattern();
 
 					// 카운트 종료
 					isPasting = false;
@@ -120,37 +134,149 @@ public class HolderManager : MonoBehaviour
 	}
 
 	// 랜덤 패턴
-	private void RandomPattern()
+	private void RunPattern()
 	{
-		// 0	   1    2     3           4       5     6
-		// Tornado Slug Round Compression Quarter Shift Coinar
-		int index = UnityEngine.Random.Range(0, 50);
+		int index = UnityEngine.Random.Range(-1, 50);
 
-		if (index >= 48)
+		switch (GameManager.instance.level)
 		{
-			index = 6;
-		}
-		else
-		{
-			index %= 6;
+			case 1:
+				//StartCoroutine(lv1_holderPatterns[(index % 3) + 1]());
+				StartCoroutine(lv1_holderPatterns[3]());
+				break;
+
+			case 2:
+				StartCoroutine(lv2_holderPatterns[(index % 3) + 1]());
+				break;
+
+			default:
+			case 3:
+				StartCoroutine(lv3_holderPatterns[(index % 3) + 1]());
+				break;
 		}
 
-		StartCoroutine(holderPatterns[index]());
+		StartCoroutine(lv1_holderPatterns[2]());
 	}
 
-	// ========================= 패턴 목록 =========================
-	// ========================= 패턴 목록 =========================
-	// ========================= 패턴 목록 =========================
-	// 회오리
-	private IEnumerator Tornado()
+	// ================================================================
+	// ================================================================
+	// ========================= LV1 패턴 목록 =========================
+
+	// 모든 반향 분사
+	private IEnumerator AllwaySlug()
 	{
-		Holder target;												// 타겟 홀더
-		float		term = UnityEngine.Random.Range(minTerm, maxTerm);	// 텀
-		int			count = 0;											// 카운트
-		float		angle = 0;											// 현재 각도
-		float		addAngle = 360 / amount;							// 더해지는 각도
+		Holder target;                                              // 타겟 홀더
+		float term = UnityEngine.Random.Range(minTerm, maxTerm);    // 텀
+		int count = 0;                                          // 카운트
+		float angle;                                                // 방향 각도
+		float addAngle = (360 / (amount / 2));                  // 더해지는 각도
+
+		while (count < amount)
+		{
+			angle = 0;
+
+			for (int i = 0; i < amount / 2; i++)
+			{
+				// 생성
+				target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Holder>();
+				//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
+
+				// 방향으로 힘 적용
+				target.SetVelo(WayVector2(angle, power));
+
+				// 분사량에 따라 각도 조절
+				angle += addAngle;
+			}
+
+			count += (int)amount / 4;
+
+			yield return new WaitForSeconds(term + 0.5f);
+		}
+	}
 	
-		
+	// 4방향 서로 다른속도로 슬러그처럼 나가는거
+	private IEnumerator ForwaySlugShift()
+	{
+		Holder target;                                       // 타겟 홀더
+		float term = UnityEngine.Random.Range(minTerm, maxTerm);       // 텀
+		int count = 0;                                   // 카운트
+		float angle;                                         // 방향 각도
+		float finalPower;                                    // 최종 파워
+		float addAngle = 90 / (amount / 4);              // 더해지는 각도
+
+		while (count < amount)
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				angle = 0;
+				finalPower = power * UnityEngine.Random.Range(0.5f, 1.5f);
+
+				for (int j = 0; j < amount / 4; j++)
+				{
+					// 생성
+					target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Holder>();
+					//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
+
+					// 방향으로 힘 적용
+					target.SetVelo(WayVector2(angle + (90 * i), finalPower));
+
+					// 분사량에 따라 각도 조절
+					angle += addAngle;
+				}
+			}
+
+			count += (int)amount / 2;
+
+			yield return new WaitForSeconds(term + 0.5f);
+		}
+	}
+
+	// 단방향 넓은 슬러그
+	private IEnumerator OnewayWideSlug()
+	{
+		Holder target;                                        // 타겟 홀더
+		float term = UnityEngine.Random.Range(minTerm, maxTerm);        // 텀
+		int count = 0;                                    // 카운트
+		float angle;                                          // 방향 각도
+		float addAngle = (50 / (amount / 10));            // 더해지는 각도
+
+		while (count < amount)
+		{
+			angle = UnityEngine.Random.Range(0, 360);
+
+			for (int i = 0; i < amount / 5; i++)
+			{
+				// 생성
+				target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Holder>();
+				//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
+
+				// 방향으로 힘 적용
+				target.SetVelo(WayVector2(angle, power));
+
+				// 분사량에 따라 각도 조절
+				angle += addAngle;
+			}
+
+			count += (int)(amount / 10) * 2;
+
+			yield return new WaitForSeconds((term + 0.5f) * 2f);
+		}
+	}
+
+	// ================================================================
+	// ================================================================
+	// ========================= LV2 패턴 목록 =========================
+
+	// 좌우에서 가운데로 모이면서 발사하는거
+	private IEnumerator TwowayLineCompress()
+	{
+		Holder target;                                      // 타겟 홀더
+		float term = UnityEngine.Random.Range(minTerm, maxTerm);      // 텀
+		int count = 0;                                  // 카운트
+		float angle = UnityEngine.Random.Range(0, 360);             // 현재 각도
+		float addAngle = 90 / (amount / 2);             // 더해지는 각도
+		float minusAngle = 90;                          // 간격
+
 		while (count < amount)
 		{
 			// 생성
@@ -158,10 +284,49 @@ public class HolderManager : MonoBehaviour
 			//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
 
 			// 방향으로 힘 적용
-			target.SetVelo(WayVector2(angle, power));
+			target.SetVelo(WayVector2(angle + minusAngle, power));
+
+			// 생성
+			target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Holder>();
+			//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
+
+			// 방향으로 힘 적용
+			target.SetVelo(WayVector2(angle - minusAngle, power));
 
 			// 각도 추가
-			angle += addAngle;
+			minusAngle -= addAngle;
+
+			count++;
+
+			yield return new WaitForSeconds(term);
+		}
+	}
+
+	// 4방향으로 한줄씩 회전하며 나가는거
+	private IEnumerator ForwayLineRotation()
+	{
+		Holder target;                                      // 타겟 홀더
+		float term = UnityEngine.Random.Range(minTerm, maxTerm);      // 텀
+		int count = 0;                                  // 카운트
+		float angle = UnityEngine.Random.Range(0, 90);              // 현재 각도
+
+		while (count < amount)
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				// 생성
+				target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Holder>();
+				//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
+
+				// 방향으로 힘 적용
+				target.SetVelo(WayVector2(angle + (90 * i), power));
+			}
+
+			if (count % 20 >= 0 && count % 20 <= 5)
+			{
+				// 각도 추가
+				angle += (90 / amount) * 3;
+			}
 
 			count++;
 
@@ -170,13 +335,13 @@ public class HolderManager : MonoBehaviour
 	}
 
 	// 양방향 분사
-	private IEnumerator Slug()
+	private IEnumerator TwowaySlug()
 	{
-		Holder target;										  // 타겟 홀더
-		float		term = UnityEngine.Random.Range(minTerm, maxTerm);        // 텀
-		int			count = 0;							   	      // 카운트
-		float		angle;										  // 방향 각도
-		float		addAngle = (50 / (amount / 10));			  // 더해지는 각도
+		Holder target;                                        // 타겟 홀더
+		float term = UnityEngine.Random.Range(minTerm, maxTerm);        // 텀
+		int count = 0;                                    // 카운트
+		float angle;                                          // 방향 각도
+		float addAngle = (50 / (amount / 10));            // 더해지는 각도
 
 		while (count < amount)
 		{
@@ -208,47 +373,19 @@ public class HolderManager : MonoBehaviour
 		}
 	}
 
-	// 전반향 분사
-	private IEnumerator Round()
+	// ================================================================
+	// ================================================================
+	// ========================= LV3 패턴 목록 =========================
+
+	// 한 방향에서 한줄로 돌아가며 나오는거
+	private IEnumerator OnewayLineRotation()
 	{
-		Holder target;												// 타겟 홀더
-		float		term = UnityEngine.Random.Range(minTerm, maxTerm);	// 텀
-		int			count = 0;											// 카운트
-		float		angle;												// 방향 각도
-		float		addAngle = (360 / (amount / 2));					// 더해지는 각도
+		Holder target;                                              // 타겟 홀더
+		float term = UnityEngine.Random.Range(minTerm, maxTerm);    // 텀
+		int count = 0;                                          // 카운트
+		float angle = 0;                                            // 현재 각도
+		float addAngle = 360 / amount;                          // 더해지는 각도
 
-		while (count < amount)
-		{
-			angle = 0;
-
-			for (int i = 0; i < amount / 2; i++)
-			{
-				// 생성
-				target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Holder>();
-				//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
-
-				// 방향으로 힘 적용
-				target.SetVelo(WayVector2(angle, power));
-
-				// 분사량에 따라 각도 조절
-				angle += addAngle;
-			}
-
-			count += (int)amount / 4;
-
-			yield return new WaitForSeconds(term + 0.5f);
-		}
-	}
-
-	// 압축
-	private IEnumerator Compression()
-	{
-		Holder target;										// 타겟 홀더
-		float		term = UnityEngine.Random.Range(minTerm, maxTerm);      // 텀
-		int			count = 0;                                  // 카운트
-		float		angle = UnityEngine.Random.Range(0, 360);				// 현재 각도
-		float		addAngle = 90 / (amount / 2);				// 더해지는 각도
-		float		minusAngle = 90;							// 간격
 
 		while (count < amount)
 		{
@@ -257,17 +394,10 @@ public class HolderManager : MonoBehaviour
 			//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
 
 			// 방향으로 힘 적용
-			target.SetVelo(WayVector2(angle + minusAngle, power));
-
-			// 생성
-			target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Holder>();
-			//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
-
-			// 방향으로 힘 적용
-			target.SetVelo(WayVector2(angle - minusAngle, power));
+			target.SetVelo(WayVector2(angle, power));
 
 			// 각도 추가
-			minusAngle -= addAngle;
+			angle += addAngle;
 
 			count++;
 
@@ -275,74 +405,7 @@ public class HolderManager : MonoBehaviour
 		}
 	}
 
-	// 4분할
-	private IEnumerator Quarter()
-	{
-		Holder target;									    // 타겟 홀더
-		float		term = UnityEngine.Random.Range(minTerm, maxTerm);      // 텀
-		int			count = 0;                                  // 카운트
-		float		angle = UnityEngine.Random.Range(0, 90);				// 현재 각도
-		
-		while (count < amount)
-		{
-			for (int i = 0; i < 4; i++)
-			{
-				// 생성
-				target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Holder>();
-				//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
 
-				// 방향으로 힘 적용
-				target.SetVelo(WayVector2(angle + (90 * i), power));
-			}
-
-			if (count % 20 >= 0 && count % 20 <= 5)
-			{
-				// 각도 추가
-				angle += (90 / amount) * 3;
-			}
-
-			count++;
-
-			yield return new WaitForSeconds(term);
-		}
-	}
-
-	// 변속
-	private IEnumerator Shift()
-	{
-		Holder target;										 // 타겟 홀더
-		float		term = UnityEngine.Random.Range(minTerm, maxTerm);       // 텀
-		int			count = 0;                                   // 카운트
-		float		angle;								   	     // 방향 각도
-		float		finalPower;									 // 최종 파워
-		float		addAngle = 90 / (amount / 4);				 // 더해지는 각도
-
-		while (count < amount)
-		{
-			for (int i = 0; i < 4; i++)
-			{
-				angle = 0;
-				finalPower = power * UnityEngine.Random.Range(0.5f, 1.5f);
-
-				for (int j = 0; j < amount / 4; j++)
-				{
-					// 생성
-					target = ObjectPoolManager.GetGameObject("Holder", new Vector3(fixX, fixY, 0)).GetComponent<Holder>();
-					//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
-
-					// 방향으로 힘 적용
-					target.SetVelo(WayVector2(angle + (90 * i), finalPower));
-
-					// 분사량에 따라 각도 조절
-					angle += addAngle;
-				}
-			}
-
-			count += (int)amount / 2;
-
-			yield return new WaitForSeconds(term + 0.5f);
-		}
-	}
 
 	// 코인
 	private IEnumerator Coinar()
