@@ -143,7 +143,7 @@ public class HolderManager : MonoBehaviour
 		//		break;
 		//}
 
-		StartCoroutine(lv3_holderPatterns[3]());
+		StartCoroutine(lv1_holderPatterns[3]());
 	}
 
 	// ================================================================
@@ -162,72 +162,59 @@ public class HolderManager : MonoBehaviour
 	// ================================================================
 	// ========================= LV1 패턴 목록 =========================
 
-	// 모든 반향 분사
+	// 모든 방향 분사
 	private IEnumerator AllwaySlug()
 	{
 		Holder	target;                             // 타겟 홀더
-		int		count = 0;                          // 카운트
 		float	angle;                              // 방향 각도
-		float	addAngle = (360 / (amount / 2));    // 더해지는 각도
+		float	addAngle;							// 더해지는 각도
 
-
-		while (count < amount)
+		
+		for (int k = 4; k >= 1; k--)
 		{
 			angle = 0;
+			addAngle = (360 / (amount / k));
 
-			for (int i = 0; i < amount / 2; i++)
+			for (int i = 0; i <= amount / k; i++)
 			{
-				// 생성
 				target = ObjectPoolManager.GetGameObject("Holder", transform.position).GetComponent<Holder>();
-				//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
-
-				// 방향으로 힘 적용
 				target.SetVelo(WayVector2(angle, power));
 
 				// 분사량에 따라 각도 조절
 				angle += addAngle;
 			}
 
-			count += amount / 4;
-
-			yield return new WaitForSeconds(term + 0.5f);
+			yield return new WaitForSeconds(term * 2);
 		}
 	}
 	
-	// 4방향 서로 다른속도로 슬러그처럼 나가는거
+	// 4방향 서로 다른속도로 슬러그
 	private IEnumerator ForwaySlugShift()
 	{
 		Holder	target;                             // 타겟 홀더
-		int		count = 0;							// 카운트
 		float	angle;                              // 방향 각도
 		float	finalPower;                         // 최종 파워
-		float	addAngle = 90 / (amount / 4);       // 더해지는 각도
+		float	addAngle;							// 더해지는 각도
 
 
-		while (count < amount)
-		{
+		for (int k = 0; k < 2; k++)
+		{ 
 			for (int i = 0; i < 4; i++)
 			{
 				angle = 0;
-				finalPower = power * UnityEngine.Random.Range(0.5f, 1.5f);
+				finalPower = power * UnityEngine.Random.Range(0.7f, 1.3f);
+				addAngle = 90 / (amount / 4);
 
 				for (int j = 0; j < amount / 4; j++)
 				{
-					// 생성
 					target = ObjectPoolManager.GetGameObject("Holder", transform.position).GetComponent<Holder>();
-					//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
-
-					// 방향으로 힘 적용
 					target.SetVelo(WayVector2(angle + (90 * i), finalPower));
-
-					// 분사량에 따라 각도 조절
+					
 					angle += addAngle;
 				}
 			}
 
-			count += amount / 2;
-
-			yield return new WaitForSeconds(term + 0.5f);
+			yield return new WaitForSeconds(term * 1.5f);
 		}
 	}
 
@@ -378,29 +365,33 @@ public class HolderManager : MonoBehaviour
 	private IEnumerator ForwayLineRotation()
 	{
 		Holder	target;                                     // 타겟 홀더
-		int		count = 0;                                  // 카운트
-		float	angle = UnityEngine.Random.Range(0, 90);	// 현재 각도
+		int		count;										// 카운트
+		float	angle = UnityEngine.Random.Range(0, 90);    // 현재 각도
+		int		direction = 1;								// 방향
 
 
-		while (count < amount)
+		for (int i = 0; i < 3; i++)
 		{
-			for (int i = 0; i < 4; i++)
+			count = 0;
+
+			if (Random.Range(0, 2) == 1)
 			{
-				// 생성
-				target = ObjectPoolManager.GetGameObject("Holder", transform.position).GetComponent<Holder>();
-				//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
-
-				// 방향으로 힘 적용
-				target.SetVelo(WayVector2(angle + (90 * i), power));
+				direction = -direction;
 			}
-
-			if (count % 20 >= 0 && count % 20 <= 5)
+			
+			while (count < amount / 7)
 			{
-				// 각도 추가
-				angle += (90 / amount) * 3;
-			}
+				for (int j = 0; j < 4; j++)
+				{
+					target = ObjectPoolManager.GetGameObject("Holder", transform.position).GetComponent<Holder>();
+					target.SetVelo(WayVector2(angle + (90 * j), power * 2f));
+				}
 
-			count++;
+				angle += 5 * direction;
+				count++;
+
+				yield return new WaitForSeconds(term / 5f);
+			}
 
 			yield return new WaitForSeconds(term);
 		}
