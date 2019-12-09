@@ -34,7 +34,7 @@ public class CircleMaker : MonoBehaviour
 	// 구체 생성
 	public void CreateCircle()
 	{
-		Vector2 createPos = new Vector2(Random.Range(-1f, 1f), Random.Range(1f, 1f)).normalized * Random.Range(-70f, 70f);
+		Vector2 createPos = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * Random.Range(10f, 50f);
 
 		Instantiate(circlePrefab, createPos, Quaternion.identity, transform);
 	}

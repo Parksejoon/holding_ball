@@ -23,8 +23,6 @@ public class HolderManager : MonoBehaviour
 	[SerializeField]
 	private float		maxRespawnTime;					// 리스폰 최대시간
 	[SerializeField]
-	private float		term;							// 중간 텀 시간
-	[SerializeField]
 	private int 		amount;							// 소환되는 양
 	
 	public	Material	originHolderMat;				// 기본 홀더 머티리얼
@@ -66,13 +64,14 @@ public class HolderManager : MonoBehaviour
 		{
 			new HolderPattern(Coinar),
 			TwowayLineCompress,
-			TwowaySlug
+			TwowaySlug,
+			OnewaySquare
 		};
 
 		lv3_holderPatterns = new[]
 		{
 			new HolderPattern(Coinar),
-			OnewayLineRotation,
+			MultiwayLineRotation,
 			ForwayLineRotation,
 			OnewayArrow
 		};
@@ -143,13 +142,14 @@ public class HolderManager : MonoBehaviour
 		//		break;
 		//}
 
-		StartCoroutine(lv1_holderPatterns[3]());
+		StartCoroutine(lv2_holderPatterns[3]());
 	}
 
 	// ================================================================
 	// ================================================================
 	// ========================== 계산용 함수 ==========================
 
+	
 	// 각도와 스칼라에 따른 방향 벡터
 	private Vector2 WayVector2(float degree, float finalPower)
 	{
@@ -162,7 +162,7 @@ public class HolderManager : MonoBehaviour
 	// ================================================================
 	// ========================= LV1 패턴 목록 =========================
 
-	// 모든 방향 분사
+	// 모든 방향 분사 / 탄막수를 늘리며 4연사
 	private IEnumerator AllwaySlug()
 	{
 		Holder	target;                             // 타겟 홀더
@@ -184,11 +184,11 @@ public class HolderManager : MonoBehaviour
 				angle += addAngle;
 			}
 
-			yield return new WaitForSeconds(term * 2);
+			yield return new WaitForSeconds(0.05f);
 		}
 	}
 	
-	// 4방향 서로 다른속도로 슬러그
+	// 4방향 서로 다른속도로 슬러그 / 2연사
 	private IEnumerator ForwaySlugShift()
 	{
 		Holder	target;                             // 타겟 홀더
@@ -214,41 +214,38 @@ public class HolderManager : MonoBehaviour
 				}
 			}
 
-			yield return new WaitForSeconds(term * 1.5f);
+			yield return new WaitForSeconds(0.15f);
 		}
 	}
 
-	// 단방향 넓은 슬러그
+	// 단방향 넓은 슬러그 / 5연사
 	private IEnumerator OnewayWideSlug()
 	{
 		Holder	target;											// 타겟 홀더
-		int		count = 0;										// 카운트
+		int		count;											// 카운트
 		float	angle = UnityEngine.Random.Range(0, 360);		// 방향 각도
 		float	addAngle = (40 / (amount / 10));                // 더해지는 각도
 		float	countAngle;										// 계산 각도
 		
-
-		while (count < amount)
+		
+		for (int i = 0; i < 5; i++)
 		{
 			countAngle = angle;
+			count = 0;
 
-			for (int i = 0; i < amount / 5; i++)
+			while (count < amount)
 			{
-				// 생성
 				target = ObjectPoolManager.GetGameObject("Holder", transform.position).GetComponent<Holder>();
-				//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
-
-				// 방향으로 힘 적용
 				target.SetVelo(WayVector2(countAngle, power));
 
-				// 분사량에 따라 각도 조절
 				countAngle += addAngle;
+
+				count += 5;
 			}
 
-			count += (amount / 10) * 2;
-			angle += 10f;
+			angle += 5;
 
-			yield return new WaitForSeconds(term);
+			yield return new WaitForSeconds(0.1f);
 		}
 	}
 
@@ -256,77 +253,97 @@ public class HolderManager : MonoBehaviour
 	// ================================================================
 	// ========================= LV2 패턴 목록 =========================
 
-	// 좌우에서 가운데로 모이면서 발사하는거
+	// 좌우 180도에서 가운데로 모이면서 발사 / 
 	private IEnumerator TwowayLineCompress()
 	{
 		Holder	target;                                     // 타겟 홀더
-		int		count = 0;									// 카운트
 		float	angle = UnityEngine.Random.Range(0, 360);   // 현재 각도
-		float	addAngle = 90 / (amount / 2);				// 더해지는 각도
+		float	addAngle = 6;								// 더해지는 각도
 		float	minusAngle = 90;							// 간격
 
-
-		while (count < amount)
+		
+		for (int i = 0; i < amount; i++)
 		{
-			// 생성
 			target = ObjectPoolManager.GetGameObject("Holder", transform.position).GetComponent<Holder>();
-			//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
-
-			// 방향으로 힘 적용
 			target.SetVelo(WayVector2(angle + minusAngle, power));
-
-			// 생성
+			
 			target = ObjectPoolManager.GetGameObject("Holder", transform.position).GetComponent<Holder>();
-			//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
-
-			// 방향으로 힘 적용
 			target.SetVelo(WayVector2(angle - minusAngle, power));
-
-			// 각도 추가
+			
 			minusAngle -= addAngle;
 
-			count++;
-
-			yield return new WaitForSeconds(term);
+			yield return new WaitForSeconds(0.05f);
 		}
 	}
 
-	// 양방향 분사
+	// 180도 양방향 분사 / 3연사
 	private IEnumerator TwowaySlug()
 	{
-		Holder	target;                                 // 타겟 홀더
-		int		count = 0;                              // 카운트
-		float	angle;                                  // 방향 각도
-		float	addAngle = (50 / (amount / 10));        // 더해지는 각도
+		Holder	target;                 // 타겟 홀더
+		float	angle;                  // 방향 각도
+		float	addAngle = 3;			// 더해지는 각도
 
-
-		while (count < amount)
+		
+		for (int k = 3; k >= 0; k--)
 		{
 			angle = UnityEngine.Random.Range(0, 360);
 
 			for (int i = 0; i < amount / 5; i++)
 			{
-				// 생성
 				target = ObjectPoolManager.GetGameObject("Holder", transform.position).GetComponent<Holder>();
-				//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
-
-				// 방향으로 힘 적용
 				target.SetVelo(WayVector2(angle, power));
-
-				// 생성
+				
 				target = ObjectPoolManager.GetGameObject("Holder", transform.position).GetComponent<Holder>();
-				//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
-
-				// 방향으로 힘 적용
 				target.SetVelo(WayVector2(180 + angle, power));
-
-				// 분사량에 따라 각도 조절
+				
 				angle += addAngle;
 			}
 
-			count += (amount / 10) * 2;
+			yield return new WaitForSeconds(0.3f);
+		}
+	}
 
-			yield return new WaitForSeconds(term * 3f);
+	// 단 방향으로 네모 발사
+	private IEnumerator OnewaySquare()
+	{
+		Holder	target;                                         // 타겟 홀더
+		float	angle = UnityEngine.Random.Range(0, 360);		// 방향 각도
+		float	gapPosition;                                    // 갭 거리
+
+		for (int k = 0; k < 5; k++)
+		{
+			gapPosition = 0;
+			for (int i = 0; i <= amount / 10; i++)
+			{
+				target = ObjectPoolManager.GetGameObject("Holder", transform.position).GetComponent<Holder>();
+				target.transform.position = WayVector2(angle + 90, gapPosition);
+				target.SetVelo(WayVector2(angle, power * 2f));
+
+				target = ObjectPoolManager.GetGameObject("Holder", transform.position).GetComponent<Holder>();
+				target.transform.position = WayVector2(angle - 90, gapPosition);
+				target.SetVelo(WayVector2(angle, power * 2f));
+
+				gapPosition += 0.5f;
+
+				yield return new WaitForSeconds(0.01f);
+			}
+
+			for (int i = -1; i <= amount / 10; i++)
+			{
+				target = ObjectPoolManager.GetGameObject("Holder", transform.position).GetComponent<Holder>();
+				target.transform.position = WayVector2(angle + 90, gapPosition);
+				target.SetVelo(WayVector2(angle, power * 2f));
+
+				target = ObjectPoolManager.GetGameObject("Holder", transform.position).GetComponent<Holder>();
+				target.transform.position = WayVector2(angle - 90, gapPosition);
+				target.SetVelo(WayVector2(angle, power * 2f));
+
+				gapPosition -= 0.5f;
+
+				yield return new WaitForSeconds(0.01f);
+			}
+
+			yield return new WaitForSeconds(0.02f);
 		}
 	}
 
@@ -334,30 +351,36 @@ public class HolderManager : MonoBehaviour
 	// ================================================================
 	// ========================= LV3 패턴 목록 =========================
 
-	// 한 방향에서 한줄로 지그재그로 나오는거
+	// 다방향으로 OnewayLineRotation을 발사
+	private IEnumerator MultiwayLineRotation()
+	{
+		StartCoroutine(OnewayLineRotation());
+		StartCoroutine(OnewayLineRotation());
+		StartCoroutine(OnewayLineRotation());
+
+		yield return null;
+	}
+
+	// 한 방향에서 한줄로 지그재그로 발사
 	private IEnumerator OnewayLineRotation()
 	{
 		Holder	target;                         // 타겟 홀더
-		int		count = 0;                      // 카운트
-		float	angle = 0;                      // 현재 각도
+		float	angle;							// 현재 각도
 		float	addAngle = 360 / amount;        // 더해지는 각도
+		int		direction = 1;                  // 방향
 
 
-		while (count < amount)
+		angle = Random.Range(0, 360);
+		for (int i = 0; i < amount; i++)
 		{
-			// 생성
 			target = ObjectPoolManager.GetGameObject("Holder", transform.position).GetComponent<Holder>();
-			//target = Instantiate(holderPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
+			target.SetVelo(WayVector2(angle, power * 1.5f));
+			
+			angle += addAngle * direction;
 
-			// 방향으로 힘 적용
-			target.SetVelo(WayVector2(angle, power));
+			if (i == Random.Range(i, i + 3)) direction = -direction;
 
-			// 각도 추가
-			angle += addAngle;
-
-			count++;
-
-			yield return new WaitForSeconds(term);
+			yield return new WaitForSeconds(0.05f);
 		}
 	}
 
@@ -390,50 +413,10 @@ public class HolderManager : MonoBehaviour
 				angle += 5 * direction;
 				count++;
 
-				yield return new WaitForSeconds(term / 5f);
+				yield return new WaitForSeconds(0.02f);
 			}
 
-			yield return new WaitForSeconds(term);
-		}
-	}
-
-	// 단 방향으로 네모 발사
-	private IEnumerator OnewaySquare()
-	{
-		Holder	target;                                         // 타겟 홀더
-		int		count = 0;                                      // 카운트
-		float	angle = UnityEngine.Random.Range(0, 360);		// 방향 각도
-		float	gapAngle;                                       // 갭 각도
-
-		gapAngle = 0;
-		while (count < amount / 2)
-		{
-			target = ObjectPoolManager.GetGameObject("Holder", transform.position).GetComponent<Holder>();
-			target.SetVelo(WayVector2(angle + gapAngle, power));
-
-			target = ObjectPoolManager.GetGameObject("Holder", transform.position).GetComponent<Holder>();
-			target.SetVelo(WayVector2(angle - gapAngle, power));
-
-			gapAngle += 2f;
-
-			count += amount / 25;
-
-			yield return new WaitForSeconds(term);
-		}
-		
-		while (count <= amount)
-		{
-			target = ObjectPoolManager.GetGameObject("Holder", transform.position).GetComponent<Holder>();
-			target.SetVelo(WayVector2(angle + gapAngle, power * 2f));
-
-			target = ObjectPoolManager.GetGameObject("Holder", transform.position).GetComponent<Holder>();
-			target.SetVelo(WayVector2(angle - gapAngle, power * 2f));
-
-			gapAngle -= 2f;
-
-			count += amount / 25;
-
-			yield return new WaitForSeconds(term);
+			yield return new WaitForSeconds(0.1f);
 		}
 	}
 
@@ -463,7 +446,7 @@ public class HolderManager : MonoBehaviour
 
 				count += amount / 10;
 
-				yield return new WaitForSeconds(term / 5f);
+				yield return new WaitForSeconds(0.02f);
 			}
 
 			yield return null;
