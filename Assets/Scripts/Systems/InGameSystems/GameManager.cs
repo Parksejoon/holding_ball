@@ -136,14 +136,13 @@ public class GameManager : MonoBehaviour
 	// 점수 상승
 	public void AddScore(int upScore)
 	{
-		// ** 스코어 이펙트 추가 예정 **
 		score += upScore;
 		UIEffecter.instance.SetText(0, score.ToString());
 		
 		PowerGauge.instance.AddPower(upScore * 0.6f);
 
 		// 1000점당 1레벨
-		//level = (score / 1000) + 1;
+		level = (score / 1000) + 1;
 	}
 
 	// 코인 상승

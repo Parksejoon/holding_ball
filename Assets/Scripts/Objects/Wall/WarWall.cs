@@ -17,15 +17,8 @@ public class WarWall : MonoBehaviour
 		if (collision.gameObject.CompareTag("Coin"))
 		{
 			Coin targetCoin = collision.gameObject.GetComponent<Coin>();
-
-			if (targetCoin.bounceCount > 0)
-			{
-				targetCoin.bounceCount--;
-			}
-			else
-			{
-				Destroy(collision.gameObject);
-			}
+			
+			Destroy(collision.gameObject);
 		}
 	}
 }

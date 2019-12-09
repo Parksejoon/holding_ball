@@ -57,23 +57,31 @@ public class HolderManager : MonoBehaviour
 			new HolderPattern(Coinar),
 			AllwaySlug,
 			ForwaySlugShift,
-			OnewayWideSlug
+			OnewayWideSlug,
+			TwowayLineCompress,
+			TwowaySlug,
+			MultiwayLineRotation
 		};
 
 		lv2_holderPatterns = new[]
 		{
 			new HolderPattern(Coinar),
+			ForwaySlugShift,
 			TwowayLineCompress,
 			TwowaySlug,
-			OnewaySquare
+			OnewaySquare,
+			OnewayArrow,
+			MultiwayLineRotation
 		};
 
 		lv3_holderPatterns = new[]
 		{
 			new HolderPattern(Coinar),
+			TwowaySlug,
 			MultiwayLineRotation,
 			ForwayLineRotation,
-			OnewayArrow
+			OnewayArrow,
+			OnewayCircle
 		};
 	}
 
@@ -124,25 +132,23 @@ public class HolderManager : MonoBehaviour
 	// 랜덤 패턴
 	private void RunPattern()
 	{
-		int index = UnityEngine.Random.Range(-1, 50);
+		int index = UnityEngine.Random.Range(-1, 10);
 
-		//switch (GameManager.instance.level)
-		//{
-		//	case 1:
-		//		StartCoroutine(lv1_holderPatterns[(index % 3) + 1]());
-		//		break;
+		switch (GameManager.instance.level)
+		{
+			case 1:
+				StartCoroutine(lv1_holderPatterns[(index % (lv1_holderPatterns.Length - 1)) + 1]());
+				break;
 
-		//	case 2:
-		//		StartCoroutine(lv2_holderPatterns[(index % 3) + 1]());
-		//		break;
+			case 2:
+				StartCoroutine(lv2_holderPatterns[(index % (lv2_holderPatterns.Length - 1)) + 1]());
+				break;
 
-		//	default:
-		//	case 3:
-		//		StartCoroutine(lv3_holderPatterns[(index % 3) + 1]());
-		//		break;
-		//}
-
-		StartCoroutine(lv2_holderPatterns[3]());
+			default:
+			case 3:
+				StartCoroutine(lv3_holderPatterns[(index % (lv3_holderPatterns.Length - 1)) + 1]());
+				break;
+		}
 	}
 
 	// ================================================================
@@ -453,7 +459,37 @@ public class HolderManager : MonoBehaviour
 		}
 	}
 
+	// 원 발사 / 탄막 수와 속도를 높이며 3연사
+	private IEnumerator OnewayCircle()
+	{
+		Holder	target;                 // 타겟 홀더
+		float	angle;                  // 발사 방향 각도
+		float	positionAngle;			// 위치 각도
+		float	addAngle;				// 더해지는 각도
 
+
+		angle = UnityEngine.Random.Range(0, 360);
+
+		for (int k = 3; k >= 1; k--)
+		{
+			addAngle = (360 / (amount / (2 * k)));
+			positionAngle = angle;
+
+			for (int i = 0; i <= amount / (2 * k); i++)
+			{
+				target = ObjectPoolManager.GetGameObject("Holder", transform.position).GetComponent<Holder>();
+				target.transform.position = WayVector2(positionAngle, 5 / k);
+				target.SetVelo(WayVector2(angle, power * 3 / k));
+
+				positionAngle += addAngle;
+			}
+
+			yield return new WaitForSeconds(0.8f);
+		}
+	}
+
+
+	
 	// 코인
 	private IEnumerator Coinar()
 	{
@@ -464,14 +500,9 @@ public class HolderManager : MonoBehaviour
 
 		for (int i = 0; i < amount / 2; i++)
 		{
-			// 생성
 			target = ObjectPoolManager.GetGameObject("Coin", transform.position).GetComponent<Coin>();
-			//target = Instantiate(coinPrefab, new Vector3(fixX, fixY, 0), Quaternion.identity, transform).GetComponent<Holder>();
-
-			// 방향으로 힘 적용
 			target.SetVelo(WayVector2(angle, power));
-
-			// 분사량에 따라 각도 조절
+	
 			angle += addAngle;
 		}
 

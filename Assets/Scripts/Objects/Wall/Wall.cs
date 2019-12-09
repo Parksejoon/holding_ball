@@ -5,7 +5,7 @@ public class Wall : MonoBehaviour
 {
 	// 인스펙터 노출 변수
 	// 수치
-	public  int				stack = 3;				// 방어력 스택
+	private int				stack = 5;				// 방어력 스택
 
 	// 인스펙터 비노출 변수
 	// 일반
@@ -37,7 +37,7 @@ public class Wall : MonoBehaviour
 	{
 		stack--;
 
-		UIEffecter.instance.FadeEffect(spriteObj, Vector2.zero + (new Vector2(0.3f, 0.3f) * stack), 0.5f, UIEffecter.FadeFlag.ALPHA);
+		UIEffecter.instance.FadeEffect(spriteObj, Vector2.zero + (new Vector2(0.2f, 0.2f) * stack), 0.5f, UIEffecter.FadeFlag.ALPHA);
 
 		// 스택이 0이되면 파괴
 		if (stack <= 0)
