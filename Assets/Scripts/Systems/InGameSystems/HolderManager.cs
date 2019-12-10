@@ -93,46 +93,14 @@ public class HolderManager : MonoBehaviour
 
 		ObjectPoolManager.AddObject("Coin", coinPrefab, transform);
 		ObjectPoolManager.Create("Coin", 50);
-	}
 
-	// 프레임
-	public void Update()
-	{
-		// 볼이 홀딩상태 아닐때만 시간을 측정
-		if (!Ball.instance.isHolding)
-		{
-			// 카운트중인지 확인 후 카운트 진행
-			if (isPasting)
-			{
-				pastTime += Time.deltaTime;
-
-				// 홀더를 생성
-				if (pastTime >= goalTime)
-				{
-					// 랜덤 패턴으로 생성 시작
-					RunPattern();
-
-					// 카운트 종료
-					isPasting = false;
-				}
-			}
-			// 아니라면 카운트 시작
-			else
-			{
-				// 카운트 초기화
-				pastTime = 0;
-				goalTime = UnityEngine.Random.Range(minRespawnTime, maxRespawnTime);
-
-				// 카운트 시작
-				isPasting = true;
-			}
-		}
+		StartCoroutine(PatternCoroutine());
 	}
 
 	// 랜덤 패턴
 	private void RunPattern()
 	{
-		int index = UnityEngine.Random.Range(-1, 10);
+		int index = Random.Range(-1, 10);
 
 		switch (GameManager.instance.level)
 		{
@@ -148,6 +116,17 @@ public class HolderManager : MonoBehaviour
 			case 3:
 				StartCoroutine(lv3_holderPatterns[(index % (lv3_holderPatterns.Length - 1)) + 1]());
 				break;
+		}
+	}
+
+	// 패턴 반복 코루틴
+	private IEnumerator PatternCoroutine()
+	{
+		while (true)
+		{
+			RunPattern();
+
+			yield return new WaitForSeconds(Random.Range(minRespawnTime, maxRespawnTime));
 		}
 	}
 

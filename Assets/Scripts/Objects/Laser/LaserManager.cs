@@ -26,13 +26,21 @@ public class LaserManager : MonoBehaviour
 	// 시작
 	private void Start()
 	{
+		ObjectPoolManager.AddObject("Laser", laserPrefab, transform);
+		ObjectPoolManager.Create("Laser", 50);
+
 		StartCoroutine(LaserLoop());
 	}
 
 	// 레이저 생성
 	public void CreateLaser(float speed)
 	{
-		Laser targetLaser = Instantiate(laserPrefab, transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360))), transform).GetComponent<Laser>();
+		//Laser targetLaser = Instantiate(laserPrefab, transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360))), transform).GetComponent<Laser>();
+		Laser targetLaser = 
+			ObjectPoolManager.GetGameObject("Laser",
+											transform.position,
+											Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360))))
+											.GetComponent<Laser>();
 
 		targetLaser.rotationSpeed = speed;
 	}
@@ -43,18 +51,8 @@ public class LaserManager : MonoBehaviour
 		while (true)
 		{
 			yield return new WaitForSeconds(Random.Range(minDelay, maxDelay));
-			//yield return new WaitForSeconds(1f);
 
-			for (int i = 0; i < amountPerShot; i++)
-			{
-				//CreateLaser(Mathf.Min(GameManager.instance.level / 5f, 0.8f));
-				CreateLaser(0);
-				
-				yield return new WaitForSeconds(0.2f);
-			}
-
-			//amountPerShot = Mathf.Min((GameManager.instance.level / 3) + 1, 4);
-			amountPerShot = 1;
+			CreateLaser(0);
 		}
 	}
 }

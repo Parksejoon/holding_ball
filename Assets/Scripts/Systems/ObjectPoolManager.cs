@@ -11,10 +11,10 @@ public struct ObjectData
 public class ObjectPoolManager : MonoBehaviour
 {
 	// 오브젝트 풀
-	public static Dictionary<string, Stack<GameObject>> objectPools;// = new Dictionary<string, Stack<GameObject>>();
+	public static Dictionary<string, Stack<GameObject>> objectPools;		// = new Dictionary<string, Stack<GameObject>>();
 
 	// 오브젝트 리스트
-	private static Dictionary<string, ObjectData> objectList;// = new Dictionary<string, ObjectData>();
+	private static Dictionary<string, ObjectData> objectList;				// = new Dictionary<string, ObjectData>();
 
 	// 수치
 	public static int extraCapacity = 50;
@@ -79,14 +79,11 @@ public class ObjectPoolManager : MonoBehaviour
 		}
 	}
 
-	// 오브젝트 가져오기
+	// 오브젝트 가져오기 (기본)
 	public static GameObject GetGameObject(string name)
 	{
 		Stack<GameObject> objects = objectPools[name];
 
-#if DEBUG
-		//Debug.Log(objects.Count);
-#endif
 
 		if (objects.Count <= 0)
 		{
@@ -101,14 +98,11 @@ public class ObjectPoolManager : MonoBehaviour
 		return gameObj;
 	}
 
-	// 오브젝트 가져오기
+	// 오브젝트 가져오기 (위치)
 	public static GameObject GetGameObject(string name, Vector2 position)
 	{
 		Stack<GameObject> objects = objectPools[name];
 
-#if DEBUG
-		//Debug.Log(objects.Count);
-#endif
 
 		if (objects.Count <= 0)
 		{
@@ -118,6 +112,26 @@ public class ObjectPoolManager : MonoBehaviour
 		GameObject gameObj = objects.Pop();
 
 		gameObj.transform.position = position;
+		gameObj.SetActive(true);
+
+		return gameObj;
+	}
+
+	// 오브젝트 가져오기 (위치, 회전값)
+	public static GameObject GetGameObject(string name, Vector2 position, Quaternion rotation)
+	{
+		Stack<GameObject> objects = objectPools[name];
+		
+
+		if (objects.Count <= 0)
+		{
+			Create(name, extraCapacity);
+		}
+
+		GameObject gameObj = objects.Pop();
+
+		gameObj.transform.position = position;
+		gameObj.transform.rotation = rotation;
 		gameObj.SetActive(true);
 
 		return gameObj;
