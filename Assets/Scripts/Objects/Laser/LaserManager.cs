@@ -35,12 +35,8 @@ public class LaserManager : MonoBehaviour
 	// 레이저 생성
 	public void CreateLaser(float speed)
 	{
-		//Laser targetLaser = Instantiate(laserPrefab, transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360))), transform).GetComponent<Laser>();
 		Laser targetLaser = 
-			ObjectPoolManager.GetGameObject("Laser",
-											transform.position,
-											Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360))))
-											.GetComponent<Laser>();
+			ObjectPoolManager.GetGameObject("Laser", transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360)))).GetComponent<Laser>();
 
 		targetLaser.rotationSpeed = speed;
 	}
@@ -52,7 +48,10 @@ public class LaserManager : MonoBehaviour
 		{
 			yield return new WaitForSeconds(Random.Range(minDelay, maxDelay));
 
-			CreateLaser(0);
+			for (int i = 0; i < GameManager.instance.level; i++)
+			{
+				CreateLaser(0);
+			}
 		}
 	}
 }

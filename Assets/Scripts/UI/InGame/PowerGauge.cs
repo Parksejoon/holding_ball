@@ -121,7 +121,8 @@ public class PowerGauge : MonoBehaviour
 				// 감소중이면
 				if (isReduce)
 				{
-					AddPower(-0.2f);
+					//AddPower(-0.2f);
+					AddPower(-1);
 				}
 				// 완정중지가 아니면
 				else if (!isStop)
