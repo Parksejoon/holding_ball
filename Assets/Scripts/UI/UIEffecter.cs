@@ -193,13 +193,12 @@ public class UIEffecter : MonoBehaviour
 	// 알파 페이드 ( 이미지 )
 	private IEnumerator FadeAlpha(Image target, float goalAlpha, float time)
 	{
-
 		Color originColor = target.color;
 		float startAlpha = target.color.a;
 		int count = (int)(time / fadeGap);
 		int originCount = count;
 
-		while (count > 0)
+		while (count >= 0)
 		{
 			if (target == null)
 			{
@@ -208,6 +207,8 @@ public class UIEffecter : MonoBehaviour
 
 			originColor.a = Mathf.Lerp(goalAlpha, startAlpha, (float)count / originCount);
 			target.color = originColor;
+
+			Debug.Log(count);
 
 			count -= 1;
 			yield return new WaitForSeconds(fadeGap);
@@ -285,7 +286,7 @@ public class UIEffecter : MonoBehaviour
 	// 페이드 종료 후 disalbe or destroy
 	private IEnumerator AfterEnable(GameObject target, float time, bool isDes)
     {
-        yield return new WaitForSeconds(time + finTimeGap);
+        yield return new WaitForSeconds(time + finTimeGap + 0.5f);
         
 		if (isDes)
 		{

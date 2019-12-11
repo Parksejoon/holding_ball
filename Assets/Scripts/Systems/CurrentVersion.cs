@@ -17,6 +17,6 @@ public class CurrentVersion : MonoBehaviour
 	// 시작
 	private void Start()
 	{
-		targetText.text = Application.version;
+		targetText.text = "ver. " + Application.version;
 	}
 }

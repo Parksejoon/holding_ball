@@ -142,7 +142,8 @@ public class GameManager : MonoBehaviour
 		PowerGauge.instance.AddPower(upScore * 0.6f);
 
 		// 1000점당 1레벨
-		level = (score / 1000) + 1;
+		//level = (score / 1000) + 1;
+		level = (score / 100) + 1;
 	}
 
 	// 코인 상승

@@ -66,23 +66,21 @@ public class SpecialLaserManager : MonoBehaviour
 	{
 		int index = Random.Range(0, 10);
 
-		//switch (GameManager.instance.level)
-		//{
-		//	case 1:
-		//		StartCoroutine(lv1_laserPatterns[index % lv1_laserPatterns.Length]());
-		//		break;
+		switch (GameManager.instance.level)
+		{
+			case 1:
+				StartCoroutine(lv1_laserPatterns[index % lv1_laserPatterns.Length]());
+				break;
 
-		//	case 2:
-		//		StartCoroutine(lv2_laserPatterns[index % lv2_laserPatterns.Length]());
-		//		break;
+			case 2:
+				StartCoroutine(lv2_laserPatterns[index % lv2_laserPatterns.Length]());
+				break;
 
-		//	default:
-		//	case 3:
-		//		StartCoroutine(lv3_laserPatterns[index % lv3_laserPatterns.Length]());
-		//		break;
-		//}
-
-		StartCoroutine(lv3_laserPatterns[2]());
+			default:
+			case 3:
+				StartCoroutine(lv3_laserPatterns[index % lv3_laserPatterns.Length]());
+				break;
+		}
 	}
 
 	// 위치값에서 각도값을 구하는 함수

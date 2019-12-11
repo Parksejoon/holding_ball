@@ -25,7 +25,6 @@ public class CameraMovement : MonoBehaviour
 		{
 			if (Input.GetTouch(0).phase == TouchPhase.Began)
 			{
-				Debug.Log("asd");
 				StopCoroutine("CameraMove");
 
 				newPos = -Camera.main.ScreenToWorldPoint(Input.mousePosition) * 0.1f;

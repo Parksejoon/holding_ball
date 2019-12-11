@@ -4,6 +4,11 @@ using UnityEngine.EventSystems;
 
 public class TouchPanel : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
+	// 인스펙터 노출 변수
+	// 수치
+	[SerializeField]
+	private float		dragDist;				// 드래그 거리 민감도(낮을수록 민감)  
+
 	// 인스펙터 비노출 변수
 	// 일반
 	private int			currentTouchCount = 0;  // 최근 터치 횟수
@@ -30,7 +35,7 @@ public class TouchPanel : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
 	// 드래그 종료
 	public void OnEndDrag(PointerEventData pointerEventData)
 	{
-		if (Vector3.Distance(dragStartPosition, pointerEventData.position) >= 300f)
+		if (Vector3.Distance(dragStartPosition, pointerEventData.position) >= dragDist)
 		{
 			StartCoroutine(DashCor(pointerEventData));
 		}

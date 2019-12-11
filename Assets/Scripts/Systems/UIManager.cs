@@ -30,13 +30,12 @@ public class UIManager : MonoBehaviour
 		{
 			instance = this;
 		}
-
-		//midPos = new Vector2(Screen.width / 2f, Screen.height / 2f);
+		
 		midPos = Vector2.zero;
 
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
-		Screen.SetResolution(Screen.width, Screen.width * 16 / 9, false);
-		//Application.targetFrameRate = 60;
+		//Screen.SetResolution(Screen.width, Screen.width * (16 / 9), true);
+		Application.targetFrameRate = 60;
 	}
 
 	// 시작 초기화
