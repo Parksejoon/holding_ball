@@ -119,7 +119,7 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 				}
 			}
 			// 오른쪽
-			if (eventData.position.x > startPos.x + slideDis.x && isSliding[1])
+			else if (eventData.position.x > startPos.x + slideDis.x && isSliding[1])
 			{
 				imgColor.a = (pointerDis - slideDis.x) / disValue;
 
@@ -136,7 +136,7 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 				}
 			}
 			// 위쪽
-			if (eventData.position.y > startPos.y + slideDis.y && isSliding[2])
+			else if (eventData.position.y > startPos.y + slideDis.y && isSliding[2])
 			{
 				imgColor.a = (pointerDis - slideDis.y) / disValue;
 
@@ -153,7 +153,7 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 				}
 			}
 			// 아래쪽
-			if (eventData.position.y < startPos.y - slideDis.y && isSliding[3])
+			else if (eventData.position.y < startPos.y - slideDis.y && isSliding[3])
 			{
 				imgColor.a = (pointerDis - slideDis.y) / disValue;
 

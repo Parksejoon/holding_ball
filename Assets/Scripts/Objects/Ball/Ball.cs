@@ -158,7 +158,7 @@ public class Ball : MonoBehaviour
 	public void Holding()
 	{
 		// 쿨다운 중인지 확인
-		if (!isCool)
+		if (!isCool && isGhost <= 0)
 		{
 			// 홀딩
 			isHolding = true;
@@ -180,14 +180,13 @@ public class Ball : MonoBehaviour
 		}
 		else
 		{
-			// 쿨다운 중
 		}
 	}
 
 	// 홀더에 언홀딩
 	public void UnHolding()
 	{
-		// 이미 홀딩되어있으면
+		// 홀딩되어있으면
 		if (isHolding)
 		{
 			// 홀더에서 탈출
@@ -206,20 +205,21 @@ public class Ball : MonoBehaviour
 				// 슛라인 파괴
 				Destroy(shotLine.gameObject);
 			}
-			
+
+			// 공 원래상태로 변화
+			isGhost--;
+
 			// 물리량 초기화
 			rigidbody2d.velocity = Vector3.zero;
-			
+
 			// 터치 방향을 향해 날아감
 			// 날아갈 벡터의 방향
 			Vector2 shotVector = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position).normalized;
 			rigidbody2d.AddForce(shotVector * GameManager.instance.ShotPower, ForceMode2D.Impulse);
+			
 
 			// 홀딩 쿨다운 시작
 			StartCoroutine(HoldingCooldown());
-
-			// 공 원래상태로 변화
-			isGhost--;
 
 			// 시간 제어
 			Time.timeScale = 1f;
@@ -253,7 +253,10 @@ public class Ball : MonoBehaviour
 
 			// 파티클
 			Instantiate(doubleParticle, transform.position, Quaternion.identity);
-			
+
+			// 쉐이더 변환
+			ShaderManager.instance.ChangeBaseColor(false);
+
 			// 물리량 초기화
 			rigidbody2d.velocity = Vector3.zero;
 
@@ -261,8 +264,6 @@ public class Ball : MonoBehaviour
 			Vector2 shotVector = (startPos - endPos).normalized;
 			rigidbody2d.AddForce(shotVector * -GameManager.instance.ShotPower * 1.05f, ForceMode2D.Impulse);
 
-			// 쉐이더 변환
-			ShaderManager.instance.ChangeBaseColor(false);
 		}
 	}
 

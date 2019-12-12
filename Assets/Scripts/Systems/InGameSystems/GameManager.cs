@@ -106,12 +106,13 @@ public class GameManager : MonoBehaviour
 
 		previousIsTouch = isTouch;
 
-
+#if DEBUG
 		// 테스트 키
 		if (Input.GetKeyDown(KeyCode.K))
 		{
 			GameOver();
 		}
+#endif
 	}
 
 	// 데이터 초기화

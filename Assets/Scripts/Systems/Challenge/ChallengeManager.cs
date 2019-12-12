@@ -21,29 +21,29 @@ public class ChallengeManager : MonoBehaviour
 		instance = this;
 	}
 
-	// 점수 도전과제
-	public void ClearScoreChallenge(int score)
-	{
-		// 1000점마다 도전과제 1단계씩
-		// 1 ~ 5
-		if (score <= 5000)
-		{
-			ClearChallenge(score / 1000);
-		}
-	}
+	//// 점수 도전과제
+	//public void ClearScoreChallenge(int score)
+	//{
+	//	// 1000점마다 도전과제 1단계씩
+	//	// 1 ~ 5
+	//	if (score <= 5000)
+	//	{
+	//		ClearChallenge(score / 1000);
+	//	}
+	//}
 
-	// 코인 도전과제
-	public void ClearCoinChallenge(int coin)
-	{
-		if (coin >= 100)
-		{
-			ClearChallenge(6);
-		}
-		else if (coin >= 200)
-		{
-			ClearChallenge(7);
-		}
-	}
+	//// 코인 도전과제
+	//public void ClearCoinChallenge(int coin)
+	//{
+	//	if (coin >= 100)
+	//	{
+	//		ClearChallenge(6);
+	//	}
+	//	else if (coin >= 200)
+	//	{
+	//		ClearChallenge(7);
+	//	}
+	//}
 
 	// 도전과제 클리어
 	// 파티클 획득 = 도전과제 클리어

@@ -21,7 +21,7 @@ public class Initializer : MonoBehaviour
 		UIEffecter.instance.SetText(0, bestScore.ToString());
 
 		// 도전 과제 시스템 초기화
-		ChallengeManager.instance.ClearScoreChallenge(bestScore);
-		ChallengeManager.instance.ClearCoinChallenge(coin);
+		//ChallengeManager.instance.ClearScoreChallenge(bestScore);
+		//ChallengeManager.instance.ClearCoinChallenge(coin);
 	}
 }
