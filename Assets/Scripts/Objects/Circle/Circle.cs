@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Circle : MonoBehaviour
 {
+	// 인스펙터 노출 변수
+	[SerializeField]
+	private GameObject	wallCreateParticle;		// 벽 생성 이펙트
+
 	// 인스펙터 비노출 변수
 	// 일반
 	private	Orbit				orbit;			// 궤도
@@ -28,8 +32,6 @@ public class Circle : MonoBehaviour
 	{
 		rotationSpeed = Random.Range(0, 1);
 		if (rotationSpeed == 0) rotationSpeed = -1f;
-
-
 
 		for (int i = 0; i < 3; i++)
 		{
@@ -57,6 +59,9 @@ public class Circle : MonoBehaviour
 		{
 			// 벽 생성
 			orbit.CreateWall(10);
+
+			// 이펙트 생성
+			Instantiate(wallCreateParticle, transform);
 
 			// 태그를 변경
 			gameObject.tag = "Core";
