@@ -208,8 +208,6 @@ public class UIEffecter : MonoBehaviour
 			originColor.a = Mathf.Lerp(goalAlpha, startAlpha, (float)count / originCount);
 			target.color = originColor;
 
-			Debug.Log(count);
-
 			count -= 1;
 			yield return new WaitForSeconds(fadeGap);
 		}

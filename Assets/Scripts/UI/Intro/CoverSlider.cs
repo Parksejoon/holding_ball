@@ -100,26 +100,29 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 
 			float lerpValue = Mathf.Max(0, imgColor.a / slideMovePer);
 
+			// 가이드라인 끄기
+			GuidLineManager.instance.DisableAllGuidLine();
+
 			// 방향 측정
-			// 왼쪽
-			if (eventData.position.x < startPos.x - slideDis.x && isSliding[0])
-			{
-				imgColor.a = (pointerDis - slideDis.x) / disValue;
+			// 오른쪽에서 왼쪽으로
+			//if (eventData.position.x < startPos.x - slideDis.x && isSliding[0])
+			//{
+			//	imgColor.a = (pointerDis - slideDis.x) / disValue;
 
-				if (isUseAlpha[0])    { slideWayImg[0].color = imgColor; }
-				if (isUsePosition[0]) { slideWayRect[0].position = Vector2.Lerp(slideWayOriginPos[0], UIManager.instance.midPos, lerpValue); }
-				if (isUseRotation[0]) { slideWayRect[0].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, lerpValue)); }
-				if (isUseScale[0])    { slideWayRect[0].localScale = Vector2.Lerp(slideWayOriginScale[0], slideWayOriginScale[0] + Vector2.one * 3, lerpValue); }
+			//	if (isUseAlpha[0])    { slideWayImg[0].color = imgColor; }
+			//	if (isUsePosition[0]) { slideWayRect[0].position = Vector2.Lerp(slideWayOriginPos[0], UIManager.instance.midPos, lerpValue); }
+			//	if (isUseRotation[0]) { slideWayRect[0].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, lerpValue)); }
+			//	if (isUseScale[0])    { slideWayRect[0].localScale = Vector2.Lerp(slideWayOriginScale[0], slideWayOriginScale[0] + Vector2.one * 3, lerpValue); }
 
-				isSliding[1] = isSliding[2] = isSliding[3] = false;
+			//	isSliding[1] = isSliding[2] = isSliding[3] = false;
 
-				if (imgColor.a >= 0.7f)
-				{
-					targetSlideFunc = slideFuncs[0];
-				}
-			}
-			// 오른쪽
-			else if (eventData.position.x > startPos.x + slideDis.x && isSliding[1])
+			//	if (imgColor.a >= 0.7f)
+			//	{
+			//		targetSlideFunc = slideFuncs[0];
+			//	}
+			//}
+			// 왼쪽에서 오른쪽으로 (상점)
+			if (eventData.position.x > startPos.x + slideDis.x && isSliding[1])
 			{
 				imgColor.a = (pointerDis - slideDis.x) / disValue;
 
@@ -135,24 +138,24 @@ public class CoverSlider : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 					targetSlideFunc = slideFuncs[1];
 				}
 			}
-			// 위쪽
-			else if (eventData.position.y > startPos.y + slideDis.y && isSliding[2])
-			{
-				imgColor.a = (pointerDis - slideDis.y) / disValue;
+			// 아래에서 위로
+			//else if (eventData.position.y > startPos.y + slideDis.y && isSliding[2])
+			//{
+			//	imgColor.a = (pointerDis - slideDis.y) / disValue;
 
-				if (isUseAlpha[2])    { slideWayImg[2].color = imgColor; }
-				if (isUsePosition[2]) { slideWayRect[2].position = Vector2.Lerp(slideWayOriginPos[2], UIManager.instance.midPos, lerpValue); }
-				if (isUseRotation[2]) { slideWayRect[2].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, lerpValue)); }
-				if (isUseScale[2])    { slideWayRect[2].localScale = Vector2.Lerp(slideWayOriginScale[2], slideWayOriginScale[2] + Vector2.one * 3, lerpValue); }
+			//	if (isUseAlpha[2])    { slideWayImg[2].color = imgColor; }
+			//	if (isUsePosition[2]) { slideWayRect[2].position = Vector2.Lerp(slideWayOriginPos[2], UIManager.instance.midPos, lerpValue); }
+			//	if (isUseRotation[2]) { slideWayRect[2].rotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, maxAngle, lerpValue)); }
+			//	if (isUseScale[2])    { slideWayRect[2].localScale = Vector2.Lerp(slideWayOriginScale[2], slideWayOriginScale[2] + Vector2.one * 3, lerpValue); }
 
-				isSliding[0] = isSliding[1] = isSliding[3] = false;
+			//	isSliding[0] = isSliding[1] = isSliding[3] = false;
 
-				if (imgColor.a >= 0.7f)
-				{
-					targetSlideFunc = slideFuncs[2];
-				}
-			}
-			// 아래쪽
+			//	if (imgColor.a >= 0.7f)
+			//	{
+			//		targetSlideFunc = slideFuncs[2];
+			//	}
+			//}
+			// 위에서 아래로 (시작)
 			else if (eventData.position.y < startPos.y - slideDis.y && isSliding[3])
 			{
 				imgColor.a = (pointerDis - slideDis.y) / disValue;

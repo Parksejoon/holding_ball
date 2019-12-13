@@ -79,6 +79,9 @@ public class ColorPickPanelManager : MonoBehaviour
 		}
 		else
 		{
+			// 시작 가이드라인 켜기
+			GuidLineManager.instance.ShowStartGuidLine();
+
 			// 패널 사이드로 & 슬라이더 오프
 			UIEffecter.instance.FadeEffect(colorPicker, colorPickerOriginPos, 0.1f, UIEffecter.FadeFlag.POSITION);
 			pickCoverSliderImg.raycastTarget = false;
