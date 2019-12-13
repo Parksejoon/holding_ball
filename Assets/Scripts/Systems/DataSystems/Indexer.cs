@@ -10,5 +10,6 @@ public class Indexer
 		PlayerPrefs.SetInt("WarWallColor",	PlayerPrefs.GetInt("WarWallColorIndex", 2));
 		PlayerPrefs.SetInt("TopBackColor",	PlayerPrefs.GetInt("TopBackColorIndex", 3));
 		PlayerPrefs.SetInt("BotBackColor",	PlayerPrefs.GetInt("BotBackColorIndex", 4));
+		PlayerPrefs.Save();
 	}
 }

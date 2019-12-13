@@ -21,6 +21,9 @@ public class GuidLineManager : MonoBehaviour
 		{
 			instance = this;
 		}
+
+		// 테스트 코드
+		PlayerPrefs.DeleteAll();
 	}
 
 	// 시작
@@ -83,6 +86,7 @@ public class GuidLineManager : MonoBehaviour
 		if (PlayerPrefs.GetInt("FirstStart", 1) == 1)
 		{
 			//PlayerPrefs.SetInt("FirstStart", 0);
+			//PlayerPrefs.Save();
 		}
 	}
 }

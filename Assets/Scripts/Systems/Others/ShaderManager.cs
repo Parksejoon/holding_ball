@@ -63,12 +63,14 @@ public class ShaderManager : MonoBehaviour
 	// 시작
 	private void Start()
 	{
-		RefreshColor();
-
 		if (PlayerPrefs.GetInt("FirstStart", 1) == 1)
 		{
+			Indexer indexer = new Indexer();
 
+			indexer.SetColorIndex();
 		}
+
+		RefreshColor();
 	}
 
 	// 컬러 불러오기
