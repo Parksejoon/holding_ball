@@ -15,7 +15,11 @@ public class PowerGauge : MonoBehaviour
 
 	// 수치
 	[SerializeField]
-	private float	power;					// 파워
+	private float	power;                  // 파워
+	[SerializeField]
+	private float	reduceValue;			// 감소 값
+	[SerializeField]
+	private float	holdingReduceValue;		// 홀딩중 감소 값
 
 	// 인스펙터 비노출 변수
 	// 수치
@@ -81,8 +85,11 @@ public class PowerGauge : MonoBehaviour
 		// 게이지 쿨다운 실행
 		StartCoroutine(GaugeCoolDownCor());
 
-		// 레이저 특수패턴 실행
-		specialLaserManager.ShotLaser();
+		if (specialLaserManager != null)
+		{
+			// 레이저 특수패턴 실행
+			specialLaserManager.ShotLaser();
+		}
 	}
 
 	// 감소 중지
@@ -121,13 +128,12 @@ public class PowerGauge : MonoBehaviour
 				// 감소중이면
 				if (isReduce)
 				{
-					//AddPower(-0.2f);
-					AddPower(-1);
+					AddPower(-reduceValue);
 				}
 				// 완정중지가 아니면
 				else if (!isStop)
 				{
-					AddPower(-0.6f);
+					AddPower(-holdingReduceValue);
 				}
 				else
 				{

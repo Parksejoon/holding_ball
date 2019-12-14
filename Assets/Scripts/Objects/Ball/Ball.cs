@@ -143,14 +143,14 @@ public class Ball : MonoBehaviour
 			other.gameObject.GetComponent<Circle>().Dealt(damage);
 
 			damage = 0;
-			damageGauge.SetGauge(damage);
+			SetDamage();
 		}
 
 		// 코어일경우 대미지 증가
 		if (other.gameObject.CompareTag("Core"))
 		{
 			damage++;
-			damageGauge.SetGauge(damage);
+			SetDamage();
 		}
 	}
 
@@ -175,8 +175,11 @@ public class Ball : MonoBehaviour
 			// 시간 제어
 			Time.timeScale = 0.3f;
 
-			// 게이지 중지
-			PowerGauge.instance.StopReduce();
+			if (PowerGauge.instance != null)
+			{
+				// 게이지 중지
+				PowerGauge.instance.StopReduce();
+			}
 		}
 		else
 		{
@@ -192,8 +195,11 @@ public class Ball : MonoBehaviour
 			// 홀더에서 탈출
 			isHolding = false;
 
-			// 게이지 재시작
-			PowerGauge.instance.ReReduce();
+			if (PowerGauge.instance != null)
+			{
+				// 게이지 재시작
+				PowerGauge.instance.ReReduce();
+			}
 
 			// 슛라인만 따로 파괴된 경우를 위해 예외처리
 			// 슛라인이 살아있으면
@@ -275,6 +281,15 @@ public class Ball : MonoBehaviour
 		
 		// 쉐이더 변환
 		ShaderManager.instance.ChangeBaseColor(true);
+	}
+
+	// 대미지 증가
+	private void SetDamage()
+	{
+		if (damageGauge != null)
+		{
+			damageGauge.SetGauge(damage);
+		}
 	}
 
 	// 공 파괴

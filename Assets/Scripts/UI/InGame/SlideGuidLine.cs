@@ -36,6 +36,11 @@ public class SlideGuidLine : MonoBehaviour
 		if (animationCor != null)
 		{
 			StopCoroutine(animationCor);
+			
+			for (int i = 0; i < images.Length; i++)
+			{
+				images[i].GetComponent<Image>().color = new Color(0, 0, 0, 0);
+			}
 		}
 	}
 
