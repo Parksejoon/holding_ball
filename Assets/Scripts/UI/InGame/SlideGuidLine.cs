@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class SlideGuidLine : MonoBehaviour
 {
+	// 인스펙터 노출 변수
+	[SerializeField]
+	private bool			autoStartAnimation = false;		// 시작시 애니메이션 자동
+
 	// 인스펙터 비노출 변수
 	// 일반
 	private GameObject[]	images;
@@ -20,6 +24,15 @@ public class SlideGuidLine : MonoBehaviour
 		for (int i = 0; i < temp.Length; i++)
 		{
 			images[i] = temp[i].gameObject;
+		}
+	}
+
+	// 시작
+	private void Start()
+	{
+		if (autoStartAnimation)
+		{
+			StartAnimation();
 		}
 	}
 

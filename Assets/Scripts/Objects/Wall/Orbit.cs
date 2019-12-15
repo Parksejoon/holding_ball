@@ -35,6 +35,12 @@ public class Orbit : MonoBehaviour
 		rotationSpeed = Random.Range(-0.5f, 0.5f);
 	}
 
+	// 회전값 임의 변경
+	public void SetRotationSpeed(float speed)
+	{
+		rotationSpeed = speed;
+	}
+
 	// 벽 생성
 	public void CreateWall(int amount)
 	{

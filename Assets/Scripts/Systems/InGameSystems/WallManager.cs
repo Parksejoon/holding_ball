@@ -37,7 +37,6 @@ public class WallManager : MonoBehaviour
 	// 시작
 	private void Start()
 	{
-
 		for (int i = 0; i < orbits.Length; i++)
 		{
 			// 가장 적게 (5, 8)
