@@ -17,8 +17,6 @@ public class TutorialManager : MonoBehaviour
 
 	// 인스펙터 노출 변수
 	// 일반
-	[SerializeField]
-	private Orbit	firstWallOrbit;		// 
 
 	
 }

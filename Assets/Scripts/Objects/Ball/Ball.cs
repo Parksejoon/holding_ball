@@ -114,14 +114,26 @@ public class Ball : MonoBehaviour
 			GameManager.instance.AddCoin(1);
 		}
 
-		// 장애물일 경우 게임 종료
-		if (other.gameObject.CompareTag("WarWall") || other.gameObject.CompareTag("Laser"))
+		if (other.gameObject.CompareTag("WarWall"))
 		{
-			#if DEBUG
+#if DEBUG
 			Debug.Log("GameOver");
-			#else
-			GameManager.instance.GameOver();
-			#endif
+#else
+				GameManager.instance
+#endif
+		}
+
+		// 레이저일 경우 게임 종료
+		if other.gameObject.CompareTag("Laser"))
+		{
+			if (isGhost <= 0)
+			{
+#if DEBUG
+				Debug.Log("GameOver");
+#else
+				GameManager.instance.GameOver();
+#endif
+			}
 		}
 
 		// 벽일 경우 이펙트 발생 및 대쉬 초기화, 바운스 카운트 증가
@@ -338,6 +350,7 @@ public class Ball : MonoBehaviour
 		isGhost++;
 
 		yield return new WaitForSeconds(0.5f);
+		Debug.Log("Over");
 
 		isGhost--;
 	}
