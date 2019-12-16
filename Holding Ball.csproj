@@ -274,6 +274,9 @@
     <Compile Include="Assets\Scripts\Systems\Shop\ShopManager.cs" />
     <Compile Include="Assets\Scripts\Systems\Shop\ShopParser.cs" />
     <Compile Include="Assets\Scripts\Systems\Tutorial\GuidLineManager.cs" />
+    <Compile Include="Assets\Scripts\Systems\Tutorial\PopUp\DragPopupPanel.cs" />
+    <Compile Include="Assets\Scripts\Systems\Tutorial\PopUp\PopupZone.cs" />
+    <Compile Include="Assets\Scripts\Systems\Tutorial\PopUp\TouchPopupPanel.cs" />
     <Compile Include="Assets\Scripts\Systems\Tutorial\TutorialManager.cs" />
     <Compile Include="Assets\Scripts\Systems\Tutorial\TutorialStarter.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
