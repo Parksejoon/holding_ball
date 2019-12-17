@@ -124,7 +124,7 @@ public class Ball : MonoBehaviour
 		}
 
 		// 레이저일 경우 게임 종료
-		if other.gameObject.CompareTag("Laser"))
+		if (other.gameObject.CompareTag("Laser"))
 		{
 			if (isGhost <= 0)
 			{

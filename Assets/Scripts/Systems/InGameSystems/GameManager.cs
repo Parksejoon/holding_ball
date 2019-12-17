@@ -140,7 +140,10 @@ public class GameManager : MonoBehaviour
 		score += upScore;
 		UIEffecter.instance.SetText(0, score.ToString());
 		
-		PowerGauge.instance.AddPower(upScore * 0.6f);
+		if (PowerGauge.instance != null)
+		{
+			PowerGauge.instance.AddPower(upScore * 0.6f);
+		}
 
 		// 1000점당 1레벨
 		//level = (score / 1000) + 1;

@@ -278,6 +278,7 @@
     <Compile Include="Assets\Scripts\Systems\Tutorial\PopUp\DragPopupPanel.cs" />
     <Compile Include="Assets\Scripts\Systems\Tutorial\PopUp\PopupZone.cs" />
     <Compile Include="Assets\Scripts\Systems\Tutorial\PopUp\TouchPopupPanel.cs" />
+    <Compile Include="Assets\Scripts\Systems\Tutorial\TutorialHolderShoter.cs" />
     <Compile Include="Assets\Scripts\Systems\Tutorial\TutorialManager.cs" />
     <Compile Include="Assets\Scripts\Systems\Tutorial\TutorialStarter.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
