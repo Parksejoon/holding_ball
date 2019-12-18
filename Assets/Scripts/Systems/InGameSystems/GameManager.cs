@@ -162,13 +162,21 @@ public class GameManager : MonoBehaviour
 	// 게임 오버
 	public void GameOver()
 	{
-		// 공 파괴 및 터치 금지 설정
-		touchPanel.enabled = false;
-		Ball.instance.UnHolding();
-		Ball.instance.BallDestroy();
+		// 튜토리얼일 경우
+		if (TutorialManager.instance != null)
+		{
+			TutorialManager.instance.PushBack();
+		}
+		else
+		{
+			// 공 파괴 및 터치 금지 설정
+			touchPanel.enabled = false;
+			Ball.instance.UnHolding();
+			Ball.instance.BallDestroy();
 
-		// 계속할것인지
-		Continue();
+			// 계속할것인지
+			Continue();
+		}
 	}
 		
 	// 자살

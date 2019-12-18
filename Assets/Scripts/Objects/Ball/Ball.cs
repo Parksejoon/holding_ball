@@ -53,7 +53,7 @@ public class Ball : MonoBehaviour
 			instance = this;
 		}
 
-		parentTransform = GetComponentInParent<Transform>();
+		parentTransform = transform.parent.GetComponent<Transform>();
 		rigidbody2d		= GetComponentInParent<Rigidbody2D>();
 		ballInvObj		= transform.parent.gameObject;
 		isHolding		= false;
@@ -116,11 +116,8 @@ public class Ball : MonoBehaviour
 
 		if (other.gameObject.CompareTag("WarWall"))
 		{
-#if DEBUG
 			Debug.Log("GameOver");
-#else
-				GameManager.instance
-#endif
+			GameManager.instance.GameOver();
 		}
 
 		// 레이저일 경우 게임 종료
@@ -128,11 +125,8 @@ public class Ball : MonoBehaviour
 		{
 			if (isGhost <= 0)
 			{
-#if DEBUG
 				Debug.Log("GameOver");
-#else
 				GameManager.instance.GameOver();
-#endif
 			}
 		}
 

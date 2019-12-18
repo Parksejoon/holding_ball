@@ -17,8 +17,25 @@ public class TutorialManager : MonoBehaviour
 	//	4-1. 원 안에 별들은 점수가됨
 	// 5. 끝날 때 화이트 페이트 + 줌인 + 카메라 쉐이크
 
+	public static TutorialManager instance;
+
 	// 인스펙터 노출 변수
 	// 일반
 
-	
+
+	// 초기화
+	private void Awake()
+	{
+		if (instance == null)
+		{
+			instance = this;
+		}
+	}
+
+
+	// 뒤로 보내기
+	public void PushBack()
+	{
+		Ball.instance.parentTransform.position = new Vector2(Ball.instance.parentTransform.position.x - 10, 0);
+	}
 }
