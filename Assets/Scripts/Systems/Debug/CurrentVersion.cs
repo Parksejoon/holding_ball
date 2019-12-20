@@ -17,6 +17,9 @@ public class CurrentVersion : MonoBehaviour
 	// 시작
 	private void Start()
 	{
-		targetText.text = "ver. " + Application.version;
+		// 기능추가.밸런스조절/버그제거
+		targetText.text = "ver." + Application.version.ToString();
+
+		//Debug.Log(Application.version);
 	}
 }

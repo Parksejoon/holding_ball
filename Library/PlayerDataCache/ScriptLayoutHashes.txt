@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-C:/Users/qkeh4/OneDrive/문서/PSJ/Project/HoldingBall/Build/191211_tb35.apk
+C:/Users/qkeh4/OneDrive/문서/PSJ/Project/HoldingBall/Build/191221_testerbuild_1.apk
 2d5d0598fb1222b142e9665e0b3dc354 Assembly-CSharp.dll:.SecondBackList
 cb17045f0c225c88e355eee810ca8c4b Assembly-CSharp.dll:.DamageGauge
 23cd7f058f304d0fe10faf4bcf378796 Assembly-CSharp.dll:.InitManager
@@ -21,7 +21,7 @@ d29057dcfb9f6888e22b5bc3f21d9b38 UnityEngine.Timeline.dll:UnityEngine.Timeline.T
 c08b196716247885d3b27f7f282b2568 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.ImageEffectBase
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.FPSChecker
 a30beadf4d109f44144b9a9f42e61cbf Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.BlurOptimized
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Circle
+dbba9518698dca9218bf01a0800cc6f0 Assembly-CSharp.dll:.Circle
 2984b98f3995c17b35cefa3f4b3c2f26 Assembly-CSharp.dll:.HolderManager
 23b50ef73e2c1a8a76860d35bcbbf8fc Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.GlobalFog
 daabd8d8800a87cff11f866c4d06a232 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.ContrastStretch
@@ -96,7 +96,10 @@ f61c0793411f10cf5fbfa1473fef5ef2 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 71778c9b45c50a65b865c5bc42204043 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.NoiseAndScratches
 cc897e31f90a455da1ad6fffc97043f1 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.Antialiasing
 77b43e0abbcf3be0616b75c5c09cf808 Assembly-CSharp.dll:.CoverSlider
+395ec27c16c2bc71f9288743cb5c3d18 Assembly-CSharp.dll:.EndLine
 226f6a223978025121d4571017b07972 Assembly-CSharp.dll:.ShaderManager
+cb17045f0c225c88e355eee810ca8c4b Assembly-CSharp.dll:.PowerGaugeGuidline
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.CameraResolution
 1e23bad086c4163e47e5d2de0f5d71e8 Assembly-CSharp.dll:.ZoneCollider
 a32f33d00a7a1fe2bf4c764c4b02d30d Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.BloomAndFlares
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
@@ -129,12 +132,14 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 73843688b51256aed059f049c540bca8 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 528ea1fd7c01796fc60c4e2f172ea229 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 40d41f498420a9b3985f6fc7e5763447 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.Bloom
+fe265fcbcb78cedb1fdb1d0d38b23789 Assembly-CSharp.dll:.TutorialHolderShoter
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.CurrentVersion
 22df741b1a3c6d3b215ca28ad83c5a3f Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.ScreenSpaceAmbientObscurance
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.LimitWall
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SecondBack
 dc07d7ad69b399a46e92c483bf1c04ca UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsTracker
+a82960f67b5da892a7b0c406fe81a94e Assembly-CSharp.dll:.TutorialStarter
 9865a0db77364f8930077972a1d5efab Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.BloomOptimized
 28d8b6243887940055cf1ccafaca2d44 Assembly-CSharp.dll:.UIEffecter
 bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.AudioSpatializerMicrosoft
@@ -142,6 +147,7 @@ bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.Audi
 463516d5b5fe8e67a0a24c48f2095b04 UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInputModule
 c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingCollider
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
+ee3c4f188dd0540e572b83270d99dece Assembly-CSharp.dll:.PopupZone
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SelfMovement
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.WarWall
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.MatColorFinder
@@ -159,13 +165,15 @@ cac5093fb1baf037bd671ecbc6727828 Assembly-CSharp-firstpass.dll:UnityStandardAsse
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Advertisements.dll:UnityEngine.Advertisements.CallbackExecutor
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Advertisements.dll:UnityEngine.Advertisements.Editor.Placeholder
 e6181456fed849a6518784c872175003 Assembly-CSharp.dll:.CameraEffect
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.TutorialManager
 30db6bf1abfbd17c6cdd1385b9eba6ca Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.DepthOfField
 94392784523ff8304808464f1a9d0ec9 Assembly-CSharp.dll:.BallParticler
 d9ecad030c1ec4aa6c0c7dd918b03506 Assembly-CSharp.dll:.Holder
 79668c886ec4b34e67a85e0530cf7b37 Assembly-CSharp.dll:.ColorPickPanelManager
-f2ec6b0df1e5adc4bc94f4c1fff07798 Assembly-CSharp.dll:.PowerGauge
+dc695ac8d1690c1e299e8f0f24b7ac90 Assembly-CSharp.dll:.PowerGauge
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Initializer
 3fb9ff04e477f2bdb2b1864064d3e59f Assembly-CSharp.dll:.CameraMovement
+e1bd785fd3df3f0611e27aa5f65af8f8 Assembly-CSharp.dll:.GuidLineManager
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.PostEffectsHelper
 20d0939f11b41bbaf855d5a5e1a49d7d Assembly-CSharp.dll:.ColorPickerList
 b26b3a55de2a8cbeee573d45c8848f09 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.ScreenSpaceAmbientOcclusion
@@ -197,6 +205,8 @@ e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEng
 00566559aaf2ba51543e32371603951b Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.NoiseAndGrain
 07bc838d3549f6f1b2ed8ccc5c48b115 Assembly-CSharp.dll:.ParticlePicker
 b3db7d8d3aee5911444c79fd988deb3c Assembly-CSharp.dll:.GooglePlayManager
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.TouchPopupPanel
+2c16fd5cc58de179e41cc1ac97355c9e Assembly-CSharp.dll:.SlideGuidLine
 bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.AudioSpatializerMicrosoft
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInput
 463516d5b5fe8e67a0a24c48f2095b04 UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInputModule
@@ -212,6 +222,7 @@ ea257d0ff02f704cf5789cf6f5a5f0a0 Assembly-CSharp.dll:.TimerText
 d00ccb9118cdf05638434adbaf5685d9 Assembly-CSharp.dll:.ShopManager
 2f264043a6bb59ca3369df5a4d180e17 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.CameraMotionBlur
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.DragPopupPanel
 f395a590359abfdd565c16854834e54a Assembly-CSharp.dll:.ChallengeManager
 111762bd3bbd92ae8e4fc5ce0c3ef872 Assembly-CSharp.dll:.UIManager
 013a8f86d54989fb310c8925fbd3ffdb Assembly-CSharp.dll:.PlayEffect
@@ -227,4 +238,3 @@ b3432dfe180f02232d7612fb366593d3 Assembly-CSharp-firstpass.dll:UnityStandardAsse
 81d3fa35f3270744d8c271fbb7597c65 Assembly-CSharp.dll:.SelfDestroy
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ObjectPoolManager
 0540c9b791b5ae3d1b39435dfdb9b9da Assembly-CSharp.dll:.RevivalManager
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.CameraResolution
