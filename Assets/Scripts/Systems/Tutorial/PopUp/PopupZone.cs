@@ -23,7 +23,7 @@ public class PopupZone : MonoBehaviour
 	private void ShowPanel()
 	{
 		panel.SetActive(true);
-		Time.timeScale = 0;
+		Ball.instance.StopBall();
 		Destroy(gameObject);
 	}
 }

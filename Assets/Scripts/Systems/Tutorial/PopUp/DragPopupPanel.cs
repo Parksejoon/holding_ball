@@ -39,7 +39,7 @@ public class DragPopupPanel : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
 
 		yield return null;
 
-		Time.timeScale = 1;
+		//Ball.instance.StopBall();
 		gameObject.SetActive(false);
 	}
 }

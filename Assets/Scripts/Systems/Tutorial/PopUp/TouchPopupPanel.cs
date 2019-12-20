@@ -11,7 +11,7 @@ public class TouchPopupPanel : MonoBehaviour, IPointerDownHandler
 	{
 		GameManager.instance.isTouch = true;
 
-		Time.timeScale = 1;
+		//Ball.instance.StopBall();
 		gameObject.SetActive(false);
 	}
 }

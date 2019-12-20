@@ -279,6 +279,12 @@ public class Ball : MonoBehaviour
 		}
 	}
 
+	// 공 멈춤
+	public void StopBall()
+	{
+		rigidbody2d.velocity = Vector2.zero;
+	}
+
 	// 대쉬 초기화
 	public void ResetDash()
 	{
