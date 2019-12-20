@@ -273,9 +273,11 @@
     <Compile Include="Assets\Scripts\Systems\Shop\GooglePlayManager.cs" />
     <Compile Include="Assets\Scripts\Systems\Shop\ShopManager.cs" />
     <Compile Include="Assets\Scripts\Systems\Shop\ShopParser.cs" />
+    <Compile Include="Assets\Scripts\Systems\Tutorial\EndLine.cs" />
     <Compile Include="Assets\Scripts\Systems\Tutorial\GuidLineManager.cs" />
     <Compile Include="Assets\Scripts\Systems\Tutorial\PopUp\DragPopupPanel.cs" />
     <Compile Include="Assets\Scripts\Systems\Tutorial\PopUp\PopupZone.cs" />
+    <Compile Include="Assets\Scripts\Systems\Tutorial\PopUp\PowerGaugeGuidline.cs" />
     <Compile Include="Assets\Scripts\Systems\Tutorial\PopUp\TouchPopupPanel.cs" />
     <Compile Include="Assets\Scripts\Systems\Tutorial\TutorialHolderShoter.cs" />
     <Compile Include="Assets\Scripts\Systems\Tutorial\TutorialManager.cs" />

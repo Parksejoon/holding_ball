@@ -23,7 +23,7 @@ public class GuidLineManager : MonoBehaviour
 		}
 
 		// 테스트 코드
-		PlayerPrefs.DeleteAll();
+		//PlayerPrefs.DeleteAll();
 	}
 
 	// 시작
@@ -85,8 +85,8 @@ public class GuidLineManager : MonoBehaviour
 		// 첫 시작일때만
 		if (PlayerPrefs.GetInt("FirstStart", 1) == 1)
 		{
-			//PlayerPrefs.SetInt("FirstStart", 0);
-			//PlayerPrefs.Save();
+			PlayerPrefs.SetInt("FirstStart", 0);
+			PlayerPrefs.Save();
 		}
 	}
 }

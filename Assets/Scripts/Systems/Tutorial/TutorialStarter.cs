@@ -15,9 +15,9 @@ public class TutorialStarter : MonoBehaviour
 	// 모든 스크립트에서 awake가 끝난 직후 처음으로 실행되는 start (아마도)
 	private void Start()
 	{
-		if (PlayerPrefs.GetInt("FirstStart", 1) == 1)
+		if (PlayerPrefs.GetInt("EndTutorial", 0) == 0)
 		{
-			//SceneManager.LoadScene(tutorialScene);
+			SceneManager.LoadScene(tutorialScene);
 		}
 	}
 }
