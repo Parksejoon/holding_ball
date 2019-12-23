@@ -279,6 +279,7 @@
     <Compile Include="Assets\Scripts\Systems\Tutorial\PopUp\PopupZone.cs" />
     <Compile Include="Assets\Scripts\Systems\Tutorial\PopUp\PowerGaugeGuidline.cs" />
     <Compile Include="Assets\Scripts\Systems\Tutorial\PopUp\TouchPopupPanel.cs" />
+    <Compile Include="Assets\Scripts\Systems\Tutorial\SlideGuidLine.cs" />
     <Compile Include="Assets\Scripts\Systems\Tutorial\TutorialHolderShoter.cs" />
     <Compile Include="Assets\Scripts\Systems\Tutorial\TutorialManager.cs" />
     <Compile Include="Assets\Scripts\Systems\Tutorial\TutorialStarter.cs" />
@@ -290,7 +291,6 @@
     <Compile Include="Assets\Scripts\UI\InGame\CoinRotation.cs" />
     <Compile Include="Assets\Scripts\UI\InGame\DamageGauge.cs" />
     <Compile Include="Assets\Scripts\UI\InGame\PowerGauge.cs" />
-    <Compile Include="Assets\Scripts\UI\InGame\SlideGuidLine.cs" />
     <Compile Include="Assets\Scripts\UI\InGame\TimerText.cs" />
     <Compile Include="Assets\Scripts\UI\Intro\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\UI\Intro\CoverSlider.cs" />

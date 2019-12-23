@@ -19,8 +19,7 @@ public class TutorialManager : MonoBehaviour
 
 	public static TutorialManager instance;
 
-	// 인스펙터 노출 변수
-	// 일반
+	public bool		canTouch;
 
 
 	// 초기화
@@ -30,6 +29,8 @@ public class TutorialManager : MonoBehaviour
 		{
 			instance = this;
 		}
+
+		canTouch = true;
 	}
 
 
@@ -37,5 +38,21 @@ public class TutorialManager : MonoBehaviour
 	public void PushBack()
 	{
 		Ball.instance.parentTransform.position = new Vector2(Ball.instance.parentTransform.position.x - 10, 0);
+	}
+
+	// 잠시동안 동작 비활성화 (터치, 드래그 등등) (튜토리얼 가이드라인이 바로 사라지는것을 방지하기 위함)
+	public void MomentDisableTouch()
+	{
+		StartCoroutine(MomentDisableTouchCoroutine());
+	}
+
+	// 코루틴
+	private IEnumerator MomentDisableTouchCoroutine()
+	{
+		canTouch = false;
+
+		yield return new WaitForSeconds(1f);
+
+		canTouch = true;
 	}
 }

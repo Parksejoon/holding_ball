@@ -22,6 +22,8 @@ public class PopupZone : MonoBehaviour
 	// 패널 켜기
 	private void ShowPanel()
 	{
+		TutorialManager.instance.MomentDisableTouch();
+
 		panel.SetActive(true);
 		Ball.instance.StopBall();
 		Destroy(gameObject);

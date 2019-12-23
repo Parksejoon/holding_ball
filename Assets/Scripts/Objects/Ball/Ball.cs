@@ -331,6 +331,9 @@ public class Ball : MonoBehaviour
 		// 시각화
 		transform.GetChild(0).gameObject.SetActive(true);
 		ballParticler.SetParticle(true);
+
+		// 잠시동안 무적
+		StartCoroutine(RevivalInvisible());
 	}
 
 	// 슛라인 생성
@@ -350,7 +353,16 @@ public class Ball : MonoBehaviour
 		isGhost++;
 
 		yield return new WaitForSeconds(0.5f);
-		Debug.Log("Over");
+
+		isGhost--;
+	}
+
+	// 일정시간 공 무적 및 통과 상태
+	private IEnumerator RevivalInvisible()
+	{
+		isGhost++;
+
+		yield return new WaitForSeconds(4f);
 
 		isGhost--;
 	}

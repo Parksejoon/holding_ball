@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
 	// 인스펙터 비노출 변수
 	// 수치
 	private float			originalTimeScale;      // 원래 타임스케일 값
+	private bool			isPaused;				// 일시정지중?
 
 	[HideInInspector]
 	public Vector2			midPos;                 // 중앙 지점
@@ -33,6 +34,7 @@ public class UIManager : MonoBehaviour
 		
 		midPos = Vector2.zero;
 
+		isPaused = false;
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		//Screen.SetResolution(Screen.width, Screen.width * (16 / 9), true);
 		Application.targetFrameRate = 60;
@@ -43,6 +45,22 @@ public class UIManager : MonoBehaviour
 	{
 		coverSlider.slideFuncs[3] = StartGame;
 	}
+
+	// 일시정지 수동으로 끄고 켜기
+	public void PassivePause(bool isOff)
+	{
+		// 퍼즈 해제
+		if (!isOff)
+		{
+			Continue();
+		}
+		// 퍼즈
+		else
+		{
+			Pause();
+		}
+	}
+
 
 	// 일시정지 끄고 키기
 	public void OnOffPause()
@@ -64,6 +82,8 @@ public class UIManager : MonoBehaviour
 	{
 		UIEffecter.instance.SetUI(2, true);
 
+		isPaused = true;
+
 		// 타임 스케일 저장
 		originalTimeScale = Time.timeScale;
 
@@ -76,7 +96,9 @@ public class UIManager : MonoBehaviour
 	private void Continue()
 	{
 		UIEffecter.instance.SetUI(2, false);
-		
+
+		isPaused = false;
+
 		// 타임 스케일 복구
 		Time.timeScale = originalTimeScale;
 		GameManager.instance.timeValue = 1f;

@@ -9,9 +9,12 @@ public class TouchPopupPanel : MonoBehaviour, IPointerDownHandler
 	// 터치
 	public void OnPointerDown(PointerEventData pointerEventData)
 	{
-		GameManager.instance.isTouch = true;
+		if (TutorialManager.instance.canTouch)
+		{
+			GameManager.instance.isTouch = true;
 
-		//Ball.instance.StopBall();
-		gameObject.SetActive(false);
+			//Ball.instance.StopBall();
+			gameObject.SetActive(false);
+		}
 	}
 }

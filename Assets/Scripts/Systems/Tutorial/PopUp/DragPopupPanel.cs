@@ -24,9 +24,12 @@ public class DragPopupPanel : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
 	// 드래그 종료
 	public void OnEndDrag(PointerEventData pointerEventData)
 	{
-		if (Vector3.Distance(dragStartPosition, pointerEventData.position) >= 100)
+		if (TutorialManager.instance.canTouch)
 		{
-			StartCoroutine(DashCor(pointerEventData));
+			if (Vector3.Distance(dragStartPosition, pointerEventData.position) >= 100)
+			{
+				StartCoroutine(DashCor(pointerEventData));
+			}
 		}
 	}
 

@@ -52,7 +52,7 @@ public class SlideGuidLine : MonoBehaviour
 			
 			for (int i = 0; i < images.Length; i++)
 			{
-				images[i].GetComponent<Image>().color = new Color(0, 0, 0, 0);
+				images[i].GetComponent<Image>().color = new Color(255, 255, 255, 0);
 			}
 		}
 	}

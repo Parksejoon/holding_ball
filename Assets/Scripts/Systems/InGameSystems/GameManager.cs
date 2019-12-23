@@ -206,6 +206,9 @@ public class GameManager : MonoBehaviour
 			// 공 재생성 및 터치 금지 해제
 			touchPanel.enabled = true;
 			Ball.instance.RegenBall();
+
+			// 퍼즈
+			UIManager.instance.PassivePause(true);
 		}
 		else
 		{
