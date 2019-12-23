@@ -24,7 +24,8 @@ public class ShopManager : MonoBehaviour
 
 	// 인스펙터 비노출 변수
 	// 일반
-	private Button			buyButton;			// 구매 버튼
+	private Button			buyButton;          // 구매 버튼
+	private Coroutine[]		coroutines;			// 사용한 코루틴들
 
 	// 수치
 	private bool			isEnabled = false;	// 활성화 상태 
@@ -36,6 +37,7 @@ public class ShopManager : MonoBehaviour
 		new ShopParser();
 
 		buyButton = buttonImg.GetComponent<Button>();
+		coroutines = new Coroutine[0];
 	}
 
 	// 시작
@@ -62,11 +64,15 @@ public class ShopManager : MonoBehaviour
 	// 구매 창 오픈
 	private void OpenPurchaseWindow()
 	{
+		//StopAllCoroutine();
+
 		buyButton.onClick.RemoveAllListeners();
 		buyButton.onClick.AddListener(BuyColor);
 
+		//coroutines = new Coroutine[4];
+
 		// 커버 온
-		cover.SetActive(true);
+		cover.GetComponent<Image>().raycastTarget = true;
 		UIEffecter.instance.FadeEffect(cover, new Vector2(0.5f, 0), 0.2f, UIEffecter.FadeFlag.ALPHA);
 
 		// 나머지 요소 페이드
@@ -78,14 +84,30 @@ public class ShopManager : MonoBehaviour
 	// 구매 창 닫기
 	private void ClosePurchaseWindow()
 	{
+		//StopAllCoroutine();
+
 		buyButton.onClick.RemoveAllListeners();
 		buyButton.onClick.AddListener(OnOffPurchaseWindow);
 
-		// 페이드
-		UIEffecter.instance.FadeEffect(cover, Vector2.zero, 0.2f, UIEffecter.FadeFlag.ALPHA | UIEffecter.FadeFlag.FINDISABLE);
+		//coroutines = new Coroutine[4];
+		
+		// 커버 오프
+		cover.GetComponent<Image>().raycastTarget = false;
+		UIEffecter.instance.FadeEffect(cover, Vector2.zero, 0.2f, UIEffecter.FadeFlag.ALPHA);
+
+		// 나머지 요소 페이드
 		UIEffecter.instance.FadeEffect(coinImg, Vector2.zero, 0.2f, UIEffecter.FadeFlag.ALPHA);
 		UIEffecter.instance.FadeEffect(coinText, Vector2.zero, 0.2f, UIEffecter.FadeFlag.ALPHA);
 		UIEffecter.instance.FadeEffect(buttonImg, Vector2.one, 0.2f, UIEffecter.FadeFlag.SCALE);
+	}
+
+	// 모든 코루틴 중지
+	private void StopAllCoroutine()
+	{
+		for (int i = 0; i < coroutines.Length; i++)
+		{
+			StopCoroutine(coroutines[i]);
+		}
 	}
 
 	// 색 구매
@@ -138,13 +160,13 @@ public class ShopManager : MonoBehaviour
 			// 색이 전부 있음
 			else
 			{
-				ChallengeManager.instance.ClearChallenge(9);
+				//ChallengeManager.instance.ClearChallenge(9);
 			}
 		}
 		// 돈이없당
 		else
 		{
-			ChallengeManager.instance.ClearChallenge(10);
+			//ChallengeManager.instance.ClearChallenge(10);
 		}
 	}
 

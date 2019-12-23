@@ -474,13 +474,13 @@ public class HolderManager : MonoBehaviour
 	{
 		Coin	target;										// 타겟 홀더
 		float	angle = 0;                                  // 발사 각도
-		float	addAngle = (360 / (amount / 2));			// 더해지는 각도
+		float	addAngle = (360 / 30);						// 더해지는 각도
 
 
-		for (int i = 0; i < amount / 2; i++)
+		for (int i = 0; i < 30; i++)
 		{
 			target = ObjectPoolManager.GetGameObject("Coin", transform.position).GetComponent<Coin>();
-			target.SetVelo(WayVector2(angle, power));
+			target.SetVelo(WayVector2(angle, power / 3));
 	
 			angle += addAngle;
 		}

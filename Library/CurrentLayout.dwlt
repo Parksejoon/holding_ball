@@ -13,8 +13,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 0
-    y: 43
+    x: -37
+    y: 88
     width: 1920
     height: 1037
   m_ShowMode: 4
@@ -106,10 +106,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 987
-  m_MinSize: {x: 709, y: 492}
-  m_MaxSize: {x: 22004, y: 14042}
+  m_MinSize: {x: 715, y: 492}
+  m_MaxSize: {x: 22010, y: 14042}
   vertical: 0
-  controlID: 2412
+  controlID: 4605
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -130,10 +130,10 @@ MonoBehaviour:
     y: 0
     width: 1641
     height: 987
-  m_MinSize: {x: 434, y: 492}
-  m_MaxSize: {x: 18004, y: 14042}
+  m_MinSize: {x: 438, y: 492}
+  m_MaxSize: {x: 18008, y: 14042}
   vertical: 1
-  controlID: 2413
+  controlID: 4606
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 2414
+  controlID: 4586
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -232,10 +232,10 @@ MonoBehaviour:
     y: 712
     width: 1641
     height: 275
-  m_MinSize: {x: 434, y: 271}
-  m_MaxSize: {x: 18004, y: 10021}
+  m_MinSize: {x: 438, y: 271}
+  m_MaxSize: {x: 18008, y: 10021}
   vertical: 0
-  controlID: 2435
+  controlID: 4607
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -361,8 +361,8 @@ MonoBehaviour:
   m_DepthBufferBits: 0
   m_Pos:
     serializedVersion: 2
-    x: 0
-    y: 804
+    x: -37
+    y: 849
     width: 296
     height: 254
   m_MaximizeOnPlay: 1
@@ -437,8 +437,8 @@ MonoBehaviour:
   m_DepthBufferBits: 32
   m_Pos:
     serializedVersion: 2
-    x: 0
-    y: 92
+    x: -37
+    y: 137
     width: 1433
     height: 691
   m_SceneLighting: 1
@@ -447,9 +447,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -146.78111, y: 42.207603, z: -1.78125}
+    m_Target: {x: -46.453712, y: 9.199054, z: 1.71875}
     speed: 2
-    m_Value: {x: -146.78111, y: 42.207603, z: -1.78125}
+    m_Value: {x: -46.453712, y: 9.199054, z: 1.71875}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -476,9 +476,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 244.58449
+    m_Target: 84.390076
     speed: 2
-    m_Value: 244.58449
+    m_Value: 84.390076
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -618,14 +618,14 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 1437
-    y: 92
+    y: 19
     width: 202
     height: 691
   m_TreeViewState:
-    scrollPos: {x: 0, y: 254}
+    scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: e4e7ffffa6fbffff00000000723600003c370000be3700008a390000b23a0000903c0000643d0000963e0000
+    m_ExpandedIDs: 4aefffffa6fbffff000000003a390000cc3a00005e3b0000b03c0000c03c0000ea3c00005c3e0000703f0000963f0000b23f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -644,7 +644,7 @@ MonoBehaviour:
       m_ClientGUIView: {fileID: 9}
     m_SearchString: 
   m_ExpandedScenes:
-  - TutorialScene
+  - MainScene
   m_CurrenRootInstanceID: 0
   m_Locked: 0
   m_CurrentSortingName: TransformSorting
@@ -699,7 +699,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 300
-    y: 804
+    y: 19
     width: 629
     height: 254
   m_SearchFilter:
@@ -714,19 +714,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Scenes
+    - Assets/Scripts/Particle
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Scripts/Particle
   m_LastFoldersGridSize: -1
   m_LastProjectPath: "C:\\Users\\qkeh4\\OneDrive\\\uBB38\uC11C\\Unity Projects\\Holding
     Ball"
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 240}
-    m_SelectedIDs: 5a290000
-    m_LastClickedID: 10586
+    scrollPos: {x: 0, y: 359}
+    m_SelectedIDs: 6c2a0000
+    m_LastClickedID: 10860
     m_ExpandedIDs: 00000000d0280000d82800002629000040290000442900004a2900004e2900005c290000a0290000c4290000ce290000422a00004e2a0000aa2a000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -833,7 +833,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 933
-    y: 804
+    y: 19
     width: 706
     height: 254
 --- !u!114 &24
@@ -859,7 +859,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 1643
-    y: 92
+    y: 19
     width: 277
     height: 966
   m_ScrollPosition: {x: 0, y: 0}

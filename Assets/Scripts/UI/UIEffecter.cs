@@ -93,16 +93,69 @@ public class UIEffecter : MonoBehaviour
         // 종료 후 enable 설정
         if ((optionFlag & FadeFlag.FINDISABLE) == FadeFlag.FINDISABLE)
         {
-            StartCoroutine(AfterEnable(target.gameObject, time, false));
+			StartCoroutine(AfterEnable(target.gameObject, time, false));
         }
             
         // 종료 후 disable 설정
         if ((optionFlag & FadeFlag.FINDESTROY) == FadeFlag.FINDESTROY)
         {
-            StartCoroutine(AfterEnable(target.gameObject, time, true));
+			StartCoroutine(AfterEnable(target.gameObject, time, true));
 		}
-    }
+	} 
 	
+	// UI 페이드 효과(코루틴 인자)
+	public void FadeEffect(GameObject target, Vector2 goalVal, float time, FadeFlag optionFlag, ref Coroutine coroutine)
+	{
+		// 위치 변경 페이드
+		if ((optionFlag & FadeFlag.POSITION) == FadeFlag.POSITION)
+		{
+			coroutine = StartCoroutine(FadePosition(target.GetComponent<RectTransform>(), goalVal, time));
+		}
+
+		// 크기 변경 페이드
+		if ((optionFlag & FadeFlag.SCALE) == FadeFlag.SCALE)
+		{
+			coroutine = StartCoroutine(FadeScale(target.GetComponent<RectTransform>(), goalVal, time));
+		}
+
+		// 알파 변경 페이드
+		if ((optionFlag & FadeFlag.ALPHA) == FadeFlag.ALPHA)
+		{
+			if (target.GetComponent<Image>() != null)
+			{
+				coroutine = StartCoroutine(FadeAlpha(target.GetComponent<Image>(), goalVal.x, time));
+			}
+			else if (target.GetComponent<Text>() != null)
+			{
+				coroutine = StartCoroutine(FadeAlpha(target.GetComponent<Text>(), goalVal.x, time));
+			}
+			else if (target.GetComponent<SpriteRenderer>() != null)
+			{
+				coroutine = StartCoroutine(FadeAlpha(target.GetComponent<SpriteRenderer>(), goalVal.x, time));
+			}
+			else
+			{ }
+		}
+
+		// 각도 변경 페이드
+		if ((optionFlag & FadeFlag.ANGLE) == FadeFlag.ANGLE)
+		{
+			coroutine = StartCoroutine(FadeAngle(target.GetComponent<RectTransform>(), goalVal, time));
+		}
+
+		// 종료 후 enable 설정
+		if ((optionFlag & FadeFlag.FINDISABLE) == FadeFlag.FINDISABLE)
+		{
+			StartCoroutine(AfterEnable(target.gameObject, time, false));
+		}
+
+		// 종료 후 disable 설정
+		if ((optionFlag & FadeFlag.FINDESTROY) == FadeFlag.FINDESTROY)
+		{
+			StartCoroutine(AfterEnable(target.gameObject, time, true));
+		}
+	}
+
 	// 숫자 변경 효과
 	public void ChangeNumberEffect(Text target, int goalValue, float time)
 	{
