@@ -11,6 +11,8 @@ public class EndLine : MonoBehaviour
 	[SerializeField]
 	private GameObject	fadeCover;          // 페이드 커버
 	[SerializeField]
+	private GameObject	blackFadeCover;     // 페이드 커버
+	[SerializeField]
 	private string		mainScene;          // 메인 씬 이름
 
 
@@ -26,9 +28,16 @@ public class EndLine : MonoBehaviour
 	// 종료 코루틴
 	private IEnumerator EndCoroutine()
 	{
-		UIEffecter.instance.FadeEffect(fadeCover, Vector2.one, 1f, UIEffecter.FadeFlag.ALPHA);
+		Coroutine fadeCor = null;
 
-		yield return new WaitForSeconds(2f);
+		UIEffecter.instance.FadeEffect(fadeCover, Vector2.one, 1f, UIEffecter.FadeFlag.ALPHA, ref fadeCor);
+
+		yield return fadeCor;
+		yield return new WaitForSeconds(3f);
+
+		UIEffecter.instance.FadeEffect(blackFadeCover, Vector2.one, 1f, UIEffecter.FadeFlag.ALPHA, ref fadeCor);
+
+		yield return fadeCor;
 
 		PlayerPrefs.SetInt("EndTutorial", 1);
 		PlayerPrefs.Save();

@@ -146,8 +146,8 @@ public class GameManager : MonoBehaviour
 		}
 
 		// 1000점당 1레벨
-		//level = (score / 1000) + 1;
-		level = (score / 100) + 1;
+		level = (score / 1000) + 1;
+		ChallengeManager.instance.ClearScoreChallenge(score);
 	}
 
 	// 코인 상승
@@ -157,6 +157,8 @@ public class GameManager : MonoBehaviour
 		UIEffecter.instance.SetText(1, coin.ToString());
 
 		PlayerPrefs.SetInt("Coin", coin);
+
+		ChallengeManager.instance.ClearCoinChallenge(coin);
 	}
 
 	// 게임 오버
@@ -219,6 +221,9 @@ public class GameManager : MonoBehaviour
 	// 광고 보여주기
 	public void ShowRewardedAd()
 	{
+		// 퍼즈
+		UIManager.instance.PassivePause(true);
+
 		RevivalManager.instance.DeleteRevivalPanel();
 
 		if (Advertisement.IsReady("rewardedVideo"))

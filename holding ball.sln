@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holding Ball", "Holding Bal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holding Ball.Plugins", "Holding Ball.Plugins.csproj", "{872CAE2C-2319-D6D9-40DB-E35E8C1B0CC4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holding Ball.Editor", "Holding Ball.Editor.csproj", "{2E0C6D6C-CD9D-B196-D38B-638D99C2944E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{872CAE2C-2319-D6D9-40DB-E35E8C1B0CC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{872CAE2C-2319-D6D9-40DB-E35E8C1B0CC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{872CAE2C-2319-D6D9-40DB-E35E8C1B0CC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E0C6D6C-CD9D-B196-D38B-638D99C2944E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E0C6D6C-CD9D-B196-D38B-638D99C2944E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E0C6D6C-CD9D-B196-D38B-638D99C2944E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E0C6D6C-CD9D-B196-D38B-638D99C2944E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

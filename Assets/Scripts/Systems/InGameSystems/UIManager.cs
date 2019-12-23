@@ -38,6 +38,7 @@ public class UIManager : MonoBehaviour
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		//Screen.SetResolution(Screen.width, Screen.width * (16 / 9), true);
 		Application.targetFrameRate = 60;
+		
 	}
 
 	// 시작 초기화
@@ -46,18 +47,42 @@ public class UIManager : MonoBehaviour
 		coverSlider.slideFuncs[3] = StartGame;
 	}
 
+	// 어플 중지시 퍼즈
+	private void OnApplicationPause(bool pause)
+	{
+		if (pause)
+		{
+			PassivePause(true);
+		}
+	}
+
 	// 일시정지 수동으로 끄고 켜기
 	public void PassivePause(bool isOff)
 	{
 		// 퍼즈 해제
 		if (!isOff)
 		{
-			Continue();
+			UIEffecter.instance.SetUI(2, false);
+
+			isPaused = false;
+
+			// 타임 스케일 복구
+			Time.timeScale = 1;
+			GameManager.instance.timeValue = 1f;
 		}
 		// 퍼즈
 		else
 		{
-			Pause();
+			UIEffecter.instance.SetUI(2, true);
+
+			isPaused = true;
+
+			// 타임 스케일 저장
+			originalTimeScale = 1;
+
+			// 정지
+			Time.timeScale = 0f;
+			GameManager.instance.timeValue = 0f;
 		}
 	}
 

@@ -160,13 +160,13 @@ public class ShopManager : MonoBehaviour
 			// 색이 전부 있음
 			else
 			{
-				//ChallengeManager.instance.ClearChallenge(9);
+				ChallengeManager.instance.ClearChallenge(9);
 			}
 		}
 		// 돈이없당
 		else
 		{
-			//ChallengeManager.instance.ClearChallenge(10);
+			ChallengeManager.instance.ClearChallenge(10);
 		}
 	}
 

@@ -20,6 +20,6 @@ public class GooglePlayManager : MonoBehaviour
 		coverSlider.StopSlide();
 
 		// 도전과제 클리어
-		ChallengeManager.instance.ClearChallenge(8);
+		//ChallengeManager.instance.ClearChallenge(8);
 	}
 }

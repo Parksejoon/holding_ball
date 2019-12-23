@@ -12,38 +12,54 @@ public class ChallengeManager : MonoBehaviour
 	[SerializeField]
 	private ParticlePicker[]	particlePickers;            // 파티클 피커들
 	[SerializeField]
-	private GameObject			challengeText;				// 챌린지 텍스트
+	private GameObject			challengeText;              // 챌린지 텍스트
+	[SerializeField]
+	private GameObject			challengeName;              // 챌린지 이름
+	[SerializeField]
+	private GameObject			challengePanel;             // 챌린지 패널
+	[SerializeField]
+	private GameObject			challengeStick;             // 챌린지 스틱
+
+	[TextArea]
+	public	string[]			challengeNames;				// 챌린지 이름들
+
+	// 비노출 변수
+	// 일반
+	private Coroutine			currentCoroutine;			// 현재 코루틴
 
 
 	// 초기화 
 	private void Awake()
 	{
-		instance = this;
+		if (instance == null)
+		{
+			instance = this;
+		}
 	}
 
-	//// 점수 도전과제
-	//public void ClearScoreChallenge(int score)
-	//{
-	//	// 1000점마다 도전과제 1단계씩
-	//	// 1 ~ 5
-	//	if (score <= 5000)
-	//	{
-	//		ClearChallenge(score / 1000);
-	//	}
-	//}
+	// 점수 도전과제
+	public void ClearScoreChallenge(int score)
+	{
+		// 1000점마다 도전과제 1단계씩
+		// 1 ~ 5
+		if (score <= 2500)
+		{
+			ClearChallenge(score / 500);
+		}
+	}
 
-	//// 코인 도전과제
-	//public void ClearCoinChallenge(int coin)
-	//{
-	//	if (coin >= 100)
-	//	{
-	//		ClearChallenge(6);
-	//	}
-	//	else if (coin >= 200)
-	//	{
-	//		ClearChallenge(7);
-	//	}
-	//}
+	// 코인 도전과제
+	public void ClearCoinChallenge(int coin)
+	{
+		if (coin >= 100)
+		{
+			ClearChallenge(6);
+		}
+		else if (coin >= 200)
+		{
+			ClearChallenge(7);
+		}
+	}
 
 	// 도전과제 클리어
 	// 파티클 획득 = 도전과제 클리어
@@ -58,8 +74,8 @@ public class ChallengeManager : MonoBehaviour
 			// 파티클 갱신
 			RefreshParticle();
 
-			// 도전과제 클리어 문구 아웃풋
-			StartCoroutine(ChallengeClearText());
+			// 도전과제 클리어 애니메이션 아웃풋
+			StartCoroutine(ChallengeClear(index));
 		}
 	}
 
@@ -72,13 +88,65 @@ public class ChallengeManager : MonoBehaviour
 		}
 	}
 
-	// 도전과제 클리어 문구
-	private IEnumerator ChallengeClearText()
+	// 도전과제 클리어
+	private IEnumerator ChallengeClear(int index)
 	{
-		UIEffecter.instance.FadeEffect(challengeText, Vector2.one, 0.2f, UIEffecter.FadeFlag.ALPHA);
+		if (currentCoroutine != null)
+		{
+			yield return currentCoroutine;
+		}
 
-		yield return new WaitForSeconds(0.8f);
-		
-		UIEffecter.instance.FadeEffect(challengeText, Vector2.zero, 0.2f, UIEffecter.FadeFlag.ALPHA);
+		currentCoroutine = StartCoroutine(ChallengeClearAnimation(index));
+	}
+
+	// 도전과제 클리어 애니메이션
+	private IEnumerator ChallengeClearAnimation(int index)
+	{
+		Coroutine fadeCor = null;
+
+		// 도전과제 이름 갱신
+		challengeName.GetComponent<Text>().text = challengeNames[index];
+
+		// 값들을 조정하고
+		challengePanel.transform.position = new Vector2(0, 50);
+		challengeStick.transform.localScale = new Vector2(2, 0.07f);
+
+		challengePanel.GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+		challengeStick.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+
+		challengeName.GetComponent<Text>().color = new Color(1, 1, 1, 1);
+		challengeText.GetComponent<Text>().color = new Color(1, 1, 1, 1);
+
+
+		// 패널을 켬
+		challengePanel.SetActive(true);
+
+		// 챌린지 텍스트, 챌린지 이름을 알파페이드
+		UIEffecter.instance.FadeEffect(challengeText, Vector2.one, 0.1f, UIEffecter.FadeFlag.ALPHA);
+		UIEffecter.instance.FadeEffect(challengeName, Vector2.one, 0.1f, UIEffecter.FadeFlag.ALPHA);
+
+		// 스틱을 스케일 페이드
+		UIEffecter.instance.FadeEffect(challengeStick, new Vector2(8f, 0.07f), 7f, UIEffecter.FadeFlag.SCALE);
+
+		// 챌린지 패널을 아래로 포지션 페이드
+		UIEffecter.instance.FadeEffect(challengePanel, new Vector2(0, 37), 0.1f, UIEffecter.FadeFlag.POSITION, ref fadeCor);
+
+		yield return fadeCor;
+
+		// 챌린지 패널을 아래로 포지션 페이드
+		UIEffecter.instance.FadeEffect(challengePanel, new Vector2(0, 33), 4f, UIEffecter.FadeFlag.POSITION, ref fadeCor);
+
+		yield return new WaitForSeconds(2f);
+
+		// 챌린지 패널, 텍스트, 챌린지 이름, 스틱을 알파페이드
+		UIEffecter.instance.FadeEffect(challengePanel, Vector2.zero, 1f, UIEffecter.FadeFlag.ALPHA);
+		UIEffecter.instance.FadeEffect(challengeText, Vector2.zero, 1f, UIEffecter.FadeFlag.ALPHA);
+		UIEffecter.instance.FadeEffect(challengeName, Vector2.zero, 1f, UIEffecter.FadeFlag.ALPHA);
+		UIEffecter.instance.FadeEffect(challengeStick, Vector2.zero, 1f, UIEffecter.FadeFlag.ALPHA);
+
+		yield return fadeCor;
+
+		// 패널을 끔
+		challengePanel.SetActive(false);
 	}
 }

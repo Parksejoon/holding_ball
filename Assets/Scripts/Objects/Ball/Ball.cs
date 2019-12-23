@@ -164,7 +164,7 @@ public class Ball : MonoBehaviour
 	public void Holding()
 	{
 		// 쿨다운 중인지 확인
-		if (!isCool && isGhost <= 0)
+		if (!isCool /*&& isGhost <= 0*/)
 		{
 			// 홀딩
 			isHolding = true;
