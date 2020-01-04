@@ -11,7 +11,7 @@ public class ColorPickPanelManager : MonoBehaviour
 	[SerializeField]
 	private CoverSlider			pickCoverSlider;        // 컬러피커 커버 슬라이더
 	[SerializeField]
-	private GameObject			colorPicker;            // 컬러 피커// 일반
+	private GameObject			colorPicker;            // 컬러 피커
 	[SerializeField]
 	private BallParticler		ballParticler;          // 볼 파티클러
 	[SerializeField]

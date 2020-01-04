@@ -123,6 +123,8 @@ public class ShopManager : MonoBehaviour
 			PlayerPrefs.SetInt("Coin", coin);
 			PlayerPrefs.Save();
 
+			GameManager.instance.AddCoin(-20);
+
 			UIEffecter.instance.SetText(1, coin.ToString());
 
 			// 남은 색을 배열로 정리
